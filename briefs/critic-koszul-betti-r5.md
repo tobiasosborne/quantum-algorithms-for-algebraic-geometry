@@ -1,0 +1,5 @@
+# Critic brief: scouting/koszul-betti.md, round 5 (verify the O23 residue only)
+
+You are the adversarial critic (codex); your r4 verdict verdicts/koszul-betti-r4.md was FAIL(O23) solely because the status summary's mandated sentence ended "are exponentially large (O23)." instead of "are exponentially large." The orchestrator applied that deletion (see the last commit: `git diff HEAD~1 HEAD -- scouting/koszul-betti.md`). Read-only sandbox; your ENTIRE output is your final message, saved verbatim as verdicts/koszul-betti-r5.md (Markdown, no preamble, no emoji). Repo root: /home/tobias/Projects/quantum-algorithms-for-algebraic-geometry.
+
+Verify with a normalised-whitespace verbatim audit that the FIX DEMAND sentence now appears verbatim in all three passages (status summary, §3 criterion 3(a), K-KB11), that the diff since r4 touches nothing else, and that §§5-6 are unchanged. Output: commands with exit codes, O23 disposition (VERIFIED / NOT VERIFIED), the final row decision table (ten rows, carried from r4) and definition table (eight), LOCKSTEP line, and the final line exactly `VERDICT: PASS` or `VERDICT: FAIL(...)`. Keep it under 60 lines.

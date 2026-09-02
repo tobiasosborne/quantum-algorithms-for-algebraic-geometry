@@ -4625,3 +4625,73 @@ Id map: C-281 = C-NEW-QP-MACAULAY-HHL-UNIFORM, C-282 = C-NEW-QP-MACAULAY-CONDITI
 - depends-on: D-toric-lattice-counting
 - where-proved: precision and non-identifiability argument; arXiv:1908.03903 lower bound
 - where-tested: none
+
+## Rows merged from scouting/koszul-betti.md (2026-09-03, Opus lane, arm B; critic loop verdicts/koszul-betti-r1.md FAIL(1 FATAL, 11 MAJOR) -> r2 FAIL(4 MAJOR) -> r3 FAIL(1 MAJOR) -> r4 FAIL(verbatim residue) -> r5 PASS, codex critic; orchestrator merge, statements verbatim from the critic's adjudicated rewordings as carried in memo §6; 6 CONJECTURE, 2 REFUTED; two rows HELD and NOT merged: C-NEW-KB-QMA1 (missing: a polynomial reduction preserving the total-block normalised gap across all non-squarefree summands) and C-NEW-KB-GAP-INDEPENDENT (missing: a total-block counterfamily, a specified positive class of forbidden lower bounds, and any reverse-direction result); they stay in memo §6)
+
+Id map: C-304 = C-NEW-KB-HODGE, C-305 = C-NEW-KB-FREE, C-306 = C-NEW-KB-SUPPORT, C-307 = C-NEW-KB-HOCHSTER, C-308 = C-NEW-KB-DEQUANT, C-309 = C-NEW-KB-FRACTION, C-310 = C-NEW-KB-SEED-IS-A-BLOCK, C-311 = C-NEW-KB-NO-FREE-LUNCH
+
+### C-304 (C-NEW-KB-HODGE)
+- statement: For every homogeneous ideal \(I\subseteq R\), let \(W_N=I_N^\perp\), \(W=\bigoplus_NW_N\), \(P=\bigoplus_NP_{0,N}\), and \(q=QP=PQP\) on the finite-degree subspace. For \(0\le i\le n+1\), \(N\ge0\), and \(j=N+i\), \(\dim\ker(qq^\dagger+q^\dagger q)|_{W_N\otimes\Lambda^i}=\beta_{i,j}(R/I)\). Under the Fock pairing this harmonic space is conjugate-linearly dual to \(H_i(K(z;R/I))_j\).
+- status: CONJECTURE
+- depends-on: D-koszul-supercharge, D-betti-laplacian, D-graded-betti-number, D-inverse-system, D-compressed-multiplication, C-008, C-012, C-014
+- where-proved: scouting/koszul-betti.md §1 Steps 1–3
+- where-tested: checkers/explore/koszul_laplacian.py, part A, six ideals, every block, against GF(p) Koszul ranks and literature fixtures
+- relevance/traps: the whole arm; guards against the index slip (M2) and the linear-duality slip.
+
+### C-305 (C-NEW-KB-FREE)
+- statement: On the finite-particle core, \(QQ^\dagger+Q^\dagger Q=\hat N+\hat F\). For every homogeneous \(I\), every \(i,N\), and \(j=N+i\), \(PLP=jP\), while \(L_W=jP-PQ(1-P)Q^\dagger P\); hence \(0\le L_W\le jP\) and \(\|L_W\|\le j\).
+- status: CONJECTURE
+- depends-on: D-koszul-supercharge, D-betti-laplacian, D-projectors, D-block-encoding-normalisation
+- where-proved: scouting/koszul-betti.md §1 Step 4
+- where-tested: checkers/explore/koszul_laplacian.py, part B, with `X` constructed (`7.1e-15`), `P̂LP̂ - jP̂` at `4.4e-15`
+- relevance/traps: fixes what must be encoded (K-KB2); does **not** by itself price the algorithm (see K-KB9).
+
+### C-306 (C-NEW-KB-SUPPORT)
+- statement: For every homogeneous proper ideal \(I\), \(\beta_{i,j}(R/I)=0\) when \(j-i>\operatorname{reg}(R/I)\); equivalently the block \((i,N)\) has zero harmonic nullity for \(N>\operatorname{reg}(R/I)\). This does not preclude large \(N\) when regularity itself grows.
+- status: CONJECTURE
+- depends-on: C-304 (C-NEW-KB-HODGE), D-saturation-regularity-stable-range
+- where-proved: scouting/koszul-betti.md §1 Step 6
+- where-tested: checkers/explore/koszul_laplacian.py, part A, prediction checked to `N = 8,7,7,6,5,4` against `reg(R/I) = 1,2,2,1,1,2`
+- relevance/traps: K-KB1, F3; guards against the `j <= reg` slip (O1).
+
+### C-307 (C-NEW-KB-HOCHSTER)
+- statement: For a Stanley–Reisner ideal, the squarefree multidegree-\(\sigma\) summand of \(L_W\) in block \(i,N\), \(|\sigma|=i+N\), is unitarily the reduced \((N-1)\)-chain Laplacian of \(\Delta|_\sigma\). Consequently \(\beta_{i,i+N}=\sum_{|\sigma|=i+N}\dim\widetilde H_{N-1}(\Delta|_\sigma;\mathbb C)\). No total-block gap or dequantization conclusion is included.
+- status: CONJECTURE
+- depends-on: C-304 (C-NEW-KB-HODGE), D-monomial-ideal, D-graded-betti-number
+- where-proved: scouting/koszul-betti.md Hochster 1977 / Miller–Sturmfels GTM 227 Cor. 5.12 (DOI 10.1007/b138602) composed with §1 Step 3.3
+- where-tested: checkers/explore/koszul_laplacian.py, part D, `m`-cycles `m = 4..7`, with the squarefree dimension printed against the total block dimension
+- relevance/traps: K-KB3, K-KB12.
+
+### C-308 (C-NEW-KB-DEQUANT)
+- statement: (r0 statement, refuted.) Under sparse access to `L_W` and a promise `g_{i,N}/(N+i) >= gamma`, the normalised Betti fraction is estimable classically to additive `eps` in `n^{O(gamma^{-1/2} log(1/eps))}` (Apers–Gribling–Sen–Szabó arXiv:2211.09618); hence no super-polynomial quantum advantage exists at `gamma = Omega(1)`, and the only surviving window is `gamma = 1/poly(n)` together with `eps = 1/poly(n)` and a chain dimension and Betti number both exponential.
+- status: REFUTED
+- surviving statement: "At constant normalized gap and constant additive error, the cited simplicial-complex estimator is polynomial-time classical." and "Apers et al. directly apply to the squarefree multidegree summands explicitly identified with ordinary simplicial Laplacians." (verdicts/koszul-betti-r2.md, verbatim). Refuted on two counts: the quoted bound at `gamma = Omega(1)`, `eps = 1/poly(n)` is `n^{O(log n)}`, quasi-polynomial, so a super-polynomial separation remains permitted; and the theorem does not automatically apply to a generic projected `L_W`, whose sparse row access from the generators was never constructed.
+- depends-on: C-307 (C-NEW-KB-HOCHSTER), D-betti-gap, D-normalised-betti-fraction, C-100
+- where-proved: scouting/koszul-betti.md cited literature (arXiv:2211.09618, DOI 10.22331/q-2023-12-06-1202; arXiv:2209.13581, DOI 10.1103/PRXQuantum.5.010319)
+- where-tested: none
+- relevance/traps: REFUTED row, kept forever per L1.
+
+### C-309 (C-NEW-KB-FRACTION)
+- statement: For a complete intersection of \(1\le c\le n+1\) quadrics and \(0\le i\le c\), the block \((i,i)\) has \(\beta_{i,2i}=\binom ci\) and fraction \(\binom ci/(\mathrm{HF}(i)\binom{n+1} {i})\). For fixed \(c,i\) and \(n\to\infty\), this is asymptotic to \(\binom ci(i!)^2n^{-2i}\). This scaling alone implies no quantum advantage because the corresponding block dimension is polynomial for fixed \(i\).
+- status: CONJECTURE
+- depends-on: D-normalised-betti-fraction, C-062
+- where-proved: scouting/koszul-betti.md Koszul resolution plus the closed-form Hilbert series
+- where-tested: checkers/explore/koszul_laplacian.py, part g, with block dimensions printed, plus the `i = n` Boolean row (`fraction = 1/(2^n(n+1))`)
+- relevance/traps: retracts the r0 "survives F2" claim (O6); see K-KB11 for the `h_N/M_N` half.
+
+### C-310 (C-NEW-KB-SEED-IS-A-BLOCK)
+- statement: For positive-degree homogeneous \(f_1,\ldots,f_d\), define \(Q_f=\sum_jM_{f_j}\otimes c_j\) with fermionic annihilators \(c_j\), assigning fermion \(j\) weight \(\deg f_j\). Then \(Q_f^2=0\); its fermion-number-zero Laplacian block is \(\sum_jM_{f_j}M_{f_j}^\dagger=H\). Its zero modes in higher blocks are \(H_i(f;R)\cong\operatorname{Tor}^{\mathbb C[y_1,\ldots, y_d]}_i(\mathbb C,R)\), and all positive homology vanishes iff the positive-degree sequence is regular.
+- status: CONJECTURE
+- depends-on: D-generator-koszul-supercharge, D-hamiltonian, D-k-body, C-008
+- where-proved: scouting/koszul-betti.md §1 Step 8
+- where-tested: checkers/explore/koszul_laplacian.py, part f — `|L^{gen}_{i=0} - H_N| = 0` for `N = 2..5` on the twisted cubic, and the two nullity tables differ
+- relevance/traps: the only projector-free boson–fermion Hamiltonian this lane found (K-KB7).
+
+### C-311 (C-NEW-KB-NO-FREE-LUNCH)
+- statement: (r0 statement, refuted.) Every evaluation of `L_W` requires the ground-space projector `P_0`, so arm B's cost is at least arm A's: `Õ(n · (alpha_BE/Delta_N) · ((N+i)/g_{i,N}))` uses of the sparse `H_N` block encoding per application, and arm B inherits every promise of C-055, C-056 and C-058 plus a new one on `g`.
+- status: REFUTED
+- surviving statement: "If the only available quotient access is obtained by QSVT from \(H_N\), constructing a call to \(L_W\) inherits dependence on \(\alpha_{\mathrm{BE}}/\Delta_N\), with the required adjacent-degree gaps included." (verdicts/koszul-betti-r2.md, verbatim). Refuted on three counts: direct standard-monomial access (monomial ideals) or a supplied quotient-multiplication oracle avoids any per-call `P_0`; `j/g` is a count of spectral-filtering repetitions, not a per-application factor; the quoted cost omits the `M_N/HF(N)` normalisation (memo Step 9, K-KB11).
+- depends-on: C-305 (C-NEW-KB-FREE), C-055, C-056, C-058, C-096, D-qsvt
+- where-proved: scouting/koszul-betti.md §1 Step 9
+- where-tested: none
+- relevance/traps: REFUTED row, kept forever per L1.

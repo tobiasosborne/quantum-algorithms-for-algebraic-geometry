@@ -1342,6 +1342,94 @@ Source: DOI 10.1287/moor.19.4.769 and arXiv:math/0211146.
 
 Pitfalls: volume estimation, uniform lattice-point sampling, and exact Ehrhart evaluation are inequivalent. The cited quantum volume algorithm has an \(\Omega(\sqrt d+1/\varepsilon)\) membership-query lower bound.
 
+### Merged from scouting/koszul-betti.md (2026-09-03; critic loop verdicts/koszul-betti-r1..r5, PASS at r5, codex critic; all 8 ACCEPT; orchestrator merge, text verbatim from memo §5 with the memo's adjudication annotations removed; D-betti-gap, D-normalised-betti-fraction and D-betti-estimation-problem are the critic's r2 texts D5/D6/D8)
+
+### D-fermionic-modes
+`c_k, c_k^†` (`k = 0..n`) on `Lambda(C^{n+1})`
+with `{c_k, c_l^†} = delta_{kl}`; basis `|S>`, `S ⊆ {0..n}`;
+`c_k^†|S> = (-1)^{#{l in S : l<k}}|S ∪ {k}>` for `k not in S`, else 0; `F̂ = sum_k c_k^† c_k`.
+Pitfall: dropping the sign breaks `Q^2 = 0` (mutation M3, run in-process).
+
+### D-koszul-supercharge
+On the **finite-particle core** `R ⊗ Λ` of
+`F ⊗ Lambda(C^{n+1})`, `Q = sum_k a_k ⊗ c_k^†` (D-mode-operators, D-fermionic-modes);
+`Q^2 = 0` exactly; `Q` maps block `(i,N)` to `(i+1,N-1)` and preserves `j = N+i`. With
+`P = ⊕_N P_{0,N}` the **degreewise direct-sum** ground-space projector and `P̂ = P ⊗ 1`, the
+restriction `q = Q P̂ = P̂ Q P̂` is well defined because `W` is `a_k`-invariant. Under the
+conjugate-linear Fock pairing `(W ⊗ Lambda, q)` is the **conjugate dual** of the Koszul
+complex of `R/I` on the variables. Pitfall: `Q^†` does not restrict; its restriction is
+`sum_k Z_k ⊗ c_k` (D-compressed-multiplication). `a_k, Q, L` are unbounded on the completion.
+
+### D-betti-laplacian
+Globally on `W ⊗ Lambda`, `L_W = q q^† + q^† q`, which
+preserves each internal-degree sector `j` and each block `(i,N)`, `N + i = j`. On a fixed `j`
+sector, `L_W = j P̂ - X X^†` with `X = P̂ Q (1 - P̂)`; hence `0 <= L_W <= j P̂` and
+`||L_W|| <= j`. A block may have `L_W|(i,N) = 0` (no positive spectrum); such a block admits
+no gap and no gap promise. Pitfall: `L_W != P̂ L P̂`, which is the scalar `j P̂`.
+
+### D-graded-betti-number
+`beta_{i,j}(R/I) = dim Tor_i^R(R/I,C)_j`;
+`beta_{i,j} = 0` for `i > n+1` and for `j - i > reg(R/I)`, where
+`reg(R/I) = max{j-i : beta_{i,j} != 0}` and `reg(I) = reg(R/I) + 1` for a nonzero proper
+homogeneous ideal. `beta_{1,j}` counts minimal generators of `I` in degree `j`; `beta_{2,j}`
+counts the degree-`j` minimal relations **in a minimal free resolution**, equivalently among
+a **minimal homogeneous presentation** — the quotient `Syz/m Syz` of an arbitrary tuple's
+syzygy module is *not* `beta_2` (counterexample `(x,x)`). `Syz(I)_N` (D-syzygy-module) is a
+tuple invariant, not a Betti number.
+
+### D-betti-gap
+> For a block for which \(L_W|_{(i,N)}\) has at least one positive eigenvalue, let
+> \(g_{i,N}=\lambda_{\min}^{>0}(L_W|_{(i,N)})\), with normalized gap
+> \(g_{i,N}/(N+i)\). On a fixed \(j=N+i\) sector,
+> \(g_{i,N}=j-\lambda_{\max}^{<j}(XX^\dagger)\). The gap is an invariant of the
+> ideal and the Fock metric; only its realization through \(H_N\) is
+> presentation-dependent. The \(m\)-cycle family rules out a uniformly positive
+> lower bound depending only on \(\Delta_2\) for the selected squarefree summand
+> when \(\phi(1)>0\); it establishes neither a total-block comparison nor a
+> reverse inequality. The gap is undefined when the block has no positive
+> spectrum.
+
+### D-normalised-betti-fraction
+> Let \(M_N=\dim R_N\), \(h_N=\mathrm{HF}_{R/I}(N)\), and
+> \(b=\binom{n+1}{i}\). The ambient normalized Betti fraction is
+> \(\beta_{i,i+N}/(M_Nb)\). It equals the normalized trace of the harmonic
+> projector on \(W_N\otimes\Lambda^i\) extended by zero to
+> \(R_N\otimes\Lambda^i\); it is not the zero-eigenvalue fraction of \(L_W\)
+> extended by zero. When \(h_N>0\), the conditional fraction is
+> \(\beta_{i,i+N}/(h_Nb)\). Estimating the conditional ratio requires normalized
+> access to \(W_N\), with ambient acceptance weight \(h_N/M_N\), or an explicit
+> preparation oracle.
+
+### D-generator-koszul-supercharge
+For positive-degree homogeneous
+`f_1,...,f_d`, `Q_f = sum_j M_{f_j} ⊗ c_j` with **fermionic annihilators** `c_j` on
+`Lambda(C^d)`, fermion `j` carrying internal weight `deg f_j` (a weighted internal grading).
+On the finite-particle core `Q_f^2 = 0`; the fermion-number-zero Laplacian block is
+`sum_j M_{f_j} M_{f_j}^† = H` (D-hamiltonian). Only the **zero-mode dimensions** of the higher
+blocks compute `H_i(f;R) ≅ Tor_i^{C[y_1..y_d]}(C,R)`, and all positive homology vanishes iff
+the positive-degree sequence is regular. Pitfall: these are not `beta_{i,j}(R/I)`.
+
+### D-betti-estimation-problem
+> Input consists of homogeneous \(f_1,\ldots,f_d\) in \(n+1\) variables with
+> polynomially many monomials and polynomial-bit coefficients; \(i,N\) in unary;
+> an additive error \(\epsilon>0\); and one access mode. Generator mode supplies
+> block-encoding or sparse-row access to \(H_N\) and \(H_{N+1}\), including their
+> normalization bounds. Quotient mode supplies the adjacent quotient spaces and
+> compressed maps \(Z_{k,N}:W_{N-1}\to W_N\) and
+> \(Z_{k,N+1}:W_N\to W_{N+1}\). Promise that \(L_W|_{(i,N)}\) has positive
+> spectrum and \(g_{i,N}/(N+i)\ge1/\mathrm{poly}(n)\). In generator mode, promise
+> \(\Delta_r/\alpha_r\ge1/\mathrm{poly}(n)\) for every nontrivial required
+> projector \(r\in\{N,N+1\}\). For conditional output, also promise \(h_N>0\)
+> and \(h_N/M_N\ge1/\mathrm{poly}(n)\), or supply an efficient normalized
+> \(W_N\)-state preparation oracle. `NORM-BETTI-AMB` estimates
+> \(\beta_{i,i+N}/(M_N\binom{n+1}{i})\) by filtering
+> \(\widetilde L_{i,N}=L_W+(N+i)(1-\widehat P_N)\).
+> `NORM-BETTI-COND` estimates
+> \(\beta_{i,i+N}/(h_N\binom{n+1}{i})\). `GAPPED-BETTI` decides
+> \(\beta_{i,i+N}=0\) versus \(\beta_{i,i+N}\ge1\) under the spectral and access
+> promises. A supplied bound on \(\operatorname{reg}(R/I)\) is optional and is
+> used only when enumerating the whole table.
+
 ## Lane report
 
 Included: 66 entries in five parts - the three inner products with exact degreewise scalars; all operators ($a_j$, $a(f)$, $M_f$, $\Phi_N$, shifts, compressed multiplications); ideals, Hilbert function, inverse system, monomial/toric/boolean/clause ideals, Grobner deformation; Hamiltonian, ground space, frustration-freeness, parent Hamiltonians, $k$-body vs few-mode, $\Delta_N$ and its normalisations, coherent states, Takagi; algorithmic/geometric objects (input model, QSVT, the distance-to-ideal problem verbatim, Bergman projector, hardness anchors, condition number, hard-gap instances, finite fields, Bose-Hubbard). Every mandatory entry in the brief is present. `D-reserved-photonic` is a stub: the seed uses no boson-sampling / linear-optics / GBS object, so it lists what must be defined first. 14 OPEN issues, 5 of them substantive (OPEN-1,3,5,6,7); `notation.md` holds the symbol table and 18 page81-vs-report conflicts with the chosen convention.
