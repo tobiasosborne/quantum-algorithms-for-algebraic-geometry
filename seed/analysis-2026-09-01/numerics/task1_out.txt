@@ -1,0 +1,30 @@
+=== Task 1a: notes' hand computations (unnormalized monomial basis) ===
+  a(f)(z0 z1 z2^2) = -2*z0*z1 + z2**2    expected z2^2 - 2 z0 z1 : True
+  a(f)(z0 z1 + c z2^2) = 1 - 2*c  -> zero iff c = [1/2]  expected [1/2]
+  <f|f> = 3  expected 3 : True
+
+=== Task 1b: dim ker H_N vs HF(N) = 2N+1 ===
+  N  dim h_N  rank(A) num  dim I_N (mod p)  dim ker H_N   2N+1   ok
+  2        6            1                1            5      5 True
+  3       10            3                3            7      7 True
+  4       15            6                6            9      9 True
+  5       21           10               10           11     11 True
+  6       28           15               15           13     13 True
+  7       36           21               21           15     15 True
+  8       45           28               28           17     17 True
+
+  sympy exact ranks (cross-check of mod-p routine):
+   N=2: sympy rank=1  modp=1
+   N=3: sympy rank=3  modp=3
+   N=4: sympy rank=6  modp=6
+   N=5: sympy rank=10  modp=10
+   N=6: sympy rank=15  modp=15
+
+  eigenvalue check: number of ~zero eigenvalues of H_N
+   N=2: numeric ker dim=5, expected 5, largest 'zero' ev=1.110e-16, smallest nonzero=3.000000, ||H||=3.0000
+   N=3: numeric ker dim=7, expected 7, largest 'zero' ev=0.000e+00, smallest nonzero=4.000000, ||H||=7.0000
+   N=4: numeric ker dim=9, expected 9, largest 'zero' ev=2.220e-16, smallest nonzero=5.000000, ||H||=13.2749
+   N=5: numeric ker dim=11, expected 11, largest 'zero' ev=2.656e-15, smallest nonzero=6.000000, ||H||=21.5208
+   N=6: numeric ker dim=13, expected 13, largest 'zero' ev=2.437e-15, smallest nonzero=7.000000, ||H||=31.7795
+   N=7: numeric ker dim=15, expected 15, largest 'zero' ev=1.469e-14, smallest nonzero=8.000000, ||H||=44.0409
+   N=8: numeric ker dim=17, expected 17, largest 'zero' ev=1.469e-14, smallest nonzero=9.000000, ||H||=58.3042

@@ -1,0 +1,51 @@
+=== cross-check direct qubit build vs polynomial-ring H (multidegree sector) ===
+  m=3: max|H_sector - H_direct| = 8.95e-16
+  m=4: max|H_sector - H_direct| = 1.78e-15
+  m=5: max|H_sector - H_direct| = 1.80e-15
+
+=== (A) singlet chain: nearest-neighbour singlet projectors on m qubits ===
+  m  n=2m-1     dim  kerdim        Delta     ||H||  m^2*Delta    1/Delta
+  2       3       4       3            2         2          8        0.5
+  3       5       8       4            1         3          9          1
+  4       7      16       5     0.585786     4.732     9.3726      1.707
+  5       9      32       6     0.381966     5.856     9.5492      2.618
+  6      11      64       7     0.267949     7.487     9.6462      3.732
+  7      13     128       8     0.198062     8.672     9.7051      5.049
+  8      15     256       9     0.152241     10.25     9.7434      6.569
+  9      17     512      10     0.120615     11.47     9.7698      8.291
+ 10      19    1024      11     0.097887     13.02     9.7887      10.22
+ 11      21    2048      12    0.0810141     14.26     9.8027      12.34
+ 12      23    4096      13    0.0681483     15.78     9.8134      14.67
+  fit Delta ~ 9.134 * m^(-1.970)   [exp fit: log Delta = -0.2428 m + c]
+  kernel dims are the symmetric subspace dim m+1 (spin m/2): check [3, 4, 5, 6, 7, 8, 9] vs [3, 4, 5, 6, 7, 8, 9]
+
+=== (B) random frustration-free chain (product state in the kernel) ===
+  m  kerdim        Delta     ||H||    1/Delta
+  2       3            1         1          1
+  3       4     0.522726     1.477      1.913
+  4       5     0.116324     2.513      8.597
+  5       6    0.0525985     3.002      19.01
+  6       7    0.0600575     3.391      16.65
+  7       8   0.00863504      4.22      115.8
+  8       9   0.00426905     5.706      234.2
+  9      10   0.00153108     6.093      653.1
+ 10      11    0.0125722     6.832      79.54
+ 11      12   0.00177656     7.716      562.9
+ 12      13   0.00893615     8.152      111.9
+  fit Delta ~ 6.19 * m^(-3.121)   [exp fit: log Delta = -0.3561 m + c]
+
+=== (C) tunable near-degenerate 2-block generator (coefficient dynamic range) ===
+  f = z_{1,0}z_{2,1} - z_{1,1}z_{2,0} + eps*(z_{1,0}z_{2,0}) on a chain
+       eps   m  kerdim        Delta
+     1e+00   6       7    0.0833004
+     1e+00   8       9    0.0344142
+     1e+00  10      11    0.0160801
+     1e-01   6       7     0.133964
+     1e-01   8       9     0.076109
+     1e-01  10      11    0.0489317
+     1e-02   6       7     0.133975
+     1e-02   8       9    0.0761205
+     1e-02  10      11    0.0489435
+     1e-03   6       7     0.133975
+     1e-03   8       9    0.0761205
+     1e-03  10      11    0.0489435

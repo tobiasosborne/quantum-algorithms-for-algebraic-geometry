@@ -1,0 +1,24 @@
+
+=== rat normal curve deg4 P^4 ===
+ N= 2 dim=   15 #fibers=   9 kerdim=   9 rank(q_u)=   9 |H q_u|max=1.04e-16 offblock=0.0e+00 per-fiber-ker-total=   9 Delta=1.38197 min_u lam2(H_u)=1.38197 N^2*Delta=5.528  Delta/N=0.691
+ N= 3 dim=   35 #fibers=  13 kerdim=  13 rank(q_u)=  13 |H q_u|max=4.01e-16 offblock=0.0e+00 per-fiber-ker-total=  13 Delta=2 min_u lam2(H_u)=2 N^2*Delta=18  Delta/N=0.6667
+ N= 4 dim=   70 #fibers=  17 kerdim=  17 rank(q_u)=  17 |H q_u|max=4.89e-16 offblock=0.0e+00 per-fiber-ker-total=  17 Delta=2.64715 min_u lam2(H_u)=2.64715 N^2*Delta=42.35  Delta/N=0.6618
+ N= 5 dim=  126 #fibers=  21 kerdim=  21 rank(q_u)=  21 |H q_u|max=1.45e-15 offblock=0.0e+00 per-fiber-ker-total=  21 Delta=3.31877 min_u lam2(H_u)=3.31877 N^2*Delta=82.97  Delta/N=0.6638
+ N= 6 dim=  210 #fibers=  25 kerdim=  25 rank(q_u)=  25 |H q_u|max=1.55e-15 offblock=0.0e+00 per-fiber-ker-total=  25 Delta=4.01072 min_u lam2(H_u)=4.01072 N^2*Delta=144.4  Delta/N=0.6685
+ N= 7 dim=  330 #fibers=  29 kerdim=  29 rank(q_u)=  29 |H q_u|max=2.31e-15 offblock=0.0e+00 per-fiber-ker-total=  29 Delta=4.7198 min_u lam2(H_u)=4.7198 N^2*Delta=231.3  Delta/N=0.6743
+ N= 8 dim=  495 #fibers=  33 kerdim=  33 rank(q_u)=  33 |H q_u|max=3.11e-15 offblock=0.0e+00 per-fiber-ker-total=  33 Delta=5.44351 min_u lam2(H_u)=5.44351 N^2*Delta=348.4  Delta/N=0.6804
+ N= 9 dim=  715 #fibers=  37 kerdim=  37 rank(q_u)=  37 |H q_u|max=4.88e-15 offblock=0.0e+00 per-fiber-ker-total=  37 Delta=6.17989 min_u lam2(H_u)=6.17989 N^2*Delta=500.6  Delta/N=0.6867
+ N=10 dim= 1001 #fibers=  41 kerdim=  41 rank(q_u)=  41 |H q_u|max=4.44e-15 offblock=0.0e+00 per-fiber-ker-total=  41 Delta=6.92739 min_u lam2(H_u)=6.92739 N^2*Delta=692.7  Delta/N=0.6927
+
+=== twisted cubic P^3 ===
+ N= 2 dim=   10 #fibers=   7 kerdim=   7 rank(q_u)=   7 |H q_u|max=1.04e-16 offblock=0.0e+00 per-fiber-ker-total=   7 Delta=2 min_u lam2(H_u)=2 N^2*Delta=8  Delta/N=1
+ N= 3 dim=   20 #fibers=  10 kerdim=  10 rank(q_u)=  10 |H q_u|max=2.22e-16 offblock=0.0e+00 per-fiber-ker-total=  10 Delta=2.76393 min_u lam2(H_u)=2.76393 N^2*Delta=24.88  Delta/N=0.9213
+ N= 4 dim=   35 #fibers=  13 kerdim=  13 rank(q_u)=  13 |H q_u|max=4.44e-16 offblock=0.0e+00 per-fiber-ker-total=  13 Delta=3.55051 min_u lam2(H_u)=3.55051 N^2*Delta=56.81  Delta/N=0.8876
+ N= 5 dim=   56 #fibers=  16 kerdim=  16 rank(q_u)=  16 |H q_u|max=8.87e-16 offblock=0.0e+00 per-fiber-ker-total=  16 Delta=4.35425 min_u lam2(H_u)=4.35425 N^2*Delta=108.9  Delta/N=0.8708
+ N= 6 dim=   84 #fibers=  19 kerdim=  19 rank(q_u)=  19 |H q_u|max=1.84e-15 offblock=0.0e+00 per-fiber-ker-total=  19 Delta=5.17157 min_u lam2(H_u)=5.17157 N^2*Delta=186.2  Delta/N=0.8619
+ N= 7 dim=  120 #fibers=  22 kerdim=  22 rank(q_u)=  22 |H q_u|max=2.25e-15 offblock=0.0e+00 per-fiber-ker-total=  22 Delta=6 min_u lam2(H_u)=6 N^2*Delta=294  Delta/N=0.8571
+ N= 8 dim=  165 #fibers=  25 kerdim=  25 rank(q_u)=  25 |H q_u|max=4.94e-15 offblock=0.0e+00 per-fiber-ker-total=  25 Delta=6.83772 min_u lam2(H_u)=6.83772 N^2*Delta=437.6  Delta/N=0.8547
+ N= 9 dim=  220 #fibers=  28 kerdim=  28 rank(q_u)=  28 |H q_u|max=2.92e-15 offblock=0.0e+00 per-fiber-ker-total=  28 Delta=7.68338 min_u lam2(H_u)=7.68338 N^2*Delta=622.4  Delta/N=0.8537
+ N=10 dim=  286 #fibers=  31 kerdim=  31 rank(q_u)=  31 |H q_u|max=4.44e-15 offblock=0.0e+00 per-fiber-ker-total=  31 Delta=8.5359 min_u lam2(H_u)=8.5359 N^2*Delta=853.6  Delta/N=0.8536
+ N=11 dim=  364 #fibers=  34 kerdim=  34 rank(q_u)=  34 |H q_u|max=4.88e-15 offblock=0.0e+00 per-fiber-ker-total=  34 Delta=9.39445 min_u lam2(H_u)=9.39445 N^2*Delta=1137  Delta/N=0.854
+ N=12 dim=  455 #fibers=  37 kerdim=  37 rank(q_u)=  37 |H q_u|max=4.64e-15 offblock=0.0e+00 per-fiber-ker-total=  37 Delta=10.2583 min_u lam2(H_u)=10.2583 N^2*Delta=1477  Delta/N=0.8549

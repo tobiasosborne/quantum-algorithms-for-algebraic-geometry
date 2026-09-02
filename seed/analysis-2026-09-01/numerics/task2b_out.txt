@@ -1,0 +1,38 @@
+
+twisted cubic P^3
+  N= 2: dim h=  10 dim ker=   7 rank I_N=   3 sum=  10  max|<I_N , ker>|/scale = 5.28e-17  OK
+  N= 3: dim h=  20 dim ker=  10 rank I_N=  10 sum=  20  max|<I_N , ker>|/scale = 6.80e-16  OK
+  N= 4: dim h=  35 dim ker=  13 rank I_N=  22 sum=  35  max|<I_N , ker>|/scale = 1.34e-15  OK
+  N= 5: dim h=  56 dim ker=  16 rank I_N=  40 sum=  56  max|<I_N , ker>|/scale = 2.14e-15  OK
+  N= 6: dim h=  84 dim ker=  19 rank I_N=  65 sum=  84  max|<I_N , ker>|/scale = 6.35e-15  OK
+  N= 7: dim h= 120 dim ker=  22 rank I_N=  98 sum= 120  max|<I_N , ker>|/scale = 3.07e-14  OK
+
+rat normal curve deg4 P^4
+  N= 2: dim h=  15 dim ker=   9 rank I_N=   6 sum=  15  max|<I_N , ker>|/scale = 2.11e-16  OK
+  N= 3: dim h=  35 dim ker=  13 rank I_N=  22 sum=  35  max|<I_N , ker>|/scale = 7.77e-16  OK
+  N= 4: dim h=  70 dim ker=  17 rank I_N=  53 sum=  70  max|<I_N , ker>|/scale = 1.92e-15  OK
+  N= 5: dim h= 126 dim ker=  21 rank I_N= 105 sum= 126  max|<I_N , ker>|/scale = 5.22e-15  OK
+  N= 6: dim h= 210 dim ker=  25 rank I_N= 185 sum= 210  max|<I_N , ker>|/scale = 8.80e-15  OK
+
+2 generic quadrics P^3
+  N= 2: dim h=  10 dim ker=   8 rank I_N=   2 sum=  10  max|<I_N , ker>|/scale = 2.11e-16  OK
+  N= 3: dim h=  20 dim ker=  12 rank I_N=   8 sum=  20  max|<I_N , ker>|/scale = 5.58e-16  OK
+  N= 4: dim h=  35 dim ker=  16 rank I_N=  19 sum=  35  max|<I_N , ker>|/scale = 8.97e-16  OK
+  N= 5: dim h=  56 dim ker=  20 rank I_N=  36 sum=  56  max|<I_N , ker>|/scale = 1.34e-15  OK
+  N= 6: dim h=  84 dim ker=  24 rank I_N=  60 sum=  84  max|<I_N , ker>|/scale = 3.06e-15  OK
+  N= 7: dim h= 120 dim ker=  28 rank I_N=  92 sum= 120  max|<I_N , ker>|/scale = 1.33e-14  OK
+
+monomial (z0^2,z0z1,z1^3) P^2
+  N= 2: dim h=   6 dim ker=   4 rank I_N=   2 sum=   6  max|<I_N , ker>|/scale = 0.00e+00  OK
+  N= 3: dim h=  10 dim ker=   4 rank I_N=   6 sum=  10  max|<I_N , ker>|/scale = 0.00e+00  OK
+  N= 4: dim h=  15 dim ker=   4 rank I_N=  11 sum=  15  max|<I_N , ker>|/scale = 0.00e+00  OK
+  N= 5: dim h=  21 dim ker=   4 rank I_N=  17 sum=  21  max|<I_N , ker>|/scale = 0.00e+00  OK
+  N= 6: dim h=  28 dim ker=   4 rank I_N=  24 sum=  28  max|<I_N , ker>|/scale = 0.00e+00  OK
+  N= 7: dim h=  36 dim ker=   4 rank I_N=  32 sum=  36  max|<I_N , ker>|/scale = 0.00e+00  OK
+
+boolean P^4
+  N= 2: dim h=  15 dim ker=  11 rank I_N=   4 sum=  15  max|<I_N , ker>|/scale = 5.28e-17  OK
+  N= 3: dim h=  35 dim ker=  15 rank I_N=  20 sum=  35  max|<I_N , ker>|/scale = 8.07e-16  OK
+  N= 4: dim h=  70 dim ker=  16 rank I_N=  54 sum=  70  max|<I_N , ker>|/scale = 3.91e-15  OK
+  N= 5: dim h= 126 dim ker=  16 rank I_N= 110 sum= 126  max|<I_N , ker>|/scale = 3.50e-15  OK
+  N= 6: dim h= 210 dim ker=  16 rank I_N= 194 sum= 210  max|<I_N , ker>|/scale = 6.31e-15  OK

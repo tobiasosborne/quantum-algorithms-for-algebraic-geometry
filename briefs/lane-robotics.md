@@ -1,0 +1,19 @@
+# Lane: robotics deep dive
+
+Work fully autonomously; do not ask questions. Repo root: /home/tobias/Projects/quantum-algorithms-for-algebraic-geometry. Read first, in order: CLAUDE.md (laws, north star), seed/analysis-2026-09-01/report.md (the seed analysis; treat as an untrusted proposer document, NOT as established truth), seed/analysis-2026-09-01/referee/round1.md and round2.md (prior critic verdicts), HANDOFF.md, seed/page81.tex (the original notebook page). No emoji, no marketing prose. Mark any citation you cannot resolve to an arXiv id or DOI you are confident of as [UNVERIFIED]. Do not touch seed/ or any file outside your lane.
+
+TJO has said explicitly (2026-09-02): "i would love a robotics application, that would be really cool". Robotics is therefore a first-class arm of this campaign. Your job is to find out, honestly, whether there is a robotics problem where the north star can be met, and to say so sharply if there is not.
+
+## Your lane (writable file, nothing else)
+- scouting/robotics-deep-dive.md
+
+## Task
+Survey every robotics problem that is, at heart, a problem about polynomial ideals or varieties, and evaluate each against the north star (CLAUDE.md §1).
+
+Cover at minimum: inverse kinematics of serial manipulators (6R general: 16 solutions, Raghavan-Roth, Manocha-Canny eigenvalue method); forward kinematics of parallel manipulators (Stewart-Gough platform: 40 solutions, Husty, Dietmaier); kinematic synthesis (Burmester, four-bar/six-bar synthesis; Alt-Burmester; the huge polynomial systems solved by homotopy continuation, e.g. Wampler-Sommese-Morgan 1992 nine-point path synthesis with 8652 roots; Plecnik-McCarthy); singularity loci and workspace boundaries as varieties; configuration-space topology and motion planning (Canny's roadmap, cylindrical algebraic decomposition, real algebraic geometry, Schwartz-Sharir piano movers); calibration (hand-eye AX=XB, kinematic calibration as polynomial least squares); multi-robot / formation / rigidity (Laman graphs, rigidity matroids, bar-joint frameworks as varieties, Cayley-Menger); grasp synthesis and force closure (polynomial inequalities, SOS); contact and legged locomotion (mode enumeration); SLAM and bundle adjustment (rotation averaging, polynomial optimization, Lasserre relaxations tightness, Rosen SE-Sync); minimal problems in robot vision (PnP, relative pose, homography; Groebner/automatic generator solvers as used in real-time pipelines); planning under polynomial dynamics (Lie-algebraic, differential-algebraic); learning-based robotics where a variety appears (data manifolds of kinematic chains, implicit-function learning).
+
+For each problem: precise algebraic formulation (variables, degrees, number of equations, expected root count via Bezout/BKK/known theorem); sizes that matter in practice and where practice currently hurts (real-time budgets, on-robot compute, memory); the best classical method and its actual cost; whether the problem has a natural 'ground state / gap' or 'Macaulay matrix' structure that the seed formulation exploits; the honest quantum angle (time or SPACE speedup? note that on-robot memory is a real constraint and a space speedup might matter more than time); the heuristic-hardware angle; a plausibility score 1-5 with one line.
+
+Then: "## The three best bets" — for each, a half-page concrete problem statement in the form 'Input ... Output ... Classical best ... Proposed quantum route ... What would have to be true for a real speedup ... First experiment (numerical, <= 1 day)'. Then "## Killers" — the reasons a robotics speedup is likely NOT real (small fixed problem sizes, offline precomputation dominates, noise-tolerant heuristics already fast, etc.), stated sharply. Then "## Questions for TJO".
+
+Length target 400-700 lines. Cite by arXiv id or DOI where confident; else [UNVERIFIED].

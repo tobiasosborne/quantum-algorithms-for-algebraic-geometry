@@ -1,0 +1,1758 @@
+Reading additional input from stdin...
+OpenAI Codex v0.152.1
+--------
+workdir: /home/tobias/Projects/quantum-algorithms-for-algebraic-geometry
+model: gpt-5.6-sol
+provider: openai
+approval: never
+sandbox: read-only
+reasoning effort: xhigh
+reasoning summaries: none
+session id: 01a06230-a33d-78a1-a69a-0c2a20dcf3a1
+--------
+user
+# Lane: classical landscape scout (best-in-class classical algorithms)
+
+Work fully autonomously; do not ask questions. Repo root: /home/tobias/Projects/quantum-algorithms-for-algebraic-geometry. Read first, in order: CLAUDE.md (laws, north star), seed/analysis-2026-09-01/report.md (the seed analysis; treat as an untrusted proposer document, NOT as established truth), seed/analysis-2026-09-01/referee/round1.md and round2.md (prior critic verdicts), HANDOFF.md, seed/page81.tex (the original notebook page). No emoji, no marketing prose. Mark any citation you cannot resolve to an arXiv id or DOI you are confident of as [UNVERIFIED]. Do not touch seed/ or any file outside your lane.
+
+## Your lane (writable file, nothing else)
+- scouting/classical-landscape.md (you are running under codex; write via the -o output path you were given, which the orchestrator will place at this location)
+
+## Task
+The north star (CLAUDE.md §1) requires a REAL speedup over the best-in-class classical algorithm for the same problem. Produce the reference memo the campaign will judge every candidate speedup against.
+
+For each of the following problem families, give: (1) precise problem statement(s) with input encoding and size parameters (n variables, d degree, s generators, N truncation degree, bit size); (2) the best-known classical algorithm(s) with their proven complexity AND their practical state of the art (name the software: Macaulay2, Singular, msolve, FGb, Bertini, HomotopyContinuation.jl, PHCpack, etc.) with typical solvable sizes; (3) known lower bounds / hardness (EXPSPACE-completeness of ideal membership (Mayr-Meyer), NP-hardness of Hilbert-Nullstellensatz, #P-hardness of counting, PSPACE bounds, degree bounds for Nullstellensatz certificates, Macaulay-matrix regularity); (4) the structure that the seed's Fock-space Hamiltonian formulation exposes (kernel of H_N = degree-N piece of Macaulay inverse system; gap Delta_N; quantum linear algebra on Macaulay matrices; coherent-state kernel test) and an honest assessment of where a quantum algorithm could plausibly beat (2) in TIME or SPACE, and where it provably cannot (dequantization: Tang-style, Gilyen-Lloyd-Tang; sparse-access caveats; state preparation costs; the Macaulay matrix is sparse and structured, which cuts both ways); (5) the cheapest experimental/heuristic attack: does the problem map naturally to linear optics with postselection or MBQC, to boson sampling (permanents / hafnians of structured matrices), or to a condensed-matter model (Bose-Hubbard, spinor BEC spin mixing as in the seed's conic example)?
+
+Families (add others you think matter): ideal membership; radical membership / Nullstellensatz; Hilbert function / Hilbert polynomial / dimension and degree of a variety; Groebner basis computation (F4/F5, regularity, semi-regular sequences, Froberg); polynomial system solving (homotopy continuation, root counting, Bezout/BKK, real root isolation); distance to a variety / nearest point on a variety (ED degree, Draisma et al.); zero-dimensional ideals and eigenvalue methods (Stickelberger, Moller); syzygies and Betti numbers; sampling roots or points on a variety; tensor rank / secant varieties; algebraic statistics (ML degree); low-rank matrix completion and determinantal varieties; polynomial optimization (Lasserre / SOS hierarchies, which are themselves 'Hamiltonian-like').
+
+Then a section "Ranked candidates": rank the <=10 most promising (problem, quantum primitive, classical baseline, plausible speedup type: time/space/both, dequantization risk, heuristic-hardware fit) with one paragraph each, and a section "Traps": speedups that look real but are not (comparison to a naive classical baseline, hidden state-preparation cost, exponentially small overlaps, gap closing).
+
+Be quantitative. Give complexity exponents and cite the theorem or paper for each. Length: as long as needed, target 400-800 lines.
+codex
+I’ll build the memo from the project’s governing documents and original notebook page first, then verify the classical baselines and citations against primary literature. I’ll write only `scouting/classical-landscape.md` and validate its scope, citations, and length before handoff.
+exec
+/bin/bash -lc "sed -n '1,240p' CLAUDE.md" in /home/tobias/Projects/quantum-algorithms-for-algebraic-geometry
+ succeeded in 0ms:
+<!-- ROLE: how we work in this repo. UPDATE POLICY: amend only on a felt failure or a TJO
+     directive, with a dated note. TRIGGER: read at session start and after any compaction. -->
+
+# CLAUDE.md — quantum-algorithms-for-algebraic-geometry (campaign, rk-light)
+
+Exploratory research campaign run under the rk-light method (five laws below), NOT under
+the full rk toolchain (TJO decision 2026-09-02: rk is too heavy for the exploration phase).
+
+## 0. Read order (gate)
+
+1. This file.
+2. `PRD.md` — north star, scope, decision record.
+3. `claims/CLAIMS.md` — the claims DAG (the only place a status lives).
+4. `HANDOFF.md` — current state and next steps.
+
+## 1. North star (verbatim, TJO 2026-09-02)
+
+A genuinely new quantum algorithm giving a real speedup (space, time, or both) over the
+best-in-class classical algorithm for the same problem, where the problem comes from
+algebraic geometry (varieties, ideals) or its application areas. BQP-completeness is a
+bonus, not a requirement. The north star must admit a cheaper heuristic attack via
+linear optics with postselection / MBQC, boson sampling, or a natural condensed-matter
+model (e.g. Bose–Hubbard). Applications are part of the exploration: cast the net wide,
+from robotics and other classical application areas of varieties and ideals to serious
+algebraic geometry.
+
+## 2. Laws (rk-light; non-negotiable)
+
+- **L1 — Claims ratchet.** Every claim is a row in `claims/CLAIMS.md`: id, exact
+  statement with quantifiers, status in {PROVED, SKETCH, CONJECTURE, REFUTED},
+  depends-on, where-proved, where-tested. Status goes UP only after an adversarial
+  critic loop converges (verdict in `verdicts/` with no FATAL/MAJOR). Never by the
+  author, never at a writeup. REFUTED rows are kept forever.
+- **L2 — Single-source definitions.** Every symbol lives once, in `definitions/`.
+  Artifacts cite, never redefine. When a claim weakens, its shard, DAG row, HANDOFF and
+  PRD move in lockstep; every critic pass audits lockstep explicitly.
+- **L3 — Addressable arguments.** Rigorous arguments in `argument/` are Lamport
+  hierarchical: numbered steps, explicit ASSUME/PROVE, every leaf citing a definition
+  id, a claim id, or a named checker run.
+- **L4 — Red-capable checkers.** Everything under `checkers/` must be able to FAIL:
+  nonzero exit on violation, no bare `assert`, a mutation for each checker recorded in
+  `checkers/MUTATIONS.md`. "Runs without errors" is never a test.
+- **L5 — Honest verdicts.** Downgrade over ambition. A sharp refutation with the
+  surviving weaker statement is a product. Critic verdicts without a FIX DEMAND and a
+  SURVIVING STATEMENT per objection are redone.
+
+## 3. Rules
+
+1. **Model roster.** Subagents: Opus (Claude) and `codex exec -m gpt-5.6-sol -c
+   model_reasoning_effort="xhigh"`. NO Fable subagents (TJO directive 2026-09-02).
+   Critic and proposer from different model families where possible.
+2. **Codex invocation.** Prompt in a FILE under `briefs/`; `-s read-only
+   --skip-git-repo-check -o <out> "$(cat brief)" < /dev/null`; background; `timeout`.
+3. **Lanes are disjoint.** Every brief names its writable files. Shared files
+   (`definitions/`, `claims/CLAIMS.md`, `PRD.md`, `HANDOFF.md`) are edited only by the
+   orchestrator, from MERGE PROPOSAL sections in lane outputs.
+4. **Tracking in bd** (prefix `qaag-`), never markdown TODOs.
+5. **Seed is read-only.** `seed/` holds the 2026-09-01 analysis and the notebook page as
+   received; never edited. Claims are extracted from it into the DAG, not proved by it.
+6. **Citations.** A reference enters `refs/` only with a resolved identifier (arXiv id
+   or DOI) that was actually fetched; unverified citations are marked `[UNVERIFIED]`.
+7. **No emoji, no marketing prose.** Concrete statements, concrete numbers.
+8. **Every spawned process is bounded**: `timeout` on anything that loops; no
+   detached processes.
+9. **Commit discipline.** Atomic commits; message states what changed and which
+   verdict or checker backs it; end with the acting model's `Co-Authored-By:` line.
+
+exec
+/bin/bash -lc "sed -n '1,1200p' seed/analysis-2026-09-01/report.md" in /home/tobias/Projects/quantum-algorithms-for-algebraic-geometry
+ succeeded in 0ms:
+# Projective varieties as ground spaces: what the construction is, what it can compute, and realistic conjectures
+
+Analysis of the handwritten notes `page81.tex` (complex projective varieties and quantum mechanics). Sections 1–3 fix the setting and identify the construction; 4–7 assess the quantum-algorithmic content; 8 collects the conjectures, separated from what is already a theorem; 9 lists corrections to the notes. Everything marked *numerically* was checked by exact diagonalisation (scripts in the session scratchpad, `numerics/`); everything in Section 8 survived one adversarial referee pass, which killed or weakened about a third of the first draft's claims.
+
+---
+
+## 1. Setting, made precise
+
+Let $R=\mathbb{C}[z_0,\dots,z_n]=\bigoplus_N R_N$ with $R_N$ the homogeneous polynomials of degree $N$, $\dim R_N=\binom{N+n}{n}$. Three inner products appear in this business.
+
+| name | $\|z^k\|^2$ | adjoint of $z_j$ |
+|---|---|---|
+| Fock / Fischer (Gaussian measure on $\mathbb{C}^{n+1}$) | $k!:=\prod_j k_j!$ | $\partial_j$ exactly |
+| Bombieri–Weyl / Kostlan / Drury–Arveson | $k!/N!$ | $\partial_j$ up to a degree-dependent scalar |
+| sphere $S^{2n+1}$ (the notes' normalisation) | $n!\,k!/(N+n)!$ | $\partial_j\,(D+n)^{-1}$, $D$ = degree operator |
+
+Within a fixed $R_N$ these differ by a scalar, so orthogonal complements, kernels of homogeneous differential operators and the ground spaces below coincide in all three. They are *not* the same Hilbert module across degrees: norms of the graded direct sums, boundedness of the shifts, and everything in the Drury–Arveson dictionary (Section 2) depend on which one is used. I use the Fock form throughout: $|k\rangle=z^k/\sqrt{k!}$ is orthonormal, $a_j=\partial_j$, $a_j^\dagger=z_j$, $[a_i,a_j^\dagger]=\delta_{ij}$. Everything is then literally $n+1$ bosonic modes, and $R_N$ is the $N$-boson sector,
+
+$$
+R_N\;\cong\;\mathrm{Sym}^N(\mathbb{C}^{n+1})\;=\;H^0(\mathbb{P}^n,\mathcal{O}(N)),
+$$
+
+the symmetric subspace of $N$ qudits of dimension $n+1$ (not $n$), i.e. the ambient space of the $N$-th Veronese embedding. The notes' $L^2(\mathbb{CP}^n)$ should be read as the Hardy space of the sphere or as symmetric Fock space; the genuine $L^2(\mathbb{CP}^n)$ is a different, non-holomorphic space.
+
+For a homogeneous $f=\sum_\alpha f_\alpha z^\alpha$ of degree $m$ put
+
+$$
+a^\dagger(f)=f(a^\dagger)=\text{multiplication by }f,\qquad
+a(f):=a^\dagger(f)^\dagger=\bar f(\partial)=\sum_\alpha\overline{f_\alpha}\,\partial^\alpha .
+$$
+
+The conjugation on the coefficients is forced by self-adjointness; the notes write $f(\partial)$, which agrees only for real $f$.
+
+## 2. The ground space is Macaulay's inverse system (this part of the notes is correct and classical)
+
+For $I=(f_1,\dots,f_d)$ homogeneous with $\deg f_j=m_j$, $I_N=\sum_jf_jR_{N-m_j}$, define
+
+$$
+H=\sum_{j=1}^da^\dagger(f_j)\,a(f_j),\qquad H_N:=H|_{R_N}.
+$$
+
+**Fact 2.1 (frustration-free; kernel = orthogonal complement of the ideal).** Since $\ker M^\dagger=(\operatorname{ran}M)^\perp$,
+
+$$
+\ker H_N=\bigcap_j\ker a(f_j)|_{R_N}=\bigcap_j(f_jR_{N-m_j})^\perp=(I_N)^\perp,\qquad
+\dim\ker H_N=\binom{N+n}{n}-\dim I_N=\mathrm{HF}_{R/I}(N).
+$$
+
+The ground-state degeneracy of $H_N$ is the Hilbert function of $R/I$; for $N$ beyond the regularity it is the Hilbert polynomial, whose degree is $\dim V(I)$ and whose leading coefficient is $\deg V(I)/(\dim V)!$. The range of $H_N$ is $I_N$ itself, so the projector onto $I_N$ is the step function $\Theta(H_N)$. *Numerically:* $\dim\ker H_N$ agreed with an independent exact rank of the Macaulay matrix for the conic ($2N+1$), the twisted cubic ($3N+1$), the rational normal quartic ($4N+1$), a monomial ideal, two generic quadrics in $\mathbb P^3$ ($4N$) and the boolean ideals of Section 6, and $\operatorname{span}\{z^\beta f_j\}\perp\ker H_N$ held to $10^{-14}$.
+
+**Fact 2.2 (identification).** $(I_N)^\perp=\{q\in R_N:\bar f(\partial)q=0\ \forall f\in I\}$ is the degree-$N$ part of the *Macaulay inverse system* of $\bar I$ (apolarity; Macaulay 1916, Iarrobino–Kanev 1999), and for a principal ideal $R_N=fR_{N-m}\oplus\ker\bar f(\partial)$ is Fischer's decomposition (Fischer 1918; Shapiro 1989). For general $I$ the orthogonal decomposition $R_N=I_N\oplus I_N^\perp$ is elementary, but the identification of the complement with the inverse system is the useful content. The map $(R/I)_N\to(I_N)^\perp$, $[q]\mapsto P_0q$, is an isomorphism, so the ground space *is* the graded quotient ring as a vector space; its multiplicative structure is the compression of the creation operators, $P_{0,N+1}\,a_j^\dagger\,P_{0,N}=$ multiplication by $z_j$ on $(R/I)_N\to(R/I)_{N+1}$.
+
+**Operator-theoretic dictionary.** With the Bombieri–Weyl norm the graded sum $\bigoplus_NR_N$ is the Drury–Arveson space $H^2_{n+1}$, Arveson's $d$-shift is $S_j=a_j^\dagger/\sqrt{\hat N+1}$ (the creation operator normalised to a contraction), the closure of $I$ is a graded submodule, and $\bigoplus_N(I_N)^\perp$ is the quotient module $H^2_{n+1}/[I]$ on which the compressed $S_j$ act. Arveson's curvature invariant equals the Euler characteristic for graded modules (Arveson 2000) and, by Fang (2003), is the leading multiplicity of the Hilbert polynomial of $R/I$; the dimension of the module is $\deg p_{R/I}+1$. The Arveson–Douglas conjecture (essential normality of these compressed shifts, Schatten class $p>\dim$ of the affine cone) is proved for principal, monomial, one-dimensional and radical-linear-union cases and for varieties smooth away from the origin (Engliš–Eschmeier 2015; Douglas–Tang–Yu 2016), and open in general as of 2025. None of this is new, but it is exactly the mathematics of the ground spaces here, and the notes' objects have standard names there.
+
+**Fact 2.3 (the notes' worked example).** For $f=z_0z_1-z_2^2$: $a(f)z_0z_1z_2^2=z_2^2-2z_0z_1$ and $a(f)(z_0z_1+cz_2^2)=1-2c$, so $c=1/2$, both as in the notes. The line "$1-2\overset{?}{=}-1$" has a sign slip: $a(f)f=\partial_0\partial_1(z_0z_1)+\partial_2^2(z_2^2)=1+2=3=\|f\|^2$. In degree 2, $\dim\ker H_2=5=2\cdot2+1$.
+
+## 3. What kind of "local" Hamiltonian this is
+
+Under $R_N\cong\mathrm{Sym}^N(\mathbb{C}^{n+1})$ (unitarily, $|k\rangle\mapsto$ the normalised symmetrisation of $|0\rangle^{\otimes k_0}\cdots|n\rangle^{\otimes k_n}$), a degree-$m$ form $f$ corresponds to the symmetric tensor
+
+$$
+|F\rangle=\sum_\alpha f_\alpha\frac{\alpha!}{m!}\sum_{w:\ \mathrm{content}(w)=\alpha}|w\rangle\in\mathrm{Sym}^m,\qquad
+\langle F|F\rangle=\sum_\alpha|f_\alpha|^2\frac{\alpha!}{m!}=\|f\|^2_{\mathrm{BW}},
+$$
+
+so the Bombieri–Weyl norm is the natural tensor norm. On symmetric states $a_{j_1}\cdots a_{j_m}=\sqrt{N!/(N-m)!}\,\langle j_1\cdots j_m|_{1..m}\otimes\mathbb 1$, hence
+
+$$
+H_N\;\cong\;P_{\mathrm{sym}}\Bigl[\sum_jm_j!\sum_{|S|=m_j}\bigl(|F_j\rangle\langle F_j|\bigr)_S\Bigr]P_{\mathrm{sym}} ,
+$$
+
+a permutation-symmetric sum of rank-one $m_j$-body positive terms ($\|f_j\|^2_{\mathrm{BW}}$ times a projector), compressed to the symmetric subspace; individual subset terms do not preserve $\mathrm{Sym}^N$, only the symmetrised sum does. This is a *bosonic analogue* of quantum $k$-SAT: forbidden $m_j$-body states $|F_j\rangle$, but restricted to the symmetric sector and with every forbidden state replicated over all subsets. It is not a Bravyi instance on distinguishable particles. In physical terms the generators are number-conserving multi-boson interactions: for the conic, $H=n_0n_1+n_2(n_2-1)-(a_0^\dagger a_1^\dagger a_2^2+\text{h.c.})$, which is the spin-mixing Hamiltonian of a spin-1 spinor condensate in the single-mode approximation (Law–Pu–Bigelow 1998, with $(z_0,z_1,z_2)\leftrightarrow(a_{+1},a_{-1},a_0)$); its ferromagnetic phase has exactly $2N+1$ degenerate ground states, the Hilbert function of the conic, so this quadric ideal has already been realised in the laboratory. "Local" here means: each term moves $m_j$ bosons (it can change up to $2m_j$ occupation numbers) and is $m_j$-body on the qudit register. It is not local on the qubit register a quantum computer would use (occupation numbers in binary); there $H_N$ is a sparse, efficiently row-computable operator, which is the right notion for QSVT (Section 5).
+
+**Consequences.**
+
+- *Points of the variety are the product states in the ground space.* The normalised spin-coherent state $|p\rangle^{\otimes N}$, $\|p\|=1$, is the polynomial $(p\cdot z)^N/\sqrt{N!}$, and the reproducing property $\langle(p\cdot z)^N,q\rangle=N!\,q(\bar p)$ gives
+
+$$
+|p\rangle^{\otimes N}\in\ker H_N\iff q(\bar p)=0\ \ \forall q\in I_N\iff\bar p\in V(I_N),
+$$
+
+  with $V(I_N)=V(I)$ for $N\ge\max_jm_j$. A point $x\in V(I)$ corresponds to the physical state $|\bar x\rangle^{\otimes N}$. The energy of a coherent state is a weighted sum of squares of the equations,
+
+$$
+\langle p^{\otimes N}|H_N|p^{\otimes N}\rangle=\sum_j\frac{N!}{(N-m_j)!}\,|f_j(\bar p)|^2,\qquad\|p\|=1,
+$$
+
+  *numerically* exact to $10^{-15}$, conjugation included (a complex quadric and a point with $f(p)=0\ne f(\bar p)$: the state of $p$ has energy $O(N^2)$, the state of $\bar p$ has energy $10^{-16}$).
+
+- *Reduced structure.* $\operatorname{span}\{|p\rangle^{\otimes N}:\bar p\in V\}=(I(V)_N)^\perp$ with $I(V)$ the vanishing ideal. So the ground space is spanned by coherent states of points of $V$ exactly when $I_N=I(V)_N$ (degreewise; global radicality and saturation need this for all large $N$). Otherwise the ground space contains $\dim I(V)_N-\dim I_N$ additional, necessarily entangled, states carrying non-reduced or irrelevant-torsion structure.
+
+- *Multigraded (Segre) version.* With variables $z_{i,s}$, $i=1..n$ (sites), $s=0..q-1$ (levels), the multidegree $(1,\dots,1)$ sector of $\mathbb{C}[z_{i,s}]$ is $(\mathbb{C}^q)^{\otimes n}$ with $z_{1,s_1}\cdots z_{n,s_n}\leftrightarrow|s_1\cdots s_n\rangle$, orthonormal (all Fock norms are $1$). A multilinear form $f$ on a set $S$ of sites gives
+
+$$
+a^\dagger(f)a(f)\big|_{(1,\dots,1)}=|f\rangle\langle f|_S\otimes\mathbb 1
+$$
+
+  *exactly*, no factorials (checked to machine precision for 3 to 12 sites; e.g. three generic bilinear forms on the three pairs of a 3-qubit system leave a 2-dimensional inverse system, three singlet projectors leave the 4-dimensional spin-$3/2$ multiplet). Hence every quantum $k$-SAT instance is the $(1,\dots,1)$ block of an ideal generated by $k$-multilinear forms: a rank-$r$ local projector is split into $r$ rank-one ones, which preserves the Hamiltonian and its gap. Product-state solutions are the points of the multiprojective variety $V(I)\subset(\mathbb{P}^{q-1})^n$; entangled solutions are the rest of the inverse system in that multidegree.
+
+**Proposition 3.1 (translation of the QSAT theorems).** For ideals generated by $k$-multilinear forms across $n$ blocks of $q$ variables, the promise problem "$\mathrm{HF}_{R/I}(1,\dots,1)>0$, or the smallest eigenvalue of $H_{(1,\dots,1)}$ is $\ge1/\mathrm{poly}(n)$" is in P for $k=2$, $q=2$ (Bravyi 2006; for bilinear forms across blocks of unequal sizes such as $(2,5)$ it is already $\mathrm{QMA}_1$-complete, Rudolph–Gharibian–Nagaj 2024) and $\mathrm{QMA}_1$-complete for $k=3$, $q=2$ (Gosset–Nagaj 2013); with monomial generators it is classical $k$-SAT, NP-complete for $k\ge3$. Without the NO-gap promise, exact vanishing of the Hilbert function at $(1,\dots,1)$ is not thereby placed in $\mathrm{QMA}_1$. The geometric question $V(I)\ne\emptyset$ (product-state satisfiability) is, by the Nullstellensatz, non-vanishing of the Hilbert function in *all* large multidegrees, not just at $(1,\dots,1)$. This is the cleanest statement of what "encoding a variety in a ground state" buys: the Hilbert function at the multilinear degree is the linear-algebra relaxation of the geometric question, and it is already quantum-hard.
+
+## 4. The notes' second half: a parent Hamiltonian for the ideal itself
+
+The notes try to build $H'$ with $\ker H'=I_N$ (rather than $I_N^\perp$) by summing shifted projectors, $H\mapsto\sum_\alpha J^\alpha HJ^{\alpha\dagger}$, and correctly notice an AND/OR problem. The obstruction is exact: the kernel of a sum of positive operators is the *intersection* of the kernels (AND), whereas $I_N=\operatorname{span}_\beta\{z^\beta f_j\}$ is a *span* (OR); $\bigcap_\alpha J^\alpha(\ker H_0)$ is far too small.
+
+Two notions of locality must be kept apart, and the answer is negative in both, except when the whole ideal lives in boundedly many modes.
+
+**Fact 4.1 (no $k$-body parent Hamiltonian for $I_N$).** Let $0\ne I_N\ne R_N$ and $N\ge k+\min_jm_j$. If $T\ge0$ is a $k$-body operator on the symmetric sector with $T(I_N)=0$, then $T=0$ on $\mathrm{Sym}^N$. Proof sketch: $T$ vanishes on the joint support of the $k$-body marginals of $I_N$; a vector $u\in\mathrm{Sym}^k$ orthogonal to that support satisfies, by the contraction formula of Section 3, $\bar u(\partial)(fh)=0$ for a generator $f$ and all $h\in R_{N-m}$. Take $h=\ell^{N-m}$ with $\ell$ a linear form, $u(\ell)\ne0$, $\ell\nmid f$ (possible since $u\ne0$ and $f$ has finitely many linear factors); in coordinates with $\ell=z_0$ the coefficient of the lowest power $z_0^{N-m-k}$ in $\bar u(\partial)(fz_0^{N-m})$ is $(N-m)_k\,\overline{u(\ell)}\,f|_{z_0=0}\ne0$. So the marginals have full support and $T=0$. This applies to monomial ideals too: for $I=(z_0)$ the projector $P_{I_N^\perp}=(\mathbb 1-|0\rangle\langle0|)^{\otimes N}$ is $N$-body, and $\theta(\hat n_0)$ is not fixed-body local.
+
+**Fact 4.2 (few-mode parents exist only for ideals confined to few modes).** In the mode (second-quantised) sense, if $I$ is generated by forms in the modes of a bounded set $A$ (after a unitary change of variables), then $I_N=\bigoplus_r(I\cap R(A))_r\otimes R(A^c)_{N-r}$ and $\mathbb 1-P_{I\cap R(A)}$ is an $|A|$-mode operator (an unbounded function of the mode operators, legitimate as an on-site term in a Bose–Hubbard sense, but not a local Hamiltonian in the complexity-theoretic sense) with kernel $I_N$. Conversely, a common kernel of positive operators each supported on a bounded mode set is an intersection of few-mode conditions, while $I_N=\sum_j(f_j)_N$ is a union-type (OR) condition: for a monomial ideal whose generator supports cannot be covered by any of the allowed mode sets, e.g. $(z_0z_1,z_2z_3,\dots,z_{2r}z_{2r+1})$ with $r$ large, any few-mode $T\ge0$ annihilating $I_N$ also annihilates every $|k\rangle$ with at least two bosons outside its mode set (extend $k$ outside the set to occupy a generator), so the common kernel is strictly larger than $I_N$. Note the property is not invariant under change of generators, e.g. $(z_0+z_1,z_0-z_1)=(z_0,z_1)$ is confined to two modes.
+
+What *is* available:
+
+- $P_{I_N}=\Theta(H_N)$ by QSVT, at cost $O(\alpha/\Delta_N\cdot\log\epsilon^{-1})$ uses of an $\alpha$-normalised block encoding of $H_N$ (Section 5). Non-local, but efficient whenever $\Delta_N/\alpha$ is not too small.
+- The "unitary version of $L_f^\dagger$" the notes ask for is the isometry in the polar decomposition $M_f=U_f|M_f|$ of multiplication by $f$, $M_f:R_{N-m}\to R_N$; $U_f$ maps $R_{N-m}$ isometrically onto $(f)_N$ and is a QSVT singular-value transformation of $M_f$, at cost $\sigma_{\max}/\sigma_{\min}$ of $M_f$, which by Fact 7.1 is $O(N^{m/2})$.
+- The shift operators $J_j$ of the notes are the isometric parts of $a_j^\dagger=J_j\sqrt{\hat n_j+1}$, unilateral shifts on $\ell^2(\mathbb{Z}_+)$. A *graded* subspace invariant under all $a_j^\dagger$ is exactly a homogeneous ideal, since a graded subspace closed under multiplication by each $z_j$ is an ideal; invariance under the $J_j$ is a different condition (the occupation-dependent factor $\sqrt{\hat n_j+1}$ does not preserve a general ideal). Without the grading the invariant-subspace lattice is larger (Beurling's $\theta H^2$ in one variable), and this is Arveson's Hilbert-module setting. Passing to $\ell^2(\mathbb{Z})$ (Laurent polynomials) makes the shifts unitary but destroys positivity of the grading and the Fock structure.
+
+## 5. What a quantum computer can do with $H_N$: quantum linear algebra on Macaulay matrices
+
+Let $\Phi_N:\bigoplus_jR_{N-m_j}\to R_N$, $(h_j)\mapsto\sum_jf_jh_j$ be the degree-$N$ Macaulay map in Fock norms. Then $H_N=\Phi_N\Phi_N^\dagger$, $\ker\Phi_N=\mathrm{Syz}(I)_N$, and
+
+$$
+\Delta_N:=\lambda^{\ne0}_{\min}(H_N)=\sigma^{\ne0}_{\min}(\Phi_N)^2,\qquad
+\|H_N\|\le\sum_j\frac{N!}{(N-m_j)!}\|f_j\|^2_{\mathrm{BW}}\le d\,N^m\max_j\|f_j\|^2_{\mathrm{BW}} .
+$$
+
+**Input model and resources.** Generators with $\mathrm{poly}(n)$ monomials and $\mathrm{poly}(n)$-bit coefficients; $N$ given in unary (the tasks below are polynomial in $N$, never in $\log N$). The register holds $k=(k_0,\dots,k_n)$, $\sum k_j=N$, in $O(n\log N)$ qubits. $H_N$ has row sparsity $\le\sum_j(\#\text{monomials of }f_j)^2$ and entries $\sum_j\overline{f_{j,\alpha}}f_{j,\beta}\sqrt{k!\,(k-\alpha+\beta)!}/(k-\alpha)!$, computable reversibly in $\mathrm{poly}(n,\log N)$ time, so a sparse-access block encoding with normalisation $\alpha=O(s\max|H_{xy}|)=\mathrm{poly}(n)\,N^{m}\max\|f_j\|^2$ is available. QSVT then gives, at cost
+
+$$
+T=\mathrm{poly}(n^m,d)\times\frac{\alpha}{\Delta_N}\times\log\frac1\epsilon
+$$
+
+block-encoding uses, any of: $P_0$ (projector onto $(I_N)^\perp\cong(R/I)_N$), $\Theta(H_N)$ (projector onto $I_N$), the polar isometries $U_f$, and eigenvalue-resolved access to $H_N$. A degree $N$ exponential in $n$ is cheap in *qubits* only: $\alpha/\Delta_N$ and all precision targets scale polynomially in $N$, so the running time is exponential there. All promises below are on the *normalised* gap $\Delta_N/\alpha$; the absolute $\Delta_N$ changes under rescaling generators.
+
+**Task list, with the three cost factors** (spectral $\alpha/\Delta_N$; overlap, i.e. the weight of the prepared state on the target subspace; readout, cheap only for global linear-algebraic quantities).
+
+1. *Distance to the ideal.* Given a sparse $f\in R_N$, estimate $\langle f|P_0|f\rangle/\|f\|^2=\mathrm{dist}_{\mathrm{BW}}(f,I_N)^2/\|f\|^2$ to additive $\epsilon$: cost $\tilde O(T/\epsilon)$ with amplitude estimation. This decides "$f\in I_N$ or $f$ is $\epsilon$-far" but is fundamentally an *estimation* problem, and its hardness (Conjecture 8.1) is stated as such. Exact membership is EXPSPACE-complete (Mayr–Meyer) only for unbounded degree; at fixed $N$ it is linear algebra of dimension $\binom{N+n}{n}$, and the advantage is exponential in $n$ only in the promise regime.
+2. *Normalised Hilbert function.* $\mathrm{HF}(N)/\binom{N+n}{n}=\mathrm{Tr}P_0/\dim R_N$ to additive $\epsilon$, by DQC1-style trace estimation (a maximally mixed state on the composition register plus controlled QSVT; membership in DQC1 proper is not claimed), cost $\tilde O(T/\epsilon^2)$. Exact or multiplicative estimates are out of reach (Section 6). The normalised value is informative for low codimension: for $\operatorname{codim}V=c$, $\deg V=D$ and $N$ in the stable range, $\mathrm{HF}(N)/\binom{N+n}{n}\approx D\frac{n!}{(n-c)!}N^{-c}$, so $c$ and $D$ are readable when $c=O(1)$ and the error is below $\frac12\frac{n!}{(n-c)!}N^{-c}$ after controlling lower-order terms.
+3. *Random elements.* Applying $P_0$ to the maximally mixed state of $R_N$ yields the mixed state $P_0/\mathrm{HF}(N)$ (not a Haar-random pure quotient element, which is not efficiently preparable); applying $\Theta(H_N)$ yields $P_{I_N}/\dim I_N$. Sampling monomials from these is a "random Macaulay row" sampler whose classical analogue is trivial, so no advantage.
+4. *Quantum Stickelberger (direction, not a claim).* For $I$ saturated with $R/I$ a zero-dimensional scheme of length $D$ and $z_0$ a non-zero-divisor, $\mathrm{HF}(N)=D$ for $N\ge\mathrm{reg}$ and the compressed operators $Z_j=P_{0,N+1}a_j^\dagger P_{0,N}$ satisfy $Z_j=Z_0X_j$ with $X_j$ the multiplication by $x_j=z_j/z_0$ transported to $(I_N)^\perp$; the eigenvalues of $X_j$ are the coordinates of the points (Stickelberger), with Jordan blocks at non-reduced points. The $X_j$ commute but are not normal, so phase estimation does not apply; a QSVT singular-value scan of $Z_j-\lambda Z_0$ is the natural substitute, with cost controlled by pseudospectral/eigenvector conditioning, not by coordinate separation alone. The setting is attractive because $D$ may be exponential in $n$ while the register is $O(n\log N)$ qubits; the hardness sits in the overlap factor (Conjecture 8.6).
+5. *Adiabatic preparation via Gröbner degeneration.* Take a weight $w$ and generators $g_1,\dots,g_r$ forming a $w$-Gröbner basis of $I$ with $\mathrm{in}_w(g_j)$ single monomials (generic $w$). Scale each monomial $z^\alpha$ of $g_j$ by $t^{\max_{\alpha'}w\cdot\alpha'-w\cdot\alpha}$, $t\in[0,1]$. By Eisenbud Thm 15.17 (after $t\mapsto1/t$) this is a flat family with $I_0=\mathrm{in}_w(I)$ *precisely because the $g_j$ are a Gröbner basis*; for an arbitrary generating set the $t=0$ fibre $(\mathrm{in}_wf_j)$ can be smaller than $\mathrm{in}_w(I)$ and the kernel dimension jumps up there. For $t>0$ the family is a diagonal coordinate change, so constancy of $\dim I_N(t)$ is trivial; the content is $t=0$, where $H_N(0)$ is diagonal with ground states the standard monomials and $\Delta_N(0)\ge\min_j|c_j|^2\alpha^{(j)}!$ in terms of the leading coefficients $c_j$ (presentation-dependent: rescaling a generator changes the gap, not the ideal). *Numerically* (twisted cubic, whose $2\times2$ minors are a Gröbner basis for $w=(0,1,4,9)$, $N\le9$): kernel dimension $3N+1$ for all $t\in[10^{-10},1]$, $\Delta_N(t)$ decreasing monotonically from $\approx0.85N$ at $t=1$ to exactly $1$ at $t=0$, so $\min_t\Delta_N(t)=1$ independent of $N$ and $\min_t\Delta_N(t)/\|H_N(t)\|\approx2.5N^{-1.75}$. Adiabatic evolution transports one initial standard monomial at a time into a ground state; the transported basis is related to any canonical basis of $(R/I)_N$ by the non-abelian holonomy of the path, and the degenerate-ground-space adiabatic theorem applies because the kernel dimension is constant. This "adiabatic Gröbner deformation" looks genuinely new.
+6. *Homotopy paths.* For $f_t=(1-t)g+tf$ the Hilbert function of $R/I_t$ is upper semicontinuous in $t$: it can be larger at isolated special $t$ (an excited eigenvalue of $H_N(t)$ touches zero there) and drops back immediately after. Complex $t$ is allowed ($H_N(t)$ stays Hermitian positive). But constancy of the Hilbert function does not see root collisions (the scheme length is constant while roots merge), so this is *not* the discriminant avoidance of Beltrán–Pardo/Lairez; what an adiabatic root tracker would need is control of the spectrum of the compressed multiplication operators along the path, which is a different and harder question.
+
+**5.7 What the distance-to-ideal quantity is, geometrically.** The quantity in task 1, $\delta(f)^2:=\langle f|P_0|f\rangle/\|f\|^2$, looks artificial only if one insists on exact membership. It has several standard readings.
+
+- *Quotient norm.* $\delta(f)=\|[f]\|$ for the Hilbert norm on $(R/I)_N$ induced from Bombieri–Weyl, i.e. the norm of the Drury–Arveson quotient module $H^2_{n+1}/[I]$.
+- *Restriction norm of a section to $V$.* The map $f\mapsto(p\mapsto\langle p^{\otimes N}|f\rangle)$ is an isometry onto the reproducing-kernel space of the kernel $\langle p,q\rangle^N$, and for radical $I$ in the stable range $P_0$ is the projector onto the closed span of the kernel functions at points of $V$ (Aronszajn). Hence
+
+$$
+\delta(f)^2=\frac{\|f|_V\|^2_{\mathrm{RKHS}(V)}}{\|f\|^2}\;\asymp\;N^{\dim V-n}\,\frac{\int_V|f|^2_{h^N}\,d\mathrm{vol}_V}{\int_{\mathbb P^n}|f|^2_{h^N}\,d\mathrm{vol}},
+$$
+
+  with comparison constants from Bergman-kernel asymptotics (Tian–Zelditch–Catlin) and Ohsawa–Takegoshi extension. The promise "$f\in I$ or $\delta(f)\ge\epsilon$" says the hypersurface $\{f=0\}$ either contains $V$ or misses it by a definite $L^2$ amount, a Łojasiewicz-type or quantitative-Nullstellensatz separation. $P_0$ itself is the degree-$N$ Bergman projector of $V$ written in ambient monomial coordinates, so Section 5 is quantum access to the Bergman kernel of a projective variety.
+- *Polynomial-kernel machine learning.* The Bombieri–Weyl space is the reproducing-kernel space of the homogeneous polynomial kernel $(x\cdot y)^N$. For a finite point set $X$, $\delta(f)^2\|f\|^2=f_X^\dagger G^{-1}f_X$ with $G$ the coherent-state Gram matrix and $f_X$ the evaluation vector; its diagonal approximation $\sum_{x\in X}|f(x)|^2$ is the objective of approximate vanishing ideals and Vanishing Component Analysis (Heldt–Kreuzer–Pokutta–Poulisse 2009; Livni et al. 2013), where "distance to the vanishing ideal of the data" is the working notion.
+- *Ground-space overlap.* In Hamiltonian-complexity terms $\delta(f)^2$ is the weight of a guiding state on the ground space of a gapped frustration-free Hamiltonian, the guided-local-Hamiltonian family of problems (Gharibian–Le Gall 2022 and successors), which is the source of the BQP intuition in Conjecture 8.1.
+
+Once $P_0$ is the Bergman projector, its bilinear and trace versions are geometric quantities that classical methods reach only through root-finding:
+
+- coherent inputs give the Berezin symbol $\langle p^{\otimes N}|P_0|p^{\otimes N}\rangle$, a smooth indicator of $V$ at Fubini–Study resolution $N^{-1/2}$ whose Tian–Zelditch expansion $N^{\dim V}\pi^{-\dim V}(1+S(p)/2N+\dots)$ carries the scalar curvature $S$ of $V$ in the induced Fubini–Study metric (classically easy by differentiating the equations, so no advantage);
+- two ideals give $\mathrm{Tr}(P_IP_J)$, which localises on $V\cap W$ at scale $N^{-1/2}$: its growth exponent in $N$ is $\dim(V\cap W)$, and for disjoint varieties it decays like $\cos^{2N}$ of the Fubini–Study distance between them, so the normalised overlap estimates intersection dimension or the distance between two varieties without forming $I+J$;
+- Toeplitz traces $\mathrm{Tr}(P_0T_g)/\mathrm{HF}(N)$ with $g(z,\bar z)$ a polynomial, so that $T_g$ is a normal-ordered bosonic observable, converge by Berezin–Toeplitz theory (Bordemann–Meinrenken–Schlichenmaier) to $\int_Vg\,d\mathrm{vol}_V/\mathrm{vol}(V)$: quantum integration over an algebraic variety.
+
+The fair classical competitor for all three is Monte Carlo on $V$: cut with a random linear space of complementary dimension, whose intersection points are Fubini–Study-distributed on $V$ by the kinematic formula, find them by homotopy continuation, and average. Its cost is governed by the condition number of the slice systems (average polynomial for Kostlan-random data, Beltrán–Pardo and Lairez), the quantum cost by $\alpha/\Delta_N$. Whether these two condition numbers are related is the research question this analysis points to (Conjecture 8.11).
+
+## 6. Where speedups cannot come from (hardness anchors)
+
+- **Exact Hilbert function is #P-hard.** The boolean ideal $J=(z_i^2-z_iz_0)_{i=1}^n$ is a radical, saturated complete intersection of $n$ quadrics with $\mathrm{HF}(N)=\sum_{i\le\min(N,n)}\binom ni$, equal to $2^n$ from $N=n$ on (*numerically* confirmed for $n\le5$), and $(R/J)_N$ is the full function algebra on $\{0,1\}^n$ for $N\ge n$. Adjoining homogenised cubic clause forms of a 3-CNF $\phi$ (a clause form vanishing at $[1:x]$ iff the clause is satisfied) gives an ideal $K$ whose dehomogenisation is radical with $V=\{[1:x]:x\models\phi\}$; the homogeneous $K$ is generally neither radical nor saturated (irrelevant torsion), but since cubic multiples generate all functions supported on unsatisfying assignments once $N\ge n+3$, $\mathrm{HF}_{R/K}(N)=\#\mathrm{SAT}(\phi)$ for $N\ge n+3$ (*numerically*: 45 random and constructed instances with $n=3,\dots,7$, exact Gröbner/GF($p$) ranks; stabilisation happens by $N=n+2$, and for $N$ below that the Hilbert function overshoots, e.g. $29,57,71,57,29,9,2,1$ for a unique-solution instance with $n=7$). So an exact quantum evaluation of $\mathrm{HF}$ would give $\#\mathrm{P}\subseteq\mathrm{FBQP}$, and a multiplicative approximation $\mathrm{NP}\subseteq\mathrm{BQP}$. Already for squarefree monomial ideals the Hilbert series is #P-hard to evaluate (standard monomials of a graph ideal are independent sets; Dickenstein–Tobis 2012), and there $H_N$ is diagonal. The DQC1-style additive version is the only realistic target.
+- **Kernel non-triviality.** $\ker H_N\ne0\iff\phi$ satisfiable is NP-hard; $\ker H_N=0$ is coNP-hard; via Proposition 3.1 the promise version is $\mathrm{QMA}_1$-hard. No spectral-gap promise rescues *decision* of frustration-freeness. Hilbert's Nullstellensatz problem (non-emptiness of $V$ over $\mathbb{C}$) is NP-hard and in AM under GRH (Koiran 1996), emptiness in coAM; it becomes "$\ker H_N=0$" at $N\sim d^n$ (Kollár), representable but exponentially expensive in time.
+- **Overlap factors.** For a task solved by black-box projection of a prepared state onto a subspace of dimension $\mathrm{HF}(N)$, the cost is at least the inverse root of the state's weight on that subspace; from the maximally mixed state this is $\sqrt{\dim R_N/\mathrm{HF}(N)}$. This is not a universal lower bound: structured ideals may admit efficiently preparable states with large weight on the ground space (Conjecture 8.6 uses exactly this).
+- **Prior art on HHL for Macaulay matrices.** Chen–Gao (2018/2022) run an HHL solver on a Macaulay linear system over $\mathbb{C}$ encoding a Boolean system, with cost polynomial in the condition number; Ding–Gheorghiu–Gilyén–Hallgren–Li (Quantum 2023) prove that this condition number is exponentially large unless the solution has Hamming weight $O(\log n)$, so Grover wins. Their system is a different Macaulay matrix (a solve for a particular vector) and there is no established reduction between their condition number and the quantities here; but the lesson is the same: in the hard instances the cost hides in a normalisation, not in a spectral gap, and any claim here must survive that test. The related "bosonic quantum computational complexity" framework (Chabaud–Joseph–Mehraban–Motamedi 2024) concerns unbounded-particle bosonic models and is different from the fixed-$N$ symmetric sector here.
+- **Fixed mode number is classically easy.** Permutation-invariant Hamiltonians on $N$ qudits of *fixed* local dimension have ground states and expectation values computable classically in time polynomial in $N$ by Schur-basis block diagonalisation (Anschuetz–Bauer–Kiani–Lloyd 2023). Here the local dimension is $n+1$, so this covers exactly the regime "fixed ideal, growing $N$" and confirms independently that any advantage must come from growing $n$.
+- **Dequantisation.** $H_N$ is sparse and high-rank, so low-rank dequantisation does not apply to it; $P_0$ has rank $\mathrm{HF}(N)$, polynomial in $N$ for bounded $\dim V$ but possibly exponential in $n$ through the degree, and classical low-rank methods need sample-and-query access and conditioning besides rank.
+
+## 7. The central unknown: the Macaulay gap $\Delta_N$
+
+Everything with a potential exponential speedup is governed by
+
+$$
+\Delta_N=\min\Bigl\{\frac{\|\sum_jf_jh_j\|^2}{\sum_j\|h_j\|^2}:\ (h_j)\in\bigoplus_jR_{N-m_j},\ (h_j)\perp\mathrm{Syz}(I)_N\Bigr\},
+$$
+
+a *quantitative syzygy* constant: how close a non-syzygy can come to being one. For one generator this is the Bombieri–Beauzamy–Enflo–Montgomery inequality $[fh]_{\mathrm{BW}}\ge\sqrt{m!(N-m)!/N!}\,[f]_{\mathrm{BW}}[h]_{\mathrm{BW}}$, which in Fock normalisation reads $\|fh\|\ge\|f\|\,\|h\|$:
+
+**Fact 7.1 (principal ideals are uniformly gapped).** For $I=(f)$, $\Delta_N\ge\|f\|^2_{\mathrm{Fock}}=m!\,\|f\|^2_{\mathrm{BW}}$ for all $N\ge m$. The bound is attained whenever, after a unitary change of variables, the extra degree can be placed in a linear subspace orthogonal to the variables $f$ depends on (e.g. $f=z_0^m$, $h=z_1^{N-m}$; or $f=z_0+z_1$, $h=(z_0-z_1)^{N-1}$); in one variable $\Delta_N=N!/(N-m)!$. For the conic, $a(f)a^\dagger(f)=a^\dagger(f)a(f)+\hat n_0+\hat n_1+4\hat n_2+3$ gives $\Delta_N\ge N+1$, and *numerically* $\Delta_N=N+1$ exactly for $N\le30$.
+
+**Fact 7.2 (quadrics: the gap grows at a rate set by the distance to the cones).** Any quadric can be brought by a *unitary* change of variables (Takagi factorisation of its complex symmetric matrix) to $f=\sum_jd_jw_j^2$ with $d_j\ge0$ the Takagi values and $w_j$ orthonormal linear forms; this preserves the Bombieri–Weyl norm and turns $b_j=a(w_j)$ into canonical modes. Then $[a(f),a^\dagger(f)]=\sum_jd_j^2(4\hat n_j+2)$, and since $a(f)a^\dagger(f)=a^\dagger(f)a(f)+[a(f),a^\dagger(f)]$ on $R_{N-2}$,
+
+$$
+4d_{\min}^2(N-2)+\|f\|^2_{\mathrm{Fock}}\;\le\;\Delta_N\;\le\;d_{\min}^2N(N-1)+\|f\|^2_{\mathrm{Fock}}-2d_{\min}^2 ,
+$$
+
+the upper bound from $h=w_{\min}^{N-2}$. For the conic, $d=(1/2,1/2,1)$ and the lower bound is $N+1$, which is the exact value found numerically. So the gap of a quadric grows at least linearly with slope $4d_{\min}^2$, where $d_{\min}$ is the Bombieri–Weyl distance from $f$ to the quadrics of deficient rank, i.e. to the cones; a cone ($d_{\min}=0$) has bounded gap. This explains the "flat" random quadric in $\mathbb P^4$ in the survey (a $5\times5$ Gaussian symmetric matrix typically has a small Takagi value, so the growth is slow) and the pinned pyramid example below.
+
+For several generators no such inequality seems to be in the literature. $\Delta_N$ depends on the generating tuple, not only on $I$: $(f_1,f_1+\epsilon f_2)$ generates the same ideal as $(f_1,f_2)$ for $\epsilon\ne0$ and has $\Delta_N=O(\epsilon^2)$. What is known or easy:
+
+- monomial ideals: $H_N$ is diagonal with integer entries $\sum_j\prod_ik_i!/(k_i-\alpha^{(j)}_i)!$, so $\Delta_N\ge1$; e.g. $\|H_N\|=N(N-1)(N-2)$ exactly for $(z_0^2,z_0z_1,z_1^3)$;
+- binomial (toric) ideals: $H_N$ is exactly block diagonal over the fibres of the $A$-grading; each block is a weighted graph Laplacian on the fibre whose one-dimensional kernel is spanned by the fibre sum $q_u=\sum_{Ak=u}z^k/k!$ (the exponential generating function of the fibre, *numerically* exact), so the degeneracy is the number of fibres and $\Delta_N=\min_u\lambda_2(H_u)$. The fibre graphs get denser faster than they get longer: for the twisted cubic $\Delta_N/N\to0.854$ and for the rational normal quartic $\Delta_N\approx0.61N^{1.05}$, not the naive $N^{-2}$. But growth is not general: for the toric ideal $(x_{00}x_{11}-x_{01}x_{10})$ of the pyramid over a square, with apex variable $y$ absent from the relation, $h=y^{N-2}$ attains Fact 7.1 and $\Delta_N=2$ for all $N$ (*numerically* exact for $N\le8$; the same binomial without $y$ has $\Delta_N=N$ exactly, and adjoining an unused variable to the twisted cubic flattens its gap from $0.85N$ to exactly $2$ for $N\le12$). Any lower bound growing with $N$ must therefore exclude ideals extended from a subring;
+- Bombieri–Weyl norms are $U(n+1)$-invariant, so $\Delta_N$ is a unitary invariant of the generator tuple, the quantity that would appear in a Shub–Smale/Bürgisser–Cucker condition theory for the Macaulay map.
+
+**Numerical survey** (exact diagonalisation, dimensions up to a few thousand; unit-coefficient generators as written).
+
+| ideal | $\Delta_N$ | $\|H_N\|$ | $\|H_N\|/\Delta_N$ |
+|---|---|---|---|
+| conic in $\mathbb P^2$, $N\le30$ | $N+1$ exactly | $\approx N^2$ | $\approx N$ |
+| twisted cubic, $N\le22$ | $0.80N^{1.03}$ | $\approx N^2$ | $1.08N^{1.01}$ |
+| $(z_0^2,z_0z_1,z_1^3)$, $N\le40$ | $1$ exactly | $N(N-1)(N-2)$ | $\approx0.6N^{3.1}$ |
+| rational normal quartic, $N\le13$ | $0.61N^{1.05}$ | $\approx N^2$ | $1.5N^{0.97}$ |
+| two generic quadrics in $\mathbb P^3$, $N\le22$ | $0.11N^{0.66}$ | $0.44N^2$ | $3.3N^{1.39}$ |
+| boolean ideal, $\mathbb P^3$–$\mathbb P^5$, $N\le14$ | $\to2$, then $N^{0.05\text{–}0.4}$ | $1.3N^2$ | $N^{1.7\text{–}2.1}$ |
+| one random quadric in $\mathbb P^2/\mathbb P^3/\mathbb P^4$ | $N^{1.04}/N^{0.56}/\approx1.75$ | $\approx N^2$ | $N^{1.0}/N^{1.5}/N^{1.9}$ |
+
+At fixed $N$ and growing $n$: the boolean ideal has $\Delta_{n+1}=2$ for $n=2,\dots,6$ (numerically, not a theorem), and random quadric ideals at $N=3,4$ have $\Delta\approx0.7$–$1.2$, flat in $n$. For every "algebraic-geometry" family tested, $\Delta_N$ is bounded below by a constant and $\|H_N\|/\Delta_N$ grows like $N^1$ to $N^3$.
+
+The gap does close in the multigraded QSAT sector: a chain of nearest-neighbour singlet projectors on $m$ qubits has $\Delta=9.13m^{-1.97}$ ($m^2\Delta\to\pi^2$, the ferromagnetic Heisenberg gap), and random frustration-free 2-local chains have median $\Delta\approx m^{-3.5}$ over $m\le11$ (a power law fits better than an exponential, but $m\le11$ cannot exclude a slow exponential). Since the multigraded sector realises every frustration-free projector Hamiltonian, $\Delta$ inherits every known pathology, including exponentially small gaps (Proposition 8.3(d)). The numerics suggest a dichotomy: fixed ideal and growing $N$ is benign; growing $n$ with spin-chain-like generators is where hardness lives.
+
+## 8. What is a theorem, what is a conjecture
+
+**Theorems (some new as statements, none deep).** Facts 2.1–2.3, 4.1, 4.2, 7.1, 7.2; Propositions 3.1 and 8.2; the identifications of 5.7 (quotient norm, RKHS restriction norm, polynomial-kernel norm); the coherent-state characterisation $\operatorname{span}\{|p\rangle^{\otimes N}:\bar p\in V\}=(I(V)_N)^\perp$ and hence "$\ker H_N$ is spanned by product states iff $I_N=I(V)_N$"; the toric fibre-sum description of the ground space; flatness and constant kernel dimension along a Gröbner-basis degeneration; Arveson's curvature = leading multiplicity of the Hilbert polynomial (Arveson 2000, Fang 2003).
+
+**Conjecture 8.1 (distance-to-ideal estimation is BQP-hard and in BQP).** Input: multi-homogeneous generators of degree $\le m=O(1)$ in $\mathrm{poly}(n)$ variables with $\mathrm{poly}(n)$-bit coefficients of unit Bombieri–Weyl norm, a multidegree sector (or total degree $N\le\mathrm{poly}(n)$), a $\mathrm{poly}(n)$-sparse unit vector $f$ in that sector, thresholds $a<b$ with $b-a\ge1/\mathrm{poly}(n)$, and the promise $\Delta/\alpha\ge1/\mathrm{poly}(n)$ for the Hamiltonian *restricted to that sector*. Decide whether $\langle f|P_0|f\rangle\le a$ or $\ge b$. Containment is Section 5.1 (the block encoding can be restricted to the invariant sector). Hardness sketch: embed the Feynman–Kitaev Hamiltonian $H_{\mathrm{in}}+H_{\mathrm{prop}}$ of a BQP circuit $U=U_T\cdots U_1$ into the $(1,\dots,1)$ sector via Section 3; it is frustration-free with unique ground state (the history state) and gap $\Omega(T^{-2})$ in that sector; for the normalised two-monomial states $f_\pm=(|0,\mathrm{clock}=0\rangle\pm|y,\mathrm{clock}=T\rangle)/\sqrt2$, $\langle f_\pm|P_0|f_\pm\rangle=|1\pm\overline{\langle y|U|0\rangle}|^2/(2(T+1))$, whose difference is $2\,\mathrm{Re}\langle y|U|0\rangle/(T+1)$, and deciding the sign of $\mathrm{Re}\langle y|U|0\rangle$ against a $1/\mathrm{poly}$ threshold is BQP-hard (the standard matrix-element problem). Degree $m=5$ should suffice; $m=2$ is plausible via 2-local frustration-free universality gadgets. This is hardness for *estimating the distance*; the exact "member or $\epsilon$-far" problem is not what the reduction produces.
+
+**Proposition 8.2 (bosonic QSAT is $\mathrm{QMA}_1$-hard).** The symmetric-sector analogue of QSAT (ordinary grading, $N=n$ bosons in $2n$ modes, generators of degree $\le3$, promise version) is $\mathrm{QMA}_1$-hard. Reduction: take a Gosset–Nagaj instance on $n$ qubits as multilinear cubic generators in the site-block variables $z_{i,s}$, and add the hard-core generators $z_{i,s}z_{i,s'}$ for all $i$ and all $s\le s'$ (squares included). Every generator preserves the per-site occupation pattern, so $H_n$ is block diagonal in that pattern; on the pattern $(1,\dots,1)$ the hard-core terms vanish and the block is exactly the QSAT Hamiltonian (Section 3); on every other pattern some site holds $\ge2$ bosons and the diagonal hard-core part alone is $\ge1$. Hence $\ker H_n$ is the QSAT ground space and the nonzero spectrum is $\ge\min(\Delta_{\mathrm{QSAT}},1)$. (Without the hard-core terms the construction fails: any state with all bosons in one block is a spurious zero mode.)
+
+**Conjecture 8.3 (gap classes).** Fock normalisation, unit Bombieri–Weyl generators, $N\ge\max m_j$:
+
+(a) *Uniform Bombieri inequality for ideals.* For every fixed generating tuple, $\inf_N\Delta_N>0$: there is $c(f_1,\dots,f_d)>0$ with $\|\sum_jf_jh_j\|^2\ge c\,\mathrm{dist}((h_j),\mathrm{Syz}_N)^2$ for all $N$. This is Fact 7.1 for $d=1$, holds for monomial ideals with monic generators with $c=\min_j\alpha^{(j)}!$ (a lower bound, not necessarily $\inf_N\Delta_N$), and is consistent with all numerics. It is a closed-range statement for the Macaulay map on the graded Fock module and is genuinely open. Consequence: $\alpha/\Delta_N=\mathrm{poly}(N)$ for every fixed ideal, so the Section 5 tasks are polynomial in $N$ at fixed $I$ (with $N$ in unary), and quantum advantage is entirely a question of the dependence on $n$ and the generator structure.
+
+(b) *Cones versus growth.* If $I$ is extended from a subring, i.e. after a unitary change of variables the generators omit a variable $w$ (so $V$ is a cone with vertex the point dual to $w$), then $h_j=w^{N-m_j}$ shows $\Delta_N\le\min_j\|f_j\|^2$ up to the syzygy correction: the gap is pinned to a constant (the pyramid example, and the twisted cubic with a dummy variable, both numerically flat at $2$). Conjecture: conversely, for a hypersurface $\Delta_N\to\infty$ linearly iff $V(f)$ is not a cone, i.e. iff the partials $\partial_0f,\dots,\partial_nf$ are linearly independent, with slope controlled by the Bombieri–Weyl distance from $f$ to the locus of cones (for quadrics this is Fact 7.2 with slope $4d_{\min}^2$); and for toric ideals $\Delta_N=\min_u\lambda_2(H_u)$, a weighted Poincaré constant of the fibre graphs, grows linearly iff the toric variety is not a cone.
+
+(c) *Generic forms.* For $d\le n+1$ independent Kostlan-random forms of degree $m$ normalised to unit Bombieri–Weyl norm, $\Pr[\inf_{N\ge m}\Delta_N\ge c(m)]\to1$ as $n\to\infty$, with $c(m)>0$ independent of $n$. Evidence is thin (flat in $n$ at $N=3,4$; $\Delta_N\ge0.1N^{0.66}$ for two generic quadrics in $\mathbb P^3$). The natural proof route is a least-singular-value estimate for the structured random Macaulay map in the Bombieri–Weyl basis, where $U(n+1)$-invariance makes the distribution tractable.
+
+(d) *Hard instances exist (essentially a theorem).* For every fixed $m\ge2$ there are ideals generated by $\mathrm{poly}(n)$ forms of degree $m$ with $\Delta/\alpha\le2^{-\Omega(n)}$ in a multigraded sector specified by polynomially many sites (of dimension $q^n$): the area-weighted Motzkin chains of Levine–Movassagh (2017) are 2-local, frustration-free, with gap $\le8ns\,t^{-n^2/3}$, and the multigraded embedding transfers the spectrum; for $m>2$ pad each term by a complete rank-one decomposition of the identity on $m-2$ auxiliary sites. So there is no general polynomial-time quantum algorithm for the Section 5 tasks without a gap promise. Random frustration-free 2-local chains appear to be only polynomially gapped ($\approx m^{-3.5}$ numerically), so typical multigraded instances are not the hard ones.
+
+(e) *Presentation dependence (question, not conjecture).* $c$ in (a) is a property of the tuple. Is there a lower bound on $\inf_N\Delta_N$ in terms of finitely many degrees, e.g. $\min_{N\le N_0}\Delta_N$ with $N_0=\mathrm{reg}(I)+\max m_j$, or in terms of the Bombieri–Weyl distance of the tuple to the locus of tuples with an extra syzygy in degrees $\le N_0$? Whether $\inf_N\Delta_N$ is attained at finite $N$ or only asymptotically is open in both directions.
+
+**Conjecture 8.4 (adiabatic Gröbner deformation).** Fix a reduced $w$-Gröbner basis $G$ of $I$ with unit Bombieri–Weyl elements and the one-parameter degeneration of 5.5. (a) For toric ideals, determinantal ideals of generic matrices, and complete intersections of $d\le n$ forms, $\min_{t\in[0,1]}\Delta_N(t)$ is attained at the monomial end $t=0$, where $\Delta_N(0)\ge\min_j|c_j|^2\alpha^{(j)}!$ ($c_j$ the leading coefficients; equality is not general, e.g. $f=x^2y+xy^2$ with $w_x>w_y$ has $\Delta_4(0)=4|c|^2$), so $\min_t\Delta_N(t)$ is bounded below independently of $N$ while $\|H_N(t)\|=O(N^m)$; hence each standard monomial can be transported adiabatically to a ground state of $H_N$ in time $\mathrm{poly}(N)$. Evidence: the twisted cubic, $\min_t\Delta_N(t)=\Delta_N(0)=1$ for $N=3,\dots,9$, with $\Delta_N(t)$ monotone in $t$. Neither flatness nor a fixed ideal gives spectral monotonicity in $t$ by itself. (b) Define the adiabatic Gröbner complexity of $I$ at degree $N$ as $\min_w\max_{t\in[0,1]}\alpha(t)/\Delta_N(t)$, the minimum over weight vectors $w$ in the open cones of the Gröbner fan (monomial initial ideal), with $G$ the corresponding reduced Gröbner basis normalised to unit Bombieri–Weyl norm and $\alpha(t)$ the block-encoding normalisation. Conjecture: it is polynomial in $(n,N)$ for the classes in (a) and exponential in $n$ for the instances of 8.3(d).
+
+**Conjecture 8.5 (entangled defect).** The theorem part is in the list above; the conjectural part is descriptive: for zero-dimensional $I$ in the stable range (where irrelevant torsion has vanished), $\dim I(V)_N-\dim I_N=\operatorname{length}(\operatorname{Proj}R/I)-\#V$, and the ground-space vectors orthogonal to all coherent states of points of $V$ are spanned by the local inverse systems at the non-reduced points, i.e. by the jets $D(\partial_p)|p\rangle^{\otimes N}$ of coherent states along the differential functionals in Macaulay's local dual at each point (first derivatives for curvilinear double points, higher jets in general). A quantum radicality test does not follow: the coherent states of the points are non-orthogonal with a Gram matrix that can be exponentially ill-conditioned, and a root-sampling oracle does not give the projector onto their span.
+
+**Conjecture 8.6 (root sampling is Grover-limited).** For the boolean-plus-clause ideal $K$ of Section 6 with $D$ solutions and $N\ge n+3$: (i) $\Delta_N(K)/\alpha\ge1/\mathrm{poly}(n)$. *Numerically*, at $N=n+3$ over 54 instances with $n=3,\dots,8$ (random 3-CNF at clause ratios $2$ and $4.2$, UNSAT instances, unique-solution instances) the smallest nonzero eigenvalue stays in $[0.29,2.3]$ while $2^n$ grows by $32\times$; exponential and power-law fits are both statistically empty ($R^2\le0.16$), and the pure boolean part has $\Delta=2$ throughout. The normalised quantity $\|H_N\|/\Delta_N$ does grow, $2.8\times10^3\to2.0\times10^4$, fitting $n^{2.1}$ and $e^{0.43n}$ about equally well over six points, because $\|H_N\|\approx4.2n$ cubics of norm $N^3$; so the gap is not where the hardness is, but the normalised-gap conjecture is still only supported, not established; (ii) for $N=\Omega(n\log(n/\varepsilon))$ the Gram matrix of the $2^n$ coherent states $|\hat p_x\rangle^{\otimes N}$, $\hat p_x=(1,x)/\sqrt{1+|x|}$, is $\varepsilon$-close to the identity in operator norm (nearest neighbours have overlap $\approx e^{-N/(2n)}$, and the number of neighbours at Hamming distance $r$ is $\binom nr$), so $\Psi\propto\sum_x|\hat p_x\rangle^{\otimes N}$ is normalised by $2^{-n/2}$ up to $O(\varepsilon)$ (the logarithmic factor is necessary: *numerically* the smallest Gram eigenvalue of the full hypercube family is $3.5e^{-0.85n}$ at $N=n+3$ and still $0.7e^{-0.35n}$ at $N=2n$, while the Gram matrix restricted to the satisfying assignments of a random instance is well conditioned, $\lambda_{\min}\ge0.13$; at $N=n+3$ the weight $\langle\Psi|P_0|\Psi\rangle$ exceeds $D/2^n$ by factors $1$–$12$); $\Psi$ is preparable to trace distance $O(\sqrt{\varepsilon})$ by preparing $\sum_x|x\rangle|\hat p_x\rangle^{\otimes N}$ and uncomputing $x$ from the occupation pattern, which determines it except with probability $\le n\,e^{-N/(n+1)}$; and $\Psi$ has weight $D/2^n+O(\varepsilon)$ on $\ker H_N(K)$; (iii) hence projecting $\Psi$ onto the ground space and reading a root off the occupation pattern samples a solution, uniformly up to $O(\varepsilon)$, in time $\mathrm{poly}(n,N)\cdot\alpha/\Delta_N\cdot\sqrt{2^n/D}$. This is an upper bound achieving Grover's scaling for this projection method; no lower bound against other algorithms is claimed. Starting instead from the maximally mixed state gives weight $D/\binom{2n+3}{n}\approx D\,4^{-n}$, which is *worse* than Grover; the earlier draft got this wrong. The Chen–Gao/Ding et al. obstruction is the analogous statement for their Macaulay linear system.
+
+**Conjecture 8.7 (normalised Hilbert function and low codimension).** For ideals with $\operatorname{codim}V=c=O(1)$, regularity $\le\mathrm{poly}(n)$ and $N\ge\mathrm{poly}(n)$ in the stable range, a DQC1-style estimate of $\mathrm{HF}(N)/\dim R_N$ to additive error below $\frac12\frac{n!}{(n-c)!}N^{-c}$ at a few values of $N$ determines $c$ and $\deg V$ in time $\mathrm{poly}(n,N,\alpha/\Delta_N)$, polynomial for the classes in 8.3(c). Classically, the Hilbert polynomial of $d\le n+1$ *generic* forms is known (Koszul), so any advantage is for *structured* low-codimension ideals with many generators and non-trivial syzygies, whose Hilbert functions are not known in closed form (the regime of Fröberg's conjecture, though the additive precision is far too coarse to test that conjecture).
+
+**Conjecture 8.8 (finite fields: no compact analogue).** Macaulay's duality survives over $\mathbb{F}_q$ via the divided-power/contraction action (ordinary differentiation fails, $\partial x^p=0$), and it is realised quantumly as Fourier duality between the uniform superpositions over $I_N$ and over its contraction-dual, on the additive group $\mathbb{F}_q^{\dim R_N}$ (with the syzygy module as the hidden subgroup of the explicitly known map $(h_j)\mapsto\sum h_jf_j$, which yields no advantage over finite-field Gaussian elimination). That register has $\dim R_N\log q$ qubits. The compact amplitude encoding of the complex construction cannot be transported because $\mathbb{F}_q$ does not embed in $\mathbb{C}$ as a field, so complex linear algebra does not preserve $\mathbb{F}_q$-ranks or products; the realistic finite-field analogue is HHL/QSVT on complex Macaulay systems that *encode* $\mathbb{F}_q$-constraints (Chen–Gao), with the Ding et al. obstruction. This is the one direction in the notes that I think does not work.
+
+**Conjecture 8.9 (operator-theoretic dictionary as a conditioning statement).** The compressed shifts $Z_j$ on the ground spaces commute exactly; the Arveson–Douglas conjecture says $[Z_i,Z_j^\dagger]$ is Schatten-$p$ for $p>\dim V+1$ (affine-cone dimension), i.e. the tuple is *asymptotically normal* as $N\to\infty$. Conjecture (zero-dimensional case only, where $X_j=\mu_{z_0}^{-1}\mu_{z_j}$ is defined on a fixed stabilised ground space): for a reduced zero-dimensional scheme with $z_0$ a non-zero-divisor, the eigenvector condition number of the commuting tuple $(X_j)$ on $(I_N)^\perp$, $N\ge\mathrm{reg}$, is bounded by a polynomial in $N$, the inverse coordinate separation of the points, the coefficient height and the presentation conditioning $\alpha/\Delta_N$; for non-reduced points it degrades with the local multiplicity through the Jordan structure. This is what would make the direction 5.4 well-conditioned in the reduced case. Essential normality alone gives no finite-$N$ bound, and ordinary phase estimation does not apply to non-normal $Z_j$, so this is a conjecture about pseudospectra, not a consequence of the Arveson–Douglas theory.
+
+**Conjecture 8.10 (geometric overlaps).** For radical $I,J$ with smooth $V,W$ in the stable range: (a) $\mathrm{Tr}(P_IP_J)=c\,N^{\dim(V\cap W)}(1+O(1/N))$ when $V\cap W\ne\emptyset$ is transversal, with $c$ a positive combination of the degrees of the components of $V\cap W$ and angle factors; (b) $\mathrm{Tr}(P_IP_J)\le\mathrm{HF}_I(N)\,\mathrm{HF}_J(N)\cos^{2N}d_{FS}(V,W)$ when $V\cap W=\emptyset$, with $-\frac1{2N}\log\mathrm{Tr}(P_IP_J)\to\log\sec d_{FS}(V,W)$; (c) for $g$ a polynomial in $z,\bar z$, $\mathrm{Tr}(P_0T_g)/\mathrm{HF}(N)=\frac{1}{\mathrm{vol}V}\int_Vg\,d\mathrm{vol}_V+O(1/N)$ with the $1/N$ term given by the Berezin–Toeplitz expansion (Laplacian and scalar-curvature corrections). All three are DQC1-style estimable in time $\mathrm{poly}(n,N,\alpha/\Delta_N,1/\epsilon)$ to additive $\epsilon$ in the normalised form; (a) and (c) are informative for low codimension.
+
+**Conjecture 8.11 (Macaulay gap versus condition number).** For a reduced complete intersection $V$ of $d\le n$ forms of degree $m$ with unit Bombieri–Weyl norm and Bürgisser–Cucker condition number $\mu_{\max}(V)=\sup_{p\in V}\mu_{\mathrm{norm}}(f,p)$, the normalised gap satisfies $\Delta_N/\alpha\ge1/\mathrm{poly}(n,N,\mu_{\max})$; conversely, singular $V$ (infinite $\mu_{\max}$) forces $\Delta_N/\alpha\to0$ faster than any power of $N$ only through cone-type degenerations, so that $\liminf_N\Delta_N>0$ still holds (Conjecture 8.3(a)). If true, the quantum cost of the Bergman-projector tasks of 5.7 and the classical cost of Monte Carlo on $V$ by random slicing and homotopy continuation are controlled by the same condition quantity, and the comparison reduces to polynomial factors.
+
+## 9. Corrections and small remarks on the notes
+
+1. $\{z:\sum|z_j|^2=1\}$ is $S^{2n+1}$, not $\mathbb{CP}^n$; the associated qudit has dimension $n+1$.
+2. $L^2(\mathbb{CP}^n)$ should be the holomorphic (Hardy/Bergman/Fock) space; $h_N=H^0(\mathcal O(N))=\mathrm{Sym}^N\mathbb{C}^{n+1}$.
+3. $a(f)$ must carry conjugated coefficients, $a(f)=\bar f(\partial)$, for $H$ to be the positive operator $\sum a^\dagger(f_j)a(f_j)$; with the sphere normalisation the adjoint of $z_j$ is $\partial_j(D+n)^{-1}$, harmless within a fixed degree. Points of $V$ correspond to coherent states of the *conjugate* vectors.
+4. "$1-2\overset?=-1$" should be $1+2=3=\|f\|^2$.
+5. "$\ker(H+H')\subset\ker H$" and the perturbation remark are right; the clean test is $f\in I_N\iff P_0|f\rangle=0$, and its quantitative version is the estimation problem of Conjecture 8.1.
+6. The AND/OR issue is exactly intersection versus span of kernels. Monomial ideals escape only in the few-mode (number-operator) sense; no fixed-body parent exists even for $(z_0)$. The general substitute is $\Theta(H_N)$ via QSVT.
+7. "This should allow finite field": see Conjecture 8.8.
+8. The boolean ideal's Hilbert function reaches $2^n$ at $N=n$, not $n+1$.
+
+exec
+/bin/bash -lc "sed -n '95,225p' seed/analysis-2026-09-01/report.md" in /home/tobias/Projects/quantum-algorithms-for-algebraic-geometry
+ succeeded in 0ms:
+a^\dagger(f)a(f)\big|_{(1,\dots,1)}=|f\rangle\langle f|_S\otimes\mathbb 1
+$$
+
+  *exactly*, no factorials (checked to machine precision for 3 to 12 sites; e.g. three generic bilinear forms on the three pairs of a 3-qubit system leave a 2-dimensional inverse system, three singlet projectors leave the 4-dimensional spin-$3/2$ multiplet). Hence every quantum $k$-SAT instance is the $(1,\dots,1)$ block of an ideal generated by $k$-multilinear forms: a rank-$r$ local projector is split into $r$ rank-one ones, which preserves the Hamiltonian and its gap. Product-state solutions are the points of the multiprojective variety $V(I)\subset(\mathbb{P}^{q-1})^n$; entangled solutions are the rest of the inverse system in that multidegree.
+
+**Proposition 3.1 (translation of the QSAT theorems).** For ideals generated by $k$-multilinear forms across $n$ blocks of $q$ variables, the promise problem "$\mathrm{HF}_{R/I}(1,\dots,1)>0$, or the smallest eigenvalue of $H_{(1,\dots,1)}$ is $\ge1/\mathrm{poly}(n)$" is in P for $k=2$, $q=2$ (Bravyi 2006; for bilinear forms across blocks of unequal sizes such as $(2,5)$ it is already $\mathrm{QMA}_1$-complete, Rudolph–Gharibian–Nagaj 2024) and $\mathrm{QMA}_1$-complete for $k=3$, $q=2$ (Gosset–Nagaj 2013); with monomial generators it is classical $k$-SAT, NP-complete for $k\ge3$. Without the NO-gap promise, exact vanishing of the Hilbert function at $(1,\dots,1)$ is not thereby placed in $\mathrm{QMA}_1$. The geometric question $V(I)\ne\emptyset$ (product-state satisfiability) is, by the Nullstellensatz, non-vanishing of the Hilbert function in *all* large multidegrees, not just at $(1,\dots,1)$. This is the cleanest statement of what "encoding a variety in a ground state" buys: the Hilbert function at the multilinear degree is the linear-algebra relaxation of the geometric question, and it is already quantum-hard.
+
+## 4. The notes' second half: a parent Hamiltonian for the ideal itself
+
+The notes try to build $H'$ with $\ker H'=I_N$ (rather than $I_N^\perp$) by summing shifted projectors, $H\mapsto\sum_\alpha J^\alpha HJ^{\alpha\dagger}$, and correctly notice an AND/OR problem. The obstruction is exact: the kernel of a sum of positive operators is the *intersection* of the kernels (AND), whereas $I_N=\operatorname{span}_\beta\{z^\beta f_j\}$ is a *span* (OR); $\bigcap_\alpha J^\alpha(\ker H_0)$ is far too small.
+
+Two notions of locality must be kept apart, and the answer is negative in both, except when the whole ideal lives in boundedly many modes.
+
+**Fact 4.1 (no $k$-body parent Hamiltonian for $I_N$).** Let $0\ne I_N\ne R_N$ and $N\ge k+\min_jm_j$. If $T\ge0$ is a $k$-body operator on the symmetric sector with $T(I_N)=0$, then $T=0$ on $\mathrm{Sym}^N$. Proof sketch: $T$ vanishes on the joint support of the $k$-body marginals of $I_N$; a vector $u\in\mathrm{Sym}^k$ orthogonal to that support satisfies, by the contraction formula of Section 3, $\bar u(\partial)(fh)=0$ for a generator $f$ and all $h\in R_{N-m}$. Take $h=\ell^{N-m}$ with $\ell$ a linear form, $u(\ell)\ne0$, $\ell\nmid f$ (possible since $u\ne0$ and $f$ has finitely many linear factors); in coordinates with $\ell=z_0$ the coefficient of the lowest power $z_0^{N-m-k}$ in $\bar u(\partial)(fz_0^{N-m})$ is $(N-m)_k\,\overline{u(\ell)}\,f|_{z_0=0}\ne0$. So the marginals have full support and $T=0$. This applies to monomial ideals too: for $I=(z_0)$ the projector $P_{I_N^\perp}=(\mathbb 1-|0\rangle\langle0|)^{\otimes N}$ is $N$-body, and $\theta(\hat n_0)$ is not fixed-body local.
+
+**Fact 4.2 (few-mode parents exist only for ideals confined to few modes).** In the mode (second-quantised) sense, if $I$ is generated by forms in the modes of a bounded set $A$ (after a unitary change of variables), then $I_N=\bigoplus_r(I\cap R(A))_r\otimes R(A^c)_{N-r}$ and $\mathbb 1-P_{I\cap R(A)}$ is an $|A|$-mode operator (an unbounded function of the mode operators, legitimate as an on-site term in a Bose–Hubbard sense, but not a local Hamiltonian in the complexity-theoretic sense) with kernel $I_N$. Conversely, a common kernel of positive operators each supported on a bounded mode set is an intersection of few-mode conditions, while $I_N=\sum_j(f_j)_N$ is a union-type (OR) condition: for a monomial ideal whose generator supports cannot be covered by any of the allowed mode sets, e.g. $(z_0z_1,z_2z_3,\dots,z_{2r}z_{2r+1})$ with $r$ large, any few-mode $T\ge0$ annihilating $I_N$ also annihilates every $|k\rangle$ with at least two bosons outside its mode set (extend $k$ outside the set to occupy a generator), so the common kernel is strictly larger than $I_N$. Note the property is not invariant under change of generators, e.g. $(z_0+z_1,z_0-z_1)=(z_0,z_1)$ is confined to two modes.
+
+What *is* available:
+
+- $P_{I_N}=\Theta(H_N)$ by QSVT, at cost $O(\alpha/\Delta_N\cdot\log\epsilon^{-1})$ uses of an $\alpha$-normalised block encoding of $H_N$ (Section 5). Non-local, but efficient whenever $\Delta_N/\alpha$ is not too small.
+- The "unitary version of $L_f^\dagger$" the notes ask for is the isometry in the polar decomposition $M_f=U_f|M_f|$ of multiplication by $f$, $M_f:R_{N-m}\to R_N$; $U_f$ maps $R_{N-m}$ isometrically onto $(f)_N$ and is a QSVT singular-value transformation of $M_f$, at cost $\sigma_{\max}/\sigma_{\min}$ of $M_f$, which by Fact 7.1 is $O(N^{m/2})$.
+- The shift operators $J_j$ of the notes are the isometric parts of $a_j^\dagger=J_j\sqrt{\hat n_j+1}$, unilateral shifts on $\ell^2(\mathbb{Z}_+)$. A *graded* subspace invariant under all $a_j^\dagger$ is exactly a homogeneous ideal, since a graded subspace closed under multiplication by each $z_j$ is an ideal; invariance under the $J_j$ is a different condition (the occupation-dependent factor $\sqrt{\hat n_j+1}$ does not preserve a general ideal). Without the grading the invariant-subspace lattice is larger (Beurling's $\theta H^2$ in one variable), and this is Arveson's Hilbert-module setting. Passing to $\ell^2(\mathbb{Z})$ (Laurent polynomials) makes the shifts unitary but destroys positivity of the grading and the Fock structure.
+
+## 5. What a quantum computer can do with $H_N$: quantum linear algebra on Macaulay matrices
+
+Let $\Phi_N:\bigoplus_jR_{N-m_j}\to R_N$, $(h_j)\mapsto\sum_jf_jh_j$ be the degree-$N$ Macaulay map in Fock norms. Then $H_N=\Phi_N\Phi_N^\dagger$, $\ker\Phi_N=\mathrm{Syz}(I)_N$, and
+
+$$
+\Delta_N:=\lambda^{\ne0}_{\min}(H_N)=\sigma^{\ne0}_{\min}(\Phi_N)^2,\qquad
+\|H_N\|\le\sum_j\frac{N!}{(N-m_j)!}\|f_j\|^2_{\mathrm{BW}}\le d\,N^m\max_j\|f_j\|^2_{\mathrm{BW}} .
+$$
+
+**Input model and resources.** Generators with $\mathrm{poly}(n)$ monomials and $\mathrm{poly}(n)$-bit coefficients; $N$ given in unary (the tasks below are polynomial in $N$, never in $\log N$). The register holds $k=(k_0,\dots,k_n)$, $\sum k_j=N$, in $O(n\log N)$ qubits. $H_N$ has row sparsity $\le\sum_j(\#\text{monomials of }f_j)^2$ and entries $\sum_j\overline{f_{j,\alpha}}f_{j,\beta}\sqrt{k!\,(k-\alpha+\beta)!}/(k-\alpha)!$, computable reversibly in $\mathrm{poly}(n,\log N)$ time, so a sparse-access block encoding with normalisation $\alpha=O(s\max|H_{xy}|)=\mathrm{poly}(n)\,N^{m}\max\|f_j\|^2$ is available. QSVT then gives, at cost
+
+$$
+T=\mathrm{poly}(n^m,d)\times\frac{\alpha}{\Delta_N}\times\log\frac1\epsilon
+$$
+
+block-encoding uses, any of: $P_0$ (projector onto $(I_N)^\perp\cong(R/I)_N$), $\Theta(H_N)$ (projector onto $I_N$), the polar isometries $U_f$, and eigenvalue-resolved access to $H_N$. A degree $N$ exponential in $n$ is cheap in *qubits* only: $\alpha/\Delta_N$ and all precision targets scale polynomially in $N$, so the running time is exponential there. All promises below are on the *normalised* gap $\Delta_N/\alpha$; the absolute $\Delta_N$ changes under rescaling generators.
+
+**Task list, with the three cost factors** (spectral $\alpha/\Delta_N$; overlap, i.e. the weight of the prepared state on the target subspace; readout, cheap only for global linear-algebraic quantities).
+
+1. *Distance to the ideal.* Given a sparse $f\in R_N$, estimate $\langle f|P_0|f\rangle/\|f\|^2=\mathrm{dist}_{\mathrm{BW}}(f,I_N)^2/\|f\|^2$ to additive $\epsilon$: cost $\tilde O(T/\epsilon)$ with amplitude estimation. This decides "$f\in I_N$ or $f$ is $\epsilon$-far" but is fundamentally an *estimation* problem, and its hardness (Conjecture 8.1) is stated as such. Exact membership is EXPSPACE-complete (Mayr–Meyer) only for unbounded degree; at fixed $N$ it is linear algebra of dimension $\binom{N+n}{n}$, and the advantage is exponential in $n$ only in the promise regime.
+2. *Normalised Hilbert function.* $\mathrm{HF}(N)/\binom{N+n}{n}=\mathrm{Tr}P_0/\dim R_N$ to additive $\epsilon$, by DQC1-style trace estimation (a maximally mixed state on the composition register plus controlled QSVT; membership in DQC1 proper is not claimed), cost $\tilde O(T/\epsilon^2)$. Exact or multiplicative estimates are out of reach (Section 6). The normalised value is informative for low codimension: for $\operatorname{codim}V=c$, $\deg V=D$ and $N$ in the stable range, $\mathrm{HF}(N)/\binom{N+n}{n}\approx D\frac{n!}{(n-c)!}N^{-c}$, so $c$ and $D$ are readable when $c=O(1)$ and the error is below $\frac12\frac{n!}{(n-c)!}N^{-c}$ after controlling lower-order terms.
+3. *Random elements.* Applying $P_0$ to the maximally mixed state of $R_N$ yields the mixed state $P_0/\mathrm{HF}(N)$ (not a Haar-random pure quotient element, which is not efficiently preparable); applying $\Theta(H_N)$ yields $P_{I_N}/\dim I_N$. Sampling monomials from these is a "random Macaulay row" sampler whose classical analogue is trivial, so no advantage.
+4. *Quantum Stickelberger (direction, not a claim).* For $I$ saturated with $R/I$ a zero-dimensional scheme of length $D$ and $z_0$ a non-zero-divisor, $\mathrm{HF}(N)=D$ for $N\ge\mathrm{reg}$ and the compressed operators $Z_j=P_{0,N+1}a_j^\dagger P_{0,N}$ satisfy $Z_j=Z_0X_j$ with $X_j$ the multiplication by $x_j=z_j/z_0$ transported to $(I_N)^\perp$; the eigenvalues of $X_j$ are the coordinates of the points (Stickelberger), with Jordan blocks at non-reduced points. The $X_j$ commute but are not normal, so phase estimation does not apply; a QSVT singular-value scan of $Z_j-\lambda Z_0$ is the natural substitute, with cost controlled by pseudospectral/eigenvector conditioning, not by coordinate separation alone. The setting is attractive because $D$ may be exponential in $n$ while the register is $O(n\log N)$ qubits; the hardness sits in the overlap factor (Conjecture 8.6).
+5. *Adiabatic preparation via Gröbner degeneration.* Take a weight $w$ and generators $g_1,\dots,g_r$ forming a $w$-Gröbner basis of $I$ with $\mathrm{in}_w(g_j)$ single monomials (generic $w$). Scale each monomial $z^\alpha$ of $g_j$ by $t^{\max_{\alpha'}w\cdot\alpha'-w\cdot\alpha}$, $t\in[0,1]$. By Eisenbud Thm 15.17 (after $t\mapsto1/t$) this is a flat family with $I_0=\mathrm{in}_w(I)$ *precisely because the $g_j$ are a Gröbner basis*; for an arbitrary generating set the $t=0$ fibre $(\mathrm{in}_wf_j)$ can be smaller than $\mathrm{in}_w(I)$ and the kernel dimension jumps up there. For $t>0$ the family is a diagonal coordinate change, so constancy of $\dim I_N(t)$ is trivial; the content is $t=0$, where $H_N(0)$ is diagonal with ground states the standard monomials and $\Delta_N(0)\ge\min_j|c_j|^2\alpha^{(j)}!$ in terms of the leading coefficients $c_j$ (presentation-dependent: rescaling a generator changes the gap, not the ideal). *Numerically* (twisted cubic, whose $2\times2$ minors are a Gröbner basis for $w=(0,1,4,9)$, $N\le9$): kernel dimension $3N+1$ for all $t\in[10^{-10},1]$, $\Delta_N(t)$ decreasing monotonically from $\approx0.85N$ at $t=1$ to exactly $1$ at $t=0$, so $\min_t\Delta_N(t)=1$ independent of $N$ and $\min_t\Delta_N(t)/\|H_N(t)\|\approx2.5N^{-1.75}$. Adiabatic evolution transports one initial standard monomial at a time into a ground state; the transported basis is related to any canonical basis of $(R/I)_N$ by the non-abelian holonomy of the path, and the degenerate-ground-space adiabatic theorem applies because the kernel dimension is constant. This "adiabatic Gröbner deformation" looks genuinely new.
+6. *Homotopy paths.* For $f_t=(1-t)g+tf$ the Hilbert function of $R/I_t$ is upper semicontinuous in $t$: it can be larger at isolated special $t$ (an excited eigenvalue of $H_N(t)$ touches zero there) and drops back immediately after. Complex $t$ is allowed ($H_N(t)$ stays Hermitian positive). But constancy of the Hilbert function does not see root collisions (the scheme length is constant while roots merge), so this is *not* the discriminant avoidance of Beltrán–Pardo/Lairez; what an adiabatic root tracker would need is control of the spectrum of the compressed multiplication operators along the path, which is a different and harder question.
+
+**5.7 What the distance-to-ideal quantity is, geometrically.** The quantity in task 1, $\delta(f)^2:=\langle f|P_0|f\rangle/\|f\|^2$, looks artificial only if one insists on exact membership. It has several standard readings.
+
+- *Quotient norm.* $\delta(f)=\|[f]\|$ for the Hilbert norm on $(R/I)_N$ induced from Bombieri–Weyl, i.e. the norm of the Drury–Arveson quotient module $H^2_{n+1}/[I]$.
+- *Restriction norm of a section to $V$.* The map $f\mapsto(p\mapsto\langle p^{\otimes N}|f\rangle)$ is an isometry onto the reproducing-kernel space of the kernel $\langle p,q\rangle^N$, and for radical $I$ in the stable range $P_0$ is the projector onto the closed span of the kernel functions at points of $V$ (Aronszajn). Hence
+
+$$
+\delta(f)^2=\frac{\|f|_V\|^2_{\mathrm{RKHS}(V)}}{\|f\|^2}\;\asymp\;N^{\dim V-n}\,\frac{\int_V|f|^2_{h^N}\,d\mathrm{vol}_V}{\int_{\mathbb P^n}|f|^2_{h^N}\,d\mathrm{vol}},
+$$
+
+  with comparison constants from Bergman-kernel asymptotics (Tian–Zelditch–Catlin) and Ohsawa–Takegoshi extension. The promise "$f\in I$ or $\delta(f)\ge\epsilon$" says the hypersurface $\{f=0\}$ either contains $V$ or misses it by a definite $L^2$ amount, a Łojasiewicz-type or quantitative-Nullstellensatz separation. $P_0$ itself is the degree-$N$ Bergman projector of $V$ written in ambient monomial coordinates, so Section 5 is quantum access to the Bergman kernel of a projective variety.
+- *Polynomial-kernel machine learning.* The Bombieri–Weyl space is the reproducing-kernel space of the homogeneous polynomial kernel $(x\cdot y)^N$. For a finite point set $X$, $\delta(f)^2\|f\|^2=f_X^\dagger G^{-1}f_X$ with $G$ the coherent-state Gram matrix and $f_X$ the evaluation vector; its diagonal approximation $\sum_{x\in X}|f(x)|^2$ is the objective of approximate vanishing ideals and Vanishing Component Analysis (Heldt–Kreuzer–Pokutta–Poulisse 2009; Livni et al. 2013), where "distance to the vanishing ideal of the data" is the working notion.
+- *Ground-space overlap.* In Hamiltonian-complexity terms $\delta(f)^2$ is the weight of a guiding state on the ground space of a gapped frustration-free Hamiltonian, the guided-local-Hamiltonian family of problems (Gharibian–Le Gall 2022 and successors), which is the source of the BQP intuition in Conjecture 8.1.
+
+Once $P_0$ is the Bergman projector, its bilinear and trace versions are geometric quantities that classical methods reach only through root-finding:
+
+- coherent inputs give the Berezin symbol $\langle p^{\otimes N}|P_0|p^{\otimes N}\rangle$, a smooth indicator of $V$ at Fubini–Study resolution $N^{-1/2}$ whose Tian–Zelditch expansion $N^{\dim V}\pi^{-\dim V}(1+S(p)/2N+\dots)$ carries the scalar curvature $S$ of $V$ in the induced Fubini–Study metric (classically easy by differentiating the equations, so no advantage);
+- two ideals give $\mathrm{Tr}(P_IP_J)$, which localises on $V\cap W$ at scale $N^{-1/2}$: its growth exponent in $N$ is $\dim(V\cap W)$, and for disjoint varieties it decays like $\cos^{2N}$ of the Fubini–Study distance between them, so the normalised overlap estimates intersection dimension or the distance between two varieties without forming $I+J$;
+- Toeplitz traces $\mathrm{Tr}(P_0T_g)/\mathrm{HF}(N)$ with $g(z,\bar z)$ a polynomial, so that $T_g$ is a normal-ordered bosonic observable, converge by Berezin–Toeplitz theory (Bordemann–Meinrenken–Schlichenmaier) to $\int_Vg\,d\mathrm{vol}_V/\mathrm{vol}(V)$: quantum integration over an algebraic variety.
+
+The fair classical competitor for all three is Monte Carlo on $V$: cut with a random linear space of complementary dimension, whose intersection points are Fubini–Study-distributed on $V$ by the kinematic formula, find them by homotopy continuation, and average. Its cost is governed by the condition number of the slice systems (average polynomial for Kostlan-random data, Beltrán–Pardo and Lairez), the quantum cost by $\alpha/\Delta_N$. Whether these two condition numbers are related is the research question this analysis points to (Conjecture 8.11).
+
+## 6. Where speedups cannot come from (hardness anchors)
+
+- **Exact Hilbert function is #P-hard.** The boolean ideal $J=(z_i^2-z_iz_0)_{i=1}^n$ is a radical, saturated complete intersection of $n$ quadrics with $\mathrm{HF}(N)=\sum_{i\le\min(N,n)}\binom ni$, equal to $2^n$ from $N=n$ on (*numerically* confirmed for $n\le5$), and $(R/J)_N$ is the full function algebra on $\{0,1\}^n$ for $N\ge n$. Adjoining homogenised cubic clause forms of a 3-CNF $\phi$ (a clause form vanishing at $[1:x]$ iff the clause is satisfied) gives an ideal $K$ whose dehomogenisation is radical with $V=\{[1:x]:x\models\phi\}$; the homogeneous $K$ is generally neither radical nor saturated (irrelevant torsion), but since cubic multiples generate all functions supported on unsatisfying assignments once $N\ge n+3$, $\mathrm{HF}_{R/K}(N)=\#\mathrm{SAT}(\phi)$ for $N\ge n+3$ (*numerically*: 45 random and constructed instances with $n=3,\dots,7$, exact Gröbner/GF($p$) ranks; stabilisation happens by $N=n+2$, and for $N$ below that the Hilbert function overshoots, e.g. $29,57,71,57,29,9,2,1$ for a unique-solution instance with $n=7$). So an exact quantum evaluation of $\mathrm{HF}$ would give $\#\mathrm{P}\subseteq\mathrm{FBQP}$, and a multiplicative approximation $\mathrm{NP}\subseteq\mathrm{BQP}$. Already for squarefree monomial ideals the Hilbert series is #P-hard to evaluate (standard monomials of a graph ideal are independent sets; Dickenstein–Tobis 2012), and there $H_N$ is diagonal. The DQC1-style additive version is the only realistic target.
+- **Kernel non-triviality.** $\ker H_N\ne0\iff\phi$ satisfiable is NP-hard; $\ker H_N=0$ is coNP-hard; via Proposition 3.1 the promise version is $\mathrm{QMA}_1$-hard. No spectral-gap promise rescues *decision* of frustration-freeness. Hilbert's Nullstellensatz problem (non-emptiness of $V$ over $\mathbb{C}$) is NP-hard and in AM under GRH (Koiran 1996), emptiness in coAM; it becomes "$\ker H_N=0$" at $N\sim d^n$ (Kollár), representable but exponentially expensive in time.
+- **Overlap factors.** For a task solved by black-box projection of a prepared state onto a subspace of dimension $\mathrm{HF}(N)$, the cost is at least the inverse root of the state's weight on that subspace; from the maximally mixed state this is $\sqrt{\dim R_N/\mathrm{HF}(N)}$. This is not a universal lower bound: structured ideals may admit efficiently preparable states with large weight on the ground space (Conjecture 8.6 uses exactly this).
+- **Prior art on HHL for Macaulay matrices.** Chen–Gao (2018/2022) run an HHL solver on a Macaulay linear system over $\mathbb{C}$ encoding a Boolean system, with cost polynomial in the condition number; Ding–Gheorghiu–Gilyén–Hallgren–Li (Quantum 2023) prove that this condition number is exponentially large unless the solution has Hamming weight $O(\log n)$, so Grover wins. Their system is a different Macaulay matrix (a solve for a particular vector) and there is no established reduction between their condition number and the quantities here; but the lesson is the same: in the hard instances the cost hides in a normalisation, not in a spectral gap, and any claim here must survive that test. The related "bosonic quantum computational complexity" framework (Chabaud–Joseph–Mehraban–Motamedi 2024) concerns unbounded-particle bosonic models and is different from the fixed-$N$ symmetric sector here.
+- **Fixed mode number is classically easy.** Permutation-invariant Hamiltonians on $N$ qudits of *fixed* local dimension have ground states and expectation values computable classically in time polynomial in $N$ by Schur-basis block diagonalisation (Anschuetz–Bauer–Kiani–Lloyd 2023). Here the local dimension is $n+1$, so this covers exactly the regime "fixed ideal, growing $N$" and confirms independently that any advantage must come from growing $n$.
+- **Dequantisation.** $H_N$ is sparse and high-rank, so low-rank dequantisation does not apply to it; $P_0$ has rank $\mathrm{HF}(N)$, polynomial in $N$ for bounded $\dim V$ but possibly exponential in $n$ through the degree, and classical low-rank methods need sample-and-query access and conditioning besides rank.
+
+## 7. The central unknown: the Macaulay gap $\Delta_N$
+
+Everything with a potential exponential speedup is governed by
+
+$$
+\Delta_N=\min\Bigl\{\frac{\|\sum_jf_jh_j\|^2}{\sum_j\|h_j\|^2}:\ (h_j)\in\bigoplus_jR_{N-m_j},\ (h_j)\perp\mathrm{Syz}(I)_N\Bigr\},
+$$
+
+a *quantitative syzygy* constant: how close a non-syzygy can come to being one. For one generator this is the Bombieri–Beauzamy–Enflo–Montgomery inequality $[fh]_{\mathrm{BW}}\ge\sqrt{m!(N-m)!/N!}\,[f]_{\mathrm{BW}}[h]_{\mathrm{BW}}$, which in Fock normalisation reads $\|fh\|\ge\|f\|\,\|h\|$:
+
+**Fact 7.1 (principal ideals are uniformly gapped).** For $I=(f)$, $\Delta_N\ge\|f\|^2_{\mathrm{Fock}}=m!\,\|f\|^2_{\mathrm{BW}}$ for all $N\ge m$. The bound is attained whenever, after a unitary change of variables, the extra degree can be placed in a linear subspace orthogonal to the variables $f$ depends on (e.g. $f=z_0^m$, $h=z_1^{N-m}$; or $f=z_0+z_1$, $h=(z_0-z_1)^{N-1}$); in one variable $\Delta_N=N!/(N-m)!$. For the conic, $a(f)a^\dagger(f)=a^\dagger(f)a(f)+\hat n_0+\hat n_1+4\hat n_2+3$ gives $\Delta_N\ge N+1$, and *numerically* $\Delta_N=N+1$ exactly for $N\le30$.
+
+**Fact 7.2 (quadrics: the gap grows at a rate set by the distance to the cones).** Any quadric can be brought by a *unitary* change of variables (Takagi factorisation of its complex symmetric matrix) to $f=\sum_jd_jw_j^2$ with $d_j\ge0$ the Takagi values and $w_j$ orthonormal linear forms; this preserves the Bombieri–Weyl norm and turns $b_j=a(w_j)$ into canonical modes. Then $[a(f),a^\dagger(f)]=\sum_jd_j^2(4\hat n_j+2)$, and since $a(f)a^\dagger(f)=a^\dagger(f)a(f)+[a(f),a^\dagger(f)]$ on $R_{N-2}$,
+
+$$
+4d_{\min}^2(N-2)+\|f\|^2_{\mathrm{Fock}}\;\le\;\Delta_N\;\le\;d_{\min}^2N(N-1)+\|f\|^2_{\mathrm{Fock}}-2d_{\min}^2 ,
+$$
+
+the upper bound from $h=w_{\min}^{N-2}$. For the conic, $d=(1/2,1/2,1)$ and the lower bound is $N+1$, which is the exact value found numerically. So the gap of a quadric grows at least linearly with slope $4d_{\min}^2$, where $d_{\min}$ is the Bombieri–Weyl distance from $f$ to the quadrics of deficient rank, i.e. to the cones; a cone ($d_{\min}=0$) has bounded gap. This explains the "flat" random quadric in $\mathbb P^4$ in the survey (a $5\times5$ Gaussian symmetric matrix typically has a small Takagi value, so the growth is slow) and the pinned pyramid example below.
+
+For several generators no such inequality seems to be in the literature. $\Delta_N$ depends on the generating tuple, not only on $I$: $(f_1,f_1+\epsilon f_2)$ generates the same ideal as $(f_1,f_2)$ for $\epsilon\ne0$ and has $\Delta_N=O(\epsilon^2)$. What is known or easy:
+
+- monomial ideals: $H_N$ is diagonal with integer entries $\sum_j\prod_ik_i!/(k_i-\alpha^{(j)}_i)!$, so $\Delta_N\ge1$; e.g. $\|H_N\|=N(N-1)(N-2)$ exactly for $(z_0^2,z_0z_1,z_1^3)$;
+- binomial (toric) ideals: $H_N$ is exactly block diagonal over the fibres of the $A$-grading; each block is a weighted graph Laplacian on the fibre whose one-dimensional kernel is spanned by the fibre sum $q_u=\sum_{Ak=u}z^k/k!$ (the exponential generating function of the fibre, *numerically* exact), so the degeneracy is the number of fibres and $\Delta_N=\min_u\lambda_2(H_u)$. The fibre graphs get denser faster than they get longer: for the twisted cubic $\Delta_N/N\to0.854$ and for the rational normal quartic $\Delta_N\approx0.61N^{1.05}$, not the naive $N^{-2}$. But growth is not general: for the toric ideal $(x_{00}x_{11}-x_{01}x_{10})$ of the pyramid over a square, with apex variable $y$ absent from the relation, $h=y^{N-2}$ attains Fact 7.1 and $\Delta_N=2$ for all $N$ (*numerically* exact for $N\le8$; the same binomial without $y$ has $\Delta_N=N$ exactly, and adjoining an unused variable to the twisted cubic flattens its gap from $0.85N$ to exactly $2$ for $N\le12$). Any lower bound growing with $N$ must therefore exclude ideals extended from a subring;
+- Bombieri–Weyl norms are $U(n+1)$-invariant, so $\Delta_N$ is a unitary invariant of the generator tuple, the quantity that would appear in a Shub–Smale/Bürgisser–Cucker condition theory for the Macaulay map.
+
+**Numerical survey** (exact diagonalisation, dimensions up to a few thousand; unit-coefficient generators as written).
+
+| ideal | $\Delta_N$ | $\|H_N\|$ | $\|H_N\|/\Delta_N$ |
+|---|---|---|---|
+| conic in $\mathbb P^2$, $N\le30$ | $N+1$ exactly | $\approx N^2$ | $\approx N$ |
+| twisted cubic, $N\le22$ | $0.80N^{1.03}$ | $\approx N^2$ | $1.08N^{1.01}$ |
+| $(z_0^2,z_0z_1,z_1^3)$, $N\le40$ | $1$ exactly | $N(N-1)(N-2)$ | $\approx0.6N^{3.1}$ |
+| rational normal quartic, $N\le13$ | $0.61N^{1.05}$ | $\approx N^2$ | $1.5N^{0.97}$ |
+| two generic quadrics in $\mathbb P^3$, $N\le22$ | $0.11N^{0.66}$ | $0.44N^2$ | $3.3N^{1.39}$ |
+| boolean ideal, $\mathbb P^3$–$\mathbb P^5$, $N\le14$ | $\to2$, then $N^{0.05\text{–}0.4}$ | $1.3N^2$ | $N^{1.7\text{–}2.1}$ |
+| one random quadric in $\mathbb P^2/\mathbb P^3/\mathbb P^4$ | $N^{1.04}/N^{0.56}/\approx1.75$ | $\approx N^2$ | $N^{1.0}/N^{1.5}/N^{1.9}$ |
+
+At fixed $N$ and growing $n$: the boolean ideal has $\Delta_{n+1}=2$ for $n=2,\dots,6$ (numerically, not a theorem), and random quadric ideals at $N=3,4$ have $\Delta\approx0.7$–$1.2$, flat in $n$. For every "algebraic-geometry" family tested, $\Delta_N$ is bounded below by a constant and $\|H_N\|/\Delta_N$ grows like $N^1$ to $N^3$.
+
+The gap does close in the multigraded QSAT sector: a chain of nearest-neighbour singlet projectors on $m$ qubits has $\Delta=9.13m^{-1.97}$ ($m^2\Delta\to\pi^2$, the ferromagnetic Heisenberg gap), and random frustration-free 2-local chains have median $\Delta\approx m^{-3.5}$ over $m\le11$ (a power law fits better than an exponential, but $m\le11$ cannot exclude a slow exponential). Since the multigraded sector realises every frustration-free projector Hamiltonian, $\Delta$ inherits every known pathology, including exponentially small gaps (Proposition 8.3(d)). The numerics suggest a dichotomy: fixed ideal and growing $N$ is benign; growing $n$ with spin-chain-like generators is where hardness lives.
+
+## 8. What is a theorem, what is a conjecture
+
+**Theorems (some new as statements, none deep).** Facts 2.1–2.3, 4.1, 4.2, 7.1, 7.2; Propositions 3.1 and 8.2; the identifications of 5.7 (quotient norm, RKHS restriction norm, polynomial-kernel norm); the coherent-state characterisation $\operatorname{span}\{|p\rangle^{\otimes N}:\bar p\in V\}=(I(V)_N)^\perp$ and hence "$\ker H_N$ is spanned by product states iff $I_N=I(V)_N$"; the toric fibre-sum description of the ground space; flatness and constant kernel dimension along a Gröbner-basis degeneration; Arveson's curvature = leading multiplicity of the Hilbert polynomial (Arveson 2000, Fang 2003).
+
+**Conjecture 8.1 (distance-to-ideal estimation is BQP-hard and in BQP).** Input: multi-homogeneous generators of degree $\le m=O(1)$ in $\mathrm{poly}(n)$ variables with $\mathrm{poly}(n)$-bit coefficients of unit Bombieri–Weyl norm, a multidegree sector (or total degree $N\le\mathrm{poly}(n)$), a $\mathrm{poly}(n)$-sparse unit vector $f$ in that sector, thresholds $a<b$ with $b-a\ge1/\mathrm{poly}(n)$, and the promise $\Delta/\alpha\ge1/\mathrm{poly}(n)$ for the Hamiltonian *restricted to that sector*. Decide whether $\langle f|P_0|f\rangle\le a$ or $\ge b$. Containment is Section 5.1 (the block encoding can be restricted to the invariant sector). Hardness sketch: embed the Feynman–Kitaev Hamiltonian $H_{\mathrm{in}}+H_{\mathrm{prop}}$ of a BQP circuit $U=U_T\cdots U_1$ into the $(1,\dots,1)$ sector via Section 3; it is frustration-free with unique ground state (the history state) and gap $\Omega(T^{-2})$ in that sector; for the normalised two-monomial states $f_\pm=(|0,\mathrm{clock}=0\rangle\pm|y,\mathrm{clock}=T\rangle)/\sqrt2$, $\langle f_\pm|P_0|f_\pm\rangle=|1\pm\overline{\langle y|U|0\rangle}|^2/(2(T+1))$, whose difference is $2\,\mathrm{Re}\langle y|U|0\rangle/(T+1)$, and deciding the sign of $\mathrm{Re}\langle y|U|0\rangle$ against a $1/\mathrm{poly}$ threshold is BQP-hard (the standard matrix-element problem). Degree $m=5$ should suffice; $m=2$ is plausible via 2-local frustration-free universality gadgets. This is hardness for *estimating the distance*; the exact "member or $\epsilon$-far" problem is not what the reduction produces.
+
+**Proposition 8.2 (bosonic QSAT is $\mathrm{QMA}_1$-hard).** The symmetric-sector analogue of QSAT (ordinary grading, $N=n$ bosons in $2n$ modes, generators of degree $\le3$, promise version) is $\mathrm{QMA}_1$-hard. Reduction: take a Gosset–Nagaj instance on $n$ qubits as multilinear cubic generators in the site-block variables $z_{i,s}$, and add the hard-core generators $z_{i,s}z_{i,s'}$ for all $i$ and all $s\le s'$ (squares included). Every generator preserves the per-site occupation pattern, so $H_n$ is block diagonal in that pattern; on the pattern $(1,\dots,1)$ the hard-core terms vanish and the block is exactly the QSAT Hamiltonian (Section 3); on every other pattern some site holds $\ge2$ bosons and the diagonal hard-core part alone is $\ge1$. Hence $\ker H_n$ is the QSAT ground space and the nonzero spectrum is $\ge\min(\Delta_{\mathrm{QSAT}},1)$. (Without the hard-core terms the construction fails: any state with all bosons in one block is a spurious zero mode.)
+
+**Conjecture 8.3 (gap classes).** Fock normalisation, unit Bombieri–Weyl generators, $N\ge\max m_j$:
+
+
+exec
+/bin/bash -lc "sed -n '1,1000p' seed/analysis-2026-09-01/referee/round1.md" in /home/tobias/Projects/quantum-algorithms-for-algebraic-geometry
+ succeeded in 0ms:
+1. **Sections 1–2 — significant.** Bargmann–Fock, Drury–Arveson, and sphere norms agree only degreewise. Their full graded direct sums are not the same Hilbert module under the identity map. Kernel statements survive; boundedness, spectra, curvature, and essential normality do not. Fix: specify the Hilbert norm whenever passing between degrees.
+
+2. **Section 2.2 — significant.** The compressed Fock creation operator is not Arveson’s \(d\)-shift. On degree \(N\),
+   \[
+   M_{z_i}^{DA}=\frac{a_i^\dagger}{\sqrt{N+1}}.
+   \]
+   Arveson–Douglas statements apply to these normalized bounded shifts, not to the unbounded Fock \(a_i^\dagger\). Also the space is \(H^2_{n+1}\), not \(H^2_n\).
+
+3. **Section 2.2 — minor.** Calling \(R_N=I_N\oplus I_N^\perp\) for an arbitrary ideal “the Fischer decomposition” overstates the terminology. The equality is elementary orthogonal decomposition; classical Fischer decomposition normally refers to more structured principal/harmonic situations.
+
+4. **Section 3, tensor normalization — minor.** The definition
+   \[
+   |F\rangle=\sum_\alpha f_\alpha\frac{\alpha!}{m!}\sum_{\operatorname{cont}(w)=\alpha}|w\rangle
+   \]
+   and \(\|F\|^2=\sum_\alpha |f_\alpha|^2\alpha!/m!\) are correct. But under the unitary Fock-to-tensor identification,
+   \[
+   |p\rangle^{\otimes N}\longleftrightarrow \frac{(p\cdot z)^N}{\sqrt{N!}},
+   \]
+   not \((p\cdot z)^N\). The report silently switches between normalized and unnormalized representatives.
+
+5. **Section 3, local Hamiltonian formula — minor.** The factorial is correct, but the exact operator statement is
+   \[
+   U_NH_NU_N^\dagger
+   =P_{\rm sym}\!\left[m!\sum_{|S|=m}(|F\rangle\langle F|)_S\right]P_{\rm sym}.
+   \]
+   Individual subset terms do not preserve \(\operatorname{Sym}^N\); only their permutation-invariant sum does.
+
+6. **Section 3, “projectors” — minor.** \(|F\rangle\langle F|\) is a projector only when \(\|F\|=1\). In general it is \(\|F\|^2\) times a rank-one projector. This matters when quoting endpoint gaps.
+
+7. **Section 3, coherent-state energy — minor.** After correcting the normalization in finding 4, the stated formula is correct:
+   \[
+   \langle p^{\otimes N}|H_N|p^{\otimes N}\rangle
+   =\sum_j\frac{N!}{(N-m_j)!}|f_j(\bar p)|^2 .
+   \]
+   The algebraic point is \(\bar p\). Equivalently, a point \(x\in V(I)\) gives the physical state \(|\bar x\rangle^{\otimes N}\). There is no conjugation error in the final energy formula.
+
+8. **Section 3, locality — minor.** \(a^\dagger(f)a(f)\) moves \(m\) bosons but can alter as many as \(2m\) mode occupations. “Changes at most \(m\) occupation numbers” is false.
+
+9. **Section 3, quantum \(k\)-SAT terminology — significant.** The ordinary homogeneous construction is not a standard Bravyi \(k\)-QSAT instance: its domain is restricted to \(\operatorname{Sym}^N\), and every forbidden tensor is replicated over all \(m\)-subsets. Standard QSAT acts on the full distinguishable-particle tensor product. Call it a permutation-symmetric/bosonic analogue, not “Bravyi’s sense.”
+
+10. **Section 3, radical ideals — minor.** Equality \(I_N=I(V)_N\) in one degree does not mean that \(I\) is “saturated and radical in degree \(N\).” It is only degree-\(N\) equality. Global radicality and saturation require equality in all sufficiently large degrees, with saturation handled separately.
+
+11. **Section 3, multigraded embedding — minor.** This part is correct: in multidegree \((1,\ldots,1)\), all relevant monomials have Fock norm \(1\), so
+    \[
+    a^\dagger(f)a(f)=|f\rangle\langle f|_S\otimes\mathbf1
+    \]
+    exactly, with no factorial. State this separately from the ordinary symmetric formula.
+
+12. **Sections 3 and 8.2, QSAT complexity — significant.** Bravyi and Gosset–Nagaj prove promise problems: zero energy versus energy at least \(1/\operatorname{poly}(n)\). Exact \(\mathrm{HF}(1,\ldots,1)>0\) without a NO-gap promise is not thereby in \(\mathrm{QMA}_1\). The corrected statement is the standard promised QSAT theorem. [Bravyi](https://arxiv.org/abs/quant-ph/0602108), [Gosset–Nagaj](https://arxiv.org/abs/1302.0290).
+
+13. **Sections 3 and 8.2, ranks of QSAT clauses — minor.** The reductions use local projectors, not necessarily rank-one projectors. For constant local dimension, spectral decomposition into rank-one constraints is legitimate and preserves both the Hamiltonian and its gap. The report should say this, not claim that the reductions intrinsically output rank-one clauses.
+
+14. **Section 4, monomial exception — fatal.** The claim that monomial ideals admit fixed-\(k\)-body parents with kernel \(I_N\) is false. For \(I=(z_0)\), \(I_N\) is the span of states containing at least one \(0\)-mode boson. Its complement projector is
+    \[
+    (\mathbf1-|0\rangle\langle0|)^{\otimes N}
+    \]
+    restricted to the symmetric sector, hence \(N\)-body. A threshold \(\theta(\hat n_0)\) is diagonal and efficiently computable in occupation encoding, but it is not fixed-body local.
+
+15. **Conjecture 4.1 — significant.** The marginal argument is plausible but not written as a proof. What must be shown is that the joint support of the \(k\)-body marginals of \(fR_{N-m}\) is all of \(\operatorname{Sym}^k\); then every positive \(k\)-local term annihilating \(I_N\supset fR_{N-m}\) is zero. This obstruction already applies to monomial \(f\), so the conjecture’s monomial/non-monomial distinction is spurious.
+
+16. **Conjecture 4.1 — minor.** No nontrivial obvious non-monomial counterexample exists under standard first-quantized locality. Trivial cases \(I_N=0\) or \(I_N=R_N\), or allowing \(k\ge N\), are vacuous. A unitary rotation of a monomial ideal does not help because the alleged monomial parent was not fixed-local to begin with.
+
+17. **Section 4, invariant subspaces — significant.** “Ideals are exactly the closed invariant subspaces” is false. Closed shift-invariant subspaces include Hilbert submodules not generated by polynomial ideals; already in one variable Beurling subspaces \(\theta H^2\) need not come from polynomial ideals. Invariance under unbounded \(a_i^\dagger\) is also not automatically equivalent to invariance under the bounded shifts \(J_i\).
+
+18. **Section 5, sparsity and norm — minor.** The row-sparsity estimate and
+    \[
+    \|H_N\|\le\sum_j\frac{N!}{(N-m_j)!}\|f_j\|_{\rm BW}^2
+    \]
+    are correct. A sparse-access block encoding is normalized by an efficiently known \(\alpha\), typically \(s\max|H_{xy}|\), not automatically by \(\|H_N\|\). Replace every \(\|H_N\|/\Delta_N\) runtime by \(\alpha/\Delta_N\), absorbing only genuinely polynomial overheads.
+
+19. **Section 5, input model — significant.** Coefficient bit length, requested numerical precision, reversible row enumeration, and sparse-state preparation are omitted. Row computability alone is not an algorithm unless these oracles are constructed with those costs included.
+
+20. **Section 5, exponential \(N\) — fatal.** Exponential \(N\) is cheap only in qubits. The displayed algorithms cost at least \(N^m/\Delta_N\), and trace estimation to precision \(N^{-c}\) costs polynomially in \(N\), not \(\log N\). Thus \(N=d^{\Theta(n)}\) produces exponential runtime even though the register is polynomial-sized.
+
+21. **Sections 5 and 8.1, gap promise — fatal.** An absolute promise \(\Delta_N\ge1/\operatorname{poly}(n)\) does not imply BQP containment. Rescaling generators changes both \(\Delta_N\) and the block-encoding normalization. The required promise is
+    \[
+    \Delta_N/\alpha\ge1/\operatorname{poly}(n),
+    \]
+    together with bounded coefficient norms and efficient access.
+
+22. **Section 5.2, DQC1 — significant.** No DQC1 algorithm is actually supplied. Standard DQC1 starts maximally mixed on a power-of-two register; here one needs the maximally mixed state on the valid weak-composition subspace and controlled QSVT with clean ancillas. “DQC1-style trace estimation” is defensible; membership in DQC1 is not established.
+
+23. **Section 5.3 — significant.** “Apply \(P_0\) to a Haar-random symmetric state” is not an efficient preparation prescription. Haar-random states in an exponentially large space cannot generally be prepared efficiently. Starting from a maximally mixed state instead yields a mixed state proportional to \(P_0\), not a Haar-random pure quotient element.
+
+24. **Section 5.4 — significant.** \(Z_j=Z_0X_j\) is correct only after defining
+    \[
+    X_j=\mu_{z_0}^{-1}\mu_{z_j}
+    \]
+    on the stabilized quotient, transporting it to \(G_N=I_N^\perp\), and assuming \(I\) is saturated in that range and \(z_0\) is a nonzerodivisor. As written, \(X_j\) and \(Z_j\) act on different spaces.
+
+25. **Section 5.4 — significant.** For a nonradical zero-dimensional scheme, stable \(\mathrm{HF}\) equals scheme length, not \(\#V\). The multiplication matrices can have Jordan blocks. Replace “\(\dim\ker H_N=\#V\)” by “\(\deg(R/I)\), equal to \(\#V\) only for reduced points.”
+
+26. **Section 5.4 — fatal.** Singular-value scans of \(Z_j-\lambda Z_0\) do not constitute an efficient non-Hermitian eigensolver or a uniform root sampler. Complexity depends on eigenvector condition numbers, Jordan structure, pseudospectral behavior, search precision, and state preparation—not merely coordinate separation \(\delta\).
+
+27. **Section 5.5 — fatal.** The family generated only by the displayed \(f_j(t)\) is not generally flat at \(t=0\). Its special fibre is
+    \[
+    (\operatorname{in}_w f_1,\ldots,\operatorname{in}_w f_d),
+    \]
+    which may be strictly smaller than \(\operatorname{in}_w(I)\). Eisenbud’s flat ideal is generated by the homogenizations of all \(g\in I\), or finitely by a suitable Gröbner basis, not an arbitrary generating list. [Eisenbud, Thm. 15.17](https://www.math.ens.psl.eu/~benoist/refs/Eisenbud.pdf).
+
+28. **Section 5.5 — significant.** For every \(t\ne0\), constant Hilbert function is indeed trivial from diagonal coordinate change. Constancy at \(t=0\) is precisely what fails without a Gröbner basis or \(t\)-saturation.
+
+29. **Section 5.5 — significant.** \(H_N(0)\) is diagonal only if every limiting generator is a single monomial. A weight initial form may contain several tied terms even when the initial ideal is monomial after refinement. Its ground monomials are standard monomials of \((\operatorname{in}_wf_j)\), not necessarily of \(\operatorname{in}_w(I)\).
+
+30. **Sections 5.5 and 8.4 — significant.** The endpoint gap is not automatically an integer or at least \(1\):
+    \[
+    \Delta_N(0)\ge \min_j |c_j|^2\alpha^{(j)}!
+    \]
+    only after a correct monomial presentation, and coefficients \(c_j\) can be arbitrarily small. Rescaling a generator leaves the ideal unchanged but changes the Hamiltonian gap.
+
+31. **Section 5.5 — significant.** Flatness plus a gap does not prepare “a basis” of an exponentially dimensional ground space. Adiabatic evolution transports one prepared state at a time and introduces non-Abelian Berry holonomy inside a degenerate ground space. The runtime is not generally just \(\int\|\dot H\|/\Delta^2\).
+
+32. **Section 5.6 — minor.** Correct algebraic statement: \(\mathrm{HF}_{R/I_t}(N)\) is upper semicontinuous, so an exceptional fibre can have larger value than nearby generic fibres. It does not “jump only up” along an oriented path: for \(I_t=(tx,y)\), the value is larger at \(t=0\) and jumps down immediately when leaving \(0\).
+
+33. **Section 5.6 — significant.** Avoiding Macaulay-rank drops at one degree is not equivalent to avoiding the homotopy discriminant. Roots can collide and become nonreduced while the Hilbert function and scheme length remain constant. The comparison with Beltrán–Pardo/Lairez is therefore unjustified.
+
+34. **Section 6, Boolean ideal — significant.** The pure Boolean ideal
+    \[
+    J=(z_i^2-z_iz_0)
+    \]
+    is radical and saturated, with \(\operatorname{reg}(R/J)=n\). After adjoining homogenized cubic clause indicators, the affine dehomogenization remains radical, but the displayed homogeneous ideal is generally neither radical nor saturated; it has irrelevant-ideal torsion. Its saturation is the intersection of the satisfying-point ideals.
+
+35. **Section 6, Boolean Hilbert function — minor.** The eventual identity is valid, but justify it directly. Since \((R/J)_N\) is the full algebra of functions on \(\{0,1\}^n\) for \(N\ge n\), cubic clause multiples generate all functions supported on unsatisfying assignments once \(N\ge n+3\). Hence
+    \[
+    \mathrm{HF}_{R/K}(N)=\#\mathrm{SAT}(\phi)\qquad(N\ge n+3).
+    \]
+    Invoking an unspecified “Lazard bound” obscures the torsion issue.
+
+36. **Section 6, complexity classes — minor.** “Exact \(\mathrm{HF}\in\mathrm{BQP}\)” is ill-typed: BQP is a decision class. An exact-output quantum algorithm would place the corresponding function in FBQP and imply \(\#P\subseteq\mathrm{FBQP}\).
+
+37. **Section 6, monomial Hilbert hardness — minor.** Bayer–Stillman is not the reference for a \(\#P\)-hardness theorem; their paper gives algorithms and an NP-hardness statement in a suitable model. The edge-ideal/independence-polynomial reduction or Dickenstein–Tobis supports the \(\#P\) claim. [Bayer–Stillman](https://www.sciencedirect.com/science/article/pii/074771719290024X), [Dickenstein–Tobis](https://arxiv.org/abs/1003.3508).
+
+38. **Section 6, zero kernel — significant.** The direction is reversed:
+    \[
+    \ker H_N\ne0\iff\phi\text{ is satisfiable}
+    \]
+    is NP-hard, while \(\ker H_N=0\) is coNP-hard. Calling the zero-kernel language NP-hard is unjustified unless NP \(=\) coNP or a nonstandard reduction is intended.
+
+39. **Section 6, Koiran — significant.** Koiran puts the common-root/nonemptiness problem in AM under GRH. Emptiness is its complement and lies in coAM under GRH. SAT reduces to nonemptiness; UNSAT reduces to emptiness. [Koiran](https://archive.dimacs.rutgers.edu/TechnicalReports/abstracts/1996/96-27.html).
+
+40. **Section 6, overlap lower bound — fatal.** There is no universal lower bound \(\sqrt{\dim R_N/\mathrm{HF}(N)}\) for “any task.” That factor applies to black-box projection from a state with that overlap. Structured ideals may have easily preparable ground states even when the dimension ratio is tiny.
+
+41. **Section 6, dequantization — minor.** Bounded variety dimension does not imply \(\mathrm{rank}(P_0)=\operatorname{poly}(N)\) uniformly in the input: the degree may itself be exponential. Low-rank classical algorithms also require sample/query access and conditioning, not rank alone.
+
+42. **Section 7, generator dependence — significant.** The example is written backwards. Replacing \(f_2\) by \(f_2+\epsilon f_1\) tends to the original tuple as \(\epsilon\to0\) and does not generally force \(\Delta=O(\epsilon^2)\). The nearly redundant tuple is
+    \[
+    (f_1,\ f_1+\epsilon f_2),
+    \]
+    which generates the same ideal for \(\epsilon\ne0\) and becomes singular as \(\epsilon\to0\).
+
+43. **Section 7.1 — minor.** The principal Bombieri lower bound is correct, but “attained for monomials” is false without qualification. In one variable, for \(f=z^m\),
+    \[
+    \Delta_N=\frac{N!}{(N-m)!}>m!=\|f\|_F^2
+    \]
+    when \(N>m\). Equality requires enough degree to be placed in variables absent from the monomial, or \(N=m\).
+
+44. **Sections 6–7 — significant.** “The Boolean ideal gap is exactly \(2\)” is not established. The report only reports computations for \(n\le6\) at \(N=n+1\). This cannot be used as a theorem for arbitrary \(n,N\), still less after clause generators are added.
+
+45. **Conjecture 8.1 — fatal.** The hardness reduction does not match the decision promise. The proposed overlap is generally a nonzero number on both BQP cases; an oracle deciding “exactly \(f\in I_N\)” versus “distance at least \(\epsilon\)” does not estimate \(\operatorname{Re}\langle y|U|0\rangle\). The reduction would establish hardness for additive ground-overlap estimation, not for exact ideal membership.
+
+46. **Conjecture 8.1 — minor.** The overlap identity assumes the test state is normalized:
+    \[
+    |\phi\rangle=\frac{|0,0\rangle+|y,T\rangle}{\sqrt2}.
+    \]
+    For the unnormalized sum written in the report, the expectation is twice the displayed value.
+
+47. **Conjecture 8.1 — significant.** The Feynman–Kitaev block has gap \(\Omega(T^{-2})\), but the conjecture promises a gap for the entire ordinary degree-\(N\) Hamiltonian. The other multidegree blocks can contain smaller positive eigenvalues. No lower bound for the global \(\Delta_N\) is proved.
+
+48. **Conjecture 8.2 — significant.** The multigraded statement is already the QSAT theorem, after adding the inverse-polynomial NO-gap promise; it is not a new conjecture. The monomial version is classical \(k\)-SAT and is NP-complete for \(k\ge3\).
+
+49. **Conjecture 8.2, ordinary grading — fatal.** The suggested hardness embedding fails immediately. If all generators are multilinear across distinct site blocks, putting all \(N\) bosons in one site block makes every \(k\ge2\) annihilation constraint vanish. Thus the ordinary total-degree sector always has spurious zero modes in this construction.
+
+50. **Conjecture 8.3(a) — significant.** This is a meaningful open uniform closed-range estimate, not supported by the numerical survey. Its “polynomial-time in \(N\)” consequence is algorithmically weak because \(N\) is encoded in \(\log N\); polynomial in \(N\) is exponential in the input length.
+
+51. **Conjecture 8.3(b) — fatal.** It is false. Let \(P\) be the lattice pyramid over the unit square. Its normal toric ideal is
+    \[
+    I=(x_{00}x_{11}-x_{10}x_{01})
+    \]
+    in a ring with an additional apex variable \(y\) absent from the relation. Taking \(h=y^{N-2}\) attains the principal lower bound, so
+    \[
+    \Delta_N=\|x_{00}x_{11}-x_{10}x_{01}\|_F^2=2
+    \]
+    for every \(N\ge2\), not \(\Theta(N)\).
+
+52. **Conjecture 8.3(c) — significant.** It is ill-posed until “Kostlan-random” is normalized and the probability quantifiers over all \(N\) are specified. A sensible version is
+    \[
+    \Pr\!\left[\inf_{N\ge m}\Delta_N\ge c(m)\right]\to1
+    \]
+    for unit Bombieri-norm forms. No cited theorem or evidence at \(N=3,4\) supports the uniform-in-\(N\) claim.
+
+53. **Conjecture 8.3(d) — minor.** This is essentially already a theorem, not a conjecture. Area-weighted Motzkin chains are 2-local, frustration-free, and have gap at most \(8ns\,t^{-n^2/3}\); the multigraded embedding transfers that eigenvalue, and padding by identities handles larger fixed \(m\). [Levine–Movassagh](https://arxiv.org/abs/1611.03147).
+
+54. **Conjecture 8.3(e) — significant.** “Syzygy-module data” is undefined and can encode the entire problem, making the proposed bound vacuous. The claim that the infimum is attained by \(N\le\operatorname{reg}(I)+m\) has no argument and is probably false; distinguish a minimum from an asymptotic infimum.
+
+55. **Conjecture 8.3(d), requested monotonicity check — minor.** The supplied file contains no monotonicity claim in 8.3(d). The closest claims are the numerical \(t\)-monotonicity in 5.5/8.4(a) and the explicitly abandoned \(N\)-monotonicity. Neither follows from flatness.
+
+56. **Conjecture 8.4(a) — fatal.** False as stated because the path in 5.5 is not generally flat, the endpoint gap depends on generator coefficients and presentation, and flatness imposes no spectral monotonicity. Even within a fixed ideal, ill-conditioned \(t\)-dependent row operations can make the gap arbitrarily small at an interior point.
+
+57. **Conjecture 8.4(b) — significant.** “Cone width,” allowed paths, normalization of generators, and the metric on the Gröbner fan are undefined. Since \(\Delta\) changes under harmless rescaling and row operations, this is not an invariant of \(I\) without fixing a normalized presentation.
+
+58. **Conjecture 8.5 — significant.** The exact characterization is already a theorem:
+    \[
+    \operatorname{span}\{|p\rangle^{\otimes N}: \bar p\in V(I)\}
+    =I(V)_N^\perp.
+    \]
+    Hence equality with \(\ker H_N\) is equivalent to \(I_N=I(V)_N\). It is not a conjecture.
+
+59. **Conjecture 8.5 — significant.** The “entangled defect” is merely
+    \[
+    \dim I(V)_N-\dim I_N.
+    \]
+    It equals a finite scheme-theoretic length only for zero-dimensional schemes in the stable range. In positive dimension it grows polynomially, and for nonsaturated \(I\) it also counts irrelevant torsion.
+
+60. **Conjecture 8.5 — significant.** A root-sampling oracle does not automatically provide the projector onto the span of coherent root states. Those states are nonorthogonal and can have an exponentially ill-conditioned Gram matrix. The claimed BQP radicality test therefore does not follow.
+
+61. **Conjecture 8.6 — fatal.** The Boolean/CNF gap is not known to be \(1/\operatorname{poly}(n)\). Adding PSD clause terms can split the \(2^n\)-dimensional Boolean ground space by exponentially small amounts; monotonicity of the full ordered spectrum gives no lower bound on the new first positive eigenvalue.
+
+62. **Conjecture 8.6 — fatal.** The proposed overlap does not “match Grover.” At \(N\simeq n\),
+    \[
+    \dim R_N=\binom{2n}{n}\asymp\frac{4^n}{\sqrt n}.
+    \]
+    For one satisfying assignment the report’s factor is \(\Theta(2^n)\), whereas Grover costs \(\Theta(2^{n/2})\). For the pure Boolean ideal \(D=2^n\), the report still predicts \(2^{n/2}\) overhead although sampling a Boolean string is trivial. One would need an efficiently prepared state inside the Boolean quotient, giving overlap \(D/2^n\), not \(D/\dim R_N\).
+
+63. **Conjecture 8.6 — significant.** Coordinate separation \(\delta\) does not control a nonnormal multiplication tuple. Root sampling also depends on eigenvector/Jordan conditioning and the Gram matrix of evaluation vectors. Uniformity over distinct roots is not automatic.
+
+64. **Conjecture 8.6 — significant.** The report’s assertion that the Ding–Gheorghiu–Gilyén–Hallgren–Li condition number and this overlap factor are “the same phenomenon” is unsupported. They are condition numbers of different Macaulay systems, not an established equality or reduction. [Ding et al.](https://quantum-journal.org/papers/q-2023-07-26-1069/).
+
+65. **Conjecture 8.7 — significant.** Hilbert-polynomial asymptotics are a theorem, but the algorithmic conclusion is false without uniform bounds on regularity and lower-order coefficients. Merely taking \(N\ge\operatorname{poly}(n)\) need not place the input in the stable range or separate different \((c,\deg V)\).
+
+66. **Conjecture 8.7 — minor.** To recover the exact integer degree \(D\), the additive error must be less than roughly
+    \[
+    \frac12\,\frac{n!}{(n-c)!}N^{-c},
+    \]
+    after controlling lower-order terms. “\(N^{-c}/\operatorname{poly}(n)\)” is too vague to imply this.
+
+67. **Conjecture 8.8 — fatal.** “Amplitude encoding needs characteristic zero because it needs a positive-definite inner product” is false. Quantum amplitudes are complex regardless of the data field. The real obstruction is that \(\mathbb F_q\) has no field embedding into \(\mathbb C\), so complex linear algebra does not preserve rank or multiplication over \(\mathbb F_q\).
+
+68. **Conjecture 8.8 — significant.** In positive characteristic, ordinary differentiation does not realize apolarity correctly—\(\partial(x^p)=0\). One must use divided powers/contraction. The Fourier orthogonal complement under the coefficient dot product is not automatically the Macaulay inverse system unless the divided-power dual basis is used.
+
+69. **Conjecture 8.8 — minor.** The hidden-subgroup formulation gives no advantage because \(\Phi\) is an explicitly known linear map; finding its kernel is ordinary finite-field linear algebra. Conversely, saying the entire problem is classically easy ignores that the Macaulay dimension may be exponential in the succinct input.
+
+70. **Conjecture 8.9 — significant.** Arveson’s curvature theorem captures the leading multiplicity/degree under its hypotheses, not the entire Hilbert polynomial. This portion is known theory, not a conjecture. [Arveson](https://arxiv.org/abs/math/9808100).
+
+71. **Conjecture 8.9 — significant.** The Schatten threshold uses the complex dimension of the affine cone, which is projective dimension plus one. The report appears to use projective \(\dim V\), producing an off-by-one threshold.
+
+72. **Conjecture 8.9 — significant.** The compressed coordinate multipliers \(Z_i\) commute exactly. Essential normality concerns \([Z_i,Z_j^\dagger]\), so the physical interpretation should be “asymptotically normal,” not “become commuting.”
+
+73. **Conjecture 8.9 — significant.** Essential normality for principal ideals and varieties smooth away from the origin is already known in appropriate formulations; the latter is due to Engliš–Eschmeier. It gives no finite-\(N\) eigenvalue-separation or nonnormal-conditioning bound. [Engliš–Eschmeier](https://arxiv.org/abs/1312.6777).
+
+74. **Conjecture 8.9 — fatal.** Ordinary quantum phase estimation does not apply to nonnormal \(Z_j\). Essential normality modulo compact operators does not make a finite truncation unitarily diagonalizable or well-conditioned near singularities.
+
+75. **Section 9 — significant.** Correction 6 repeats the false monomial exception from Section 4. Replace it with: monomial ideals make \(P_{I_N}\) diagonal in occupation number, but exact threshold projectors are generally \(N\)-body, not fixed-local.
+
+76. **Prior art — significant.** The report correctly mentions Chen–Gao and Ding et al., but it should not present “QSVT on Macaulay matrices” as conceptually new without separating the new observable from existing quantum linear-system work. It also omits the recent formal bosonic-complexity framework, which is relevant but different from this fixed-particle symmetric-sector construction. [Bosonic Quantum Computational Complexity](https://arxiv.org/abs/2410.04274).
+
+77. **Overall — fatal.** The algebraic kernel identity and the Section 3 factorial/conjugation formulas are basically sound. The claimed quantum-algorithmic program is not: its main hardness reduction does not match its promise problem, its Gröbner path is not the flat family claimed, its root-sampling/Grover accounting is wrong by an exponential factor, and several “conjectures” are either known theorems, false, or undefined.
+exec
+/bin/bash -lc "sed -n '1,1000p' seed/analysis-2026-09-01/referee/round2.md" in /home/tobias/Projects/quantum-algorithms-for-algebraic-geometry
+ succeeded in 0ms:
+All requested points omitted below are correctly fixed. Line references are to [report.md](/tmp/claude-1000/-home-tobias-Projects-quantum-algorithms-complex-projective-varieties/1c5c4bf8-b86e-4c6c-bf9d-28e50d0a2c4b/scratchpad/report.md).
+
+1. **§3 Proposition 3.1; §8 “Theorems” list, lines 100/186 — significant.** Issue: “\(k=2\) is in P” is stated for arbitrary local dimension \(q\); Bravyi proves qubit 2-QSAT. Higher-dimensional 2-QSAT can be \(\mathrm{QMA}_1\)-complete, already for \((2,5)\)-QSAT. [Rudolph–Gharibian–Nagaj](https://arxiv.org/abs/2401.02368). Fix: restrict the P statement to \(q=2\); this is the remaining overclaim in the theorem list.
+
+2. **§4, line 106 — significant.** Issue: the displayed monomial parent is a product over generators and therefore generally acts on the union of all their modes; it is not bounded-mode local when that union grows. Also \((f)_N=(f)_A\otimes R(A^c)\) ignores the fixed-total-degree direct sum. Fix: write \((f)_N=\bigoplus_r(f)_{A,r}\otimes R(A^c)_{N-r}\), and claim few-mode locality only when the total relevant mode set is bounded.
+
+3. **Conjecture 4.1(i), line 108 — significant.** Issue: the previous proof gap remains; full marginal support is asserted, not proved, although it is provable and should not remain a conjecture. Fix: if \(u\in\operatorname{Sym}^k\) annihilates all \(k\)-body marginals of \(fR_L\), then \(u(\partial)(fh)=0\) for all \(h\in R_L\). Taking \(h=\ell^L\), with \(u(\ell)\ne0\) and \(\ell\nmid f\), gives a nonzero leading term \((L)_ku(\ell)f\ell^{L-k}\), contradiction.
+
+4. **Conjecture 4.1(ii), line 108 — fatal.** Issue: false. For
+   \[
+   I=(z_0+z_1,z_0-z_1)=(z_0,z_1),
+   \]
+   both displayed generators are nonmonomial and share variables, but the two-mode vacuum projector has kernel \(I_N\). The property is also not invariant under generator changes. Fix: withdraw (ii), or formulate an ideal-invariant support-hypergraph condition excluding ideals confined to boundedly many modes.
+
+5. **§4 shifts, line 114 — significant.** Issue: invariance under \(J_j\) is not equivalent to invariance under \(a_j^\dagger\); the occupation-dependent factor \(\sqrt{\hat n_j+1}\) does not preserve a general homogeneous ideal subspace. Fix: retain the ideal correspondence only for multiplication operators \(a_j^\dagger\); treat \(J_j\)-invariance separately.
+
+6. **Fact 7.1, line 160 — minor.** Issue: “strict otherwise” is coordinate-dependent and false literally. For \(f=z_0+z_1\), equality is attained using \(h=(z_0-z_1)^{N-1}\), although no displayed variable is absent from \(f\). Fix: state the sufficient equality condition after a unitary change of variables—extra degree supported in a linear subspace orthogonal to the essential variables of \(f\)—without claiming necessity unless proved.
+
+7. **Conjecture 8.1, line 188 — significant.** Issue: one value of \(|1+\bar a|^2\) does not determine \(\operatorname{Re}a\), because \(|a|^2\) is also unknown. Moreover an estimation problem is not literally “BQP-complete.” Fix: use both endpoint states with \(+\) and \(-\), whose weights differ by \(2\operatorname{Re}a/(T+1)\), or explicitly reduce to a real matrix element; call the function problem FBQP-hard/in FBQP, or formulate a threshold decision problem.
+
+8. **Conjecture 8.2, line 190 — significant.** Issue: with the proposed fix this is essentially already a direct theorem, not a conjecture. Include every \(z_{i,s}z_{i,s'}\), including \(s=s'\), and set total degree \(N=n\); the hard-core terms force exactly one boson per site, while clause terms preserve site occupations, so the original multigraded QSAT gap is inherited. If squares are omitted, same-mode multiple occupancy survives. The Childs–Gosset–Webb result concerns QMA-complete Bose–Hubbard ground energy, not the claimed frustration-free QSAT statement. [Childs–Gosset–Webb](https://theoryofcomputing.org/articles/v011a020/). Fix: present the direct reduction and reclassify it as a proposition.
+
+9. **Conjecture 8.3(a), line 194 — minor.** Issue: \(c=\min\alpha!\) conflicts with the stated unit Bombieri–Weyl normalization. A unit-BW monomial of degree \(m\) has Fock norm squared \(m!\), not \(\alpha!\). Fix: distinguish monic generators from unit-BW generators and distinguish a lower bound from the optimal \(\inf_N\Delta_N\).
+
+10. **Conjecture 8.3(b), line 196 — significant.** Issue: “free direction” is undefined, and an absent variable does not pin the gap to the minimum individual generator norm. For normalized \(f_1=(x-y)/\sqrt2,\ f_2=(y-z)/\sqrt2\), with an unused variable \(u\), the degree-one Gram matrix has smallest eigenvalue \(1/2\), although both generator norms are \(1\). The pyramid computation itself is correct. Fix: phrase the conjecture through uniform weighted Poincaré constants of the fibre graphs; retain the pyramid only as a principal-ideal example.
+
+11. **Conjecture 8.3(d), line 200 — significant.** Issue: the Motzkin multigraded sector has exponential dimension \(q^n\), not polynomial dimension. Levine–Movassagh directly supplies the 2-local exponentially small gap; the claim for every \(m>2\) additionally requires padding each term by a complete rank-one decomposition of the identity on \(m-2\) auxiliary sites. [Levine–Movassagh](https://arxiv.org/abs/1611.03147). Fix: say “a sector specified with polynomially many sites,” and include the padding argument.
+
+12. **Conjecture 8.3(e), line 202 — significant.** Issue: “condition number of the presentation” and “distance to a tuple with a new syzygy” remain undefined, making the proposed lower bound tautological. Fix: specify the coefficient-space norm, allowed degree pattern, discriminant locus, and exact inequality, or leave this as a question rather than a conjecture.
+
+13. **Conjecture 8.4(a), line 204 — fatal.** Issue: still false even with the corrected Gröbner family. For the principal complete intersection \(f=x^2y+xy^2\subset\mathbb C[x,y]\), choose \(w_x>w_y\), so the endpoint is \(cx^2y\). At \(N=4\) its endpoint gap is \(4|c|^2\), not \(|c|^2(2!1!)=2|c|^2\). Fix: replace equality and \(N\)-independence by the endpoint lower bound; equality needs an additional free-direction condition.
+
+14. **Conjecture 8.4(b), line 204 — significant.** Issue: the proposed complexity remains undefined: “normalized presentations,” permitted redundant generators, allowed paths, and the normalization \(\alpha\) along a path are unspecified. Fix: define a fixed presentation class and path space before taking the optimization.
+
+15. **Conjecture 8.5, line 206 — significant.** Issue: in the stable range irrelevant-ideal torsion has vanished, so the defect is \(\operatorname{length}(\operatorname{Proj}R/I)-\#V\), not that quantity “plus irrelevant torsion.” Also arbitrary nonreduced inverse systems require higher jets, not merely tangent/first-derivative states. Fix: separate finite-degree torsion from the stable formula and use the full local inverse system of differential functionals.
+
+16. **Conjecture 8.6(ii), line 208 — significant.** Issue: the displayed \(\Psi\) is not normalized at the asserted range. Nearest Boolean coherent states have overlap approximately \(e^{-N/(2n)}\); controlling the Gram matrix of all \(2^n\) states requires \(N=\Omega(n\log(n/\varepsilon))\), not merely \(N\ge n+3\) or vague \(N\gg n\). The uncomputation bound is a failure probability; state-vector/trace-distance error is its square root. Fix: normalize \(\Psi\), impose the logarithmic threshold, and state the correct error norm.
+
+17. **Conjecture 8.6(iii), line 208 — significant.** Issue: \(D/2^n\) and approximate uniformity require operator-norm control of the full coherent-state Gram matrix, not pairwise “near-orthogonality.” Even after supplying that control, the construction only achieves Grover scaling; it proves no “and no better” lower bound for other algorithms. Fix: state a Grover-scaling upper bound for this projection method, with explicit Gram and decoding errors.
+
+18. **Conjecture 8.9, line 214 — significant.** Issue: \(X_j=\mu_{z_0}^{-1}\mu_{z_j}\) is defined on a fixed stabilized ground space only for a zero-dimensional scheme with \(z_0\) a nonzerodivisor. For a general smooth positive-dimensional \(V\), dimensions grow and \(\mu_{z_0}\) is not invertible. Local multiplicity alone also cannot control conditioning. Fix: restrict the conjecture to zero-dimensional affine schemes, or replace \(X_j\) by inter-degree maps; include separation, coefficient height, and presentation conditioning among the parameters.
+exec
+/bin/bash -lc "sed -n '1,1200p' HANDOFF.md" in /home/tobias/Projects/quantum-algorithms-for-algebraic-geometry
+ succeeded in 0ms:
+# Handoff — complex projective varieties as ground spaces (2026-09-02)
+
+## State
+- Source: `page81.tex` (transcribed notebook page, preliminary quantum-algorithm ideas).
+- Deliverable: `analysis-2026-09-01/report.md` + `report.html` (render with `fmd-report report.md -o report.html`; last render 847 equations, 0 fallbacks).
+- Support: `analysis-2026-09-01/numerics/` (bf.py core; task1–9 scripts + `*_out.txt`; `run_all.sh`), `referee/round1.md`, `round2.md` (codex gpt-5.6-sol xhigh critiques), `literature-2026-09-02.md` (three Opus lit scouts, citations unverified unless marked).
+
+## Established (theorem-level, in report Sections 2–4, 7)
+- H = Σ_j f_j(a†) f̄_j(a) on Fock space; ker H_N = (I_N)^⊥ = Macaulay inverse system; dim = Hilbert function. Frustration-free. Coherent states |p>^{⊗N} in kernel ⟺ p̄ ∈ V. Multidegree-(1,…,1) sector = quantum k-SAT exactly.
+- No k-body parent Hamiltonian for I_N (Fact 4.1); few-mode parents only for ideals confined to few modes (Fact 4.2).
+- Principal ideals uniformly gapped (Bombieri inequality, Fact 7.1); quadric gap ≥ 4 d_min²(N−2)+‖f‖² via Takagi (Fact 7.2), exact for the conic (Δ_N = N+1).
+- Bosonic QSAT (symmetric sector) is QMA1-hard via hard-core terms (Prop 8.2).
+- Conic Hamiltonian = Law–Pu–Bigelow spinor-BEC spin mixing; 2N+1 ground states already realised experimentally.
+
+## Open / conjectures (report Section 8)
+8.1 gapped distance-to-ideal BQP-hard; 8.3(a) inf_N Δ_N > 0 for fixed tuple; 8.3(b) cone criterion for gap growth; 8.3(c) generic forms gapped uniformly in n; 8.4 adiabatic Gröbner deformation; 8.6 root sampling Grover-limited; 8.7 low-codim degree/dim from normalised HF; 8.10 geometric overlaps / Toeplitz integration; 8.11 Macaulay gap vs Bürgisser–Cucker condition number.
+
+## Suggested next small steps
+1. Check Fact 7.2 numerically on the survey's random quadric in P^4: compute Takagi values, compare slope of Δ_N with 4 d_min². (bf.py has everything; ~20 lines.)
+2. Test the cone criterion (8.3(b)) for a non-quadric hypersurface: cubic with/without linearly dependent partials, Δ_N vs N.
+3. Test 8.10(a): Tr(P_I P_J) scaling for two curves meeting in a point vs disjoint, N ≤ 12.
+4. If writing up: Sections 2, 3, 7 and Props 3.1/8.2 are the solid core; keep 8.x labelled as conjectures.
+
+## Conventions / pitfalls
+- Fock basis |k> = z^k/√k!, a(f) = conj-coefficient differential operator. Sphere/Bombieri norms agree with Fock only degreewise.
+- Gröbner path (5.5) needs a w-Gröbner basis as generators, else not flat at t=0.
+- Δ_N depends on the generating tuple (not just I); use unit Bombieri–Weyl generators when comparing.
+- Tooling: no Fable subagents; Opus subagents or `codex exec -m gpt-5.6-sol -c model_reasoning_effort="xhigh" -s read-only --skip-git-repo-check -o out.md "<prompt>" < /dev/null` (stdin must be closed).
+
+exec
+/bin/bash -lc "sed -n '1,1200p' seed/page81.tex" in /home/tobias/Projects/quantum-algorithms-for-algebraic-geometry
+ succeeded in 0ms:
+% --- s01.png ---
+\underline{Complex projective varieties and quantum mechanics}
+
+\underline{Definition:}\quad
+\[
+\mathbb{CP}^n=\left\{(z_0,\ldots,z_n)\ \middle|\ \sum_{j=0}^{n}|z_j|^2=1\right\}
+\]
+
+We associate $\mathbb{CP}^n$ to a qudit of dimension $n$.
+
+The many body Hilbert space we work with is
+\[
+L^2(\mathbb{CP}^n)=\bigoplus_{N\geq 0}h_N
+\]
+which is graded by degree,
+\[
+\deg(p(x))=N
+\]
+of homogeneous polynomials.
+
+\[
+\lvert k_0,k_1,\ldots,k_n\rangle
+=
+\sqrt{\frac{(k_0+k_1+\cdots+k_n+n)!}{k_0!k_1!\cdots k_n!n!}}\,
+z_0^{k_0}z_1^{k_1}\cdots z_n^{k_n}
+\]
+
+Forms orthonormal basis w.r.t.
+\[
+\langle k\mid l\rangle
+=
+\int_{\mathbb{CP}^n}\overline{\underline{z}}^{\,\underline{k}}\underline{z}^{\underline{l}}\,d\underline{z}
+\]
+
+An ideal (graded) is comprised of all homogeneous polynomials $p(z)$ s.t.
+\[
+(f_1,\ldots,f_d)_N
+=
+\left\{
+p(z)=f_1(z)h_1(z)+\cdots+f_d(z)h_d(z)
+\ \middle|\ 
+\deg p=N
+\right\}
+\]
+
+We want to realize $(f_1,\ldots,f_d)_N$ as ker of Hamiltonian. We need introduce (unnormalised) creation \& annihilation operators:
+\[
+a_j^\dagger=z_j,\qquad a_j=\partial_j
+\]
+
+Also write
+\[
+\ell_j^\dagger\lvert k_0,\ldots,k_n\rangle
+=
+\lvert k_0,\ldots,k_j+1,\ldots,k_n\rangle
+\]
+\[
+\ell_j\lvert k_0,\ldots,k_n\rangle
+=
+\lvert k_0,\ldots,k_j-1,\ldots,k_n\rangle
+\]
+
+We have
+\[
+\ell_j\propto a_j,\qquad \ell_j^\dagger\propto a_j^\dagger
+\]
+
+% --- s02.png ---
+The vector subspace $V_{(f_1,\ldots,f_d)_N}^{\perp}$ is defined by the property:
+\[
+q(z)\in V_{(f_1,\ldots,f_d)_N}^{\perp}
+\Longleftrightarrow
+\langle q(z)\mid p(z)\rangle=0
+\quad \forall\,p(z)\in V_{(f_1,\ldots,f_d)_N}
+\]
+
+\[
+p(z)\in V_{(f_1,\ldots,f_d)_N}
+\Longrightarrow
+\]
+
+\[
+p(z)=\sum_{j=1}^{d}h_j(z)f_j(z)
+\]
+
+\[
+=\sum_{j=1}^{d}a^\dagger(f_j)\lvert h_j\rangle
+\]
+
+where
+\[
+a^\dagger(f)=\sum_{k_0,\ldots,k_n}f_{k_0\ldots k_n}
+(a_0^\dagger)^{k_0}(a_1^\dagger)^{k_1}\cdots(a_n^\dagger)^{k_n}
+\]
+
+So
+\[
+\langle q(z)\mid p(z)\rangle=0
+\Longrightarrow
+\]
+
+\[
+\sum_{j=1}^{d}
+\langle q(z)\mid a^\dagger(f_j)\lvert h_j\rangle
+=0
+\qquad \forall\,h_j(z)
+\]
+
+\[
+\Longrightarrow
+\sum_{j=1}^{d}
+\langle q\mid a^\dagger(f_j)\lvert h_j\rangle
+=0
+\qquad \forall\,\lvert h_j\rangle
+\]
+
+\[
+\Longleftrightarrow
+a(f_j)\lvert q\rangle=0
+\qquad \forall\,j=1,\ldots,d
+\]
+
+\[
+\Longleftrightarrow
+\lvert q\rangle\in\ker H
+\quad\text{where}
+\]
+
+\[
+H=\sum_{j=1}^{d}a^\dagger(f_j)a(f_j)
+\]
+
+Check with example
+
+\[
+f_0=z_0z_1-z_2^2
+\]
+
+\[
+a(f_0)=a_0a_1-a_2^2
+\]
+
+\[
+[a_0,a_0^\dagger]z_0^k
+\]
+
+\[
+[\partial_0,z_0]:
+\quad
+\partial_0(z_0z_0^k)-z_0\partial_0z_0^k
+\]
+
+\[
+=(k+1)z_0^k-kz_0^k
+\]
+
+\[
+=z_0^k
+\]
+
+% --- s03.png ---
+\[
+(a_0a_1-a_2^2)(z_0z_1-z_2^2)
+=1-2\mathrel{\overset{?}{=}}-1
+\]
+
+Note:
+
+\[
+a(f_0)\lvert 00\cdots\rangle=0
+\]
+
+\[
+a(f_0)\lvert k_0\cdots k_n\rangle=0
+\qquad\text{if }\sum_{j=2}^n k_j=1
+\]
+
+\[
+a(f_0)\lvert 112\rangle
+=\lvert 002\rangle-2\lvert 110\rangle
+\]
+
+\[
+a(f_1)\lvert 11\rangle=\lvert 000\rangle
+\]
+
+\[
+a(f_0)\lvert 002\rangle=-2\lvert 000\rangle
+\]
+
+\[
+\Longrightarrow\quad
+a(f_0)\lvert\psi\rangle=0
+\quad\Longrightarrow\quad
+\lvert\psi\rangle=\lvert 110\rangle+\frac{1}{2}\lvert 002\rangle
+\]
+
+But this is in $\mathcal H$? We realize $V^\perp_{(f_1,\ldots,f_d)_N}$ as $\ker H$.
+
+Note $V_{(f_1,\ldots,f_d)_N}$.
+
+Is it helpful to have a ground state space given by $V_I^\perp$? Consider, e.g., ideal membership problem:
+
+Suppose we have $\ker H=V_I^\perp$. Is $f\in I$
+
+Basic:
+\[
+H+L_f^\dagger L_f=H'
+\]
+
+If $f\in I$ then
+\[
+\ker H=\ker(H+H')
+\]
+
+If $f\notin I$ then
+\[
+\ker(H+H')=?
+\]
+
+% --- s04.png ---
+If $f\notin I$ then
+\[
+\ker(H+H')=? 
+\]
+
+\[
+\ker(H+H')=
+\left\{\lvert g\rangle\ \middle|\ 
+\left\langle g\middle|\sum_j h_jf_j+hf\right\rangle=0
+\quad\forall h_1,\ldots,h_d,h
+\right\}
+\]
+
+i.e. $f\notin I$ then
+\[
+I\subset (I,f)
+\]
+and $(I,f)$ is no bigger. So
+\[
+V_{(I,f)}\text{ is smaller.}
+\]
+That is
+\[
+\ker(H+H')\subset \ker(H).
+\]
+
+Perturbation theory would make value different in limit $p\to0$.
+
+Perhaps it is worth trying to build a parent Hamiltonian with
+\[
+\ker(H)=V_I.
+\]
+This should allow finite field.
+
+Strategy: First find parent for single ideal then grow the ideal and add constraints.
+
+Hamiltonian for $(f)$?
+
+\[
+I=(f)=\{h(x)f(x)\mid h(x)\in k[z]\}
+\]
+
+We start with:
+\[
+H=\mathbb I-\lvert f\rangle\langle f\rvert
+\]
+\[
+=\mathbb I-L_f^\dagger\lvert0\rangle\langle0\rvert L_f
+\]
+
+Would be good to have unitary version of $L_f^\dagger$.
+
+\[
+\ker H=\{\lvert g\rangle\mid \lvert\langle g\mid f\rangle\rvert=1\}
+\]
+
+Look now at
+\[
+H=\sum_{h(x)}\mathbb I-\lvert hf\times hf\rvert^2
+\mathrel{\overset{?}{=}}
+\sum_h\mathbb I-\lvert u_hf(x)\rangle\langle u_hf(x)\rvert
+\]
+
+\[
+(1)=\mathbb R\quad\Longrightarrow\quad H_{(1)}=0
+\]
+
+% --- s05.png ---
+But what is $u_f$? Can we use $L_f$ to do this?
+
+For $|f\rangle$:
+
+What $\ker H=\{\,|g\rangle\mid |\langle f|g\rangle|=1\,\}$
+
+What equation is satisfied so that
+\[
+M_f|f\rangle=0
+\]
+\[
+\Rightarrow L_f-1
+\]
+
+\[
+f(x)=\sum_{j=0}^{\deg(f)} f_jx^j
+\]
+
+\[
+|f\rangle=\sum_{j=0}^{\deg(f)} f_j|j\rangle
+\]
+
+Full basis for $\mathbb{CP}^n$:
+
+\[
+\mathcal{H}=\operatorname{span}\left\{|\alpha_0,\ldots,\alpha_n\rangle\mid \alpha_i\in\mathbb{Z}^+;\ |\alpha\rangle\leftrightarrow z^\alpha\right\}
+\]
+
+\[
+|f\rangle\longmapsto |h_g\rangle\;?
+\]
+
+\[
+f(x,y)=\sum_{j+k=d}f_{jk}x^jy^k
+\]
+
+\[
+h(x,y)=\sum_{l,m}h_{lm}x^ly^m
+\]
+
+\[
+f(x,y)h(x,y)=\sum_{\substack{j,k\\j+k=d}}\sum_{l,m}f_{jk}h_{lm}x^{j+l}y^{k+m}
+\]
+
+\[
+|fh\rangle=\sum_{\substack{j,k\\j+k=d}}\sum_{l,m}f_{jk}h_{lm}|j+l,k+m\rangle
+\]
+
+If $h$ is homogeneous.
+
+% --- s06.png ---
+\[
+|fh\rangle=\sum_{\substack{j,k\\j+k=d}}\sum_{l,m}f_{jk}h_{lm}|j+l,k+m\rangle
+\]
+
+If $h$ is homogeneous:
+
+\[
+|p\rangle \xleftarrow{h_{\deg(f)}} \xrightarrow{h} |hf\rangle\in\mathcal{P}_{\deg(h)+\deg(f)}
+\]
+
+First look at operator \quad $f\mapsto x^\ell y^m$
+
+\[
+|j,k\rangle\xrightarrow{x^\ell y^m}|j+\ell,k+m\rangle
+\]
+
+This is a shift-right operator. \quad $J^\ell|j\rangle=|j+\ell\rangle$
+
+\[
+J=\sum_{j=0}^{\infty}|j+\ell\rangle\langle j|
+\]
+
+So this makes Hilbert space interpretation:
+
+\[
+\mathcal{H}_R\equiv
+\underbrace{\ell^2(\mathbb{Z}^+)\otimes\ell^2(\mathbb{Z}^+)\otimes\cdots\otimes\ell^2(\mathbb{Z}^+)_j}_{m+1}
+\]
+
+$J$ is not natural in a Harmonic oscillator setting.
+
+\[
+\ell^2(\mathbb{Z})
+\]
+
+would then be appropriate for Laurent polynomials.
+
+So we mirror $\mathbb{F}[x]$ case:
+
+We want to create superposition of all polys in $V_I$
+
+\[
+|b\rangle\longmapsto\sum_{h\in R_d}|hf\rangle
+\qquad;\qquad
+R=\bigoplus_{d=0}^{\infty}R_d
+\]
+
+Is arbitrary enough?
+
+\[
+|f\rangle\longmapsto|f+h\rangle\Rightarrow\infty
+\]
+
+% --- s07.png ---
+Is addition unitary?
+
+\[
+|f\rangle\longmapsto |f+h\rangle\Rightarrow\infty
+\]
+
+But we could start with forming $|k\rangle$.
+
+Thus
+
+\[
+R=\sum_{\alpha_0,\ldots,\alpha_n}
+|\alpha_0,\alpha_1,\ldots,\alpha_n\rangle
+\]
+
+Assume this is easy to create (how?)
+
+Remember! $|0\cdots 0\rangle$ stands for ``$1$'' etc.
+
+\[
+1\longmapsto z_0^{\alpha_0}z_1^{\alpha_1}\cdots z_n^{\alpha_n}
+\]
+
+\[
+|0\cdots 0\rangle\longmapsto
+L_{z_0}^{\alpha_0}\cdots L_{z_n}^{\alpha_n}|0\cdots 0\rangle
+=|\alpha_0,\alpha_1,\ldots,\alpha_n\rangle
+\]
+
+$\therefore$ we could proceed by applying:
+
+\[
+\mathrm{CG}=\sum_{j=0}^{\infty}J^j\otimes |j\rangle\langle j|
+\]
+
+To form
+
+\[
+l(z^\alpha)=\sum_\beta|\alpha+\beta\rangle
+\]
+
+\[
+=\sum_\beta J^\beta|\alpha\rangle
+\]
+
+\[
+l(z_1^{\alpha_1}z_2^{\alpha_2})
+=\sum |\alpha_1+\beta_1\rangle\oplus|\alpha_2+\beta_2\rangle
+\]
+
+Eg. $\alpha_1=(1,0)\quad \alpha_2=(0,1)$
+
+We need to form superpositions:
+
+\[
+|0\rangle\longmapsto\frac{1}{\sqrt{2}}
+\left(|\alpha_1\rangle+|\alpha_2\rangle\right)
+\]
+
+Actually: this is ok for monomial ideals:
+
+\[
+(z_1^{\alpha_1},z_2^{\alpha_2})
+=\{p(z)\mid p(z)=h_1(z)z^{\alpha_1}+h_2(z)z^{\alpha_2}\}
+\]
+
+\[
+|p(z)\rangle\in\operatorname{span}
+\left\{
+|\alpha_1+\beta_1\rangle,\,
+|\alpha_2+\beta_2\rangle
+\mid \beta_1,\beta_2\in(\mathbb{Z}^+)^{n+1}
+\right\}
+\]
+
+% --- s08.png ---
+\[
+(z^{\alpha_1},z^{\alpha_2})
+=
+\left\{p(z)\mid p(z)=h_1(z)z^{\alpha_1}+h_2(z)z^{\alpha_2}\right\}
+\]
+
+\underline{Example.}\quad
+\[
+|(z_1,z_2)\rangle\in\operatorname{span}
+\left\{
+|1+\beta_1^0,\beta_2^0\rangle,\,
+|\beta_1^0,1+\beta_2^0\rangle
+\right\}
+\]
+
+\[
+\in\mathcal{H}_N\cap\{|0,0\rangle\}^{\perp}
+\]
+
+The space $|f\cdot h\rangle$ is large enough to characterise
+
+\[
+|f\cdot h\rangle\in\operatorname{span}
+\left\{
+J^\beta\left(\sum_\alpha f_\alpha|\alpha\rangle\right)
+\mid \beta\in(\mathbb{Z}^+)^{n+1}
+\right\}
+\]
+
+So, really, we want to start with
+
+\[
+\sout{H=\mathbb{1}-\sum_{j=1}^{d}\lvert f_j\rangle\langle f_j\rvert}
+\]
+
+\[
+\Longleftarrow \underline{\text{AND}}\text{ quantifier (!)}
+\]
+
+No, actually, OR quantifier
+
+\[
+H\lvert f_j\rangle=0
+\]
+
+Then sum over all shifts:
+
+\[
+H\longmapsto\sum_\alpha J^\alpha H(J^\alpha)^\dagger
+\]
+
+\[
+H\sum_j c_j\lvert f_j\rangle=
+\]
+
+\[
+\sum_j c_j H\lvert f_j\rangle=0
+\]
+
+(Can drop $\mathbb{1}$; No, normalisation not important.
+
+exec
+/bin/bash -lc 'bd prime' in /home/tobias/Projects/quantum-algorithms-for-algebraic-geometry
+ succeeded in 0ms:
+# Beads Workflow Context
+
+> **Context Recovery**: Run `bd prime` after compaction, clear, or new session
+> Hooks auto-call this in Claude Code when .beads/ detected
+
+# 🚨 SESSION CLOSE PROTOCOL 🚨
+
+**CRITICAL**: Before saying "done" or "complete", you MUST run this checklist:
+
+```
+[ ] bd close <id1> <id2> ...   (close completed issues)
+```
+
+**Note:** No git remote configured. Issues are saved locally only.
+
+## Core Rules
+- **Default**: Use beads for ALL task tracking (`bd create`, `bd ready`, `bd close`)
+- **Prohibited**: Do NOT use TodoWrite, TaskCreate, or markdown files for task tracking
+- **Workflow**: Create beads issue BEFORE writing code, mark in_progress when starting
+- **Memory**: Use `bd remember "insight"` for persistent knowledge across sessions. Do NOT use MEMORY.md files — they fragment across accounts. Search with `bd memories <keyword>`.
+- Persistence you don't need beats lost context
+- Git workflow: local-only (no git remote)
+- Session management: check `bd ready` for available work
+
+## Essential Commands
+
+### Finding Work
+- `bd ready` - Show issues ready to work (no blockers)
+- `bd list --status=open` - All open issues
+- `bd list --status=in_progress` - Your active work
+- `bd show <id>` - Detailed issue view with dependencies
+
+### Creating & Updating
+- `bd create --title="Summary of this issue" --description="Why this issue exists and what needs to be done" --type=task|bug|feature --priority=2` - New issue
+  - Priority: 0-4 or P0-P4 (0=critical, 2=medium, 4=backlog). NOT "high"/"medium"/"low"
+- `bd update <id> --claim` - Claim work
+- `bd update <id> --assignee=username` - Assign to someone
+- `bd update <id> --title/--description/--notes/--design` - Update fields inline
+- `bd close <id>` - Mark complete
+- `bd close <id1> <id2> ...` - Close multiple issues at once (more efficient)
+- `bd close <id> --reason="explanation"` - Close with reason
+- **Tip**: When creating multiple issues/tasks/epics, use parallel subagents for efficiency
+- **WARNING**: Do NOT use `bd edit` - it opens $EDITOR (vim/nano) which blocks agents
+
+### Dependencies & Blocking
+- `bd dep add <issue> <depends-on>` - Add dependency (issue depends on depends-on)
+- `bd blocked` - Show all blocked issues
+- `bd show <id>` - See what's blocking/blocked by this issue
+
+### Sync & Collaboration
+- `bd search <query>` - Search issues by keyword
+
+### Project Health
+- `bd stats` - Project statistics (open/closed/blocked counts)
+- `bd doctor` - Check for issues (sync problems, missing hooks)
+- `bd doctor --check=conventions` - Check for convention drift (lint, stale, orphans)
+
+### Quality Tools
+- `bd create --validate` - Check description has required sections
+- `bd create --acceptance="criteria"` - Set acceptance criteria (checked by --validate)
+- `bd create --design="decisions"` - Record design decisions
+- `bd create --notes="context"` - Add supplementary notes
+- `bd config set validation.on-create warn` - Auto-validate on every create
+- `bd lint` - Check existing issues for missing sections
+
+### Lifecycle & Hygiene
+- `bd defer <id> --until="date"` - Defer work to a future date
+- `bd supersede <id> --with=<new-id>` - Mark issue as superseded
+- `bd close <id> --suggest-next` - Show newly unblocked issues after closing
+- `bd stale` - Find issues with no recent activity
+- `bd orphans` - Find issues with broken dependencies
+- `bd preflight` - Pre-PR checks (lint, stale, orphans)
+- `bd human <id>` - Flag for human decision (list/respond/dismiss)
+
+### Structured Workflows
+- `bd formula list` - See available workflow templates
+- `bd mol pour <name>` - Start structured workflow from formula
+
+## Common Workflows
+
+**Starting work:**
+```bash
+bd ready           # Find available work
+bd show <id>       # Review issue details
+bd update <id> --claim  # Claim it
+```
+
+**Completing work:**
+```bash
+bd close <id1> <id2> ...    # Close all completed issues at once
+```
+
+**Creating dependent work:**
+```bash
+# Run bd create commands in parallel (use subagents for many items)
+bd create --title="Implement feature X" --description="Why this issue exists and what needs to be done" --type=feature
+bd create --title="Write tests for X" --description="Why this issue exists and what needs to be done" --type=task
+bd dep add beads-yyy beads-xxx  # Tests depend on Feature (Feature blocks tests)
+```
+
+codex
+The seed’s usable core is narrower than its proposal: the degree-\(N\) kernel identity is solid, while every speedup must pay the normalized Macaulay gap, overlap, state preparation, and readout costs. The prior referees also rule out treating exact Hilbert data, unrestricted root sampling, or an arbitrary Gröbner deformation as already-efficient quantum targets.
+exec
+/bin/bash -lc "sed -n '1,320p' PRD.md && sed -n '1,360p' claims/CLAIMS.md && if [ -f scouting/classical-landscape.md ]; then sed -n '1,120p' scouting/classical-landscape.md; fi && rg --files scouting refs seed/analysis-2026-09-01 | sort" in /home/tobias/Projects/quantum-algorithms-for-algebraic-geometry
+ exited 2 in 0ms:
+sed: can't read PRD.md: No such file or directory
+
+exec
+/bin/bash -lc "pwd; rg --files -g '"'!*seed/**'"' -g '"'!*.png'"' | sort | sed -n '1,400p'; if [ -f scouting/classical-landscape.md ]; then sed -n '1,160p' scouting/classical-landscape.md; fi" in /home/tobias/Projects/quantum-algorithms-for-algebraic-geometry
+ succeeded in 0ms:
+/home/tobias/Projects/quantum-algorithms-for-algebraic-geometry
+AGENTS.md
+CLAUDE.md
+HANDOFF.md
+briefs/lane-applications.md
+briefs/lane-checkers.md
+briefs/lane-claims.md
+briefs/lane-classical.md
+briefs/lane-definitions.md
+briefs/lane-robotics.md
+docs/worklog/2026-09-02.md
+scouting/classical-landscape.log
+
+exec
+/bin/bash -lc "sed -n '1,1000p' briefs/lane-classical.md; sed -n '1,240p' scouting/classical-landscape.log" in /home/tobias/Projects/quantum-algorithms-for-algebraic-geometry
+ succeeded in 0ms:
+# Lane: classical landscape scout (best-in-class classical algorithms)
+
+Work fully autonomously; do not ask questions. Repo root: /home/tobias/Projects/quantum-algorithms-for-algebraic-geometry. Read first, in order: CLAUDE.md (laws, north star), seed/analysis-2026-09-01/report.md (the seed analysis; treat as an untrusted proposer document, NOT as established truth), seed/analysis-2026-09-01/referee/round1.md and round2.md (prior critic verdicts), HANDOFF.md, seed/page81.tex (the original notebook page). No emoji, no marketing prose. Mark any citation you cannot resolve to an arXiv id or DOI you are confident of as [UNVERIFIED]. Do not touch seed/ or any file outside your lane.
+
+## Your lane (writable file, nothing else)
+- scouting/classical-landscape.md (you are running under codex; write via the -o output path you were given, which the orchestrator will place at this location)
+
+## Task
+The north star (CLAUDE.md §1) requires a REAL speedup over the best-in-class classical algorithm for the same problem. Produce the reference memo the campaign will judge every candidate speedup against.
+
+For each of the following problem families, give: (1) precise problem statement(s) with input encoding and size parameters (n variables, d degree, s generators, N truncation degree, bit size); (2) the best-known classical algorithm(s) with their proven complexity AND their practical state of the art (name the software: Macaulay2, Singular, msolve, FGb, Bertini, HomotopyContinuation.jl, PHCpack, etc.) with typical solvable sizes; (3) known lower bounds / hardness (EXPSPACE-completeness of ideal membership (Mayr-Meyer), NP-hardness of Hilbert-Nullstellensatz, #P-hardness of counting, PSPACE bounds, degree bounds for Nullstellensatz certificates, Macaulay-matrix regularity); (4) the structure that the seed's Fock-space Hamiltonian formulation exposes (kernel of H_N = degree-N piece of Macaulay inverse system; gap Delta_N; quantum linear algebra on Macaulay matrices; coherent-state kernel test) and an honest assessment of where a quantum algorithm could plausibly beat (2) in TIME or SPACE, and where it provably cannot (dequantization: Tang-style, Gilyen-Lloyd-Tang; sparse-access caveats; state preparation costs; the Macaulay matrix is sparse and structured, which cuts both ways); (5) the cheapest experimental/heuristic attack: does the problem map naturally to linear optics with postselection or MBQC, to boson sampling (permanents / hafnians of structured matrices), or to a condensed-matter model (Bose-Hubbard, spinor BEC spin mixing as in the seed's conic example)?
+
+Families (add others you think matter): ideal membership; radical membership / Nullstellensatz; Hilbert function / Hilbert polynomial / dimension and degree of a variety; Groebner basis computation (F4/F5, regularity, semi-regular sequences, Froberg); polynomial system solving (homotopy continuation, root counting, Bezout/BKK, real root isolation); distance to a variety / nearest point on a variety (ED degree, Draisma et al.); zero-dimensional ideals and eigenvalue methods (Stickelberger, Moller); syzygies and Betti numbers; sampling roots or points on a variety; tensor rank / secant varieties; algebraic statistics (ML degree); low-rank matrix completion and determinantal varieties; polynomial optimization (Lasserre / SOS hierarchies, which are themselves 'Hamiltonian-like').
+
+Then a section "Ranked candidates": rank the <=10 most promising (problem, quantum primitive, classical baseline, plausible speedup type: time/space/both, dequantization risk, heuristic-hardware fit) with one paragraph each, and a section "Traps": speedups that look real but are not (comparison to a naive classical baseline, hidden state-preparation cost, exponentially small overlaps, gap closing).
+
+Be quantitative. Give complexity exponents and cite the theorem or paper for each. Length: as long as needed, target 400-800 lines.
+Reading additional input from stdin...
+OpenAI Codex v0.152.1
+--------
+workdir: /home/tobias/Projects/quantum-algorithms-for-algebraic-geometry
+model: gpt-5.6-sol
+provider: openai
+approval: never
+sandbox: read-only
+reasoning effort: xhigh
+reasoning summaries: none
+session id: 01a06230-a33d-78a1-a69a-0c2a20dcf3a1
+--------
+user
+# Lane: classical landscape scout (best-in-class classical algorithms)
+
+Work fully autonomously; do not ask questions. Repo root: /home/tobias/Projects/quantum-algorithms-for-algebraic-geometry. Read first, in order: CLAUDE.md (laws, north star), seed/analysis-2026-09-01/report.md (the seed analysis; treat as an untrusted proposer document, NOT as established truth), seed/analysis-2026-09-01/referee/round1.md and round2.md (prior critic verdicts), HANDOFF.md, seed/page81.tex (the original notebook page). No emoji, no marketing prose. Mark any citation you cannot resolve to an arXiv id or DOI you are confident of as [UNVERIFIED]. Do not touch seed/ or any file outside your lane.
+
+## Your lane (writable file, nothing else)
+- scouting/classical-landscape.md (you are running under codex; write via the -o output path you were given, which the orchestrator will place at this location)
+
+## Task
+The north star (CLAUDE.md §1) requires a REAL speedup over the best-in-class classical algorithm for the same problem. Produce the reference memo the campaign will judge every candidate speedup against.
+
+For each of the following problem families, give: (1) precise problem statement(s) with input encoding and size parameters (n variables, d degree, s generators, N truncation degree, bit size); (2) the best-known classical algorithm(s) with their proven complexity AND their practical state of the art (name the software: Macaulay2, Singular, msolve, FGb, Bertini, HomotopyContinuation.jl, PHCpack, etc.) with typical solvable sizes; (3) known lower bounds / hardness (EXPSPACE-completeness of ideal membership (Mayr-Meyer), NP-hardness of Hilbert-Nullstellensatz, #P-hardness of counting, PSPACE bounds, degree bounds for Nullstellensatz certificates, Macaulay-matrix regularity); (4) the structure that the seed's Fock-space Hamiltonian formulation exposes (kernel of H_N = degree-N piece of Macaulay inverse system; gap Delta_N; quantum linear algebra on Macaulay matrices; coherent-state kernel test) and an honest assessment of where a quantum algorithm could plausibly beat (2) in TIME or SPACE, and where it provably cannot (dequantization: Tang-style, Gilyen-Lloyd-Tang; sparse-access caveats; state preparation costs; the Macaulay matrix is sparse and structured, which cuts both ways); (5) the cheapest experimental/heuristic attack: does the problem map naturally to linear optics with postselection or MBQC, to boson sampling (permanents / hafnians of structured matrices), or to a condensed-matter model (Bose-Hubbard, spinor BEC spin mixing as in the seed's conic example)?
+
+Families (add others you think matter): ideal membership; radical membership / Nullstellensatz; Hilbert function / Hilbert polynomial / dimension and degree of a variety; Groebner basis computation (F4/F5, regularity, semi-regular sequences, Froberg); polynomial system solving (homotopy continuation, root counting, Bezout/BKK, real root isolation); distance to a variety / nearest point on a variety (ED degree, Draisma et al.); zero-dimensional ideals and eigenvalue methods (Stickelberger, Moller); syzygies and Betti numbers; sampling roots or points on a variety; tensor rank / secant varieties; algebraic statistics (ML degree); low-rank matrix completion and determinantal varieties; polynomial optimization (Lasserre / SOS hierarchies, which are themselves 'Hamiltonian-like').
+
+Then a section "Ranked candidates": rank the <=10 most promising (problem, quantum primitive, classical baseline, plausible speedup type: time/space/both, dequantization risk, heuristic-hardware fit) with one paragraph each, and a section "Traps": speedups that look real but are not (comparison to a naive classical baseline, hidden state-preparation cost, exponentially small overlaps, gap closing).
+
+Be quantitative. Give complexity exponents and cite the theorem or paper for each. Length: as long as needed, target 400-800 lines.
+codex
+I’ll build the memo from the project’s governing documents and original notebook page first, then verify the classical baselines and citations against primary literature. I’ll write only `scouting/classical-landscape.md` and validate its scope, citations, and length before handoff.
+exec
+/bin/bash -lc "sed -n '1,240p' CLAUDE.md" in /home/tobias/Projects/quantum-algorithms-for-algebraic-geometry
+ succeeded in 0ms:
+<!-- ROLE: how we work in this repo. UPDATE POLICY: amend only on a felt failure or a TJO
+     directive, with a dated note. TRIGGER: read at session start and after any compaction. -->
+
+# CLAUDE.md — quantum-algorithms-for-algebraic-geometry (campaign, rk-light)
+
+Exploratory research campaign run under the rk-light method (five laws below), NOT under
+the full rk toolchain (TJO decision 2026-09-02: rk is too heavy for the exploration phase).
+
+## 0. Read order (gate)
+
+1. This file.
+2. `PRD.md` — north star, scope, decision record.
+3. `claims/CLAIMS.md` — the claims DAG (the only place a status lives).
+4. `HANDOFF.md` — current state and next steps.
+
+## 1. North star (verbatim, TJO 2026-09-02)
+
+A genuinely new quantum algorithm giving a real speedup (space, time, or both) over the
+best-in-class classical algorithm for the same problem, where the problem comes from
+algebraic geometry (varieties, ideals) or its application areas. BQP-completeness is a
+bonus, not a requirement. The north star must admit a cheaper heuristic attack via
+linear optics with postselection / MBQC, boson sampling, or a natural condensed-matter
+model (e.g. Bose–Hubbard). Applications are part of the exploration: cast the net wide,
+from robotics and other classical application areas of varieties and ideals to serious
+algebraic geometry.
+
+## 2. Laws (rk-light; non-negotiable)
+
+- **L1 — Claims ratchet.** Every claim is a row in `claims/CLAIMS.md`: id, exact
+  statement with quantifiers, status in {PROVED, SKETCH, CONJECTURE, REFUTED},
+  depends-on, where-proved, where-tested. Status goes UP only after an adversarial
+  critic loop converges (verdict in `verdicts/` with no FATAL/MAJOR). Never by the
+  author, never at a writeup. REFUTED rows are kept forever.
+- **L2 — Single-source definitions.** Every symbol lives once, in `definitions/`.
+  Artifacts cite, never redefine. When a claim weakens, its shard, DAG row, HANDOFF and
+  PRD move in lockstep; every critic pass audits lockstep explicitly.
+- **L3 — Addressable arguments.** Rigorous arguments in `argument/` are Lamport
+  hierarchical: numbered steps, explicit ASSUME/PROVE, every leaf citing a definition
+  id, a claim id, or a named checker run.
+- **L4 — Red-capable checkers.** Everything under `checkers/` must be able to FAIL:
+  nonzero exit on violation, no bare `assert`, a mutation for each checker recorded in
+  `checkers/MUTATIONS.md`. "Runs without errors" is never a test.
+- **L5 — Honest verdicts.** Downgrade over ambition. A sharp refutation with the
+  surviving weaker statement is a product. Critic verdicts without a FIX DEMAND and a
+  SURVIVING STATEMENT per objection are redone.
+
+## 3. Rules
+
+1. **Model roster.** Subagents: Opus (Claude) and `codex exec -m gpt-5.6-sol -c
+   model_reasoning_effort="xhigh"`. NO Fable subagents (TJO directive 2026-09-02).
+   Critic and proposer from different model families where possible.
+2. **Codex invocation.** Prompt in a FILE under `briefs/`; `-s read-only
+   --skip-git-repo-check -o <out> "$(cat brief)" < /dev/null`; background; `timeout`.
+3. **Lanes are disjoint.** Every brief names its writable files. Shared files
+   (`definitions/`, `claims/CLAIMS.md`, `PRD.md`, `HANDOFF.md`) are edited only by the
+   orchestrator, from MERGE PROPOSAL sections in lane outputs.
+4. **Tracking in bd** (prefix `qaag-`), never markdown TODOs.
+5. **Seed is read-only.** `seed/` holds the 2026-09-01 analysis and the notebook page as
+   received; never edited. Claims are extracted from it into the DAG, not proved by it.
+6. **Citations.** A reference enters `refs/` only with a resolved identifier (arXiv id
+   or DOI) that was actually fetched; unverified citations are marked `[UNVERIFIED]`.
+7. **No emoji, no marketing prose.** Concrete statements, concrete numbers.
+8. **Every spawned process is bounded**: `timeout` on anything that loops; no
+   detached processes.
+9. **Commit discipline.** Atomic commits; message states what changed and which
+   verdict or checker backs it; end with the acting model's `Co-Authored-By:` line.
+
+exec
+/bin/bash -lc "sed -n '1,1200p' seed/analysis-2026-09-01/report.md" in /home/tobias/Projects/quantum-algorithms-for-algebraic-geometry
+ succeeded in 0ms:
+# Projective varieties as ground spaces: what the construction is, what it can compute, and realistic conjectures
+
+Analysis of the handwritten notes `page81.tex` (complex projective varieties and quantum mechanics). Sections 1–3 fix the setting and identify the construction; 4–7 assess the quantum-algorithmic content; 8 collects the conjectures, separated from what is already a theorem; 9 lists corrections to the notes. Everything marked *numerically* was checked by exact diagonalisation (scripts in the session scratchpad, `numerics/`); everything in Section 8 survived one adversarial referee pass, which killed or weakened about a third of the first draft's claims.
+
+---
+
+## 1. Setting, made precise
+
+Let $R=\mathbb{C}[z_0,\dots,z_n]=\bigoplus_N R_N$ with $R_N$ the homogeneous polynomials of degree $N$, $\dim R_N=\binom{N+n}{n}$. Three inner products appear in this business.
+
+| name | $\|z^k\|^2$ | adjoint of $z_j$ |
+|---|---|---|
+| Fock / Fischer (Gaussian measure on $\mathbb{C}^{n+1}$) | $k!:=\prod_j k_j!$ | $\partial_j$ exactly |
+| Bombieri–Weyl / Kostlan / Drury–Arveson | $k!/N!$ | $\partial_j$ up to a degree-dependent scalar |
+| sphere $S^{2n+1}$ (the notes' normalisation) | $n!\,k!/(N+n)!$ | $\partial_j\,(D+n)^{-1}$, $D$ = degree operator |
+
+Within a fixed $R_N$ these differ by a scalar, so orthogonal complements, kernels of homogeneous differential operators and the ground spaces below coincide in all three. They are *not* the same Hilbert module across degrees: norms of the graded direct sums, boundedness of the shifts, and everything in the Drury–Arveson dictionary (Section 2) depend on which one is used. I use the Fock form throughout: $|k\rangle=z^k/\sqrt{k!}$ is orthonormal, $a_j=\partial_j$, $a_j^\dagger=z_j$, $[a_i,a_j^\dagger]=\delta_{ij}$. Everything is then literally $n+1$ bosonic modes, and $R_N$ is the $N$-boson sector,
+
+$$
+R_N\;\cong\;\mathrm{Sym}^N(\mathbb{C}^{n+1})\;=\;H^0(\mathbb{P}^n,\mathcal{O}(N)),
+$$
+
+the symmetric subspace of $N$ qudits of dimension $n+1$ (not $n$), i.e. the ambient space of the $N$-th Veronese embedding. The notes' $L^2(\mathbb{CP}^n)$ should be read as the Hardy space of the sphere or as symmetric Fock space; the genuine $L^2(\mathbb{CP}^n)$ is a different, non-holomorphic space.
+
+For a homogeneous $f=\sum_\alpha f_\alpha z^\alpha$ of degree $m$ put
+
+$$
+a^\dagger(f)=f(a^\dagger)=\text{multiplication by }f,\qquad
+a(f):=a^\dagger(f)^\dagger=\bar f(\partial)=\sum_\alpha\overline{f_\alpha}\,\partial^\alpha .
+$$
+
+The conjugation on the coefficients is forced by self-adjointness; the notes write $f(\partial)$, which agrees only for real $f$.
+
+## 2. The ground space is Macaulay's inverse system (this part of the notes is correct and classical)
+
+For $I=(f_1,\dots,f_d)$ homogeneous with $\deg f_j=m_j$, $I_N=\sum_jf_jR_{N-m_j}$, define
+
+$$
+H=\sum_{j=1}^da^\dagger(f_j)\,a(f_j),\qquad H_N:=H|_{R_N}.
+$$
+
+**Fact 2.1 (frustration-free; kernel = orthogonal complement of the ideal).** Since $\ker M^\dagger=(\operatorname{ran}M)^\perp$,
+
+$$
+\ker H_N=\bigcap_j\ker a(f_j)|_{R_N}=\bigcap_j(f_jR_{N-m_j})^\perp=(I_N)^\perp,\qquad
+\dim\ker H_N=\binom{N+n}{n}-\dim I_N=\mathrm{HF}_{R/I}(N).
+$$
+
+The ground-state degeneracy of $H_N$ is the Hilbert function of $R/I$; for $N$ beyond the regularity it is the Hilbert polynomial, whose degree is $\dim V(I)$ and whose leading coefficient is $\deg V(I)/(\dim V)!$. The range of $H_N$ is $I_N$ itself, so the projector onto $I_N$ is the step function $\Theta(H_N)$. *Numerically:* $\dim\ker H_N$ agreed with an independent exact rank of the Macaulay matrix for the conic ($2N+1$), the twisted cubic ($3N+1$), the rational normal quartic ($4N+1$), a monomial ideal, two generic quadrics in $\mathbb P^3$ ($4N$) and the boolean ideals of Section 6, and $\operatorname{span}\{z^\beta f_j\}\perp\ker H_N$ held to $10^{-14}$.
+
+**Fact 2.2 (identification).** $(I_N)^\perp=\{q\in R_N:\bar f(\partial)q=0\ \forall f\in I\}$ is the degree-$N$ part of the *Macaulay inverse system* of $\bar I$ (apolarity; Macaulay 1916, Iarrobino–Kanev 1999), and for a principal ideal $R_N=fR_{N-m}\oplus\ker\bar f(\partial)$ is Fischer's decomposition (Fischer 1918; Shapiro 1989). For general $I$ the orthogonal decomposition $R_N=I_N\oplus I_N^\perp$ is elementary, but the identification of the complement with the inverse system is the useful content. The map $(R/I)_N\to(I_N)^\perp$, $[q]\mapsto P_0q$, is an isomorphism, so the ground space *is* the graded quotient ring as a vector space; its multiplicative structure is the compression of the creation operators, $P_{0,N+1}\,a_j^\dagger\,P_{0,N}=$ multiplication by $z_j$ on $(R/I)_N\to(R/I)_{N+1}$.
+
+**Operator-theoretic dictionary.** With the Bombieri–Weyl norm the graded sum $\bigoplus_NR_N$ is the Drury–Arveson space $H^2_{n+1}$, Arveson's $d$-shift is $S_j=a_j^\dagger/\sqrt{\hat N+1}$ (the creation operator normalised to a contraction), the closure of $I$ is a graded submodule, and $\bigoplus_N(I_N)^\perp$ is the quotient module $H^2_{n+1}/[I]$ on which the compressed $S_j$ act. Arveson's curvature invariant equals the Euler characteristic for graded modules (Arveson 2000) and, by Fang (2003), is the leading multiplicity of the Hilbert polynomial of $R/I$; the dimension of the module is $\deg p_{R/I}+1$. The Arveson–Douglas conjecture (essential normality of these compressed shifts, Schatten class $p>\dim$ of the affine cone) is proved for principal, monomial, one-dimensional and radical-linear-union cases and for varieties smooth away from the origin (Engliš–Eschmeier 2015; Douglas–Tang–Yu 2016), and open in general as of 2025. None of this is new, but it is exactly the mathematics of the ground spaces here, and the notes' objects have standard names there.
+
+**Fact 2.3 (the notes' worked example).** For $f=z_0z_1-z_2^2$: $a(f)z_0z_1z_2^2=z_2^2-2z_0z_1$ and $a(f)(z_0z_1+cz_2^2)=1-2c$, so $c=1/2$, both as in the notes. The line "$1-2\overset{?}{=}-1$" has a sign slip: $a(f)f=\partial_0\partial_1(z_0z_1)+\partial_2^2(z_2^2)=1+2=3=\|f\|^2$. In degree 2, $\dim\ker H_2=5=2\cdot2+1$.
+
+## 3. What kind of "local" Hamiltonian this is
+
+Under $R_N\cong\mathrm{Sym}^N(\mathbb{C}^{n+1})$ (unitarily, $|k\rangle\mapsto$ the normalised symmetrisation of $|0\rangle^{\otimes k_0}\cdots|n\rangle^{\otimes k_n}$), a degree-$m$ form $f$ corresponds to the symmetric tensor
+
+$$
+|F\rangle=\sum_\alpha f_\alpha\frac{\alpha!}{m!}\sum_{w:\ \mathrm{content}(w)=\alpha}|w\rangle\in\mathrm{Sym}^m,\qquad
+\langle F|F\rangle=\sum_\alpha|f_\alpha|^2\frac{\alpha!}{m!}=\|f\|^2_{\mathrm{BW}},
+$$
+
+so the Bombieri–Weyl norm is the natural tensor norm. On symmetric states $a_{j_1}\cdots a_{j_m}=\sqrt{N!/(N-m)!}\,\langle j_1\cdots j_m|_{1..m}\otimes\mathbb 1$, hence
+
+$$
+H_N\;\cong\;P_{\mathrm{sym}}\Bigl[\sum_jm_j!\sum_{|S|=m_j}\bigl(|F_j\rangle\langle F_j|\bigr)_S\Bigr]P_{\mathrm{sym}} ,
+$$
+
+a permutation-symmetric sum of rank-one $m_j$-body positive terms ($\|f_j\|^2_{\mathrm{BW}}$ times a projector), compressed to the symmetric subspace; individual subset terms do not preserve $\mathrm{Sym}^N$, only the symmetrised sum does. This is a *bosonic analogue* of quantum $k$-SAT: forbidden $m_j$-body states $|F_j\rangle$, but restricted to the symmetric sector and with every forbidden state replicated over all subsets. It is not a Bravyi instance on distinguishable particles. In physical terms the generators are number-conserving multi-boson interactions: for the conic, $H=n_0n_1+n_2(n_2-1)-(a_0^\dagger a_1^\dagger a_2^2+\text{h.c.})$, which is the spin-mixing Hamiltonian of a spin-1 spinor condensate in the single-mode approximation (Law–Pu–Bigelow 1998, with $(z_0,z_1,z_2)\leftrightarrow(a_{+1},a_{-1},a_0)$); its ferromagnetic phase has exactly $2N+1$ degenerate ground states, the Hilbert function of the conic, so this quadric ideal has already been realised in the laboratory. "Local" here means: each term moves $m_j$ bosons (it can change up to $2m_j$ occupation numbers) and is $m_j$-body on the qudit register. It is not local on the qubit register a quantum computer would use (occupation numbers in binary); there $H_N$ is a sparse, efficiently row-computable operator, which is the right notion for QSVT (Section 5).
+
+**Consequences.**
+
+- *Points of the variety are the product states in the ground space.* The normalised spin-coherent state $|p\rangle^{\otimes N}$, $\|p\|=1$, is the polynomial $(p\cdot z)^N/\sqrt{N!}$, and the reproducing property $\langle(p\cdot z)^N,q\rangle=N!\,q(\bar p)$ gives
+
+$$
+|p\rangle^{\otimes N}\in\ker H_N\iff q(\bar p)=0\ \ \forall q\in I_N\iff\bar p\in V(I_N),
+$$
+
+  with $V(I_N)=V(I)$ for $N\ge\max_jm_j$. A point $x\in V(I)$ corresponds to the physical state $|\bar x\rangle^{\otimes N}$. The energy of a coherent state is a weighted sum of squares of the equations,
+
+$$
+\langle p^{\otimes N}|H_N|p^{\otimes N}\rangle=\sum_j\frac{N!}{(N-m_j)!}\,|f_j(\bar p)|^2,\qquad\|p\|=1,
+$$
+
+  *numerically* exact to $10^{-15}$, conjugation included (a complex quadric and a point with $f(p)=0\ne f(\bar p)$: the state of $p$ has energy $O(N^2)$, the state of $\bar p$ has energy $10^{-16}$).
+
+- *Reduced structure.* $\operatorname{span}\{|p\rangle^{\otimes N}:\bar p\in V\}=(I(V)_N)^\perp$ with $I(V)$ the vanishing ideal. So the ground space is spanned by coherent states of points of $V$ exactly when $I_N=I(V)_N$ (degreewise; global radicality and saturation need this for all large $N$). Otherwise the ground space contains $\dim I(V)_N-\dim I_N$ additional, necessarily entangled, states carrying non-reduced or irrelevant-torsion structure.
+
+- *Multigraded (Segre) version.* With variables $z_{i,s}$, $i=1..n$ (sites), $s=0..q-1$ (levels), the multidegree $(1,\dots,1)$ sector of $\mathbb{C}[z_{i,s}]$ is $(\mathbb{C}^q)^{\otimes n}$ with $z_{1,s_1}\cdots z_{n,s_n}\leftrightarrow|s_1\cdots s_n\rangle$, orthonormal (all Fock norms are $1$). A multilinear form $f$ on a set $S$ of sites gives
+
+$$
+a^\dagger(f)a(f)\big|_{(1,\dots,1)}=|f\rangle\langle f|_S\otimes\mathbb 1
+$$
+
+  *exactly*, no factorials (checked to machine precision for 3 to 12 sites; e.g. three generic bilinear forms on the three pairs of a 3-qubit system leave a 2-dimensional inverse system, three singlet projectors leave the 4-dimensional spin-$3/2$ multiplet). Hence every quantum $k$-SAT instance is the $(1,\dots,1)$ block of an ideal generated by $k$-multilinear forms: a rank-$r$ local projector is split into $r$ rank-one ones, which preserves the Hamiltonian and its gap. Product-state solutions are the points of the multiprojective variety $V(I)\subset(\mathbb{P}^{q-1})^n$; entangled solutions are the rest of the inverse system in that multidegree.
+
+**Proposition 3.1 (translation of the QSAT theorems).** For ideals generated by $k$-multilinear forms across $n$ blocks of $q$ variables, the promise problem "$\mathrm{HF}_{R/I}(1,\dots,1)>0$, or the smallest eigenvalue of $H_{(1,\dots,1)}$ is $\ge1/\mathrm{poly}(n)$" is in P for $k=2$, $q=2$ (Bravyi 2006; for bilinear forms across blocks of unequal sizes such as $(2,5)$ it is already $\mathrm{QMA}_1$-complete, Rudolph–Gharibian–Nagaj 2024) and $\mathrm{QMA}_1$-complete for $k=3$, $q=2$ (Gosset–Nagaj 2013); with monomial generators it is classical $k$-SAT, NP-complete for $k\ge3$. Without the NO-gap promise, exact vanishing of the Hilbert function at $(1,\dots,1)$ is not thereby placed in $\mathrm{QMA}_1$. The geometric question $V(I)\ne\emptyset$ (product-state satisfiability) is, by the Nullstellensatz, non-vanishing of the Hilbert function in *all* large multidegrees, not just at $(1,\dots,1)$. This is the cleanest statement of what "encoding a variety in a ground state" buys: the Hilbert function at the multilinear degree is the linear-algebra relaxation of the geometric question, and it is already quantum-hard.
+
+## 4. The notes' second half: a parent Hamiltonian for the ideal itself
+
+The notes try to build $H'$ with $\ker H'=I_N$ (rather than $I_N^\perp$) by summing shifted projectors, $H\mapsto\sum_\alpha J^\alpha HJ^{\alpha\dagger}$, and correctly notice an AND/OR problem. The obstruction is exact: the kernel of a sum of positive operators is the *intersection* of the kernels (AND), whereas $I_N=\operatorname{span}_\beta\{z^\beta f_j\}$ is a *span* (OR); $\bigcap_\alpha J^\alpha(\ker H_0)$ is far too small.
+
+Two notions of locality must be kept apart, and the answer is negative in both, except when the whole ideal lives in boundedly many modes.
+
+**Fact 4.1 (no $k$-body parent Hamiltonian for $I_N$).** Let $0\ne I_N\ne R_N$ and $N\ge k+\min_jm_j$. If $T\ge0$ is a $k$-body operator on the symmetric sector with $T(I_N)=0$, then $T=0$ on $\mathrm{Sym}^N$. Proof sketch: $T$ vanishes on the joint support of the $k$-body marginals of $I_N$; a vector $u\in\mathrm{Sym}^k$ orthogonal to that support satisfies, by the contraction formula of Section 3, $\bar u(\partial)(fh)=0$ for a generator $f$ and all $h\in R_{N-m}$. Take $h=\ell^{N-m}$ with $\ell$ a linear form, $u(\ell)\ne0$, $\ell\nmid f$ (possible since $u\ne0$ and $f$ has finitely many linear factors); in coordinates with $\ell=z_0$ the coefficient of the lowest power $z_0^{N-m-k}$ in $\bar u(\partial)(fz_0^{N-m})$ is $(N-m)_k\,\overline{u(\ell)}\,f|_{z_0=0}\ne0$. So the marginals have full support and $T=0$. This applies to monomial ideals too: for $I=(z_0)$ the projector $P_{I_N^\perp}=(\mathbb 1-|0\rangle\langle0|)^{\otimes N}$ is $N$-body, and $\theta(\hat n_0)$ is not fixed-body local.
+
+**Fact 4.2 (few-mode parents exist only for ideals confined to few modes).** In the mode (second-quantised) sense, if $I$ is generated by forms in the modes of a bounded set $A$ (after a unitary change of variables), then $I_N=\bigoplus_r(I\cap R(A))_r\otimes R(A^c)_{N-r}$ and $\mathbb 1-P_{I\cap R(A)}$ is an $|A|$-mode operator (an unbounded function of the mode operators, legitimate as an on-site term in a Bose–Hubbard sense, but not a local Hamiltonian in the complexity-theoretic sense) with kernel $I_N$. Conversely, a common kernel of positive operators each supported on a bounded mode set is an intersection of few-mode conditions, while $I_N=\sum_j(f_j)_N$ is a union-type (OR) condition: for a monomial ideal whose generator supports cannot be covered by any of the allowed mode sets, e.g. $(z_0z_1,z_2z_3,\dots,z_{2r}z_{2r+1})$ with $r$ large, any few-mode $T\ge0$ annihilating $I_N$ also annihilates every $|k\rangle$ with at least two bosons outside its mode set (extend $k$ outside the set to occupy a generator), so the common kernel is strictly larger than $I_N$. Note the property is not invariant under change of generators, e.g. $(z_0+z_1,z_0-z_1)=(z_0,z_1)$ is confined to two modes.
+
+What *is* available:
+
+- $P_{I_N}=\Theta(H_N)$ by QSVT, at cost $O(\alpha/\Delta_N\cdot\log\epsilon^{-1})$ uses of an $\alpha$-normalised block encoding of $H_N$ (Section 5). Non-local, but efficient whenever $\Delta_N/\alpha$ is not too small.
+- The "unitary version of $L_f^\dagger$" the notes ask for is the isometry in the polar decomposition $M_f=U_f|M_f|$ of multiplication by $f$, $M_f:R_{N-m}\to R_N$; $U_f$ maps $R_{N-m}$ isometrically onto $(f)_N$ and is a QSVT singular-value transformation of $M_f$, at cost $\sigma_{\max}/\sigma_{\min}$ of $M_f$, which by Fact 7.1 is $O(N^{m/2})$.
+- The shift operators $J_j$ of the notes are the isometric parts of $a_j^\dagger=J_j\sqrt{\hat n_j+1}$, unilateral shifts on $\ell^2(\mathbb{Z}_+)$. A *graded* subspace invariant under all $a_j^\dagger$ is exactly a homogeneous ideal, since a graded subspace closed under multiplication by each $z_j$ is an ideal; invariance under the $J_j$ is a different condition (the occupation-dependent factor $\sqrt{\hat n_j+1}$ does not preserve a general ideal). Without the grading the invariant-subspace lattice is larger (Beurling's $\theta H^2$ in one variable), and this is Arveson's Hilbert-module setting. Passing to $\ell^2(\mathbb{Z})$ (Laurent polynomials) makes the shifts unitary but destroys positivity of the grading and the Fock structure.
+
+## 5. What a quantum computer can do with $H_N$: quantum linear algebra on Macaulay matrices
+
+Let $\Phi_N:\bigoplus_jR_{N-m_j}\to R_N$, $(h_j)\mapsto\sum_jf_jh_j$ be the degree-$N$ Macaulay map in Fock norms. Then $H_N=\Phi_N\Phi_N^\dagger$, $\ker\Phi_N=\mathrm{Syz}(I)_N$, and
+
+$$
+\Delta_N:=\lambda^{\ne0}_{\min}(H_N)=\sigma^{\ne0}_{\min}(\Phi_N)^2,\qquad
+\|H_N\|\le\sum_j\frac{N!}{(N-m_j)!}\|f_j\|^2_{\mathrm{BW}}\le d\,N^m\max_j\|f_j\|^2_{\mathrm{BW}} .
+$$
+
+**Input model and resources.** Generators with $\mathrm{poly}(n)$ monomials and $\mathrm{poly}(n)$-bit coefficients; $N$ given in unary (the tasks below are polynomial in $N$, never in $\log N$). The register holds $k=(k_0,\dots,k_n)$, $\sum k_j=N$, in $O(n\log N)$ qubits. $H_N$ has row sparsity $\le\sum_j(\#\text{monomials of }f_j)^2$ and entries $\sum_j\overline{f_{j,\alpha}}f_{j,\beta}\sqrt{k!\,(k-\alpha+\beta)!}/(k-\alpha)!$, computable reversibly in $\mathrm{poly}(n,\log N)$ time, so a sparse-access block encoding with normalisation $\alpha=O(s\max|H_{xy}|)=\mathrm{poly}(n)\,N^{m}\max\|f_j\|^2$ is available. QSVT then gives, at cost
+
+$$
+T=\mathrm{poly}(n^m,d)\times\frac{\alpha}{\Delta_N}\times\log\frac1\epsilon
+$$
+
+block-encoding uses, any of: $P_0$ (projector onto $(I_N)^\perp\cong(R/I)_N$), $\Theta(H_N)$ (projector onto $I_N$), the polar isometries $U_f$, and eigenvalue-resolved access to $H_N$. A degree $N$ exponential in $n$ is cheap in *qubits* only: $\alpha/\Delta_N$ and all precision targets scale polynomially in $N$, so the running time is exponential there. All promises below are on the *normalised* gap $\Delta_N/\alpha$; the absolute $\Delta_N$ changes under rescaling generators.
+
+**Task list, with the three cost factors** (spectral $\alpha/\Delta_N$; overlap, i.e. the weight of the prepared state on the target subspace; readout, cheap only for global linear-algebraic quantities).
+

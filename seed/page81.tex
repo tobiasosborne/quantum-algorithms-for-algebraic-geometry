@@ -1,0 +1,530 @@
+% --- s01.png ---
+\underline{Complex projective varieties and quantum mechanics}
+
+\underline{Definition:}\quad
+\[
+\mathbb{CP}^n=\left\{(z_0,\ldots,z_n)\ \middle|\ \sum_{j=0}^{n}|z_j|^2=1\right\}
+\]
+
+We associate $\mathbb{CP}^n$ to a qudit of dimension $n$.
+
+The many body Hilbert space we work with is
+\[
+L^2(\mathbb{CP}^n)=\bigoplus_{N\geq 0}h_N
+\]
+which is graded by degree,
+\[
+\deg(p(x))=N
+\]
+of homogeneous polynomials.
+
+\[
+\lvert k_0,k_1,\ldots,k_n\rangle
+=
+\sqrt{\frac{(k_0+k_1+\cdots+k_n+n)!}{k_0!k_1!\cdots k_n!n!}}\,
+z_0^{k_0}z_1^{k_1}\cdots z_n^{k_n}
+\]
+
+Forms orthonormal basis w.r.t.
+\[
+\langle k\mid l\rangle
+=
+\int_{\mathbb{CP}^n}\overline{\underline{z}}^{\,\underline{k}}\underline{z}^{\underline{l}}\,d\underline{z}
+\]
+
+An ideal (graded) is comprised of all homogeneous polynomials $p(z)$ s.t.
+\[
+(f_1,\ldots,f_d)_N
+=
+\left\{
+p(z)=f_1(z)h_1(z)+\cdots+f_d(z)h_d(z)
+\ \middle|\ 
+\deg p=N
+\right\}
+\]
+
+We want to realize $(f_1,\ldots,f_d)_N$ as ker of Hamiltonian. We need introduce (unnormalised) creation \& annihilation operators:
+\[
+a_j^\dagger=z_j,\qquad a_j=\partial_j
+\]
+
+Also write
+\[
+\ell_j^\dagger\lvert k_0,\ldots,k_n\rangle
+=
+\lvert k_0,\ldots,k_j+1,\ldots,k_n\rangle
+\]
+\[
+\ell_j\lvert k_0,\ldots,k_n\rangle
+=
+\lvert k_0,\ldots,k_j-1,\ldots,k_n\rangle
+\]
+
+We have
+\[
+\ell_j\propto a_j,\qquad \ell_j^\dagger\propto a_j^\dagger
+\]
+
+% --- s02.png ---
+The vector subspace $V_{(f_1,\ldots,f_d)_N}^{\perp}$ is defined by the property:
+\[
+q(z)\in V_{(f_1,\ldots,f_d)_N}^{\perp}
+\Longleftrightarrow
+\langle q(z)\mid p(z)\rangle=0
+\quad \forall\,p(z)\in V_{(f_1,\ldots,f_d)_N}
+\]
+
+\[
+p(z)\in V_{(f_1,\ldots,f_d)_N}
+\Longrightarrow
+\]
+
+\[
+p(z)=\sum_{j=1}^{d}h_j(z)f_j(z)
+\]
+
+\[
+=\sum_{j=1}^{d}a^\dagger(f_j)\lvert h_j\rangle
+\]
+
+where
+\[
+a^\dagger(f)=\sum_{k_0,\ldots,k_n}f_{k_0\ldots k_n}
+(a_0^\dagger)^{k_0}(a_1^\dagger)^{k_1}\cdots(a_n^\dagger)^{k_n}
+\]
+
+So
+\[
+\langle q(z)\mid p(z)\rangle=0
+\Longrightarrow
+\]
+
+\[
+\sum_{j=1}^{d}
+\langle q(z)\mid a^\dagger(f_j)\lvert h_j\rangle
+=0
+\qquad \forall\,h_j(z)
+\]
+
+\[
+\Longrightarrow
+\sum_{j=1}^{d}
+\langle q\mid a^\dagger(f_j)\lvert h_j\rangle
+=0
+\qquad \forall\,\lvert h_j\rangle
+\]
+
+\[
+\Longleftrightarrow
+a(f_j)\lvert q\rangle=0
+\qquad \forall\,j=1,\ldots,d
+\]
+
+\[
+\Longleftrightarrow
+\lvert q\rangle\in\ker H
+\quad\text{where}
+\]
+
+\[
+H=\sum_{j=1}^{d}a^\dagger(f_j)a(f_j)
+\]
+
+Check with example
+
+\[
+f_0=z_0z_1-z_2^2
+\]
+
+\[
+a(f_0)=a_0a_1-a_2^2
+\]
+
+\[
+[a_0,a_0^\dagger]z_0^k
+\]
+
+\[
+[\partial_0,z_0]:
+\quad
+\partial_0(z_0z_0^k)-z_0\partial_0z_0^k
+\]
+
+\[
+=(k+1)z_0^k-kz_0^k
+\]
+
+\[
+=z_0^k
+\]
+
+% --- s03.png ---
+\[
+(a_0a_1-a_2^2)(z_0z_1-z_2^2)
+=1-2\mathrel{\overset{?}{=}}-1
+\]
+
+Note:
+
+\[
+a(f_0)\lvert 00\cdots\rangle=0
+\]
+
+\[
+a(f_0)\lvert k_0\cdots k_n\rangle=0
+\qquad\text{if }\sum_{j=2}^n k_j=1
+\]
+
+\[
+a(f_0)\lvert 112\rangle
+=\lvert 002\rangle-2\lvert 110\rangle
+\]
+
+\[
+a(f_1)\lvert 11\rangle=\lvert 000\rangle
+\]
+
+\[
+a(f_0)\lvert 002\rangle=-2\lvert 000\rangle
+\]
+
+\[
+\Longrightarrow\quad
+a(f_0)\lvert\psi\rangle=0
+\quad\Longrightarrow\quad
+\lvert\psi\rangle=\lvert 110\rangle+\frac{1}{2}\lvert 002\rangle
+\]
+
+But this is in $\mathcal H$? We realize $V^\perp_{(f_1,\ldots,f_d)_N}$ as $\ker H$.
+
+Note $V_{(f_1,\ldots,f_d)_N}$.
+
+Is it helpful to have a ground state space given by $V_I^\perp$? Consider, e.g., ideal membership problem:
+
+Suppose we have $\ker H=V_I^\perp$. Is $f\in I$
+
+Basic:
+\[
+H+L_f^\dagger L_f=H'
+\]
+
+If $f\in I$ then
+\[
+\ker H=\ker(H+H')
+\]
+
+If $f\notin I$ then
+\[
+\ker(H+H')=?
+\]
+
+% --- s04.png ---
+If $f\notin I$ then
+\[
+\ker(H+H')=? 
+\]
+
+\[
+\ker(H+H')=
+\left\{\lvert g\rangle\ \middle|\ 
+\left\langle g\middle|\sum_j h_jf_j+hf\right\rangle=0
+\quad\forall h_1,\ldots,h_d,h
+\right\}
+\]
+
+i.e. $f\notin I$ then
+\[
+I\subset (I,f)
+\]
+and $(I,f)$ is no bigger. So
+\[
+V_{(I,f)}\text{ is smaller.}
+\]
+That is
+\[
+\ker(H+H')\subset \ker(H).
+\]
+
+Perturbation theory would make value different in limit $p\to0$.
+
+Perhaps it is worth trying to build a parent Hamiltonian with
+\[
+\ker(H)=V_I.
+\]
+This should allow finite field.
+
+Strategy: First find parent for single ideal then grow the ideal and add constraints.
+
+Hamiltonian for $(f)$?
+
+\[
+I=(f)=\{h(x)f(x)\mid h(x)\in k[z]\}
+\]
+
+We start with:
+\[
+H=\mathbb I-\lvert f\rangle\langle f\rvert
+\]
+\[
+=\mathbb I-L_f^\dagger\lvert0\rangle\langle0\rvert L_f
+\]
+
+Would be good to have unitary version of $L_f^\dagger$.
+
+\[
+\ker H=\{\lvert g\rangle\mid \lvert\langle g\mid f\rangle\rvert=1\}
+\]
+
+Look now at
+\[
+H=\sum_{h(x)}\mathbb I-\lvert hf\times hf\rvert^2
+\mathrel{\overset{?}{=}}
+\sum_h\mathbb I-\lvert u_hf(x)\rangle\langle u_hf(x)\rvert
+\]
+
+\[
+(1)=\mathbb R\quad\Longrightarrow\quad H_{(1)}=0
+\]
+
+% --- s05.png ---
+But what is $u_f$? Can we use $L_f$ to do this?
+
+For $|f\rangle$:
+
+What $\ker H=\{\,|g\rangle\mid |\langle f|g\rangle|=1\,\}$
+
+What equation is satisfied so that
+\[
+M_f|f\rangle=0
+\]
+\[
+\Rightarrow L_f-1
+\]
+
+\[
+f(x)=\sum_{j=0}^{\deg(f)} f_jx^j
+\]
+
+\[
+|f\rangle=\sum_{j=0}^{\deg(f)} f_j|j\rangle
+\]
+
+Full basis for $\mathbb{CP}^n$:
+
+\[
+\mathcal{H}=\operatorname{span}\left\{|\alpha_0,\ldots,\alpha_n\rangle\mid \alpha_i\in\mathbb{Z}^+;\ |\alpha\rangle\leftrightarrow z^\alpha\right\}
+\]
+
+\[
+|f\rangle\longmapsto |h_g\rangle\;?
+\]
+
+\[
+f(x,y)=\sum_{j+k=d}f_{jk}x^jy^k
+\]
+
+\[
+h(x,y)=\sum_{l,m}h_{lm}x^ly^m
+\]
+
+\[
+f(x,y)h(x,y)=\sum_{\substack{j,k\\j+k=d}}\sum_{l,m}f_{jk}h_{lm}x^{j+l}y^{k+m}
+\]
+
+\[
+|fh\rangle=\sum_{\substack{j,k\\j+k=d}}\sum_{l,m}f_{jk}h_{lm}|j+l,k+m\rangle
+\]
+
+If $h$ is homogeneous.
+
+% --- s06.png ---
+\[
+|fh\rangle=\sum_{\substack{j,k\\j+k=d}}\sum_{l,m}f_{jk}h_{lm}|j+l,k+m\rangle
+\]
+
+If $h$ is homogeneous:
+
+\[
+|p\rangle \xleftarrow{h_{\deg(f)}} \xrightarrow{h} |hf\rangle\in\mathcal{P}_{\deg(h)+\deg(f)}
+\]
+
+First look at operator \quad $f\mapsto x^\ell y^m$
+
+\[
+|j,k\rangle\xrightarrow{x^\ell y^m}|j+\ell,k+m\rangle
+\]
+
+This is a shift-right operator. \quad $J^\ell|j\rangle=|j+\ell\rangle$
+
+\[
+J=\sum_{j=0}^{\infty}|j+\ell\rangle\langle j|
+\]
+
+So this makes Hilbert space interpretation:
+
+\[
+\mathcal{H}_R\equiv
+\underbrace{\ell^2(\mathbb{Z}^+)\otimes\ell^2(\mathbb{Z}^+)\otimes\cdots\otimes\ell^2(\mathbb{Z}^+)_j}_{m+1}
+\]
+
+$J$ is not natural in a Harmonic oscillator setting.
+
+\[
+\ell^2(\mathbb{Z})
+\]
+
+would then be appropriate for Laurent polynomials.
+
+So we mirror $\mathbb{F}[x]$ case:
+
+We want to create superposition of all polys in $V_I$
+
+\[
+|b\rangle\longmapsto\sum_{h\in R_d}|hf\rangle
+\qquad;\qquad
+R=\bigoplus_{d=0}^{\infty}R_d
+\]
+
+Is arbitrary enough?
+
+\[
+|f\rangle\longmapsto|f+h\rangle\Rightarrow\infty
+\]
+
+% --- s07.png ---
+Is addition unitary?
+
+\[
+|f\rangle\longmapsto |f+h\rangle\Rightarrow\infty
+\]
+
+But we could start with forming $|k\rangle$.
+
+Thus
+
+\[
+R=\sum_{\alpha_0,\ldots,\alpha_n}
+|\alpha_0,\alpha_1,\ldots,\alpha_n\rangle
+\]
+
+Assume this is easy to create (how?)
+
+Remember! $|0\cdots 0\rangle$ stands for ``$1$'' etc.
+
+\[
+1\longmapsto z_0^{\alpha_0}z_1^{\alpha_1}\cdots z_n^{\alpha_n}
+\]
+
+\[
+|0\cdots 0\rangle\longmapsto
+L_{z_0}^{\alpha_0}\cdots L_{z_n}^{\alpha_n}|0\cdots 0\rangle
+=|\alpha_0,\alpha_1,\ldots,\alpha_n\rangle
+\]
+
+$\therefore$ we could proceed by applying:
+
+\[
+\mathrm{CG}=\sum_{j=0}^{\infty}J^j\otimes |j\rangle\langle j|
+\]
+
+To form
+
+\[
+l(z^\alpha)=\sum_\beta|\alpha+\beta\rangle
+\]
+
+\[
+=\sum_\beta J^\beta|\alpha\rangle
+\]
+
+\[
+l(z_1^{\alpha_1}z_2^{\alpha_2})
+=\sum |\alpha_1+\beta_1\rangle\oplus|\alpha_2+\beta_2\rangle
+\]
+
+Eg. $\alpha_1=(1,0)\quad \alpha_2=(0,1)$
+
+We need to form superpositions:
+
+\[
+|0\rangle\longmapsto\frac{1}{\sqrt{2}}
+\left(|\alpha_1\rangle+|\alpha_2\rangle\right)
+\]
+
+Actually: this is ok for monomial ideals:
+
+\[
+(z_1^{\alpha_1},z_2^{\alpha_2})
+=\{p(z)\mid p(z)=h_1(z)z^{\alpha_1}+h_2(z)z^{\alpha_2}\}
+\]
+
+\[
+|p(z)\rangle\in\operatorname{span}
+\left\{
+|\alpha_1+\beta_1\rangle,\,
+|\alpha_2+\beta_2\rangle
+\mid \beta_1,\beta_2\in(\mathbb{Z}^+)^{n+1}
+\right\}
+\]
+
+% --- s08.png ---
+\[
+(z^{\alpha_1},z^{\alpha_2})
+=
+\left\{p(z)\mid p(z)=h_1(z)z^{\alpha_1}+h_2(z)z^{\alpha_2}\right\}
+\]
+
+\underline{Example.}\quad
+\[
+|(z_1,z_2)\rangle\in\operatorname{span}
+\left\{
+|1+\beta_1^0,\beta_2^0\rangle,\,
+|\beta_1^0,1+\beta_2^0\rangle
+\right\}
+\]
+
+\[
+\in\mathcal{H}_N\cap\{|0,0\rangle\}^{\perp}
+\]
+
+The space $|f\cdot h\rangle$ is large enough to characterise
+
+\[
+|f\cdot h\rangle\in\operatorname{span}
+\left\{
+J^\beta\left(\sum_\alpha f_\alpha|\alpha\rangle\right)
+\mid \beta\in(\mathbb{Z}^+)^{n+1}
+\right\}
+\]
+
+So, really, we want to start with
+
+\[
+\sout{H=\mathbb{1}-\sum_{j=1}^{d}\lvert f_j\rangle\langle f_j\rvert}
+\]
+
+\[
+\Longleftarrow \underline{\text{AND}}\text{ quantifier (!)}
+\]
+
+No, actually, OR quantifier
+
+\[
+H\lvert f_j\rangle=0
+\]
+
+Then sum over all shifts:
+
+\[
+H\longmapsto\sum_\alpha J^\alpha H(J^\alpha)^\dagger
+\]
+
+\[
+H\sum_j c_j\lvert f_j\rangle=
+\]
+
+\[
+\sum_j c_j H\lvert f_j\rangle=0
+\]
+
+(Can drop $\mathbb{1}$; No, normalisation not important.

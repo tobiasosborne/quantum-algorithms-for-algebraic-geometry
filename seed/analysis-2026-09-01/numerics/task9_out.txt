@@ -1,0 +1,81 @@
+=== Task 9: toric pyramid / unused-variable counterexample ===
+H_N = a^dag(f) a(f)|_{deg N}, f = x00 x11 - x01 x10
+
+=== PYRAMID  C[x00,x01,x10,x11,y] / (x00 x11 - x01 x10) ===
+  N    dim     HF   rkGFp  kerNum      Delta_N      ||H_N||   ||H||/D   zero-sep  eigvec diagnostics
+  2     15     14      14      14            2            2         1  2.00e+300  lam2 eigvec: max weight on deg_y=0 (w=1.0000); weight on deg_y=N-2: 1.0000
+  3     35     30      30      30            2            3       1.5   1.80e+16  lam2 eigvec: max weight on deg_y=1 (w=1.0000); weight on deg_y=N-2: 1.0000
+  4     70     55      55      55            2            6         3   9.01e+14  lam2 eigvec: max weight on deg_y=2 (w=1.0000); weight on deg_y=N-2: 1.0000
+  5    126     91      91      91            2            8         4   1.01e+15  lam2 eigvec: max weight on deg_y=3 (w=1.0000); weight on deg_y=N-2: 1.0000
+  6    210    140     140     140            2           12         6   2.56e+14  lam2 eigvec: max weight on deg_y=4 (w=1.0000); weight on deg_y=N-2: 1.0000
+  7    330    204     204     204            2           15       7.5   3.74e+14  lam2 eigvec: max weight on deg_y=5 (w=1.0000); weight on deg_y=N-2: 1.0000
+  8    495    285     285     285            2           20        10   2.19e+14  lam2 eigvec: max weight on deg_y=6 (w=1.0000); weight on deg_y=N-2: 1.0000
+  pyramid: power fit Delta ~ 2 N^(-0.0000) ; exp fit log Delta = +0.0000 N + +0.693 ; linear fit Delta = +0.0000 N +2.0000
+
+=== NO-y     C[x00,x01,x10,x11] / (x00 x11 - x01 x10) ===
+  N    dim     HF   rkGFp  kerNum      Delta_N      ||H_N||   ||H||/D   zero-sep  eigvec diagnostics
+  2     10      9       9       9            2            2         1  2.00e+300  
+  3     20     16      16      16            3            3         1   2.70e+16  
+  4     35     25      25      25            4            6       1.5   4.46e+15  
+  5     56     36      36      36            5            8       1.6   1.87e+15  
+  6     84     49      49      49            6           12         2   1.42e+15  
+  7    120     64      64      64            7           15     2.143   6.01e+14  
+  8    165     81      81      81            8           20       2.5   7.18e+14  
+  9    220    100     100     100            9           24     2.667   8.37e+14  
+ 10    286    121     121     121           10           30         3   4.54e+14  
+ 11    364    144     144     144           11           35     3.182   3.61e+14  
+ 12    455    169     169     169           12           42       3.5   7.97e+14  
+  no-y: power fit Delta ~ 1 N^(+1.0000) ; exp fit log Delta = +0.1670 N + +0.648 ; linear fit Delta = +1.0000 N +0.0000
+
+=== TC+DUMMY C[z0,z1,z2,z3,w] / I_twisted_cubic ===
+  N    dim     HF   rkGFp  kerNum      Delta_N      ||H_N||   ||H||/D   zero-sep  eigvec diagnostics
+  2     15     12      12      12            2            3       1.5   1.80e+16  lam2 eigvec: max weight on deg_y=0 (w=1.0000); weight on deg_y=N-2: 1.0000
+  3     35     22      22      22            2     7.236068     3.618   1.51e+15  lam2 eigvec: max weight on deg_y=1 (w=1.0000); weight on deg_y=N-2: 1.0000
+  4     70     35      35      35            2    13.628324     6.814   7.11e+14  lam2 eigvec: max weight on deg_y=2 (w=1.0000); weight on deg_y=N-2: 1.0000
+  5    126     51      51      51            2    21.997871        11   2.06e+14  lam2 eigvec: max weight on deg_y=3 (w=1.0000); weight on deg_y=N-2: 1.0000
+  6    210     70      70      70            2    32.375686     16.19   1.97e+14  lam2 eigvec: max weight on deg_y=4 (w=1.0000); weight on deg_y=N-2: 1.0000
+  7    330     92      92      92            2    44.754403     22.38   1.20e+14  lam2 eigvec: max weight on deg_y=5 (w=1.0000); weight on deg_y=N-2: 1.0000
+  8    495    117     117     117            2    59.134133     29.57   1.18e+14  lam2 eigvec: max weight on deg_y=6 (w=1.0000); weight on deg_y=N-2: 1.0000
+  9    715    145     145     145            2    75.514422     37.76   7.03e+13  lam2 eigvec: max weight on deg_y=7 (w=1.0000); weight on deg_y=N-2: 1.0000
+ 10   1001    176     176     176            2     93.89509     46.95   5.12e+13  lam2 eigvec: max weight on deg_y=8 (w=1.0000); weight on deg_y=N-2: 1.0000
+ 11   1365    210     210     210            2    114.27602     57.14   6.63e+13  lam2 eigvec: max weight on deg_y=9 (w=1.0000); weight on deg_y=N-2: 1.0000
+ 12   1820    247    None     247            2    136.65714     68.33   6.00e+13  lam2 eigvec: max weight on deg_y=10 (w=1.0000); weight on deg_y=N-2: 1.0000
+  tc+dummy: power fit Delta ~ 2 N^(-0.0000) ; exp fit log Delta = -0.0000 N + +0.693 ; linear fit Delta = -0.0000 N +2.0000
+
+=== TC plain C[z0..z3] / I_twisted_cubic (reference) ===
+  N    dim     HF   rkGFp  kerNum      Delta_N      ||H_N||   ||H||/D   zero-sep  eigvec diagnostics
+  2     10      7       7       7            2            3       1.5   1.80e+16  
+  3     20     10      10      10     2.763932     7.236068     2.618   2.25e+16  
+  4     35     13      13      13    3.5505103    13.628324     3.838   1.49e+15  
+  5     56     16      16      16    4.3542487    21.997871     5.052   7.49e+14  
+  6     84     19      19      19    5.1715729    32.375686      6.26   1.42e+15  
+  7    120     22      22      22            6    44.754403     7.459   2.63e+14  
+  8    165     25      25      25    6.8377223    59.134133     8.648   4.44e+14  
+  9    220     28      28      28    7.6833752    75.514422     9.828   3.91e+14  
+ 10    286     31      31      31    8.5358984     93.89509        11   2.81e+14  
+ 11    364     34      34      34    9.3944487    114.27602     12.16   1.98e+14  
+ 12    455     37      37      37    10.258343    136.65714     13.32   4.14e+14  
+  tc plain: power fit Delta ~ 1.01 N^(+0.9227) ; exp fit log Delta = +0.1556 N + +0.598 ; linear fit Delta = +0.8281 N +0.2531
+
+--- summary: Delta_N ---
+  N   pyramid(5v)     no-y(4v)   TC+dummy(5v)   TC plain(4v)
+  2             2             2             2             2
+  3             2             3             2      2.763932
+  4             2             4             2     3.5505103
+  5             2             5             2     4.3542487
+  6             2             6             2     5.1715729
+  7             2             7             2             6
+  8             2             8             2     6.8377223
+  9             -             9             2     7.6833752
+ 10             -            10             2     8.5358984
+ 11             -            11             2     9.3944487
+ 12             -            12             2     10.258343
+
+--- pyramid: is the minimum attained inside y^{N-2} * (degree-2 in x)? ---
+  N= 2: dim(y^(N-2)*x-quadrics)=10, its spectrum=[0. 0. 0. 0. 0. 0. 0. 0. 0. 2.], lam_min>0 there = 2, global Delta_N = 2
+  N= 3: dim(y^(N-2)*x-quadrics)=10, its spectrum=[0. 0. 0. 0. 0. 0. 0. 0. 0. 2.], lam_min>0 there = 2, global Delta_N = 2
+  N= 4: dim(y^(N-2)*x-quadrics)=10, its spectrum=[0. 0. 0. 0. 0. 0. 0. 0. 0. 2.], lam_min>0 there = 2, global Delta_N = 2
+  N= 5: dim(y^(N-2)*x-quadrics)=10, its spectrum=[0. 0. 0. 0. 0. 0. 0. 0. 0. 2.], lam_min>0 there = 2, global Delta_N = 2
+  N= 6: dim(y^(N-2)*x-quadrics)=10, its spectrum=[0. 0. 0. 0. 0. 0. 0. 0. 0. 2.], lam_min>0 there = 2, global Delta_N = 2
+  N= 7: dim(y^(N-2)*x-quadrics)=10, its spectrum=[0. 0. 0. 0. 0. 0. 0. 0. 0. 2.], lam_min>0 there = 2, global Delta_N = 2
+  N= 8: dim(y^(N-2)*x-quadrics)=10, its spectrum=[0. 0. 0. 0. 0. 0. 0. 0. 0. 2.], lam_min>0 there = 2, global Delta_N = 2

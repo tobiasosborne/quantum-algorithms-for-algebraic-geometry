@@ -1,0 +1,850 @@
+====================================================================================================
+TASK 8: boolean + 3-CNF ideal   K = (z_i^2 - z_i z_0 ; c_C)
+====================================================================================================
+
+########## (0) validation of the sparse deflated LOBPCG solver ##########
+same instance solved by (i) dense eigh of H_N and (ii) LOBPCG on
+H_N + ||H_N|| Q Q^T with Q = orthonormalised coherent states at SAT points.
+    n instance     N    dim  #SAT  kd(exact)  kerNum(dense)   Delta(dense)  Delta(sparse)     |diff|  lobpcg res  seed spread
+    4 r4.2-0       7    330     0          0              0     1.60506963     1.60506963   2.44e-14    1.43e-07     1.33e-15
+    4 r2.0-0       7    330     5          5              5     1.98639272     1.98639272   4.44e-15    1.01e-10     4.44e-16
+    4 r2.0-1       7    330     5          5              5     1.68377615     1.68377615   2.44e-14    4.61e-11     6.66e-16
+    4 unsat        7    330     0          0              0     1.60825809     1.60825809   1.89e-14    2.21e-10     8.88e-16
+    4 uniq-deg     7    330     1          1              1    0.840317787    0.840317787   4.11e-15    2.61e-09     1.11e-16
+    4 uniq-3lit    7    330     1          1              1    0.808591404    0.808591404   1.55e-14    1.53e-11     1.11e-16
+    5 r4.2-0       8   1287     2          2              2     1.48860179     1.48860179   5.35e-14    9.16e-11     4.44e-16
+    5 r2.0-0       8   1287     7          7              7    0.731762212    0.731762212   9.77e-15    1.78e-10     1.11e-16
+    5 r2.0-1       8   1287    12         12             12     2.12512487     2.12512487   1.02e-14    5.56e-10     8.88e-16
+    5 unsat        8   1287     0          0              0     1.42978299     1.42978299   9.99e-15    3.99e-10     6.66e-16
+    5 uniq-deg     8   1287     1          1              1    0.425661344    0.425661344   1.55e-14    5.73e-09     1.67e-16
+    5 uniq-3lit    8   1287     1          1              1    0.536837227    0.536837227   4.17e-14    1.46e-11     0.00e+00
+    6 r4.2-0       9   5005     1          1              1     1.02356355     1.02356355   1.96e-13    1.53e-09     0.00e+00
+    6 r2.0-0       9   5005    17         17             17     1.19881418     1.19881418   2.89e-14    1.74e-09     0.00e+00
+    6 r2.0-1       9   5005    13         13             13     1.04139253     1.04139253   6.28e-14    3.59e-09     8.88e-16
+    6 unsat        9   5005     0          0              0     1.73191561     1.73191561   5.35e-14    5.06e-08     8.88e-16
+    6 uniq-deg     9   5005     1          1              1    0.651857457    0.651857457   1.30e-14    8.01e-08     0.00e+00
+    6 uniq-3lit    9   5005     1          1              1    0.538957957    0.538957957   2.02e-14    3.59e-10     0.00e+00
+
+
+########## (a) dim ker H_N(K) vs #SAT ##########
+exact HF from the boolean-quotient rank (GF(p)); 'MacGFp' = dim R_N - rank(full
+Macaulay) over GF(p), computed where dim R_N <= 400; 'kerNum' = # eigenvalues
+< 1e-9 ||H_N|| from a dense eigh (dim <= 6000).  n+3 marked with *.
+
+--- n = 3  (dim R_N = C(N+3,3)) ---
+  [r4.2-0     ratio4.2          ] m=  8 clauses, #SAT=0
+      N  dimR_N  HFexact  MacGFp  kerNum  note
+      2      10        7       7       7  
+      3      20        0       0       0    [= #SAT]
+      4      35        0       0       0    [= #SAT]
+      5      56        0       0       0    [= #SAT]
+      6      84        0       0       0  *  <- N=n+3  [= #SAT]
+      7     120        0       0       0    [= #SAT]
+  [r4.2-1     ratio4.2          ] m=  8 clauses, #SAT=0
+      N  dimR_N  HFexact  MacGFp  kerNum  note
+      2      10        7       7       7  
+      3      20        0       0       0    [= #SAT]
+      4      35        0       0       0    [= #SAT]
+      5      56        0       0       0    [= #SAT]
+      6      84        0       0       0  *  <- N=n+3  [= #SAT]
+      7     120        0       0       0    [= #SAT]
+  [r4.2-2     ratio4.2          ] m=  8 clauses, #SAT=0
+      N  dimR_N  HFexact  MacGFp  kerNum  note
+      2      10        7       7       7  
+      3      20        0       0       0    [= #SAT]
+      4      35        0       0       0    [= #SAT]
+      5      56        0       0       0    [= #SAT]
+      6      84        0       0       0  *  <- N=n+3  [= #SAT]
+      7     120        0       0       0    [= #SAT]
+  [r2.0-0     ratio2.0          ] m=  6 clauses, #SAT=2
+      N  dimR_N  HFexact  MacGFp  kerNum  note
+      2      10        7       7       7  
+      3      20        2       2       2    [= #SAT]
+      4      35        2       2       2    [= #SAT]
+      5      56        2       2       2    [= #SAT]
+      6      84        2       2       2  *  <- N=n+3  [= #SAT]
+      7     120        2       2       2    [= #SAT]
+  [r2.0-1     ratio2.0          ] m=  6 clauses, #SAT=2
+      N  dimR_N  HFexact  MacGFp  kerNum  note
+      2      10        7       7       7  
+      3      20        2       2       2    [= #SAT]
+      4      35        2       2       2    [= #SAT]
+      5      56        2       2       2    [= #SAT]
+      6      84        2       2       2  *  <- N=n+3  [= #SAT]
+      7     120        2       2       2    [= #SAT]
+  [r2.0-2     ratio2.0          ] m=  6 clauses, #SAT=2
+      N  dimR_N  HFexact  MacGFp  kerNum  note
+      2      10        7       7       7  
+      3      20        2       2       2    [= #SAT]
+      4      35        2       2       2    [= #SAT]
+      5      56        2       2       2    [= #SAT]
+      6      84        2       2       2  *  <- N=n+3  [= #SAT]
+      7     120        2       2       2    [= #SAT]
+  [unsat      UNSAT             ] m=  8 clauses, #SAT=0
+      N  dimR_N  HFexact  MacGFp  kerNum  note
+      2      10        7       7       7  
+      3      20        0       0       0    [= #SAT]
+      4      35        0       0       0    [= #SAT]
+      5      56        0       0       0    [= #SAT]
+      6      84        0       0       0  *  <- N=n+3  [= #SAT]
+      7     120        0       0       0    [= #SAT]
+  [uniq-deg   unique-degenerate ] m=  3 clauses, #SAT=1
+      N  dimR_N  HFexact  MacGFp  kerNum  note
+      2      10        7       7       7  
+      3      20        5       5       5  
+      4      35        2       2       2  
+      5      56        1       1       1    [= #SAT]
+      6      84        1       1       1  *  <- N=n+3  [= #SAT]
+      7     120        1       1       1    [= #SAT]
+  [uniq-3lit  unique-3distinct  ] m=  7 clauses, #SAT=1
+      N  dimR_N  HFexact  MacGFp  kerNum  note
+      2      10        7       7       7  
+      3      20        1       1       1    [= #SAT]
+      4      35        1       1       1    [= #SAT]
+      5      56        1       1       1    [= #SAT]
+      6      84        1       1       1  *  <- N=n+3  [= #SAT]
+      7     120        1       1       1    [= #SAT]
+    (elapsed 316s)
+
+--- n = 4  (dim R_N = C(N+4,4)) ---
+  [r4.2-0     ratio4.2          ] m= 17 clauses, #SAT=0
+      N  dimR_N  HFexact  MacGFp  kerNum  note
+      2      15       11      11      11  
+      3      35        0       0       0    [= #SAT]
+      4      70        0       0       0    [= #SAT]
+      5     126        0       0       0    [= #SAT]
+      6     210        0       0       0    [= #SAT]
+      7     330        0       0       0  *  <- N=n+3  [= #SAT]
+      8     495        0    None       0    [= #SAT]
+  [r4.2-1     ratio4.2          ] m= 17 clauses, #SAT=2
+      N  dimR_N  HFexact  MacGFp  kerNum  note
+      2      15       11      11      11  
+      3      35        2       2       2    [= #SAT]
+      4      70        2       2       2    [= #SAT]
+      5     126        2       2       2    [= #SAT]
+      6     210        2       2       2    [= #SAT]
+      7     330        2       2       2  *  <- N=n+3  [= #SAT]
+      8     495        2    None       2    [= #SAT]
+  [r4.2-2     ratio4.2          ] m= 17 clauses, #SAT=0
+      N  dimR_N  HFexact  MacGFp  kerNum  note
+      2      15       11      11      11  
+      3      35        1       1       1  
+      4      70        0       0       0    [= #SAT]
+      5     126        0       0       0    [= #SAT]
+      6     210        0       0       0    [= #SAT]
+      7     330        0       0       0  *  <- N=n+3  [= #SAT]
+      8     495        0    None       0    [= #SAT]
+  [r2.0-0     ratio2.0          ] m=  8 clauses, #SAT=5
+      N  dimR_N  HFexact  MacGFp  kerNum  note
+      2      15       11      11      11  
+      3      35        7       7       7  
+      4      70        5       5       5    [= #SAT]
+      5     126        5       5       5    [= #SAT]
+      6     210        5       5       5    [= #SAT]
+      7     330        5       5       5  *  <- N=n+3  [= #SAT]
+      8     495        5    None       5    [= #SAT]
+  [r2.0-1     ratio2.0          ] m=  8 clauses, #SAT=5
+      N  dimR_N  HFexact  MacGFp  kerNum  note
+      2      15       11      11      11  
+      3      35        7       7       7  
+      4      70        5       5       5    [= #SAT]
+      5     126        5       5       5    [= #SAT]
+      6     210        5       5       5    [= #SAT]
+      7     330        5       5       5  *  <- N=n+3  [= #SAT]
+      8     495        5    None       5    [= #SAT]
+  [r2.0-2     ratio2.0          ] m=  8 clauses, #SAT=7
+      N  dimR_N  HFexact  MacGFp  kerNum  note
+      2      15       11      11      11  
+      3      35        7       7       7    [= #SAT]
+      4      70        7       7       7    [= #SAT]
+      5     126        7       7       7    [= #SAT]
+      6     210        7       7       7    [= #SAT]
+      7     330        7       7       7  *  <- N=n+3  [= #SAT]
+      8     495        7    None       7    [= #SAT]
+  [unsat      UNSAT             ] m= 17 clauses, #SAT=0
+      N  dimR_N  HFexact  MacGFp  kerNum  note
+      2      15       11      11      11  
+      3      35        0       0       0    [= #SAT]
+      4      70        0       0       0    [= #SAT]
+      5     126        0       0       0    [= #SAT]
+      6     210        0       0       0    [= #SAT]
+      7     330        0       0       0  *  <- N=n+3  [= #SAT]
+      8     495        0    None       0    [= #SAT]
+  [uniq-deg   unique-degenerate ] m=  4 clauses, #SAT=1
+      N  dimR_N  HFexact  MacGFp  kerNum  note
+      2      15       11      11      11  
+      3      35       11      11      11  
+      4      70        6       6       6  
+      5     126        2       2       2  
+      6     210        1       1       1    [= #SAT]
+      7     330        1       1       1  *  <- N=n+3  [= #SAT]
+      8     495        1    None       1    [= #SAT]
+  [uniq-3lit  unique-3distinct  ] m=  8 clauses, #SAT=1
+      N  dimR_N  HFexact  MacGFp  kerNum  note
+      2      15       11      11      11  
+      3      35        7       7       7  
+      4      70        1       1       1    [= #SAT]
+      5     126        1       1       1    [= #SAT]
+      6     210        1       1       1    [= #SAT]
+      7     330        1       1       1  *  <- N=n+3  [= #SAT]
+      8     495        1    None       1    [= #SAT]
+    (elapsed 321s)
+
+--- n = 5  (dim R_N = C(N+5,5)) ---
+  [r4.2-0     ratio4.2          ] m= 21 clauses, #SAT=2
+      N  dimR_N  HFexact  MacGFp  kerNum  note
+      2      21       16      16      16  
+      3      56        5       5       5  
+      4     126        2       2       2    [= #SAT]
+      5     252        2       2       2    [= #SAT]
+      6     462        2    None       2    [= #SAT]
+      7     792        2    None       2    [= #SAT]
+      8    1287        2    None       2  *  <- N=n+3  [= #SAT]
+      9    2002        2    None       2    [= #SAT]
+  [r4.2-1     ratio4.2          ] m= 21 clauses, #SAT=1
+      N  dimR_N  HFexact  MacGFp  kerNum  note
+      2      21       16      16      16  
+      3      56        5       5       5  
+      4     126        1       1       1    [= #SAT]
+      5     252        1       1       1    [= #SAT]
+      6     462        1    None       1    [= #SAT]
+      7     792        1    None       1    [= #SAT]
+      8    1287        1    None       1  *  <- N=n+3  [= #SAT]
+      9    2002        1    None       1    [= #SAT]
+  [r4.2-2     ratio4.2          ] m= 21 clauses, #SAT=1
+      N  dimR_N  HFexact  MacGFp  kerNum  note
+      2      21       16      16      16  
+      3      56        5       5       5  
+      4     126        1       1       1    [= #SAT]
+      5     252        1       1       1    [= #SAT]
+      6     462        1    None       1    [= #SAT]
+      7     792        1    None       1    [= #SAT]
+      8    1287        1    None       1  *  <- N=n+3  [= #SAT]
+      9    2002        1    None       1    [= #SAT]
+  [r2.0-0     ratio2.0          ] m= 10 clauses, #SAT=7
+      N  dimR_N  HFexact  MacGFp  kerNum  note
+      2      21       16      16      16  
+      3      56       16      16      16  
+      4     126        7       7       7    [= #SAT]
+      5     252        7       7       7    [= #SAT]
+      6     462        7    None       7    [= #SAT]
+      7     792        7    None       7    [= #SAT]
+      8    1287        7    None       7  *  <- N=n+3  [= #SAT]
+      9    2002        7    None       7    [= #SAT]
+  [r2.0-1     ratio2.0          ] m= 10 clauses, #SAT=12
+      N  dimR_N  HFexact  MacGFp  kerNum  note
+      2      21       16      16      16  
+      3      56       16      16      16  
+      4     126       12      12      12    [= #SAT]
+      5     252       12      12      12    [= #SAT]
+      6     462       12    None      12    [= #SAT]
+      7     792       12    None      12    [= #SAT]
+      8    1287       12    None      12  *  <- N=n+3  [= #SAT]
+      9    2002       12    None      12    [= #SAT]
+  [r2.0-2     ratio2.0          ] m= 10 clauses, #SAT=6
+      N  dimR_N  HFexact  MacGFp  kerNum  note
+      2      21       16      16      16  
+      3      56       16      16      16  
+      4     126        7       7       7  
+      5     252        6       6       6    [= #SAT]
+      6     462        6    None       6    [= #SAT]
+      7     792        6    None       6    [= #SAT]
+      8    1287        6    None       6  *  <- N=n+3  [= #SAT]
+      9    2002        6    None       6    [= #SAT]
+  [unsat      UNSAT             ] m= 21 clauses, #SAT=0
+      N  dimR_N  HFexact  MacGFp  kerNum  note
+      2      21       16      16      16  
+      3      56        6       6       6  
+      4     126        0       0       0    [= #SAT]
+      5     252        0       0       0    [= #SAT]
+      6     462        0    None       0    [= #SAT]
+      7     792        0    None       0    [= #SAT]
+      8    1287        0    None       0  *  <- N=n+3  [= #SAT]
+      9    2002        0    None       0    [= #SAT]
+  [uniq-deg   unique-degenerate ] m=  5 clauses, #SAT=1
+      N  dimR_N  HFexact  MacGFp  kerNum  note
+      2      21       16      16      16  
+      3      56       21      21      21  
+      4     126       16      16      16  
+      5     252        7       7       7  
+      6     462        2    None       2  
+      7     792        1    None       1    [= #SAT]
+      8    1287        1    None       1  *  <- N=n+3  [= #SAT]
+      9    2002        1    None       1    [= #SAT]
+  [uniq-3lit  unique-3distinct  ] m=  9 clauses, #SAT=1
+      N  dimR_N  HFexact  MacGFp  kerNum  note
+      2      21       16      16      16  
+      3      56       17      17      17  
+      4     126        5       5       5  
+      5     252        1       1       1    [= #SAT]
+      6     462        1    None       1    [= #SAT]
+      7     792        1    None       1    [= #SAT]
+      8    1287        1    None       1  *  <- N=n+3  [= #SAT]
+      9    2002        1    None       1    [= #SAT]
+    (elapsed 336s)
+
+--- n = 6  (dim R_N = C(N+6,6)) ---
+  [r4.2-0     ratio4.2          ] m= 25 clauses, #SAT=1
+      N  dimR_N  HFexact  MacGFp  kerNum  note
+      2      28       22      22      22  
+      3      84       17      17      17  
+      4     210        1       1       1    [= #SAT]
+      5     462        1    None       1    [= #SAT]
+      6     924        1    None       1    [= #SAT]
+      7    1716        1    None       1    [= #SAT]
+      8    3003        1    None       1    [= #SAT]
+      9    5005        1    None       1  *  <- N=n+3  [= #SAT]
+     10    8008        1    None    None    [= #SAT]
+  [r4.2-1     ratio4.2          ] m= 25 clauses, #SAT=0
+      N  dimR_N  HFexact  MacGFp  kerNum  note
+      2      28       22      22      22  
+      3      84       17      17      17  
+      4     210        0       0       0    [= #SAT]
+      5     462        0    None       0    [= #SAT]
+      6     924        0    None       0    [= #SAT]
+      7    1716        0    None       0    [= #SAT]
+      8    3003        0    None       0    [= #SAT]
+      9    5005        0    None       0  *  <- N=n+3  [= #SAT]
+     10    8008        0    None    None    [= #SAT]
+  [r4.2-2     ratio4.2          ] m= 25 clauses, #SAT=2
+      N  dimR_N  HFexact  MacGFp  kerNum  note
+      2      28       22      22      22  
+      3      84       17      17      17  
+      4     210        2       2       2    [= #SAT]
+      5     462        2    None       2    [= #SAT]
+      6     924        2    None       2    [= #SAT]
+      7    1716        2    None       2    [= #SAT]
+      8    3003        2    None       2    [= #SAT]
+      9    5005        2    None       2  *  <- N=n+3  [= #SAT]
+     10    8008        2    None    None    [= #SAT]
+  [r2.0-0     ratio2.0          ] m= 12 clauses, #SAT=17
+      N  dimR_N  HFexact  MacGFp  kerNum  note
+      2      28       22      22      22  
+      3      84       30      30      30  
+      4     210       20      20      20  
+      5     462       17    None      17    [= #SAT]
+      6     924       17    None      17    [= #SAT]
+      7    1716       17    None      17    [= #SAT]
+      8    3003       17    None      17    [= #SAT]
+      9    5005       17    None      17  *  <- N=n+3  [= #SAT]
+     10    8008       17    None    None    [= #SAT]
+  [r2.0-1     ratio2.0          ] m= 12 clauses, #SAT=13
+      N  dimR_N  HFexact  MacGFp  kerNum  note
+      2      28       22      22      22  
+      3      84       30      30      30  
+      4     210       18      18      18  
+      5     462       13    None      13    [= #SAT]
+      6     924       13    None      13    [= #SAT]
+      7    1716       13    None      13    [= #SAT]
+      8    3003       13    None      13    [= #SAT]
+      9    5005       13    None      13  *  <- N=n+3  [= #SAT]
+     10    8008       13    None    None    [= #SAT]
+  [r2.0-2     ratio2.0          ] m= 12 clauses, #SAT=10
+      N  dimR_N  HFexact  MacGFp  kerNum  note
+      2      28       22      22      22  
+      3      84       30      30      30  
+      4     210       17      17      17  
+      5     462       10    None      10    [= #SAT]
+      6     924       10    None      10    [= #SAT]
+      7    1716       10    None      10    [= #SAT]
+      8    3003       10    None      10    [= #SAT]
+      9    5005       10    None      10  *  <- N=n+3  [= #SAT]
+     10    8008       10    None    None    [= #SAT]
+  [unsat      UNSAT             ] m= 25 clauses, #SAT=0
+      N  dimR_N  HFexact  MacGFp  kerNum  note
+      2      28       22      22      22  
+      3      84       17      17      17  
+      4     210        0       0       0    [= #SAT]
+      5     462        0    None       0    [= #SAT]
+      6     924        0    None       0    [= #SAT]
+      7    1716        0    None       0    [= #SAT]
+      8    3003        0    None       0    [= #SAT]
+      9    5005        0    None       0  *  <- N=n+3  [= #SAT]
+     10    8008        0    None    None    [= #SAT]
+  [uniq-deg   unique-degenerate ] m=  6 clauses, #SAT=1
+      N  dimR_N  HFexact  MacGFp  kerNum  note
+      2      28       22      22      22  
+      3      84       36      36      36  
+      4     210       36      36      36  
+      5     462       22    None      22  
+      6     924        8    None       8  
+      7    1716        2    None       2  
+      8    3003        1    None       1    [= #SAT]
+      9    5005        1    None       1  *  <- N=n+3  [= #SAT]
+     10    8008        1    None    None    [= #SAT]
+  [uniq-3lit  unique-3distinct  ] m= 13 clauses, #SAT=1
+      N  dimR_N  HFexact  MacGFp  kerNum  note
+      2      28       22      22      22  
+      3      84       29      29      29  
+      4     210        9       9       9  
+      5     462        1    None       1    [= #SAT]
+      6     924        1    None       1    [= #SAT]
+      7    1716        1    None       1    [= #SAT]
+      8    3003        1    None       1    [= #SAT]
+      9    5005        1    None       1  *  <- N=n+3  [= #SAT]
+     10    8008        1    None    None    [= #SAT]
+    (elapsed 522s)
+
+--- n = 7  (dim R_N = C(N+7,7)) ---
+  [r4.2-0     ratio4.2          ] m= 29 clauses, #SAT=1
+      N  dimR_N  HFexact  MacGFp  kerNum  note
+      2      36       29      29      29  
+      3     120       35      35      35  
+      4     330        3       3       3  
+      5     792        1    None       1    [= #SAT]
+      6    1716        1    None       1    [= #SAT]
+      7    3432        1    None       1    [= #SAT]
+      8    6435        1    None    None    [= #SAT]
+      9   11440        1    None    None    [= #SAT]
+     10   19448        1    None    None  *  <- N=n+3  [= #SAT]
+     11   31824        1    None    None    [= #SAT]
+  [r4.2-1     ratio4.2          ] m= 29 clauses, #SAT=4
+      N  dimR_N  HFexact  MacGFp  kerNum  note
+      2      36       29      29      29  
+      3     120       35      35      35  
+      4     330        7       7       7  
+      5     792        4    None       4    [= #SAT]
+      6    1716        4    None       4    [= #SAT]
+      7    3432        4    None       4    [= #SAT]
+      8    6435        4    None    None    [= #SAT]
+      9   11440        4    None    None    [= #SAT]
+     10   19448        4    None    None  *  <- N=n+3  [= #SAT]
+     11   31824        4    None    None    [= #SAT]
+  [r4.2-2     ratio4.2          ] m= 29 clauses, #SAT=0
+      N  dimR_N  HFexact  MacGFp  kerNum  note
+      2      36       29      29      29  
+      3     120       35      35      35  
+      4     330        1       1       1  
+      5     792        0    None       0    [= #SAT]
+      6    1716        0    None       0    [= #SAT]
+      7    3432        0    None       0    [= #SAT]
+      8    6435        0    None    None    [= #SAT]
+      9   11440        0    None    None    [= #SAT]
+     10   19448        0    None    None  *  <- N=n+3  [= #SAT]
+     11   31824        0    None    None    [= #SAT]
+  [r2.0-0     ratio2.0          ] m= 14 clauses, #SAT=17
+      N  dimR_N  HFexact  MacGFp  kerNum  note
+      2      36       29      29      29  
+      3     120       50      50      50  
+      4     330       37      37      37  
+      5     792       19    None      19  
+      6    1716       17    None      17    [= #SAT]
+      7    3432       17    None      17    [= #SAT]
+      8    6435       17    None    None    [= #SAT]
+      9   11440       17    None    None    [= #SAT]
+     10   19448       17    None    None  *  <- N=n+3  [= #SAT]
+     11   31824       17    None    None    [= #SAT]
+  [r2.0-1     ratio2.0          ] m= 14 clauses, #SAT=13
+      N  dimR_N  HFexact  MacGFp  kerNum  note
+      2      36       29      29      29  
+      3     120       50      50      50  
+      4     330       35      35      35  
+      5     792       13    None      13    [= #SAT]
+      6    1716       13    None      13    [= #SAT]
+      7    3432       13    None      13    [= #SAT]
+      8    6435       13    None    None    [= #SAT]
+      9   11440       13    None    None    [= #SAT]
+     10   19448       13    None    None  *  <- N=n+3  [= #SAT]
+     11   31824       13    None    None    [= #SAT]
+  [r2.0-2     ratio2.0          ] m= 14 clauses, #SAT=20
+      N  dimR_N  HFexact  MacGFp  kerNum  note
+      2      36       29      29      29  
+      3     120       50      50      50  
+      4     330       40      40      40  
+      5     792       21    None      21  
+      6    1716       20    None      20    [= #SAT]
+      7    3432       20    None      20    [= #SAT]
+      8    6435       20    None    None    [= #SAT]
+      9   11440       20    None    None    [= #SAT]
+     10   19448       20    None    None  *  <- N=n+3  [= #SAT]
+     11   31824       20    None    None    [= #SAT]
+  [unsat      UNSAT             ] m= 29 clauses, #SAT=0
+      N  dimR_N  HFexact  MacGFp  kerNum  note
+      2      36       29      29      29  
+      3     120       35      35      35  
+      4     330        1       1       1  
+      5     792        0    None       0    [= #SAT]
+      6    1716        0    None       0    [= #SAT]
+      7    3432        0    None       0    [= #SAT]
+      8    6435        0    None    None    [= #SAT]
+      9   11440        0    None    None    [= #SAT]
+     10   19448        0    None    None  *  <- N=n+3  [= #SAT]
+     11   31824        0    None    None    [= #SAT]
+  [uniq-deg   unique-degenerate ] m=  7 clauses, #SAT=1
+      N  dimR_N  HFexact  MacGFp  kerNum  note
+      2      36       29      29      29  
+      3     120       57      57      57  
+      4     330       71      71      71  
+      5     792       57    None      57  
+      6    1716       29    None      29  
+      7    3432        9    None       9  
+      8    6435        2    None    None  
+      9   11440        1    None    None    [= #SAT]
+     10   19448        1    None    None  *  <- N=n+3  [= #SAT]
+     11   31824        1    None    None    [= #SAT]
+  [uniq-3lit  unique-3distinct  ] m= 12 clauses, #SAT=1
+      N  dimR_N  HFexact  MacGFp  kerNum  note
+      2      36       29      29      29  
+      3     120       52      52      52  
+      4     330       39      39      39  
+      5     792        4    None       4  
+      6    1716        1    None       1    [= #SAT]
+      7    3432        1    None       1    [= #SAT]
+      8    6435        1    None    None    [= #SAT]
+      9   11440        1    None    None    [= #SAT]
+     10   19448        1    None    None  *  <- N=n+3  [= #SAT]
+     11   31824        1    None    None    [= #SAT]
+    (elapsed 584s)
+
+--- (a) summary: smallest N with HF(N') = #SAT for all N' in [N, n+4] ---
+    n instance     class                m  #SAT  N_stab   n+3  N_stab-n  HF at N = 2..n+4
+    3 r4.2-0       ratio4.2             8     0       3     6         0  7 0 0 0 0 0
+    3 r4.2-1       ratio4.2             8     0       3     6         0  7 0 0 0 0 0
+    3 r4.2-2       ratio4.2             8     0       3     6         0  7 0 0 0 0 0
+    3 r2.0-0       ratio2.0             6     2       3     6         0  7 2 2 2 2 2
+    3 r2.0-1       ratio2.0             6     2       3     6         0  7 2 2 2 2 2
+    3 r2.0-2       ratio2.0             6     2       3     6         0  7 2 2 2 2 2
+    3 unsat        UNSAT                8     0       3     6         0  7 0 0 0 0 0
+    3 uniq-deg     unique-degenerate    3     1       5     6         2  7 5 2 1 1 1
+    3 uniq-3lit    unique-3distinct     7     1       3     6         0  7 1 1 1 1 1
+    4 r4.2-0       ratio4.2            17     0       3     7        -1  11 0 0 0 0 0 0
+    4 r4.2-1       ratio4.2            17     2       3     7        -1  11 2 2 2 2 2 2
+    4 r4.2-2       ratio4.2            17     0       4     7         0  11 1 0 0 0 0 0
+    4 r2.0-0       ratio2.0             8     5       4     7         0  11 7 5 5 5 5 5
+    4 r2.0-1       ratio2.0             8     5       4     7         0  11 7 5 5 5 5 5
+    4 r2.0-2       ratio2.0             8     7       3     7        -1  11 7 7 7 7 7 7
+    4 unsat        UNSAT               17     0       3     7        -1  11 0 0 0 0 0 0
+    4 uniq-deg     unique-degenerate    4     1       6     7         2  11 11 6 2 1 1 1
+    4 uniq-3lit    unique-3distinct     8     1       4     7         0  11 7 1 1 1 1 1
+    5 r4.2-0       ratio4.2            21     2       4     8        -1  16 5 2 2 2 2 2 2
+    5 r4.2-1       ratio4.2            21     1       4     8        -1  16 5 1 1 1 1 1 1
+    5 r4.2-2       ratio4.2            21     1       4     8        -1  16 5 1 1 1 1 1 1
+    5 r2.0-0       ratio2.0            10     7       4     8        -1  16 16 7 7 7 7 7 7
+    5 r2.0-1       ratio2.0            10    12       4     8        -1  16 16 12 12 12 12 12 12
+    5 r2.0-2       ratio2.0            10     6       5     8         0  16 16 7 6 6 6 6 6
+    5 unsat        UNSAT               21     0       4     8        -1  16 6 0 0 0 0 0 0
+    5 uniq-deg     unique-degenerate    5     1       7     8         2  16 21 16 7 2 1 1 1
+    5 uniq-3lit    unique-3distinct     9     1       5     8         0  16 17 5 1 1 1 1 1
+    6 r4.2-0       ratio4.2            25     1       4     9        -2  22 17 1 1 1 1 1 1 1
+    6 r4.2-1       ratio4.2            25     0       4     9        -2  22 17 0 0 0 0 0 0 0
+    6 r4.2-2       ratio4.2            25     2       4     9        -2  22 17 2 2 2 2 2 2 2
+    6 r2.0-0       ratio2.0            12    17       5     9        -1  22 30 20 17 17 17 17 17 17
+    6 r2.0-1       ratio2.0            12    13       5     9        -1  22 30 18 13 13 13 13 13 13
+    6 r2.0-2       ratio2.0            12    10       5     9        -1  22 30 17 10 10 10 10 10 10
+    6 unsat        UNSAT               25     0       4     9        -2  22 17 0 0 0 0 0 0 0
+    6 uniq-deg     unique-degenerate    6     1       8     9         2  22 36 36 22 8 2 1 1 1
+    6 uniq-3lit    unique-3distinct    13     1       5     9        -1  22 29 9 1 1 1 1 1 1
+    7 r4.2-0       ratio4.2            29     1       5    10        -2  29 35 3 1 1 1 1 1 1 1
+    7 r4.2-1       ratio4.2            29     4       5    10        -2  29 35 7 4 4 4 4 4 4 4
+    7 r4.2-2       ratio4.2            29     0       5    10        -2  29 35 1 0 0 0 0 0 0 0
+    7 r2.0-0       ratio2.0            14    17       6    10        -1  29 50 37 19 17 17 17 17 17 17
+    7 r2.0-1       ratio2.0            14    13       5    10        -2  29 50 35 13 13 13 13 13 13 13
+    7 r2.0-2       ratio2.0            14    20       6    10        -1  29 50 40 21 20 20 20 20 20 20
+    7 unsat        UNSAT               29     0       5    10        -2  29 35 1 0 0 0 0 0 0 0
+    7 uniq-deg     unique-degenerate    7     1       9    10         2  29 57 71 57 29 9 2 1 1 1
+    7 uniq-3lit    unique-3distinct    12     1       6    10        -1  29 52 39 4 1 1 1 1 1 1
+
+
+########## (b) spectral gap Delta_N and ||H_N|| ##########
+kernel dimension taken from the EXACT HF; Delta_N = smallest nonzero eigenvalue.
+dense: full eigh.  sparse: Delta = lambda_min(H + ||H|| Q Q^T), Q = orthonormal
+basis of the coherent states at SAT points (validity certified by V_rank=#SAT,
+||A V||/||V|| ~ 0 and HFexact = #SAT).
+
+--- n = 3 ---
+  instance     class                m  #SAT   N    dim   ker  kerNum      Delta_N      ||H_N||     ratio V_rank     AVres       chk             mode
+  r4.2-0       ratio4.2             8     0   6     84     0       0      1.35909      389.047     286.3      0  0.00e+00       inf            dense
+  r4.2-0       ratio4.2             8     0   7    120     0       0      2.43173      668.382     274.9      0  0.00e+00       inf            dense
+  r4.2-1       ratio4.2             8     0   6     84     0       0      1.35909      389.047     286.3      0  0.00e+00       inf            dense
+  r4.2-1       ratio4.2             8     0   7    120     0       0      2.43173      668.382     274.9      0  0.00e+00       inf            dense
+  r4.2-2       ratio4.2             8     0   6     84     0       0      1.35909      389.047     286.3      0  0.00e+00       inf            dense
+  r4.2-2       ratio4.2             8     0   7    120     0       0      2.43173      668.382     274.9      0  0.00e+00       inf            dense
+  r2.0-0       ratio2.0             6     2   6     84     2       2      2.00739      381.638     190.1      2  6.92e-16  1.03e+14            dense
+  r2.0-0       ratio2.0             6     2   7    120     2       2       3.2335      656.594     203.1      2  5.82e-16  2.51e+14            dense
+  r2.0-1       ratio2.0             6     2   6     84     2       2      1.63928      358.221     218.5      2  6.69e-16  3.55e+13            dense
+  r2.0-1       ratio2.0             6     2   7    120     2       2      2.63051      616.703     234.4      2  6.75e-16  8.67e+13            dense
+  r2.0-2       ratio2.0             6     2   6     84     2       2      1.41393      128.981     91.22      2  1.76e-16  1.04e+14            dense
+  r2.0-2       ratio2.0             6     2   7    120     2       2      2.49312      212.307     85.16      2  2.94e-16 2.49e+300            dense
+  unsat        UNSAT                8     0   6     84     0       0      1.35909      389.047     286.3      0  0.00e+00       inf            dense
+  unsat        UNSAT                8     0   7    120     0       0      2.43173      668.382     274.9      0  0.00e+00       inf            dense
+  uniq-deg     unique-degenerate    3     1   6     84     1       1     0.366021      1028.23      2809      1  1.63e-15  2.51e+12            dense
+  uniq-deg     unique-degenerate    3     1   7    120     1       1     0.566453      1776.72      3137      1  1.81e-15  2.37e+13            dense
+  uniq-3lit    unique-3distinct     7     1   6     84     1       1      1.36037      162.046     119.1      1  0.00e+00 1.36e+300            dense
+  uniq-3lit    unique-3distinct     7     1   7    120     1       1      2.43197      268.859     110.6      1  0.00e+00 2.43e+300            dense
+    (elapsed 584s)
+
+--- n = 4 ---
+  instance     class                m  #SAT   N    dim   ker  kerNum      Delta_N      ||H_N||     ratio V_rank     AVres       chk             mode
+  r4.2-0       ratio4.2            17     0   7    330     0       0      1.60507      774.185     482.3      0  0.00e+00       inf            dense
+  r4.2-0       ratio4.2            17     0   8    495     0       0      2.63409      1223.52     464.5      0  0.00e+00       inf            dense
+  r4.2-1       ratio4.2            17     2   7    330     2       2      1.73144      1501.21       867      2  1.26e-15  1.40e+14            dense
+  r4.2-1       ratio4.2            17     2   8    495     2       2      2.22554      2389.94      1074      2  1.88e-15  1.11e+13            dense
+  r4.2-2       ratio4.2            17     0   7    330     0       0      2.17582      1103.37     507.1      0  0.00e+00       inf            dense
+  r4.2-2       ratio4.2            17     0   8    495     0       0      3.65767      1753.06     479.3      0  0.00e+00       inf            dense
+  r2.0-0       ratio2.0             8     5   7    330     5       5      1.98639      204.749     103.1      5  5.71e-16  1.70e+14            dense
+  r2.0-0       ratio2.0             8     5   8    495     5       5      2.18756      316.246     144.6      5  9.37e-16  1.00e+14            dense
+  r2.0-1       ratio2.0             8     5   7    330     5       5      1.68378      566.541     336.5      5  7.69e-16  3.65e+13            dense
+  r2.0-1       ratio2.0             8     5   8    495     5       5      2.11453       898.29     424.8      5  1.03e-15  2.27e+13            dense
+  r2.0-2       ratio2.0             8     7   7    330     7       7       1.9589      193.653     98.86      7  3.82e-16  1.47e+14            dense
+  r2.0-2       ratio2.0             8     7   8    495     7       7      2.29314      295.267     128.8      7  6.69e-16  2.10e+14            dense
+  unsat        UNSAT               17     0   7    330     0       0      1.60826      1101.32     684.8      0  0.00e+00       inf            dense
+  unsat        UNSAT               17     0   8    495     0       0       2.6031      1749.94     672.3      0  0.00e+00       inf            dense
+  uniq-deg     unique-degenerate    4     1   7    330     1       1     0.840318      1722.35      2050      1  2.19e-15  4.24e+12            dense
+  uniq-deg     unique-degenerate    4     1   8    495     1       1      1.49173      2744.39      1840      1  3.69e-15  1.97e+13            dense
+  uniq-3lit    unique-3distinct     8     1   7    330     1       1     0.808591       586.66     725.5      1  5.38e-16  2.87e+13            dense
+  uniq-3lit    unique-3distinct     8     1   8    495     1       1      1.32439      930.842     702.8      1  1.05e-15  4.24e+13            dense
+    (elapsed 586s)
+
+--- n = 5 ---
+  instance     class                m  #SAT   N    dim   ker  kerNum      Delta_N      ||H_N||     ratio V_rank     AVres       chk             mode
+  r4.2-0       ratio4.2            21     2   8   1287     2       2       1.4886      499.468     335.5      2  3.89e-16 1.49e+300            dense
+  r4.2-0       ratio4.2            21     2   9   2002     2       2      2.27381      733.759     322.7      2  6.93e-16  5.59e+13            dense
+  r4.2-1       ratio4.2            21     1   8   1287     1       1      1.52881      2080.65      1361      1  1.79e-15  3.12e+13            dense
+  r4.2-1       ratio4.2            21     1   9   2002     1       1      2.15364      3111.88      1445      1  2.35e-15  1.25e+13            dense
+  r4.2-2       ratio4.2            21     1   8   1287     1       1      2.00792      1457.73       726      1  8.34e-16  1.87e+13            dense
+  r4.2-2       ratio4.2            21     1   9   2002     1       1      2.94471      2176.15       739      1  9.84e-16  1.90e+13            dense
+  r2.0-0       ratio2.0            10     7   8   1287     7       7     0.731762      865.867      1183      7  8.63e-16  5.65e+13            dense
+  r2.0-0       ratio2.0            10     7   9   2002     7       7      1.11602      1291.38      1157      7  1.11e-15  4.17e+12            dense
+  r2.0-1       ratio2.0            10    12   8   1287    12      12      2.12512      832.343     391.7     12  7.88e-16  5.07e+13            dense
+  r2.0-1       ratio2.0            10    12   9   2002    12      12      2.18586      1241.67       568     12  1.18e-15  2.96e+13            dense
+  r2.0-2       ratio2.0            10     6   8   1287     6       6     0.593854       866.64      1459      6  8.46e-16  1.56e+13            dense
+  r2.0-2       ratio2.0            10     6   9   2002     6       6     0.956851      1292.38      1351      6  1.39e-15  3.67e+13            dense
+  unsat        UNSAT               21     0   8   1287     0       0      1.42978      1043.32     729.7      0  0.00e+00       inf            dense
+  unsat        UNSAT               21     0   9   2002     0       0      2.22633      1553.95       698      0  0.00e+00       inf            dense
+  uniq-deg     unique-degenerate    5     1   8   1287     1       1     0.425661      2925.47      6873      1  1.34e-15  5.77e+12            dense
+  uniq-deg     unique-degenerate    5     1   9   2002     1       1     0.611549      4346.77      7108      1  2.16e-15  4.69e+12            dense
+  uniq-3lit    unique-3distinct     9     1   8   1287     1       1     0.536837      1506.54      2806      1  6.10e-16  7.60e+12            dense
+  uniq-3lit    unique-3distinct     9     1   9   2002     1       1     0.859901      2251.46      2618      1  7.48e-16  3.80e+13            dense
+    (elapsed 607s)
+
+--- n = 6 ---
+  instance     class                m  #SAT   N    dim   ker  kerNum      Delta_N      ||H_N||     ratio V_rank     AVres       chk             mode
+  r4.2-0       ratio4.2            25     1   9   5005     1       1      1.02356      2770.94      2707      1  2.21e-15  3.76e+12            dense
+  r4.2-0       ratio4.2            25     1  10   8008     1      -1      1.44022      3950.08      2743      1  2.67e-15  7.74e-11 sparse(deflated)
+  r4.2-1       ratio4.2            25     0   9   5005     0       0      0.74438      5276.96      7089      0  0.00e+00       inf            dense
+  r4.2-1       ratio4.2            25     0  10   8008     0      -1      1.12118      7530.86      6717      0  0.00e+00  1.46e-07 sparse(deflated)
+  r4.2-2       ratio4.2            25     2   9   5005     2       2      2.26393      1567.76     692.5      2  1.38e-15  1.42e+13            dense
+  r4.2-2       ratio4.2            25     2  10   8008     2      -1       3.2473      2227.06     685.8      2  1.80e-15  9.20e-08 sparse(deflated)
+  r2.0-0       ratio2.0            12    17   9   5005    17      17      1.19881      1317.42      1099     17  1.06e-15  7.55e+12            dense
+  r2.0-0       ratio2.0            12    17  10   8008    17      -1      1.70241       1873.8      1101     17  1.35e-15  1.18e-08 sparse(deflated)
+  r2.0-1       ratio2.0            12    13   9   5005    13      13      1.04139         1268      1218     13  1.06e-15  6.50e+12            dense
+  r2.0-1       ratio2.0            12    13  10   8008    13      -1      1.45597      1803.96      1239     13  1.39e-15  1.77e-10 sparse(deflated)
+  r2.0-2       ratio2.0            12    10   9   5005    10      10     0.748271         1331      1779     10  1.19e-15  1.45e+13            dense
+  r2.0-2       ratio2.0            12    10  10   8008    10      -1      1.10887      1892.29      1707     10  1.57e-15  9.88e-11 sparse(deflated)
+  unsat        UNSAT               25     0   9   5005     0       0      1.73192      2910.17      1680      0  0.00e+00       inf            dense
+  unsat        UNSAT               25     0  10   8008     0      -1      2.50285      4149.01      1658      0  0.00e+00  9.63e-11 sparse(deflated)
+  uniq-deg     unique-degenerate    6     1   9   5005     1       1     0.651857      4204.81      6450      1  2.81e-15  3.14e+12            dense
+  uniq-deg     unique-degenerate    6     1  10   8008     1      -1       1.1475      5982.76      5214      1  3.52e-15  9.53e-10 sparse(deflated)
+  uniq-3lit    unique-3distinct    13     1   9   5005     1       1     0.538958      1363.98      2531      1  1.53e-15  3.77e+13            dense
+  uniq-3lit    unique-3distinct    13     1  10   8008     1      -1     0.819093      1939.94      2368      1  1.73e-15  2.57e-10 sparse(deflated)
+    (elapsed 1144s)
+
+--- n = 7 ---
+  instance     class                m  #SAT   N    dim   ker  kerNum      Delta_N      ||H_N||     ratio V_rank     AVres       chk             mode
+  r4.2-0       ratio4.2            29     1  10  19448     1      -1     0.977599      2209.24      2260      1  1.46e-15  3.09e-11 sparse(deflated)
+  r4.2-0       ratio4.2            29     1  11  31824     1      -1      1.37593      3025.22      2199      1  1.53e-15  5.15e-10 sparse(deflated)
+  r4.2-1       ratio4.2            29     4  10  19448     4      -1     0.909559      7410.23      8147      4  2.24e-15  5.64e-08 sparse(deflated)
+  r4.2-2       ratio4.2            29     0  10  19448     0      -1      2.00767      7340.27      3656      0  0.00e+00  2.09e-09 sparse(deflated)
+  r2.0-0       ratio2.0            14    17  10  19448    17      -1      1.02507       2758.9      2691     17  1.42e-15  1.26e-08 sparse(deflated)
+  r2.0-0       ratio2.0            14    17  11  31824    17      -1      1.46521      3784.77      2583     17  1.66e-15  3.54e-09 sparse(deflated)
+  r2.0-1       ratio2.0            14    13  10  19448    13      -1      1.10247      2730.29      2477     13  1.58e-15  2.38e-10 sparse(deflated)
+  r2.0-2       ratio2.0            14    20  10  19448    20      -1      0.65211      1837.89      2818     20  1.35e-15  3.00e-12 sparse(deflated)
+  unsat        UNSAT               29     0  10  19448     0      -1     0.987461       4956.7      5020      0  0.00e+00  1.78e-10 sparse(deflated)
+  unsat        UNSAT               29     0  11  31824     0      -1      1.39993      6806.29      4862      0  0.00e+00  4.26e-09 sparse(deflated)
+  uniq-deg     unique-degenerate    7     1  10  19448     1      -1     0.529336      6166.67 1.165e+04      1  2.56e-15  8.39e-09 sparse(deflated)
+  uniq-3lit    unique-3distinct    12     1  10  19448     1      -1     0.450226      2782.52      6180      1  1.00e-15  1.60e-10 sparse(deflated)
+  uniq-3lit    unique-3distinct    12     1  11  31824     1      -1     0.690738      3816.64      5525      1  8.69e-16  3.24e-09 sparse(deflated)
+    (elapsed 3218s)
+
+--- n = 8 ---
+  instance     class                m  #SAT   N    dim   ker  kerNum      Delta_N      ||H_N||     ratio V_rank     AVres       chk             mode
+  r4.2-0       ratio4.2            34     2  11  75582     2      -1      1.51263      4321.81      2857      2  2.67e-15  1.20e-10 sparse(deflated)
+  r4.2-1       ratio4.2            34     1  11  75582     1      -1      1.03334      4649.28      4499      1  1.04e-15  1.45e-08 sparse(deflated)
+  r4.2-2       ratio4.2            34     2  11  75582     2      -1      1.15117      5552.56      4823      2  2.26e-15  5.46e-09 sparse(deflated)
+  r2.0-0       ratio2.0            16    23  11  75582    23      -1     0.760427      824.873      1085     23  1.03e-15  1.83e-11 sparse(deflated)
+  r2.0-1       ratio2.0            16    26  11  75582    26      -1     0.293899       3750.8 1.276e+04     26  1.63e-15  4.55e-07 sparse(deflated)
+  r2.0-2       ratio2.0            16    39  11  75582    39      -1     0.546253      4223.57      7732     39  1.64e-15  1.11e-08 sparse(deflated)
+  unsat        UNSAT               34     0  11  75582     0      -1      1.10479      8282.93      7497      0  0.00e+00  6.66e-07 sparse(deflated)
+  uniq-deg     unique-degenerate    8     1  11  75582     1      -1     0.448021      8796.66 1.963e+04      1  3.41e-15  3.40e-09 sparse(deflated)
+  uniq-3lit    unique-3distinct    17     1  11  75582     1      -1     0.464731      3819.27      8218      1  2.61e-15  1.67e-10 sparse(deflated)
+    (elapsed 6865s)
+
+--- pure boolean ideal (no clauses), for comparison ---
+    n   N     dim  ker=2^n  kerNum      Delta_N      ||H_N||
+    3   4      35        8       8            2      17.5887
+    3   5      56        8       8            2      29.2654
+    3   6      84        8       8      2.01906      43.8571
+    4   5     126       16      16            2      29.2654
+    4   6     210       16      16            2      43.8571
+    4   7     330       16      16      2.01272      61.3633
+    5   6     462       32      32            2      43.8571
+    5   7     792       32      32            2      61.3633
+    5   8    1287       32      32      2.00912       81.784
+    6   7    1716       64      64            2      61.3633
+    6   8    3003       64      64            2       81.784
+    6   9    5005       64      64      2.00686      105.119
+    7   8    6435      128      -1            2       81.784
+    7   9   11440      128      -1            2      105.119
+    7  10   19448      128      -1      2.00535      131.368
+    8   9   24310      256      -1            2      105.119
+    8  10   43758   (skipped: dim too large with a 2^n-fold deflation)
+    8  11   75582   (skipped: dim too large with a 2^n-fold deflation)
+
+--- fits of Delta_N vs n, per class (N = n+3 and n+4) ---
+  class                points (n, Delta)                                            power  Delta~c n^a           exp  Delta~c e^{bn}       
+  [N = n+3]
+  UNSAT                3:1.359 4:1.608 5:1.43 6:1.732 7:0.9875 8:1.105              c=2.18 a=-0.293 R2=0.245  | c=1.93 b=-0.0659 R2=0.325
+                       min over instances: 3:1.359 4:1.608 5:1.43 6:1.732 7:0.9875 8:1.105
+  [N = n+4]
+  UNSAT                3:2.432 4:2.603 5:2.226 6:2.503 7:1.4                        c=4.69 a=-0.489 R2=0.414  | c=3.86 b=-0.1144 R2=0.505
+                       min over instances: 3:2.432 4:2.603 5:2.226 6:2.503 7:1.4
+  [N = n+3]
+  ratio2.0             3:1.687 4:1.876 5:1.15 6:0.9962 7:0.9266 8:0.5335            c=7.13 a=-1.130 R2=0.825  | c=3.88 b=-0.2290 R2=0.889
+                       min over instances: 3:1.414 4:1.684 5:0.5939 6:0.7483 7:0.6521 8:0.2939
+  [N = n+4]
+  ratio2.0             3:2.786 4:2.198 5:1.42 6:1.422 7:1.465                       c=6.78 a=-0.852 R2=0.846  | c=4.22 b=-0.1720 R2=0.770
+                       min over instances: 3:2.493 4:2.115 5:0.9569 6:1.109 7:1.465
+  [N = n+3]
+  ratio4.2             3:1.359 4:1.837 5:1.675 6:1.344 7:1.298 8:1.232              c=2.07 a=-0.219 R2=0.254  | c=1.9 b=-0.0500 R2=0.350
+                       min over instances: 3:1.359 4:1.605 5:1.489 6:0.7444 7:0.9096 8:1.033
+  [N = n+4]
+  ratio4.2             3:2.432 4:2.839 5:2.457 6:1.936 7:1.376                      c=6.01 a=-0.658 R2=0.606  | c=4.59 b=-0.1522 R2=0.723
+                       min over instances: 3:2.432 4:2.226 5:2.154 6:1.121 7:1.376
+  [N = n+3]
+  unique-3distinct     3:1.36 4:0.8086 5:0.5368 6:0.539 7:0.4502 8:0.4647           c=3.94 a=-1.103 R2=0.893  | c=1.95 b=-0.2035 R2=0.797
+                       min over instances: 3:1.36 4:0.8086 5:0.5368 6:0.539 7:0.4502 8:0.4647
+  [N = n+4]
+  unique-3distinct     3:2.432 4:1.324 5:0.8599 6:0.8191 7:0.6907                   c=10.9 a=-1.469 R2=0.941  | c=4.9 b=-0.2998 R2=0.874
+                       min over instances: 3:2.432 4:1.324 5:0.8599 6:0.8191 7:0.6907
+  [N = n+3]
+  unique-degenerate    3:0.366 4:0.8403 5:0.4257 6:0.6519 7:0.5293 8:0.448          c=0.463 a=+0.073 R2=0.008  | c=0.518 b=+0.0014 R2=0.000
+                       min over instances: 3:0.366 4:0.8403 5:0.4257 6:0.6519 7:0.5293 8:0.448
+  [N = n+4]
+  unique-degenerate    3:0.5665 4:1.492 5:0.6115 6:1.147                            c=0.376 a=+0.575 R2=0.131  | c=0.505 b=+0.1226 R2=0.111
+                       min over instances: 3:0.5665 4:1.492 5:0.6115 6:1.147
+
+--- OVERALL: worst (smallest) Delta_{n+3} over ALL instances at each n ---
+  n            :          3          4          5          6          7          8
+  min Delta    :    0.36602    0.80859    0.42566    0.53896    0.45023    0.29390
+  attained by  :   uniq-deg  uniq-3lit   uniq-deg  uniq-3lit  uniq-3lit     r2.0-1
+  median Delta :    1.35909    1.68378    1.42978    1.02356    0.97760    0.76043
+  1/min Delta  :     2.7321     1.2367     2.3493     1.8554     2.2211     3.4025
+  worst-case power fit: Delta_min ~ 0.7403 * n^(-0.2934)  R2=0.0954   -> extrapolated Delta_min(n=50) = 0.2349
+  worst-case exp   fit: Delta_min ~ 0.688 * exp(-0.0748 n)  R2=0.1626   -> extrapolated Delta_min(n=50) = 0.01634
+  median    power fit: Delta_med ~ 3.493 * n^(-0.6652)   R2=0.6852
+  median    exp   fit: Delta_med ~ 2.502 * exp(-0.1391 n)   R2=0.7860
+
+
+########## (c) coherent-state ground space / Gram conditioning ##########
+Gram G_xy = (1+|x&y|)^N / ((1+|x|)(1+|y|))^{N/2}  over the SAT points, N = n+3.
+    n instance      #SAT  rank(G)   lam_min(G)   lam_max(G)       cond  ||A V||/||V||  ||(1-P0)V||/||V||
+    3 r4.2-0           0   (UNSAT: ground space is empty)
+    3 r2.0-0           2        2     0.912209      1.08779       1.19       6.92e-16           5.24e-15
+    3 r2.0-1           2        2     0.703704       1.2963       1.84       6.69e-16           5.17e-15
+    3 r2.0-2           2        2        0.875        1.125       1.29       1.76e-16           2.18e-15
+    3 uniq-3lit        1        1            1            1          1       0.00e+00           0.00e+00
+    4 r4.2-0           0   (UNSAT: ground space is empty)
+    4 r2.0-0           5        5     0.430394      1.83782       4.27       5.71e-16           6.72e-15
+    4 r2.0-1           5        5     0.499995      1.55593       3.11       7.69e-16           5.35e-15
+    4 r2.0-2           7        7     0.592117      1.56293       2.64       3.82e-16           3.91e-15
+    4 uniq-3lit        1        1            1            1          1       5.38e-16           1.26e-14
+    5 r4.2-0           2        2       0.9375       1.0625       1.13       3.89e-16           5.95e-15
+    5 r2.0-0           7        7     0.518763      1.57741       3.04       8.63e-16           1.01e-14
+    5 r2.0-1          12       12     0.452093      1.85514        4.1       7.88e-16           7.84e-15
+    5 r2.0-2           6        6     0.515672      1.60754       3.12       8.46e-16           1.20e-14
+    5 uniq-3lit        1        1            1            1          1       6.10e-16           2.76e-14
+    6 r4.2-0           1        1            1            1          1       2.21e-15           3.84e-14
+    6 r2.0-0          17       17      0.30652      2.27371       7.42       1.06e-15           1.53e-14
+    6 r2.0-1          13       13     0.408013      2.02583       4.97       1.06e-15           3.57e-14
+    6 r2.0-2          10       10     0.368255      2.06635       5.61       1.19e-15           1.83e-14
+    6 uniq-3lit        1        1            1            1          1       1.53e-15           5.65e-14
+    7 r4.2-0           1        1            1            1          1       1.46e-15                nan
+    7 r2.0-0          17       17     0.229017       2.5175         11       1.42e-15                nan
+    7 r2.0-1          13       13     0.353824      2.06867       5.85       1.58e-15                nan
+    7 r2.0-2          20       20     0.218909      2.68235       12.3       1.35e-15                nan
+    7 uniq-3lit        1        1            1            1          1       1.00e-15                nan
+    8 r4.2-0           2        2     0.977903       1.0221       1.05       2.67e-15                nan
+    8 r2.0-0          23       23     0.273318      2.47867       9.07       1.03e-15                nan
+    8 r2.0-1          26       26      0.24523      2.78341       11.4       1.63e-15                nan
+    8 r2.0-2          39       39     0.134823      3.93075       29.2       1.64e-15                nan
+    8 uniq-3lit        1        1            1            1          1       2.61e-15                nan
+
+  Gram lam_min for the FULL boolean set (all 2^n points), N = n+3 and n+1:
+    n    2^n   lam_min(N=n+1)   lam_min(N=n+3)    lam_min(N=2n)
+    3      8        0.0908203         0.249957         0.249957
+    4     16        0.0338164         0.120498         0.176679
+    5     32        0.0120075        0.0539048         0.124977
+    6     64       0.00412071        0.0227829        0.0884423
+    7    128       0.00137832       0.00920895        0.0626033
+    8    256      0.000451887       0.00359075        0.0443204
+
+
+########## (d) overlap of |Psi_bool> with the ground space ##########
+|Psi_bool> ~ sum_{x in {0,1}^n} |p^_x>^{ox N};  <Psi|P_0|Psi> computed from the
+2^n x 2^n Gram matrix:  P_0 = V_S (V_S^T V_S)^{-1} V_S^T, S = SAT points.
+    n instance     class               #SAT   N   <Psi|P0|Psi>    #SAT/2^n     ratio   #SAT/dimR_N  gain vs mixed
+    3 r4.2-0       ratio4.2               0   6              0           0       nan             0            nan
+    3 r4.2-1       ratio4.2               0   6              0           0       nan             0            nan
+    3 r4.2-2       ratio4.2               0   6              0           0       nan             0            nan
+    3 r2.0-0       ratio2.0               2   6     0.55536703        0.25     2.221     0.0238095          23.33
+    3 r2.0-1       ratio2.0               2   6     0.40056792        0.25     1.602     0.0238095          16.82
+    3 r2.0-2       ratio2.0               2   6     0.31289826        0.25     1.252     0.0238095          13.14
+    3 unsat        UNSAT                  0   6              0           0       nan             0            nan
+    3 uniq-deg     unique-degenerate      1   6     0.30206176       0.125     2.416     0.0119048          25.37
+    3 uniq-3lit    unique-3distinct       1   6     0.13677435       0.125     1.094     0.0119048          11.49
+    4 r4.2-0       ratio4.2               0   7              0           0       nan             0            nan
+    4 r4.2-1       ratio4.2               2   7     0.43110517       0.125     3.449    0.00606061          71.13
+    4 r4.2-2       ratio4.2               0   7              0           0       nan             0            nan
+    4 r2.0-0       ratio2.0               5   7     0.60553053      0.3125     1.938     0.0151515          39.97
+    4 r2.0-1       ratio2.0               5   7     0.66197693      0.3125     2.118     0.0151515          43.69
+    4 r2.0-2       ratio2.0               7   7     0.64574786      0.4375     1.476     0.0212121          30.44
+    4 unsat        UNSAT                  0   7              0           0       nan             0            nan
+    4 uniq-deg     unique-degenerate      1   7     0.10649058      0.0625     1.704     0.0030303          35.14
+    4 uniq-3lit    unique-3distinct       1   7      0.1660654      0.0625     2.657     0.0030303           54.8
+    5 r4.2-0       ratio4.2               2   8    0.064144547      0.0625     1.026      0.001554          41.28
+    5 r4.2-1       ratio4.2               1   8     0.32071145     0.03125     10.26   0.000777001          412.8
+    5 r4.2-2       ratio4.2               1   8     0.13682398     0.03125     4.378   0.000777001          176.1
+    5 r2.0-0       ratio2.0               7   8     0.39750015     0.21875     1.817    0.00543901          73.08
+    5 r2.0-1       ratio2.0              12   8     0.65848857       0.375     1.756    0.00932401          70.62
+    5 r2.0-2       ratio2.0               6   8     0.31984315      0.1875     1.706      0.004662          68.61
+    5 unsat        UNSAT                  0   8              0           0       nan             0            nan
+    5 uniq-deg     unique-degenerate      1   8     0.13682398     0.03125     4.378   0.000777001          176.1
+    5 uniq-3lit    unique-3distinct       1   8     0.13682398     0.03125     4.378   0.000777001          176.1
+    6 r4.2-0       ratio4.2               1   9      0.1825066    0.015625     11.68     0.0001998          913.4
+    6 r4.2-1       ratio4.2               0   9              0           0       nan             0            nan
+    6 r4.2-2       ratio4.2               2   9    0.088304419     0.03125     2.826     0.0003996            221
+    6 r2.0-0       ratio2.0              17   9     0.47615149    0.265625     1.793     0.0033966          140.2
+    6 r2.0-1       ratio2.0              13   9     0.57265302    0.203125     2.819     0.0025974          220.5
+    6 r2.0-2       ratio2.0              10   9     0.31816006     0.15625     2.036      0.001998          159.2
+    6 unsat        UNSAT                  0   9              0           0       nan             0            nan
+    6 uniq-deg     unique-degenerate      1   9    0.041019415    0.015625     2.625     0.0001998          205.3
+    6 uniq-3lit    unique-3distinct       1   9      0.1825066    0.015625     11.68     0.0001998          913.4
+    7 r4.2-0       ratio4.2               1  10    0.060508683   0.0078125     7.745   5.14192e-05           1177
+    7 r4.2-1       ratio4.2               4  10     0.12171086     0.03125     3.895   0.000205677          591.8
+    7 r4.2-2       ratio4.2               0  10              0           0       nan             0            nan
+    7 r2.0-0       ratio2.0              17  10     0.33781043    0.132812     2.544   0.000874126          386.5
+    7 r2.0-1       ratio2.0              13  10     0.36620253    0.101562     3.606   0.000668449          547.8
+    7 r2.0-2       ratio2.0              20  10     0.34533287     0.15625      2.21    0.00102838          335.8
+    7 unsat        UNSAT                  0  10              0           0       nan             0            nan
+    7 uniq-deg     unique-degenerate      1  10     0.03509236   0.0078125     4.492   5.14192e-05          682.5
+    7 uniq-3lit    unique-3distinct       1  10     0.03509236   0.0078125     4.492   5.14192e-05          682.5
+    8 r4.2-0       ratio4.2               2  11    0.059406608   0.0078125     7.604   2.64613e-05           2245
+    8 r4.2-1       ratio4.2               1  11    0.016600511  0.00390625      4.25   1.32307e-05           1255
+    8 r4.2-2       ratio4.2               2  11      0.0616407   0.0078125      7.89   2.64613e-05           2329
+    8 r2.0-0       ratio2.0              23  11     0.26006762   0.0898438     2.895   0.000304305          854.6
+    8 r2.0-1       ratio2.0              26  11     0.33921774    0.101562      3.34   0.000343997          986.1
+    8 r2.0-2       ratio2.0              39  11     0.52185548    0.152344     3.426   0.000515996           1011
+    8 unsat        UNSAT                  0  11              0           0       nan             0            nan
+    8 uniq-deg     unique-degenerate      1  11    0.030362941  0.00390625     7.773   1.32307e-05           2295
+    8 uniq-3lit    unique-3distinct       1  11   0.0080968371  0.00390625     2.073   1.32307e-05            612
+
+  direct verification of (d) in the full Hilbert space (dense cases):
+    n=3 r4.2-0     #SAT=  0: direct=0  gram=0  |diff|=0.00e+00  #SAT/2^n=0
+    n=3 r2.0-0     #SAT=  2: direct=0.5553670282  gram=0.5553670282  |diff|=1.78e-15  #SAT/2^n=0.25
+    n=4 r4.2-0     #SAT=  0: direct=0  gram=0  |diff|=0.00e+00  #SAT/2^n=0
+    n=4 r2.0-0     #SAT=  5: direct=0.6055305338  gram=0.6055305338  |diff|=9.99e-16  #SAT/2^n=0.3125
+    n=5 r4.2-0     #SAT=  2: direct=0.06414454652  gram=0.06414454652  |diff|=4.58e-16  #SAT/2^n=0.0625
+    n=5 r2.0-0     #SAT=  7: direct=0.3975001531  gram=0.3975001531  |diff|=2.72e-15  #SAT/2^n=0.21875
+
+
+(total elapsed 7644s)
