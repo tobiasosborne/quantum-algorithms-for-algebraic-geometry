@@ -138,6 +138,18 @@ every real space claim lives; K-RV8 walls out at r=4..6 (736 MB to 273 GB at n=1
 is a treewidth statement that fails for hub-coupled TLS perception. Eleven rows
 C-264..C-274 and three definitions merged verbatim.
 
+Two-copy real-symmetry probe (D14, `scouting/two-copy-real-filter.md`): the STRONG form
+is closed. For a real ideal the compressed pairing-state filter on ker H_N x ker H_N has rank
+one and top eigenvalue HF/M_N regardless of whether V has any real points; a conjugate pair
+|p>^N + |pbar>^N passes with R = 1 although p is complex (C-276, C-278). The filter sees
+"real vector in the ground space", not "real point". What survives: the coherent-state
+response R = (cos 2t)^{2N} with t the Fubini–Study angle to RP^n (C-277); an exact real-point
+COUNT #V_R = Tr(G_hat^{-1} G) from the coherent frame (C-279), inheriting Hermite
+conditioning K-RV6; and a one-pair linear-optics-native CERTIFICATE that a supplied product
+ground state is a real point (C-280): it verifies, it does not find. Second quantisation:
+|Phi_N> is the N-photon sector of the multimode two-mode-squeezed vacuum, so the pairwise Bell
+projection is native, at acceptance (n+1)^{-N} pairwise versus 1/M_N collective.
+
 **Arm X: kill-first checks (run before anything else is funded).**
 C-099: permutation-invariant Hamiltonians at fixed local dimension are classically easy
 (Schur–Weyl), which would remove the whole fixed-n, growing-N regime. C-110: whether a
@@ -182,6 +194,7 @@ asserts a speedup must name which traps it has been checked against.
 | D13 | 2026-09-02 | Robotics explores BOTH space and time. The space killers (K5, K6, K-RV8, K-RV9) are judged vague and weak; a proposer lane develops space claims rigorously (`briefs/lane-robotics-space.md`). | TJO ("not convinced we have exhausted space claims") |
 | D14 | 2026-09-02 | Probe TJO's two-copy real-symmetry idea: the antilinear realness condition becomes linear on two copies via the pairing state; lane `briefs/lane-two-copy-real.md`. | TJO question, orchestrator |
 | D15 | 2026-09-02 | Fact SP-0 (quadratic ceiling on pure space advantage in the read-only-input model) is a campaign-wide constraint: every row comparing a qubit count to a classical word count must be audited against it; robotics bet R1's space sentence is refuted on these grounds, more strongly than by K-RV8. | orchestrator, from space lane; pending TJO ratification |
+| D16 | 2026-09-02 | Two-copy real-symmetry filter: strong form (spectral selector of real points) closed by C-276/C-278; certificate and count forms stay open as instruments. Rows C-275..C-280 merged. | orchestrator, from lane; pending TJO |
 
 ## 7. Current state and open questions for TJO
 
@@ -249,6 +262,13 @@ Questions only TJO can answer, in order of how much they change the next step:
     closes as unmotivated; (g) ratify SP-0 as campaign-wide (D15) and audit qubit-vs-word
     rows; (h) the robotics memo's contact-mode counts are off by three orders of magnitude
     and Stephenson II is ten degree-8 equations in ten unknowns, not 26: merge corrections?
-12. **Multigraded mechanism dictionary** (robotics memo Q5): a 2-local frustration-free
+12. **Two-copy follow-ups** (`scouting/two-copy-real-filter.md` Questions, condensed): (a)
+    does the one-pair real-point certificate count as a product (recommended: instrument and
+    arm E hardware demo, not a north-star hit); (b) amend real-variety Route 2 in lockstep
+    (its 1/5 is right, its reason is wrong); (c) fund one analytic day on the robust version
+    of the certificate (eps-close product, real, low-energy state implies Fubini–Study
+    distance to V_R bounded in N, Delta_N, condition number); (d) fold the real-point count
+    into the Hermite lane rather than a new lane.
+13. **Multigraded mechanism dictionary** (robotics memo Q5): a 2-local frustration-free
     qutrit chain whose zero-energy product states are a mechanism's configurations. Not a
     speedup; possibly the right physics paper. Pursue as its own item?

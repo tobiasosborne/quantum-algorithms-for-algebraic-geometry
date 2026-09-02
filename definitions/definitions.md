@@ -971,6 +971,39 @@ quoted for a succinctly-specified operator are: time-efficient (`O(M_N)` space),
 
 ---
 
+
+<!-- Merged verbatim from scouting/two-copy-real-filter.md "Proposed definitions" (Opus lane, 2026-09-02); orchestrator merge. Status: proposed. -->
+
+MERGE PROPOSAL (`definitions/definitions.md`); full statements in the Statement section, verified in
+`checkers/explore/twocopy_real_filter.py`.
+
+### D-pairing-state
+`|Phi_N> = sum_{|k|=N}|k>|k>` in the D-fock-basis ONB; `<Phi_N|Phi_N> = M_N = dim R_N`,
+`(A x 1)|Phi_N> = (1 x A^T)|Phi_N>`, `SWAP^{T_2} = |Phi_N><Phi_N|`; second-quantised
+`|Phi_N> = (C^dag)^N|vac>/N!`, `C = sum_j a_j b_j`, the `N`-photon-per-copy sector of the multimode
+two-mode-squeezed vacuum; `(P_sym x P_sym)|Phi_1>^{x N} = |Phi_N>`. Source: standard; part F.
+Pitfalls: fixed by `K`, not by the ideal; norm `M_N` collectively versus `(n+1)^N` pairwise, a cost.
+
+### D-two-copy-real-filter
+`Pi_N = |Phi_N><Phi_N|/M_N`, compression `F_N = (P_0 x P_0)Pi_N(P_0 x P_0)`; diagonal
+`M_N <psi x psi|Pi_N|psi x psi> = R(psi)`; acceptance `R(psi)/M_N` collective, `R(psi)/(n+1)^N`
+pairwise; `k`-pair filter `<Phi_k|(psi x psi) = vec(A^T A)`. Source: this memo; PRD D14.
+Pitfalls: rank one, eigenvalue `HF_{R/I}(N)/M_N` for every real ideal -- a Hilbert-function ratio,
+not a real-point statistic; a measurement, not a projector.
+
+### D-realness-witness
+`R(psi) = |psi^T psi|^2/<psi|psi>^2 = Tr(rho rho^T)`, the imaginarity measure (arXiv:1801.05123, DOI
+10.1088/1751-8121/aabe9c; arXiv:2007.14847, PRL 126 090401); `R = 1` iff the ray meets `Fix(K)`; on
+coherent states `(|p^T p|/|p|^2)^{2N}` with `|p^T p|/|p|^2 = 2F_R(p) - 1 = cos 2t`. Source: part B.
+Pitfalls: quadratic, so not a one-copy observable (C-256 stands); realness of a vector, not of a
+coherent label -- conjugate-pair ghosts saturate it.
+
+### D-one-particle-reduced-state
+`(rho_1)_{ij} = <a_i^dag a_j>_psi/N` on `C^{n+1}`; `Tr(rho_1^2) = 1` iff `psi` is coherent, and
+`Tr(rho_1 rho_1^T) = <C^dag C>/N^2` (`= |p^T p|^2/|p|^4` when coherent); both of norm at most one.
+Source: this memo; parts C and F.
+Pitfalls: it is the one-particle witness, not `R(psi)`; they agree only on coherent states.
+
 ### OPEN
 
 Issues found while building this register. Nothing here is repaired silently; each is a question for

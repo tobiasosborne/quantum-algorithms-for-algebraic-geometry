@@ -19,7 +19,8 @@
   `robotics-deep-dive.md` (Opus, 763 lines, bets R1–R3, killers K1–K10),
   `real-variety.md` (codex, 2146 lines, 10 routes, 15 killers, 0 refs marked unverified:
   treat as unverified), `robotics-space.md` (Opus, 1363 lines, D13 proposer lane; refs
-  resolved live except the Watrous/BCP primaries, see its §8).
+  resolved live except the Watrous/BCP primaries, see its §8), `two-copy-real-filter.md`
+  (Opus, 400 lines, all 7 refs resolved).
 - Checkers: `checkers/` 16 red-capable checkers (14 ported from seed + Fact 7.1 + Fact 7.2),
   3717 checks, 17 mutations all red; orchestrator re-ran both independently 2026-09-02
   (413 s wall, all PASS; 17/17 RED). Suite uses generators as written, NOT unit
@@ -28,6 +29,12 @@
   open questions for TJO (§7).
 
 ## Findings this session (not yet critiqued; nothing promoted)
+
+- Two-copy real filter (D14): strong form CLOSED. For a real ideal the compressed filter
+  spectrum is identical whether or not V has real points (checked numerically to 1e-15);
+  a conjugate-pair ghost state passes. Survivors: coherent response (cos 2t)^{2N}, exact
+  real-point count via the coherent frame, a one-pair linear-optics certificate. Rows
+  C-275..C-280, PRD D16. Exploration script checkers/explore/twocopy_real_filter.py.
 
 - SP-0 (space lane): BQSPACE(s) in DSPACE(s^2) and DTIME(2^O(s)); pure quantum space
   advantage is capped at a quadratic gap. Bet R1's 250 GB sentence refuted; survivors are a

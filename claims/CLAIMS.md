@@ -4322,6 +4322,83 @@ All rows enter at **CONJECTURE** per L1. Ids `C-NEW-SP-<NAME>`.
   linear algebra; if the exemption fails, §2.1 dies.
 - traps audited: ignoring dequantization.
 
+
+## Rows merged from scouting/two-copy-real-filter.md (2026-09-02, Opus lane; orchestrator merge, verbatim; all CONJECTURE per L1; numerics in checkers/explore/twocopy_real_filter.py, exploration only)
+
+Id map: C-275 = C-NEW-TC-RANK-ONE, C-276 = C-NEW-TC-NO-REAL-INFORMATION, C-277 = C-NEW-TC-COHERENT-RESPONSE, C-278 = C-NEW-TC-GHOST, C-279 = C-NEW-TC-FRAME-COUNT, C-280 = C-NEW-TC-ONE-PAIR-CERTIFICATE
+
+MERGE PROPOSAL (`claims/CLAIMS.md`), all CONJECTURE per L1; where-tested is
+`checkers/explore/twocopy_real_filter.py`, where-proved is this memo.
+
+### C-275 (C-NEW-TC-RANK-ONE)
+- statement: For every homogeneous ideal `I` and every `N`, the compression
+  `F_N = (P_0 x P_0)(|Phi_N><Phi_N|/M_N)(P_0 x P_0)` onto `ker H_N x ker H_N` has rank at most one,
+  range spanned by `(P_0 x P_0)|Phi_N>`, and unique nonzero eigenvalue
+  `Tr(P_0 P_0^T)/M_N = (sum_i tau_i^2)/M_N`, the `tau_i` being the cosines of the principal angles
+  between `ker H_N` and its complex conjugate; for real generators every `tau_i = 1`, the eigenvalue
+  is `HF_{R/I}(N)/M_N`, the eigenvector the ground-space pairing state.
+- depends-on: D-pairing-state, D-two-copy-real-filter, D-projectors, D-ground-space,
+  D-takagi-factorisation; where-proved: Proposition TC1; where-tested: part A, `N = 2..8`, four
+  ideals in `P^2`. Relevance/traps: settles what the construction is as a linear operator; guards
+  against reading a nonlinear witness as an operator spectrum, and against changing the output.
+
+### C-276 (C-NEW-TC-NO-REAL-INFORMATION)
+- statement: For every pair of conjugations on complex Hilbert spaces of equal finite dimension there
+  is a unitary intertwiner; hence every unitary invariant of `(ker H_N, K)` is a function of
+  `HF_{R/I}(N)`, and no construction built from `P_0` and `|Phi_N>` alone decides whether `V_R(I)` is
+  empty. In particular `z0z1 - z2^2` (real locus `RP^1`) and `z0^2+z1^2+z2^2` (real locus empty) have
+  identical `F_N` spectra at every `N`.
+- depends-on: D-real-structure, D-two-copy-real-filter, C-275 (C-NEW-TC-RANK-ONE), C-256; where-proved:
+  Proposition TC2; where-tested: part A, difference 3.55e-15 at `N = 2..8`. Relevance/traps: closes
+  the strong form of the proposal (real-point information needs the algebra action, not the real
+  structure); guards against mistaking a real form for a subspace, and K-RV2.
+
+### C-277 (C-NEW-TC-COHERENT-RESPONSE)
+- statement: For every unit `p in C^{n+1}` and every `N`, `R(|p>^{x N}) = |p^T p|^{2N}` and
+  `|p^T p| = 2 max_{x real, |x|=1}|<x|p>|^2 - 1 = cos 2t` with `t` the Fubini-Study distance from
+  `[p]` to `RP^n`; a complex point at angle `t` is therefore suppressed as
+  `exp(-4Nt^2(1+O(t^2)))`, so the filter's angular resolution about `RP^n` is `Theta(N^{-1/2})`.
+- depends-on: D-coherent-state, D-realness-witness; where-proved: Statement; where-tested: part B,
+  four points, `N = 2..10`, agreement to 1e-9. Relevance/traps: the exact filter rate and its
+  resolution limit; guards against confusing exponential filter strength with exponential separation
+  of nearby points.
+
+### C-278 (C-NEW-TC-GHOST)
+- statement: For every real ideal `I`, every `N` and every `p in V(I)`, the vector
+  `|p>^{x N} + |conj(p)>^{x N}` lies in `ker H_N` and has `R = 1` exactly, and the `K`-fixed subset
+  of `ker H_N` is a real subspace of real dimension `HF_{R/I}(N)`, nonzero even when `V_R(I) = {}`;
+  so `R(psi) = 1` certifies that the ray is real, not that `psi` is a real point's coherent state.
+- depends-on: D-realness-witness, D-coherent-state, D-real-structure, C-255; where-proved: K-TC1;
+  where-tested: part C (`R = 1.000000000000` for the ghost; `R = 1` real ground vectors for both
+  real-point-free conics). Relevance/traps: refutes "postselecting prepares real points"; real
+  vector versus real label; K-RV1, K-RV2.
+
+### C-279 (C-NEW-TC-FRAME-COUNT)
+- statement: For every real zero-dimensional radical ideal `I` in the stable range, every `N` at
+  which the coherent states of `V(I)` form a basis of `ker H_N`, and conjugation-compatible unit
+  representatives `x_1..x_D` of `V(I)`, the Hermitian and bilinear coherent Gram matrices
+  `Gh_{ab} = <x_a|x_b>^N` and `G_{ab} = (x_a^T x_b)^N` satisfy `G = P_sigma Gh` with `P_sigma` the
+  permutation matrix of complex conjugation on `V(I)`; hence `Tr(Gh^{-1}G) = #V_R(I)` and
+  `Tr(Gh^{-1}Gh) = D`.
+- depends-on: D-coherent-gram-matrix, D-pairing-state, D-coherent-state,
+  D-real-locus-and-real-radical; where-proved: Algorithmic content; where-tested: part D, three
+  binary quartics with 4, 2, 0 real roots, `N = 3,5,8,12,20`, exact integers; mutation `G -> Gh`
+  returns `4 = D`. Relevance/traps: names the extra structure a real count needs (the coherent frame
+  = the compressed multiplications) and its cost `Gh^{-1}`; frame dependence of the trace of an
+  antiunitary; phase conventions on projective representatives; K-RV6.
+
+### C-280 (C-NEW-TC-ONE-PAIR-CERTIFICATE)
+- statement: For every real ideal `I`, every `N >= max_j m_j`, and every `psi in ker H_N`, the two
+  one-particle two-copy observables `Tr(rho_1^2)` and `Tr(rho_1 rho_1^T) = <C^dag C>/N^2` with
+  `C = sum_j a_j b_j` both equal `1` if and only if `psi = |p>^{x N}` for some `p` with
+  `[p] in V_R(I)`; both have operator norm at most one and are estimable to additive `eps` with
+  `O(1/eps^2)` copies and no postselection.
+- depends-on: D-one-particle-reduced-state, D-realness-witness, D-coherent-state, D-ground-space;
+  where-proved: Algorithmic content; where-tested: parts C and F (real point `(1,1)`, complex point
+  `(1, 0.111)`, ghost `(0.557, 0.557)`, real ground vector `(0.387, 0.387)`). Relevance/traps: a
+  polynomial-cost verifier with a spinor-BEC / parametric-source realisation, a certification
+  product not a speedup; verification versus preparation; robustness (`1-eps` version open); K-RV10.
+
 ## Lane report
 
 254 rows: 157 SKETCH, 40 CONJECTURE, 57 REFUTED, 0 PROVED; 529 edges, acyclic. report.md §1-§9 = C-001-C-180, page81.tex = C-181-C-208, draft claims the referees killed = C-209-C-254. All 77 round-1 and 18 round-2 findings are accounted for (audit trail in EXTRACTION-NOTES.md).
