@@ -157,6 +157,8 @@ asserts a speedup must name which traps it has been checked against.
 | D10 | 2026-09-02 | Design-time (offline) speedups count toward the north star. Robotics arm R stays open; bet R2 (kinematic synthesis) is its target, bet R3's one-day experiment still runs. | TJO |
 | D11 | 2026-09-02 | Open a real-variety lane: a formulation whose ground space or observable sees real (or positive) points, or the moment/SOS side. | TJO |
 | D12 | 2026-09-02 | Real-variety lane harvested as arm E; robotics bet R1 loses its dense-SDP space comparison and is reframed against implicit Lanczos on the residual hierarchy (memo Q5, Q9). | orchestrator, from lane merge |
+| D13 | 2026-09-02 | Robotics explores BOTH space and time. The space killers (K5, K6, K-RV8, K-RV9) are judged vague and weak; a proposer lane develops space claims rigorously (`briefs/lane-robotics-space.md`). | TJO ("not convinced we have exhausted space claims") |
+| D14 | 2026-09-02 | Probe TJO's two-copy real-symmetry idea: the antilinear realness condition becomes linear on two copies via the pairing state; lane `briefs/lane-two-copy-real.md`. | TJO question, orchestrator |
 
 ## 7. Current state and open questions for TJO
 
@@ -179,8 +181,8 @@ Questions only TJO can answer, in order of how much they change the next step:
    at asymptotic size is kinematic synthesis (CPU-days, offline). If the application
    must run on a robot, the honest answer is that the arm closes after bet R3's one-day
    experiment. If design-time counts, bet R2 is the target.
-3. **Robotics: space or time?** Bet R1 is space-only, R2 time-only; the lane budget
-   supports one.
+3. **Robotics: space or time?** ANSWERED 2026-09-02 (D13): both. Space direction gets its
+   own proposer lane; the existing killers are not accepted as final.
 4. **What counts as a product?** The north star says speedup. Three of the top four
    application shortlist entries are new invariants or dictionary theorems (SUSY Betti
    Laplacian, metric regularity, analytic intersection theory), not speedups. Do these
