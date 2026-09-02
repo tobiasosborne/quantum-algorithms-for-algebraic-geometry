@@ -16,7 +16,9 @@
 - Scouting: `scouting/classical-landscape.md` (codex, 2113 lines, 9 ranked candidates,
   21 traps, 63 refs none marked unverified: treat as unverified), `applications-wide-net.md`
   (Opus, 325 lines, shortlist of 8, filters F1–F6, Observations A/B),
-  `robotics-deep-dive.md` (Opus, 763 lines, bets R1–R3, killers K1–K10).
+  `robotics-deep-dive.md` (Opus, 763 lines, bets R1–R3, killers K1–K10),
+  `real-variety.md` (codex, 2146 lines, 10 routes, 15 killers, 0 refs marked unverified:
+  treat as unverified).
 - Checkers: `checkers/` 16 red-capable checkers (14 ported from seed + Fact 7.1 + Fact 7.2),
   3717 checks, 17 mutations all red; orchestrator re-ran both independently 2026-09-02
   (413 s wall, all PASS; 17/17 RED). Suite uses generators as written, NOT unit
@@ -47,9 +49,11 @@
 
 TJO answered Q1 and Q2 on 2026-09-02 (PRD D10, D11): design-time speedups count, robotics
 target is bet R2; real-variety lane opened (`briefs/lane-real-variety.md`, codex scout,
-output `scouting/real-variety.md`). Still open: Q3–Q10.
+output `scouting/real-variety.md`). Real-variety scout harvested as arm E (D12); its 7 D-entries and 9 claim rows C-255..C-263
+are merged verbatim. Still open: PRD §7 Q3–Q11.
 
-1. Harvest the real-variety scout; merge its proposed D-entries and claim rows (orchestrator).
+1. Robotics bet R1 must be reframed (K-RV8/9): compare against implicit Lanczos on the
+   residual hierarchy, not dense Lasserre; the 250 GB space claim is withdrawn from R1.
 2. Arm X kill-first checks (each one bead, one checker or one short memo):
    C-099 Schur–Weyl classical easiness at fixed local dimension; C-110 literature scout
    for a multi-generator Bombieri inequality (codex or Opus, not a proof); re-run the gap

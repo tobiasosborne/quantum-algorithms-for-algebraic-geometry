@@ -101,6 +101,21 @@ robotics wants real solutions and exact small integers; the classical best is ho
 continuation, which is small-space and parallel; motion planning is PSPACE-complete so
 no quantum space advantage exists. The arm stays open only if TJO answers §7 Q1–Q2.
 
+**Arm E: real varieties (D11).**
+`scouting/real-variety.md` (codex, 2146 lines, 10 routes, 15 killers). Bottom line: there is
+no complex-linear projector onto the real part of a ground space (K is antiunitary), and a
+real Gaussian measure does not repair it; the exact algebraic replacement is the inverse
+system of the complexified real radical, which is circular to compute. Ranked routes: a
+sparse residual spectral hierarchy on the real sphere (3/5; compare with implicit Lanczos,
+not dense SDP); normalised Hermite signature with a succinct oracle (2/5); real-radical
+inverse system from a truncated moment state (2/5); positive toric fibre Hamiltonians (2/5
+speedup, 4/5 hardware, but stoquastic); totally real Boolean varieties (2/5, Grover-limited).
+Nine claim rows C-255..C-263 and seven D-entries merged verbatim. Two corrections to arm R:
+the seed ground energy is NOT the Lasserre/DPS value without maximal-symmetry and localizing
+constraints (C-261 (C-NEW-RV-R1-NONEQUIVALENCE)), and the "250 GB versus 300 qubits" space
+statement in bet R1 compares against dense SDP when the seed matrix admits O(B_3)-space
+Lanczos (K-RV8/9); R1 must be reframed as a spectral-hierarchy comparison.
+
 **Arm X: kill-first checks (run before anything else is funded).**
 C-099: permutation-invariant Hamiltonians at fixed local dimension are classically easy
 (Schur–Weyl), which would remove the whole fixed-n, growing-N regime. C-110: whether a
@@ -141,6 +156,7 @@ asserts a speedup must name which traps it has been checked against.
 | D9 | 2026-09-02 | First critic cycle scope: the eight "Critical claims for the north star" rows in CLAIMS.md: C-124, C-132, C-170/172, C-144/146, C-136, C-150/154, C-166/168, C-099. Sequencing: settle C-110 (novelty of the Fock/Macaulay identification) and C-099 (fixed local dimension is classically easy) first. | claims lane merge, pending TJO |
 | D10 | 2026-09-02 | Design-time (offline) speedups count toward the north star. Robotics arm R stays open; bet R2 (kinematic synthesis) is its target, bet R3's one-day experiment still runs. | TJO |
 | D11 | 2026-09-02 | Open a real-variety lane: a formulation whose ground space or observable sees real (or positive) points, or the moment/SOS side. | TJO |
+| D12 | 2026-09-02 | Real-variety lane harvested as arm E; robotics bet R1 loses its dense-SDP space comparison and is reframed against implicit Lanczos on the residual hierarchy (memo Q5, Q9). | orchestrator, from lane merge |
 
 ## 7. Current state and open questions for TJO
 
@@ -188,6 +204,14 @@ Questions only TJO can answer, in order of how much they change the next step:
 9. **Reference verification budget.** The classical memo cites 63 references with zero
    marked unverified, from an offline model; the robotics memo has 28 unverified marks.
    Half a day of DOI resolution before any number is quoted outside the repo?
-10. **Multigraded mechanism dictionary** (robotics memo Q5): a 2-local frustration-free
+10. **Real-variety follow-ups** (memo `scouting/real-variety.md`, Questions 1–10, condensed):
+    (a) ratchet the R1 correction now: enter C-259, C-260, C-261 together before any R1
+    experiment (recommended yes); (b) is a quantum-only scalar lower bound acceptable as
+    certification (same as Q4 above); (c) is normalised real-root density an acceptable
+    problem, given it never answers existence or rare-real-root questions; (d) fund one
+    analytic day on whether a Hermite trace form can be block-encoded from Macaulay access
+    without a D-element quotient basis, closing the route if circular; (e) close general
+    ETR / CAD as a Fock-space arm (recommended yes).
+11. **Multigraded mechanism dictionary** (robotics memo Q5): a 2-local frustration-free
     qutrit chain whose zero-energy product states are a mechanism's configurations. Not a
     speedup; possibly the right physics paper. Pursue as its own item?

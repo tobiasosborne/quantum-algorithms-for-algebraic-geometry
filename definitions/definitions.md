@@ -824,6 +824,97 @@ Source: claims lane request. Pitfalls: not yet defined; do not cite in an argume
 STUB (orchestrator, 2026-09-02; requested by claims lane). Essential normality of the quotient module $H^2_d/[I]$ (commutators $[S_i^*,S_j]$ compact), Arveson–Douglas conjecture. To be written by the definitions lane.
 Source: claims lane request. Pitfalls: not yet defined; do not cite in an argument shard.
 
+
+<!-- Merged verbatim from scouting/real-variety.md "Proposed definitions" (codex lane, 2026-09-02); orchestrator merge, no edits. Status: proposed, not yet cited by an argument shard. -->
+
+MERGE PROPOSAL (`definitions/definitions.md`, new entry):
+
+### D-real-locus-and-real-radical
+For a homogeneous ideal \(I\subseteq\mathbb R[z_0,\ldots,z_n]\), its real projective locus is
+\[
+V_{\mathbb R}(I)=\{[x]\in\mathbb P^n(\mathbb R):f(x)=0\ \forall f\in I\},
+\]
+and its real radical is
+\[
+\sqrt[\mathbb R]{I}=I(V_{\mathbb R}(I))
+=\{q\in\mathbb R[z]:q(x)=0\ \forall[x]\in V_{\mathbb R}(I)\}.
+\]
+Equivalently, \(q\in\sqrt[\mathbb R]{I}\) iff there exist \(k\ge1\) and a sum of squares \(\sigma\) with \(q^{2k}+\sigma\in I\). Its complexification is \(J=\sqrt[\mathbb R]{I}\otimes_{\mathbb R}\mathbb C\).
+Source: Real Nullstellensatz; Basu–Pollack–Roy, DOI 10.1007/3-540-33099-2.
+Pitfalls: \(\sqrt[\mathbb R]{I}\) is not generally the ordinary radical \(\sqrt I\); computing it is a real-algebraic problem. If \(V_{\mathbb R}(I)\) is Zariski dense in \(V(I_{\mathbb C})\), complexification removes no complex component.
+
+MERGE PROPOSAL (`definitions/definitions.md`, new entry):
+
+### D-real-coherent-span
+For \(I\subseteq\mathbb R[z_0,\ldots,z_n]\), \(J=\sqrt[\mathbb R]{I}\otimes_{\mathbb R}\mathbb C\), and degree \(N\),
+\[
+\mathcal G_N^{\mathbb R}:=
+\operatorname{span}_{\mathbb C}\{|x\rangle^{\otimes N}:[x]\in V_{\mathbb R}(I),\ \|x\|=1\}
+=(J_N)^\perp.
+\]
+Thus a D-hamiltonian built from generators whose degree-\(N\) ideal piece is \(J_N\) has ground space equal to the complex span of real-point coherent states.
+Source: the reproducing identity in D-coherent-state applied to the vanishing ideal of \(V_{\mathbb R}(I)\).
+Pitfalls: the set of real coherent states is nonlinear; only its complex span is a ground space. When the real locus is Zariski dense, \(\mathcal G_N^{\mathbb R}\) equals the ordinary radical complex ground space and does not select real labels.
+
+MERGE PROPOSAL (`definitions/definitions.md`, new entry):
+
+### D-real-structure
+For a complex Hilbert space with a fixed real orthonormal basis, \(K\) is coefficientwise conjugation, an antiunitary involution. Its fixed set \(\operatorname{Fix}(K)\) is a real Hilbert space but not a complex-linear subspace. A real-coefficient D-hamiltonian commutes with \(K\), so each eigenspace has a real basis, but degenerate eigenspaces contain complex superpositions and there is no complex-linear projector with range \(\operatorname{Fix}(K)\).
+Source: elementary antiunitary linear algebra.
+Pitfalls: \(K\)-invariance of an operator does not project onto real points. The scalar \(|\langle\psi|K\psi\rangle|^2\) is nonlinear in a one-copy state and is not the expectation of a one-copy observable.
+
+MERGE PROPOSAL (`definitions/definitions.md`, new entry):
+
+### D-hermite-trace-form
+Let \(I\subseteq\mathbb R[x_1,\ldots,x_n]\) be zero dimensional, \(A=\mathbb R[x]/I\), \(\mathcal B=(b_1,\ldots,b_D)\) a basis, and \(M_h\) multiplication by \(h\) on \(A\). For \(g\in\mathbb R[x]\), the Hermite trace form and its matrix are
+\[
+\mathfrak h_g(u,v)=\operatorname{Tr}_A(M_{guv}),\qquad
+\mathcal H_g(\mathcal B)_{ij}=\operatorname{Tr}_A(M_{g b_i b_j}).
+\]
+Its signature is
+\[
+\operatorname{sig}\mathcal H_g
+=\#\{x\in V_{\mathbb R}(I):g(x)>0\}
+-\#\{x\in V_{\mathbb R}(I):g(x)<0\}.
+\]
+In particular \(\operatorname{sig}\mathcal H_1=\#V_{\mathbb R}(I)\) as a count of distinct real roots.
+Source: multivariate Hermite theorem, arXiv:2110.10313.
+Pitfalls: this is an algebraic trace form, not D-toeplitz-operator and not merely \(\operatorname{Tr}M_g\). The matrix is basis-dependent by congruence although its inertia is invariant. Exact signature requires integer resolution and can be ill-conditioned numerically.
+
+MERGE PROPOSAL (`definitions/definitions.md`, new entry):
+
+### D-lasserre-order
+For a real homogeneous form \(c\) of degree \(2m\) on the unit sphere and an integer \(r\ge m\), the order-\(r\) sphere SOS bound is
+\[
+\operatorname{sos}_r(c)=
+\max\{\lambda:(\sum_i x_i^2)^{r-m}c-\lambda(\sum_i x_i^2)^r\text{ is SOS}\}.
+\]
+Its dual moment matrix is indexed by homogeneous monomials of degree \(r\), hence acts on \(\operatorname{Sym}^r(\mathbb R^{n+1})\); moments extend through degree \(2r\). Therefore the corresponding D-symmetric-sector has boson number \(N=r\), not \(2r\). For inequalities and equalities, order \(r\) additionally imposes the usual localizing-matrix PSD and equality constraints.
+Source: Lasserre, DOI 10.1137/S1052623400366802; Fang–Fawzi, arXiv:1908.05155.
+Pitfalls: a general density operator on the symmetric sector is not a moment matrix; the latter has Hankel/maximal-symmetry constraints. A fixed Hamiltonian ground energy is therefore not automatically the Lasserre value.
+
+MERGE PROPOSAL (`definitions/definitions.md`, new entry):
+
+### D-residual-spectral-hierarchy
+For real homogeneous residuals \(f_1,\ldots,f_d\) of common degree \(m\), set \(c(x)=\sum_j f_j(x)^2\) and, for \(N\ge m\),
+\[
+A_N=\frac{(N-m)!}{N!}H_N.
+\]
+Then \(\langle x^{\otimes N}|A_N|x^{\otimes N}\rangle=c(x)\) for every real unit \(x\), and
+\[
+\lambda_{\min}(A_N)\le\operatorname{sos}_N(c)\le\min_{\|x\|=1}c(x).
+\]
+The first value is a presentation-dependent spectral relaxation obtained from the supplied residual Gram representation.
+Source: D-coherent-state and D-symmetric-tensor-of-a-form; comparison with the sphere spectral/SOS hierarchies in arXiv:2310.17827 and DOI 10.1137/24M1717750.
+Pitfalls: \(\lambda_{\min}(A_N)\) is not generally the order-\(N\) Lasserre value or the canonical Lovitz–Johnston spectral value. The relevant gap for ground-energy estimation is the gap above \(\lambda_{\min}(A_N)\), not D-macaulay-gap unless the minimum is zero.
+
+MERGE PROPOSAL (`definitions/definitions.md`, new entry):
+
+### D-positive-toric-part
+For a projective toric ideal \(I_A\), the positive part is \(V(I_A)\cap\mathbb P^n(\mathbb R_{>0})\) and the nonnegative part is its closure in \(\mathbb P^n(\mathbb R_{\ge0})\). The algebraic moment map identifies the nonnegative part with the defining polytope under the standard toric hypotheses. In D-toric-ideal, consistently signed binomial generators produce stoquastic weighted fibre Laplacians whose kernel vectors have nonnegative occupation-basis amplitudes.
+Source: Sottile, arXiv:math/0212044.
+Pitfalls: occupation-basis positivity is not positivity of a coherent-state label. The positive torus is normally Zariski dense, so its coherent-state span equals the complex toric inverse system and is not selected by a projector.
+
 ### OPEN
 
 Issues found while building this register. Nothing here is repaired silently; each is a question for

@@ -4011,6 +4011,116 @@ parent — is C-044/C-252/OPEN-6, and is not yet well posed.
 
 ---
 
+
+## Rows merged from scouting/real-variety.md (2026-09-02, codex lane; orchestrator merge, verbatim; all CONJECTURE per L1)
+
+Id map: C-255 = C-NEW-RV-REAL-SPAN, C-256 = C-NEW-RV-NO-K-PROJECTOR, C-257 = C-NEW-RV-HERMITE-SIGNATURE, C-258 = C-NEW-RV-NORMALISED-INERTIA, C-259 = C-NEW-RV-LASSERRE-INDEX, C-260 = C-NEW-RV-RESIDUAL-SPECTRAL, C-261 = C-NEW-RV-R1-NONEQUIVALENCE, C-262 = C-NEW-RV-TORIC-POSITIVITY, C-263 = C-NEW-RV-BOOLEAN-TOTALLY-REAL
+
+### C-255 (C-NEW-RV-REAL-SPAN)
+- statement: For every homogeneous ideal \(I\subseteq\mathbb R[z_0,\ldots,z_n]\), every \(N\ge0\), and \(J=\sqrt[\mathbb R]{I}\otimes_{\mathbb R}\mathbb C\),
+  \[
+  \operatorname{span}_{\mathbb C}\{|x\rangle^{\otimes N}:[x]\in V_{\mathbb R}(I),\|x\|=1\}=(J_N)^\perp.
+  \]
+- status: CONJECTURE
+- depends-on: D-coherent-state, D-real-locus-and-real-radical, D-real-coherent-span
+- where-proved: proposed in `scouting/real-variety.md`, Route 3
+- where-tested: none
+- north-star relevance: exact identification of the ground space that sees all real points.
+- traps audited: treating the ground space as the point set; real locus may be Zariski dense; real-radical preprocessing.
+
+### C-256 (C-NEW-RV-NO-K-PROJECTOR)
+- statement: For every nonzero complex Hilbert space \(\mathcal H\) with conjugation \(K\), there is no nonzero complex-linear orthogonal projector \(P\) with \(\operatorname{ran}P=\operatorname{Fix}(K)\); consequently, for every real-coefficient D-hamiltonian, commutation with \(K\) alone cannot define a Hamiltonian sector consisting of real ground states.
+- status: CONJECTURE
+- depends-on: D-real-structure, D-hamiltonian
+- where-proved: proposed in `scouting/real-variety.md`, Route 2
+- where-tested: none
+- north-star relevance: rules out the cheapest proposed real-locus selector.
+- traps audited: changing a nonlinear state property into a linear projector.
+
+### C-257 (C-NEW-RV-HERMITE-SIGNATURE)
+- statement: For every zero-dimensional ideal \(I\subseteq\mathbb R[x_1,\ldots,x_n]\), every quotient basis \(\mathcal B\), and every \(g\in\mathbb R[x]\),
+  \[
+  \operatorname{sig}\mathcal H_g(\mathcal B)
+  =
+  \#\{x\in V_{\mathbb R}(I):g(x)>0\}
+  -
+  \#\{x\in V_{\mathbb R}(I):g(x)<0\},
+  \]
+  and for \(g=1\) this is the number of distinct real roots.
+- status: CONJECTURE
+- depends-on: D-hermite-trace-form
+- where-proved: cited in `scouting/real-variety.md`, Route 1; arXiv:2110.10313
+- where-tested: none
+- north-star relevance: supplies the correct real-root observable.
+- traps audited: algebraic trace versus Hilbert-space trace; multiplicities; exact integer output.
+
+### C-258 (C-NEW-RV-NORMALISED-INERTIA)
+- statement: For every family of radical zero-dimensional real ideals whose Hermite matrices \(\mathcal H_g\) have block encodings of cost \(T_{\mathcal H}\), normalization \(\alpha_{\mathcal H}\), dimension \(D\), and no nonzero eigenvalue in \((-\eta\alpha_{\mathcal H},\eta\alpha_{\mathcal H})\), the normalized signature \(D^{-1}\operatorname{sig}\mathcal H_g\) can be estimated to additive error \(\epsilon\) with \(\widetilde O(T_{\mathcal H}/(\eta\epsilon))\) coherent block-encoding uses; recovering the exact integer by this estimator requires \(\epsilon<1/(2D)\).
+- status: CONJECTURE
+- depends-on: D-hermite-trace-form, D-qsvt, D-dqc1-style-estimate
+- where-proved: proposed in `scouting/real-variety.md`, Route 1
+- where-tested: none
+- north-star relevance: isolates the only plausible additive real-root statistic.
+- traps audited: precision, Hermite-oracle construction, stochastic trace dequantization, root separation.
+
+### C-259 (C-NEW-RV-LASSERRE-INDEX)
+- statement: For every real homogeneous form \(c\) of degree \(2m\) and every sphere SOS order \(r\ge m\), the primal moment matrix is indexed by degree-\(r\) monomials and acts on \(\operatorname{Sym}^r(\mathbb R^{n+1})\), while its entries contain moments through degree \(2r\); hence the corresponding total-degree Fock sector is \(N=r\).
+- status: CONJECTURE
+- depends-on: D-lasserre-order, D-symmetric-sector
+- where-proved: cited in `scouting/real-variety.md`, Route 5; arXiv:1908.05155
+- where-tested: none
+- north-star relevance: corrects the resource count for robotics R1.
+- traps audited: hiding a factor-two indexing change; dense versus symmetric storage.
+
+### C-260 (C-NEW-RV-RESIDUAL-SPECTRAL)
+- statement: For every tuple of real homogeneous forms \(f_1,\ldots,f_d\) of common degree \(m\), every \(N\ge m\), and \(c(x)=\sum_jf_j(x)^2\), the normalized operator \(A_N=((N-m)!/N!)H_N\) satisfies
+  \[
+  \langle x^{\otimes N}|A_N|x^{\otimes N}\rangle=c(x)
+  \]
+  for all real unit \(x\), and
+  \[
+  \lambda_{\min}(A_N)\le\operatorname{sos}_N(c)\le\min_{\|x\|=1}c(x).
+  \]
+- status: CONJECTURE
+- depends-on: D-coherent-state, D-symmetric-tensor-of-a-form, D-residual-spectral-hierarchy, D-lasserre-order
+- where-proved: proposed in `scouting/real-variety.md`, Routes 4–5
+- where-tested: none
+- north-star relevance: surviving corrected form of robotics R1.
+- traps audited: changing the output; presentation dependence; spectral versus SDP relaxation.
+
+### C-261 (C-NEW-RV-R1-NONEQUIVALENCE)
+- statement: For every Lasserre order \(r\), the full real moment relaxation optimizes over maximally symmetric/Hankel positive semidefinite matrices satisfying equality and localizing constraints, whereas minimization of a fixed D-hamiltonian over \(R_r\) optimizes over all density operators on that symmetric sector; therefore equality between the seed ground energy and the order-\(r\) Lasserre value does not hold without additional operators enforcing all moment and localizing constraints.
+- status: CONJECTURE
+- depends-on: D-lasserre-order, D-residual-spectral-hierarchy, D-hamiltonian
+- where-proved: proposed in `scouting/real-variety.md`, Route 5
+- where-tested: proposed numerical counterexample search on quartic sphere objectives
+- north-star relevance: rejects the current statement of robotics bet R1 while preserving the spectral subroute.
+- traps audited: comparing different optimization problems; dense SDP versus sparse eigenproblem.
+
+### C-262 (C-NEW-RV-TORIC-POSITIVITY)
+- statement: For every projective toric variety whose positive torus is Zariski dense and every degree \(N\),
+  \[
+  \operatorname{span}_{\mathbb C}
+  \{|x\rangle^{\otimes N}:x\in V(I_A)\cap\mathbb R_{>0}^{n+1}\}
+  =(I(V(I_A))_N)^\perp;
+  \]
+  hence no complex-linear projector on the coherent-state span distinguishes positive toric labels from general complex toric labels.
+- status: CONJECTURE
+- depends-on: D-positive-toric-part, D-toric-ideal, D-coherent-state
+- where-proved: proposed in `scouting/real-variety.md`, Route 7
+- where-tested: none
+- north-star relevance: identifies both the best hardware fit and its linear-algebraic no-go.
+- traps audited: Perron positivity versus label positivity; stoquastic dequantization.
+
+### C-263 (C-NEW-RV-BOOLEAN-TOTALLY-REAL)
+- statement: For every ideal containing \(x_i^2-x_i\) for all affine variables \(x_i\), every complex point of its affine variety is real and lies in \(\{0,1\}^n\); consequently the ordinary D-hamiltonian has no real/complex point mismatch on its coherent product ground states, although projection and exact counting retain the D-coherent-gram-matrix and \(\#\mathrm P\) precision costs.
+- status: CONJECTURE
+- depends-on: D-boolean-ideal, D-coherent-state, D-hardness-anchors
+- where-proved: proposed in `scouting/real-variety.md`, Route 8
+- where-tested: existing Boolean numerics
+- north-star relevance: exact real calibration family and Ising hardware hook.
+- traps audited: Grover-limited overlap; exact versus additive count; irrelevant torsion.
+
 ## Lane report
 
 254 rows: 157 SKETCH, 40 CONJECTURE, 57 REFUTED, 0 PROVED; 529 edges, acyclic. report.md §1-§9 = C-001-C-180, page81.tex = C-181-C-208, draft claims the referees killed = C-209-C-254. All 77 round-1 and 18 round-2 findings are accounted for (audit trail in EXTRACTION-NOTES.md).
