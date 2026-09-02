@@ -25,7 +25,7 @@ Interpretation:
 - \(4\): four PRD criteria are credible; one decisive gap remains.
 - \(5\): a north-star-quality route, ready for a proposer/critic cycle.
 
-Imported published theorems are proposed at status SKETCH with `where-proved: ... (cited theorem)`, following the existing C-092/C-099 DAG convention. New compositions remain CONJECTURE. REFUTED rows name the surviving weaker statement. HOLD marks a proposed row whose required composition is missing and must not be merged as a mathematical claim.
+Imported published theorems are proposed at status SKETCH with `where-proved: ... (cited theorem)`, following the existing C-092/C-099 DAG convention. New compositions remain CONJECTURE. REFUTED rows name the surviving weaker statement. A row whose required composition is missing remains CONJECTURE and is marked `HOLD (do not merge)` in its statement; HOLD is not an L1 status.
 
 Kedlaya’s curve-zeta algorithm scores \(4/5\): it meets criteria 1–4 and lacks only the cheap hardware hook. Hallgren-type number-field algorithms are a separate \(3/5\) arithmetic benchmark. They prevent any unqualified claim that Kedlaya is the strongest existing quantum algorithm involving ideals.
 
@@ -220,7 +220,7 @@ Rows C-052–C-058 correctly express the seed cost through \(\alpha_{\mathrm{BE}
 
 Rows C-097 and C-246 say that no reduction is known between the Ding et al. right-hand-side-dependent truncated QLS condition number and the seed’s normalized Macaulay gap.
 
-The two quantities are also not equal in general. For an explicit degree-one example, take
+The two quantities are also not equal in general. For an explicit degree-one example in \(R=\mathbb C[z_0,z_1,z_2]\), take
 
 \[
 f_1=z_0,
@@ -230,20 +230,32 @@ f_2=\frac{z_0+z_1}{\sqrt2},
 N=1.
 \]
 
-Both generators have unit Bombieri–Weyl norm. The Macaulay map has singular-value squares \(1\pm1/\sqrt2\). With the optimal normalization \(\alpha_{\mathrm{BE}}=\|H_1\|=1+1/\sqrt2\),
+Both generators have unit Bombieri–Weyl norm. The Macaulay map has two nonzero singular-value squares \(1\pm1/\sqrt2\), and \(H_1\) has spectrum
+
+\[
+\left\{
+0,\,
+1-\frac1{\sqrt2},\,
+1+\frac1{\sqrt2}
+\right\}.
+\]
+
+Its kernel is \(\operatorname{span}\{z_2\}\), so \(\operatorname{HF}_{R/I}(1)=1\). With the optimal normalization \(\alpha_{\mathrm{BE}}=\|H_1\|=1+1/\sqrt2\),
 
 \[
 \frac{\alpha_{\mathrm{BE}}}{\Delta_1}
 =
-(1+\sqrt2)^2.
+(1+\sqrt2)^2
+\approx 5.8284.
 \]
 
-If the same invertible map is treated as an inhomogeneous linear system, choosing \(b\) to be its largest or smallest left singular vector gives respectively
+If the same map is treated as an inhomogeneous linear system, choosing \(b\) to be its largest or smallest left singular vector in its image gives respectively
 
 \[
 \kappa_b(\Phi_1)=1
 \quad\text{or}\quad
-\kappa_b(\Phi_1)=1+\sqrt2.
+\kappa_b(\Phi_1)=1+\sqrt2
+\approx2.4142.
 \]
 
 Thus even for the same operator the right-hand-side-dependent tQLS condition number is not the PSD spectral-gap ratio.
@@ -823,7 +835,7 @@ It is not presently a speedup route for Milnor or Hodge numbers.
 
 Score: **1/5**.
 
-This route earns criterion 1 for a precise Milnor/Hodge problem. It has no end-to-end quantum resource theorem, no survival proof for gap and readout, and no established cheap protocol that returns the invariant.
+This route earns criterion 1 for a precise Milnor/Hodge problem. It has no end-to-end quantum resource theorem, no survival proof for gap and readout, and no established cheap protocol that returns the invariant. It does not earn criterion 4: although low-rank dequantization is not the main issue, no end-to-end quantum advantage has been established whose resistance to dequantization could be credited.
 
 K-QP4: **For smooth hypersurfaces the Jacobian Hilbert series is closed form, while for singular inputs no quantum algorithm or resolvable normalized ground-state count is known.**
 
@@ -850,7 +862,7 @@ When the points are sampled from \(V_{\mathbb R}(I)\), this is an approximation 
 
 Niyogi–Smale–Weinberger prove recovery for a sufficiently dense sample of a smooth positive-reach submanifold using a union of balls, equivalently its Čech nerve, at a suitable radius [DOI 10.1007/s00454-006-1250-7](https://doi.org/10.1007/s00454-006-1250-7).
 
-The quantum algorithms below act on Vietoris–Rips clique complexes. The required VR–Čech interleaving and persistence-interval step has not been supplied here. The real-variety composition is therefore HOLD, not proved.
+The quantum algorithms below act on Vietoris–Rips clique complexes. The required VR–Čech interleaving and persistence-interval step has not been supplied here. The real-variety composition is therefore held from merge, not proved.
 
 This lives in classical-landscape §7 and §11, with the simplicial-chain analogue of §10.
 
@@ -940,7 +952,9 @@ They conclude that the original algorithm gives only a quadratic advantage in as
 
 They also identify an escape clause: an exponential advantage may be recoverable when the input is a specification of simplices rather than a list of vertices and edges [arXiv:2209.14286, DOI 10.1103/PRXQuantum.4.040349](https://arxiv.org/abs/2209.14286).
 
-Gyurik–Cade–Dunjko supply complementary dequantization resistance: natural generalizations of the LGZ linear-algebraic estimation task are DQC1-hard, with BQP-hard regimes among the related rank-estimation problems [arXiv:2005.02607, DOI 10.22331/q-2022-11-10-855](https://doi.org/10.22331/q-2022-11-10-855).
+Gyurik–Cade–Dunjko prove that low-lying spectral density estimation is DQC1-hard, remains DQC1-hard for log-local Hamiltonians, and is DQC1-complete when restricted to log-local Hamiltonians; they also prove sparse-weighted eigenvalue summation DQC1-hard (Theorems 1, 2, and 5) [arXiv:2005.02607, DOI 10.22331/q-2022-11-10-855](https://doi.org/10.22331/q-2022-11-10-855).
+
+These are natural generalizations of the LGZ linear-algebraic estimation task. They are evidence of dequantization resistance for the generalization, not for Betti-number estimation itself; the restriction to clique-complex Laplacians remains open.
 
 That result is relevant to the DQC1-style normalized-trace estimator C-061. It does not repair the sample-to-real-variety VR–Čech gap.
 
@@ -981,15 +995,15 @@ Thus “seed first, TDA second” lacks its first state-preparation step.
 
 If an independent real-point sampler were supplied, TDA could estimate the topology of the sampled locus, but the seed would add no known asymptotic benefit.
 
-A different combination with the seed’s DQC1-style trace machinery and algebraic Koszul complexes is listed under Combinations §1.
+The Koszul-Laplacian/DQC1 composition is settled prior work in `scouting/koszul-betti.md` §3 rather than a new combination in this memo.
 
 ### Score and killer
 
 Score: **2/5**.
 
-This route earns criterion 2 for conditional quantum improvements on an explicitly supplied clique complex and criterion 4 for the DQC1/BQP hardness evidence in the relevant generalized regimes. Criterion 1 is withheld for the real-variety use because the point cloud is externally supplied and the VR–Čech composition is missing. Clique preparation, gaps, normalization, and readout prevent criterion 3, and no hardware hook earns criterion 5.
+This route earns criterion 2 for conditional quantum improvements on an explicitly supplied clique complex and criterion 4 for the DQC1-hardness of the natural generalization (llsd), noting that the restriction to clique-complex Laplacians is open. Criterion 1 is withheld for the real-variety use because the point cloud is externally supplied and the VR–Čech composition is missing. Clique preparation, gaps, normalization, and readout prevent criterion 3, and no hardware hook earns criterion 5.
 
-K-QP5: **In the vertex-and-edge input model, clique-state preparation and \(\sqrt{\binom{s}{k}/\beta_{k-1}}\) limit LGZ to at most a quadratic advantage on asymptotically almost all inputs; the simplices-specification input and DQC1/BQP-hard generalized regimes are explicit exceptions.**
+K-QP5: **In the vertex-and-edge input model, clique-state preparation and \(\sqrt{\binom{s}{k}/\beta_{k-1}}\) limit LGZ to at most a quadratic advantage on asymptotically almost all inputs; the simplices-specification input is an explicit exception, while DQC1-hardness is known only for the natural low-lying-spectral-density generalization and its restriction to clique-complex Laplacians is open.**
 
 # 6. Amplitude amplification, estimation, and quantum walks on continuation paths
 
@@ -1897,7 +1911,7 @@ K-QP10E: **Period finding accelerates a promised coset structure; generic polyno
 | 2 | Hallgren principal-ideal / unit group | real-quadratic principality and arbitrary-degree number-field unit groups | polynomial quantum versus best-known heuristic subexponential classical methods | 3 | K-QP2A: adjacent arithmetic ideal, no hardware |
 | 3 | hidden nonlinear structures | learn a hidden finite-field polynomial pencil or shifted quadric family | exponential oracle-query separation | 3 | K-QP3: oracle already hides the fibres coherently |
 | 4 | QLSA/QSVT on Macaulay matrices | Boolean solving or degree-local quotient observables | conditional dimension compression; no surviving uniform end-to-end gain | 2 | K-QP1: condition number and readout |
-| 5 | quantum TDA | normalized Betti number of a supplied clique complex; real-variety transfer on HOLD | quadratic broadly; hard generalized regimes and simplices-input exception | 2 | K-QP5: clique preparation, gap, normalization, missing VR–Čech bridge |
+| 5 | quantum TDA | normalized Betti number of a supplied clique complex; real-variety transfer held from merge | quadratic broadly; DQC1-hard natural generalization and simplices-input exception | 2 | K-QP5: clique preparation, gap, normalization, missing VR–Čech bridge |
 | 6 | GBS/boson sampling | multihomogeneous Bézout coefficient or matching-derived invariant | hard sampling, not count evaluation | 2 | K-QP7: sample is the wrong output |
 | 7 | analogue algebraic Hamiltonians | Hilbert-function degeneracy and toric fibre observables | possible experimental compression, no readout theorem | 2 | K-QP8: degeneracy measurement |
 | 8 | annealing/QAOA | Boolean MQ and Boolean varieties | heuristic hardware evidence | 2 | K-QP9: no scaling guarantee |
@@ -1911,32 +1925,11 @@ K-QP10E: **Period finding accelerates a promised coset structure; generic polyno
 
 # Combinations
 
-## 1. Koszul-Laplacian Betti fractions plus DQC1-style trace estimation
+Only two combinations remain. The Koszul-Laplacian/DQC1 probe is deleted because it duplicates `scouting/koszul-betti.md` §3. That memo already prices the composition, compares it with stochastic Chebyshev/Lanczos eigenvalue counting, and records the decisive failure modes as K-KB6 and K-KB9. The observation that C-061’s estimator and the Koszul Laplacian compose is correct; it is prior work in this campaign, not a new combination.
 
-The former toric-fibre quantum-walk combination is retracted. Its Hamiltonian, positivity, Bose–Hubbard hook, and stoquastic collapse duplicate `scouting/real-variety.md` Route 7 and C-262. Its only delta was quantum-walk mixing on the fibre chain, and a quadratic improvement from \(1/\delta\) to \(1/\sqrt\delta\) cannot convert a superpolynomial mixing time into polynomial time.
+The campaign’s classical comparator for normalized traces of PSD filters is Hutch++, with \(O(1/\varepsilon)\) matrix–vector products. Amplitude estimation’s \(O(1/\varepsilon)\) dependence therefore beats naive Hutchinson sampling, not the stated best classical baseline. Any possible advantage must be in the cost of applying the filter at equal accuracy. No honest, arm-disjoint replacement with a falsifiable one-week probe was identified, so none is proposed.
 
-The replacement is disjoint from Arm E Route 7.
-
-Arm B proposes a supersymmetric Koszul Laplacian whose graded kernel records a syzygy or Betti nullity. C-061 supplies a DQC1-style normalized-kernel trace estimator, while Gyurik–Cade–Dunjko supply a dequantization-resistance anchor for related normalized rank-estimation problems.
-
-A one-week probe should use explicit monomial and small determinantal ideals for which the graded Koszul blocks and classical Betti tables are reproducible.
-
-For each family and graded block, compute:
-
-- the chain-space dimension;
-- the exact normalized kernel fraction;
-- the smallest nonzero normalized Laplacian eigenvalue;
-- the sparse-row and block-encoding costs;
-- stochastic Chebyshev/Hutchinson cost for the same additive error;
-- the quantum amplitude-estimation cost including state preparation and spectral filtering.
-
-The probe succeeds only if it identifies a growing family with polynomial block-encoding cost, inverse-polynomial normalized gap, inverse-polynomial kernel fraction, and total quantum error dependence \(O(\varepsilon^{-1})\) versus a verified classical \(O(\varepsilon^{-2})\) sampling dependence, with the remaining dimension and gap exponents stated side by side.
-
-This success criterion is reachable by the mechanism: it asks only for the quadratic accuracy improvement that amplitude estimation can supply. It does not demand that a quadratic walk speedup turn superpolynomial mixing into polynomial time.
-
-The likely negative outcome is that sparse classical trace filtering or chain-state preparation removes the exponent margin.
-
-## 2. Multigraded seed projection plus amplitude amplification for kinematic synthesis
+## 1. Multigraded seed projection plus amplitude amplification for kinematic synthesis
 
 Arm R bet R2 is the only classical application in the current campaign with \(D\sim10^5\)–\(10^6\) roots and a naturally expensive predicate.
 
@@ -1957,7 +1950,7 @@ The candidate survives only if the kernel defect is below \(10\%\), \(\Delta/\al
 
 Those thresholds are intentionally severe because the nominal outer-loop advantage is only about \(15\times\) for Watt II.
 
-## 3. GBS proposal sampling plus permanent-form multihomogeneous start systems
+## 2. GBS proposal sampling plus permanent-form multihomogeneous start systems
 
 For a multihomogeneous degree matrix \(A\ge0\), the Bézout count is a permanent-type coefficient and individual permanent terms correspond to assignments of equations to variable blocks.
 
@@ -1983,18 +1976,17 @@ The route survives only if the optical estimator needs fewer than \(10^{-2}\) ti
 - statement: For every Boolean system F with n variables whose solutions all have minimum Hamming weight h, and for the degree-d Macaulay linear system of Chen–Gao with t solutions, if all t solutions have equal Hamming weight or the minimum-\(\ell_2\) solution lies in the convex hull of the t solution vectors, then the truncated QLS condition number satisfies \(\kappa_b(M) \ge \sqrt{((d+1)^h - 1)/t}\) at max degree and \(\kappa_b(M) \ge \sqrt{(\binom{d+h}{h} - 1)/t}\) at total degree; in particular \(\kappa_b(M) \ge \sqrt{(3n)^h/t}\) at Chen–Gao's \(d = 3n\), and \(\Omega(2^{h/2})\) for the reduced Boolean Macaulay system. Hence the original construction is no faster than fixed-weight Grover search, which costs \(O(\sqrt{\binom{n}{h}})\) evaluations, whenever \(d + h \ge n\).
 - status: SKETCH
 - depends-on: D-boolean-macaulay-solve, D-hardness-anchors, C-097
-- where-proved: arXiv:2111.00405 Theorem 4.5 (cited theorem)
+- where-proved: arXiv:2111.00405 Theorem 4.5 and §1 (cited theorem)
 - where-tested: none
 - note: sharpens C-097
 
 ### C-NEW-QP-MACAULAY-CONDITION-EQUALITY
 
-- statement: no reduction is known and the two quantities are not equal in general: for the seed's \(\Phi_N\) the governing quantity \(\alpha_{\mathrm{BE}}/\Delta_N\) is a spectral gap ratio of a PSD operator with nontrivial kernel, whereas \(\kappa_b(M)\) is a right-hand-side-dependent truncated condition number of a non-square inhomogeneous system with a different domain, so no instance-wise identity holds
+- statement: For every homogeneous tuple \((f_j)\) and every \(N\), the Chen–Gao truncated QLS condition number \(\kappa_b(M)\) equals the seed ratio \(\alpha_{\mathrm{BE}}/\Delta_N\).
 - status: REFUTED
-- refuted proposition: for every homogeneous tuple and degree, the Chen–Gao truncated QLS condition number equals the seed ratio \(\alpha_{\mathrm{BE}}/\Delta_N\)
-- surviving weaker statement: C-097; the two obstructions are analogous and no reduction is known
+- surviving statement: C-097 — the two obstructions are analogous and no reduction is known between them.
 - depends-on: D-boolean-macaulay-solve, D-macaulay-map, D-normalised-gap, C-052, C-055, C-097, C-246
-- where-proved: comparison and the explicit \(N=1\), \(f_1=z_0\), \(f_2=(z_0+z_1)/\sqrt2\) instance in §1
+- where-proved: explicit instance: \(f_1=z_0\), \(f_2=(z_0+z_1)/\sqrt2\) in \(\mathbb C[z_0,z_1,z_2]\), \(N=1\), unit Bombieri–Weyl generators; \(H_1\) has spectrum \(\{0,1-1/\sqrt2,1+1/\sqrt2\}\), so \(\alpha_{\mathrm{BE}}/\Delta_1=(1+\sqrt2)^2\approx5.8284\), while \(\kappa_b(\Phi_1)=1\) on the largest left singular vector and \(1+\sqrt2\approx2.4142\) on the smallest.
 - where-tested: none
 
 ### C-NEW-QP-ZETA-CURVE
@@ -2009,7 +2001,7 @@ The route survives only if the optical estimator needs fewer than \(10^{-2}\) ti
 
 - statement: The claim that Kedlaya’s curve algorithm computes the full zeta function of every smooth projective hypersurface of variable dimension and degree in time polynomial in the input length is false; the algorithm realizes only \(H^1\) through Jacobians, and no corresponding general realization of higher cohomology is supplied.
 - status: REFUTED
-- surviving weaker statement: Kedlaya’s theorem computes the exact zeta numerator for curves under D-curve-zeta-problem; structured higher-dimensional \(P_i\) factors require separate algorithms
+- surviving statement: Kedlaya’s theorem computes the exact zeta numerator for curves under D-curve-zeta-problem; structured higher-dimensional \(P_i\) factors require separate algorithms
 - depends-on: D-curve-zeta-problem, D-finite-field-analogue
 - where-proved: arXiv:math/0411623 §10
 - where-tested: none
@@ -2027,7 +2019,7 @@ The route survives only if the optical estimator needs fewer than \(10^{-2}\) ti
 - statement: For every arbitrary-degree number field supplied under D-number-field-ideal-problems, Eisenträger–Hallgren–Kitaev–Song give a quantum algorithm computing its unit group in time polynomial in the field degree and the logarithm of the absolute discriminant.
 - status: SKETCH
 - depends-on: D-number-field-ideal-problems
-- where-proved: DOI 10.1145/2591796.2591860 Theorem 1.2 (cited theorem)
+- where-proved: DOI 10.1145/2591796.2591860 (cited theorem)
 - where-tested: none
 
 ### C-NEW-QP-HIDDEN-POLYNOMIAL
@@ -2050,7 +2042,7 @@ The route survives only if the optical estimator needs fewer than \(10^{-2}\) ti
 
 - statement: For the family of smooth degree-\(d\) hypersurfaces in \(\mathbb P^n\), the claim that SUSY ground-state counting supplies an asymptotic speedup for Hodge numbers is false: the Jacobian ideal is a complete intersection with Hilbert series \((1-t^{d-1})^{n+1}/(1-t)^{n+1}\), while the normalized middle-Hodge signal can be exponentially small.
 - status: REFUTED
-- surviving weaker statement: singular isolated hypersurface inputs retain mathematical content, but no quantum resource theorem or polynomially resolvable normalized signal is known
+- surviving statement: singular isolated hypersurface inputs retain mathematical content, but no quantum resource theorem or polynomially resolvable normalized signal is known
 - depends-on: D-jacobian-ring-susy, D-hilbert-function, D-normalised-hilbert-function, C-061, C-091
 - where-proved: complete-intersection formula; `scouting/applications-wide-net.md` F2
 - where-tested: none
@@ -2059,15 +2051,15 @@ The route survives only if the optical estimator needs fewer than \(10^{-2}\) ti
 ### C-NEW-QP-WITTEN-INDEX-COUNT
 
 - statement: There exist supersymmetric models — e.g. Witten's deformed de Rham complex on a compact manifold with \(b_0 = b_1\) — in which the Witten index \(\operatorname{Tr}(-1)^F\) does not determine the individual Betti numbers, since it is an alternating supertrace. This does not apply to the Landau–Ginzburg model with isolated non-degenerate critical locus, where all vacua lie in one fermion-number sector and \(\operatorname{Tr}(-1)^F = \pm\mu = \pm\dim\operatorname{Jac}(W)\).
-- status: SKETCH
+- status: CONJECTURE
 - depends-on: D-jacobian-ring-susy
-- where-proved: DOI 10.4310/jdg/1214437492 and DOI 10.1016/0550-3213(89)90474-4 (cited results); explicit cancellation witness \(S^1\), with \(b_0=b_1=1\)
+- where-proved: none (composition); DOI 10.4310/jdg/1214437492 supports the de Rham component, DOI 10.1016/0550-3213(89)90474-4 supports the chiral-ring component, and the explicit cancellation witness is \(S^1\), with \(b_0=b_1=1\)
 - where-tested: none
 
 ### C-NEW-QP-TDA-REAL-VARIETY
 
-- statement: For every compact smooth positive-reach real variety \(V_{\mathbb R}\subset\mathbb R^a\), a sufficiently dense independent sample satisfies the Čech/union-of-balls reconstruction theorem, while the cited quantum resource bound estimates \(\beta_{k-1}/|\mathrm{Cl}_k|\) for a Vietoris–Rips clique complex; identifying the latter with a persistent Betti number of \(V_{\mathbb R}\) requires a VR–Čech interleaving and persistence-interval step not supplied here.
-- status: HOLD
+- statement: HOLD (do not merge): missing step = VR–Čech interleaving. For every compact smooth positive-reach real variety \(V_{\mathbb R}\subset\mathbb R^a\), a sufficiently dense independent sample satisfies the Čech/union-of-balls reconstruction theorem, while the cited quantum resource bound estimates \(\beta_{k-1}/|\mathrm{Cl}_k|\) for a Vietoris–Rips clique complex; identifying the latter with a persistent Betti number of \(V_{\mathbb R}\) requires a VR–Čech interleaving and persistence-interval step not supplied here.
+- status: CONJECTURE
 - depends-on: D-vr-betti-estimation, D-real-locus-and-real-radical
 - missing step: VR–Čech interleaving plus a persistence-interval theorem connecting the two scales
 - where-proved: none (composition proposed)
@@ -2077,7 +2069,7 @@ The route survives only if the optical estimator needs fewer than \(10^{-2}\) ti
 
 - statement: The claim that LGZ gives an exponential end-to-end speedup for multiplicatively estimating Betti numbers on asymptotically almost all clique-complex inputs in the vertex-and-edge input model is false; its runtime contains \(\sqrt{\binom{s}{k}/\beta_{k-1}}\), which is exponential on asymptotically almost all inputs in the analyzed regime. Approximating Betti numbers up to multiplicative error is NP-hard, and an exponential advantage may be recoverable when the input is a specification of simplices rather than a list of vertices and edges.
 - status: REFUTED
-- surviving weaker statement: in the vertex-and-edge input model LGZ gives at most a quadratic advantage on asymptotically almost all inputs; the simplices-specification regime is an explicit exception
+- surviving statement: in the vertex-and-edge input model LGZ gives at most a quadratic advantage on asymptotically almost all inputs; the simplices-specification regime is an explicit exception
 - depends-on: D-vr-betti-estimation
 - where-proved: arXiv:2209.14286
 - where-tested: none
@@ -2094,7 +2086,7 @@ The route survives only if the optical estimator needs fewer than \(10^{-2}\) ti
 
 - statement: The claim that amplitude amplification by itself reduces the arithmetic cost of tracking one homotopy path is false; it reduces only the number of coherent path-oracle invocations and leaves \(C_{\mathrm{track}}\) unchanged.
 - status: REFUTED
-- surviving weaker statement: amplitude amplification conditionally reduces the number of complete path-oracle invocations from \(D/r\) to \(O(\sqrt{D/r})\)
+- surviving statement: amplitude amplification conditionally reduces the number of complete path-oracle invocations from \(D/r\) to \(O(\sqrt{D/r})\)
 - depends-on: D-coherent-path-oracle
 - where-proved: query-composition argument
 - where-tested: none
@@ -2111,17 +2103,16 @@ The route survives only if the optical estimator needs fewer than \(10^{-2}\) ti
 
 - statement: The claim that sample access to a boson-sampling distribution computes a specified multihomogeneous Bézout permanent to relative error \(\varepsilon\) using \(\operatorname{poly}(n,1/\varepsilon)\) shots for every embedded degree matrix is false; estimating an event of probability \(p\) requires \(\Omega(1/(p\varepsilon^2))\) independent shots, and the unitary embedding can make \(p\) exponentially small.
 - status: REFUTED
-- surviving weaker statement: the device supplies permanent-weighted samples; such samples are useful only when the requested output is the distribution or when the relevant event probability is not too small
+- surviving statement: the device supplies permanent-weighted samples; such samples are useful only when the requested output is the distribution or when the relevant event probability is not too small
 - depends-on: D-optical-counting-access
 - where-proved: Bernoulli sample-complexity bound
 - where-tested: none
 
 ### C-NEW-QP-ANALOGUE-DEGENERACY
 
-- statement: No protocol consisting of ground-state energy measurements alone determines \(\dim\ker H_N\); a degeneracy readout additionally requires temperature below the spectral gap, calibrated partition function or entropy, control of excited-state contamination, and \(\Omega(1/\varepsilon^2)\) shots to resolve \(\operatorname{HF}/M_N\) to additive \(\varepsilon\) (D-analogue-degeneracy-readout).
+- statement: Ground-state energy measurements alone determine \(\operatorname{HF}_{R/I}(N)\).
 - status: REFUTED
-- refuted proposition: ground-state energy measurements alone determine \(\operatorname{HF}_{R/I}(N)\)
-- surviving weaker statement: spectroscopy can verify zero ground energy or selected levels, but degeneracy requires the additional readout resources in D-analogue-degeneracy-readout
+- surviving statement: spectroscopy can verify zero ground energy or selected levels, but degeneracy requires temperature below the spectral gap, calibrated partition function or entropy, control of excited-state contamination, and \(\Omega(1/\varepsilon^2)\) shots to resolve \(\operatorname{HF}/M_N\) to additive \(\varepsilon\) (D-analogue-degeneracy-readout)
 - depends-on: D-analogue-degeneracy-readout, D-ground-space, C-009
 - where-proved: measurement-distribution and Bernoulli sample-complexity identities
 - where-tested: none
@@ -2138,7 +2129,7 @@ The route survives only if the optical estimator needs fewer than \(10^{-2}\) ti
 
 - statement: The claim that the D-Wave Boolean-MQ demonstrations establish an asymptotic quantum speedup is false: the experiments reach at most nine original variables, use iterative classical fixing, and supply neither a minimum-gap bound nor a scaling comparison with BooleanSolve, SAT, or Groverized algebraic search.
 - status: REFUTED
-- surviving weaker statement: the experiments establish hardware feasibility and embedding data for small Boolean residual Hamiltonians
+- surviving statement: the experiments establish hardware feasibility and embedding data for small Boolean residual Hamiltonians
 - depends-on: D-boolean-residual-energy, D-hardness-anchors, C-097
 - where-proved: resource audit of arXiv:2111.13224
 - where-tested: none
@@ -2147,7 +2138,7 @@ The route survives only if the optical estimator needs fewer than \(10^{-2}\) ti
 
 - statement: The claim that the factorization experiment of arXiv:1604.05796 used a quantum annealer to compute a Gröbner basis is false; the Gröbner basis was computed classically and used to reduce the QUBO supplied to the annealer.
 - status: REFUTED
-- surviving weaker statement: classical Gröbner preprocessing can be combined with an annealer as a hybrid factorization heuristic
+- surviving statement: classical Gröbner preprocessing can be combined with an annealer as a hybrid factorization heuristic
 - depends-on: D-boolean-residual-energy
 - where-proved: method description in DOI 10.1038/srep43048
 - where-tested: none
@@ -2156,7 +2147,7 @@ The route survives only if the optical estimator needs fewer than \(10^{-2}\) ti
 
 - statement: The claim that quantum PCA or HOSVD decides CP-rank-\(\le r\) or border-rank-\(\le r\) for every tensor is false, because those algorithms diagonalize matrix-valued reductions and do not solve membership in the \(r\)-th Segre or Veronese secant variety.
 - status: REFUTED
-- surviving weaker statement: quantum PCA and quantum HOSVD estimate spectra or multilinear ranks under quantum-data access
+- surviving statement: quantum PCA and quantum HOSVD estimate spectra or multilinear ranks under quantum-data access
 - depends-on: D-tensor-secant-problem
 - where-proved: output-type comparison
 - where-tested: none
@@ -2173,7 +2164,7 @@ The route survives only if the optical estimator needs fewer than \(10^{-2}\) ti
 
 - statement: The claim that a multiplicative quantum volume estimate for a rational polytope yields its exact Ehrhart value \(L_P(N)\) in polynomial time for every growing-dimensional input is false, because bodies of equal or multiplicatively close volume can have different lattice-point counts and exact recovery can require additive error below one lattice cell; moreover the cited volume algorithm has an \(\Omega(\sqrt d+1/\varepsilon)\) quantum membership-query lower bound, ruling out exponential speedup in \(d\) for its own continuous-volume output.
 - status: REFUTED
-- surviving weaker statement: continuous volume admits the cited polynomial quantum query improvement, but it does not determine exact Ehrhart or Hilbert data
+- surviving statement: continuous volume admits the cited polynomial quantum query improvement, but it does not determine exact Ehrhart or Hilbert data
 - depends-on: D-toric-lattice-counting
 - where-proved: precision and non-identifiability argument; arXiv:1908.03903 lower bound
 - where-tested: none
@@ -2267,7 +2258,7 @@ J_W=(\partial_0W,\ldots,\partial_nW),
 
 A Jacobian-ring SUSY model is a graded supercharge complex whose cohomology is \(\operatorname{Jac}(W)\) under isolated-critical-locus and regularity hypotheses.
 
-For a Landau–Ginzburg model with isolated non-degenerate critical locus, all vacua lie in one fermion-number sector and
+The following campaign assertion is [UNVERIFIED]: for a Landau–Ginzburg model with isolated non-degenerate critical locus, all vacua lie in one fermion-number sector and
 
 \[
 \operatorname{Tr}(-1)^F
@@ -2279,7 +2270,7 @@ For a Landau–Ginzburg model with isolated non-degenerate critical locus, all v
 
 Source: DOI 10.1016/0550-3213(89)90474-4 and DOI 10.1016/0370-2693(89)90473-5.
 
-Pitfalls: Landau–Ginzburg chiral-ring cohomology, Witten’s de Rham complex, and the finite-degree seed inverse system are related but not identical Hilbert-space models. Alternating-index cancellation in a de Rham model does not refute the Landau–Ginzburg equality above.
+Pitfalls: Landau–Ginzburg chiral-ring cohomology, Witten’s de Rham complex, and the finite-degree seed inverse system are related but not identical Hilbert-space models. Alternating-index cancellation in a de Rham model does not refute the Landau–Ginzburg equality above. The cited sources identify the chiral ring with the Jacobian quotient but no specific theorem or equation for the displayed \(\pm\mu\) assertion has been supplied.
 
 ### D-vr-betti-estimation
 
@@ -2495,7 +2486,7 @@ Pitfalls: volume estimation, uniform lattice-point sampling, and exact Ehrhart e
 
 34. P. Lairez, “A Deterministic Algorithm to Compute Approximate Roots in Polynomial Average Time,” [arXiv:1507.05485](https://arxiv.org/abs/1507.05485), DOI 10.1007/S10208-016-9319-7.
 
-35. Chiang-Heng Chien et al., “Parallel GPU Implementation of Homotopy Continuation Methods for Solving Polynomial Systems,” [arXiv:2112.03444](https://arxiv.org/abs/2112.03444).
+35. Chiang-Heng Chien et al., “GPU-Based Homotopy Continuation for Minimal Problems in Computer Vision,” [arXiv:2112.03444](https://arxiv.org/abs/2112.03444).
 
 36. J. van Apeldoorn and A. Gilyén, “Quantum Algorithms for Zero-Sum Games,” [arXiv:1904.03180](https://arxiv.org/abs/1904.03180).
 
@@ -2605,7 +2596,11 @@ Pitfalls: volume estimation, uniform lattice-point sampling, and exact Ehrhart e
 
 15. Reference/worklog action for the orchestrator: record the Kedlaya identifier correction in `refs/`, `docs/worklog/2026-09-02.md`, and the original lane brief; it is intentionally not a claim row.
 
-# Repair r1 response
+16. DAG convention action for the orchestrator: widen the `claims/CLAIMS.md` SKETCH legend to “a proof or derivation exists in the seed or in a cited published source with a resolved identifier, with no converged critic verdict in this campaign.”
+
+# Repair r2 response
+
+## r1
 
 | objection | severity | disposition (FIXED / RETRACTED / DOWNGRADED / RESIDUE) | exact location of the edit (section name, row id) | one-line note |
 |---|---|---|---|---|
@@ -2635,4 +2630,24 @@ Pitfalls: volume estimation, uniform lattice-point sampling, and exact Ehrhart e
 | O24 | NOTE | RESIDUE | Questions for TJO 14 | The defect is in orchestrator-owned `claims/CLAIMS.md`; this memo records the required DAG hygiene action without altering that file. |
 | O25 | NOTE | FIXED | §7 Dequantization; §10C Quantum resource bound; C-NEW-QP-VOLUME-EHRHART; References 72 | Added the classical GBS simulation identifier and the volume algorithm’s \(\Omega(\sqrt d+1/\varepsilon)\) quantum lower bound. |
 
-Rows after repair: 23 (CONJECTURE 4, REFUTED 11, HOLD 1, deleted 2; additionally SKETCH 7 under the published-theorem convention).
+## r2
+
+| objection | severity | disposition (FIXED / RETRACTED / DOWNGRADED / RESIDUE) | exact location | note |
+|---|---|---|---|---|
+| O7 | MAJOR | FIXED | §5 Dequantization and hidden costs; §5 Score and killer; K-QP5; Ranked table | Removed the unsupported BQP-hardness attribution while retaining the simplices-specification exception and the correctly delimited DQC1 result. |
+| O9 | MAJOR | RETRACTED | Combinations preamble; deleted former Combination 1 | Deleted the replacement probe because it duplicates the already-landed Arm B analysis in `scouting/koszul-betti.md` §3. |
+| O10 | MAJOR | RETRACTED | Combinations preamble; deleted former Combination 1 | Deleted the probe whose \(\varepsilon^{-1}\) criterion compared against naive sampling rather than the campaign’s Hutch++ baseline. |
+| O21 | MINOR | FIXED | Reference 35 | Restored the title “GPU-Based Homotopy Continuation for Minimal Problems in Computer Vision.” |
+| O26 | MAJOR | RETRACTED | Combinations preamble; deleted former Combination 1 | Deleted the Koszul-Laplacian/DQC1 probe and cited `scouting/koszul-betti.md` §3 and K-KB6/K-KB9 as the settled analysis; only two combinations remain. |
+| O27 | MAJOR | RETRACTED | Combinations preamble; deleted former Combination 1 | Recorded Hutch++ \(O(1/\varepsilon)\) matrix–vector products for PSD inputs and that any advantage must be in filter cost, then removed the duplicated probe. |
+| O28 | MAJOR | FIXED | §5 Dequantization and hidden costs; §5 Score and killer; K-QP5; Ranked table | State only DQC1-hardness/completeness as Gyurik–Cade–Dunjko prove in Theorems 1, 2, and 5; the clique-complex restriction remains open. |
+| O29 | MINOR | FIXED | Reference 35 | Replaced the incorrect title with the title of arXiv:2112.03444. |
+| O30 | MINOR | DOWNGRADED | Decision rule; §5 Problem P; Ranked table; C-NEW-QP-TDA-REAL-VARIETY | Replaced the illegal HOLD status by CONJECTURE and put `HOLD (do not merge): missing step = VR–Čech interleaving` in the statement. |
+| O31 | MINOR | FIXED | C-NEW-QP-MACAULAY-CONDITION-EQUALITY; C-NEW-QP-ANALOGUE-DEGENERACY; all REFUTED rows | Put each false proposition in `statement`, deleted `refuted proposition:`, and standardized the DAG field name `surviving statement:`. |
+| O32 | MINOR | DOWNGRADED | C-NEW-QP-WITTEN-INDEX-COUNT; D-jacobian-ring-susy | Marked the composition CONJECTURE and the unsupported \(\pm\mu\) definition assertion `[UNVERIFIED]`. |
+| O33 | MINOR | FIXED | §1 Combination with the seed; C-NEW-QP-MACAULAY-CONDITION-EQUALITY | Added \(z_2\): \(H_1\) now has spectrum \(\{0,1-1/\sqrt2,1+1/\sqrt2\}\), one-dimensional kernel, ratio \(5.8284\), and \(\kappa_b\) values \(1\) and \(2.4142\). |
+| O34 | NOTE | FIXED | C-NEW-QP-UNIT-GROUP; C-NEW-QP-MACAULAY-HHL-UNIFORM | Dropped the unconfirmed “Theorem 1.2” and extended the Ding et al. citation to “Theorem 4.5 and §1.” |
+| O35 | NOTE | RESIDUE | Questions for TJO 16 | Recorded the required orchestrator action to widen the CLAIMS.md SKETCH legend; the shared DAG remains orchestrator-owned. |
+| O36 | NOTE | FIXED | §4 Score and killer | Explicitly audited criterion 4 without changing the section’s \(1/5\) score. |
+
+Rows after repair: 23 (SKETCH 6, CONJECTURE 6, REFUTED 11, held 1, deleted 2).
