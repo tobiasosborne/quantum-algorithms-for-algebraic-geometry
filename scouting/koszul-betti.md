@@ -32,10 +32,13 @@ an ambient trace of the harmonic projector, and the useful one is conditional on
 ambient fraction `beta_{i,j}/(M_N C(n+1,i))` is the normalised trace of the harmonic projector
 on `W_N ⊗ Lambda^i` **extended by zero**, reached by filtering `L~ = L_W + (N+i)(1 - P̂_N)` and
 **not** by the zero-eigenvalue fraction of `L_W` extended by zero (O17); converting it to the
-conditional fraction `beta_{i,j}/(HF(N) C(n+1,i))` costs `M_N/HF(N)` samples or
-`sqrt(M_N/HF(N))` coherent projections (C-096), a factor that is exponentially small for the
-quadratic complete-intersection family at `N = n` and potentially exponentially small in
-general, but **not** for every square system (Step 9, K-KB11). (iii) *Betti information
+conditional fraction `beta_{i,j}/(HF(N) C(n+1,i))` costs `M_N/h_N` samples or
+`sqrt(M_N/h_N)` coherent projections (C-096). The acceptance weight `h_N/M_N` is
+exponentially small for the quadratic complete-intersection family at `N = n`, and
+potentially exponentially small in general; equivalently, the rejection-sampling cost
+`M_N/h_N` and coherent-projection cost `sqrt(M_N/h_N)` are exponentially large (O23). The
+acceptance weight is **not** exponentially small for every square system (Step 9,
+K-KB11). (iii) *Betti information
 lives only at `N = j - i <= reg(R/I)`* (Step 6, K-KB1) —
 note `N`, not `j`, and `reg(R/I) = reg(I) - 1`. (iv) *Only the squarefree multidegree summands
 are simplicial Laplacians*, so the quantum-TDA hardness and dequantization theorems transfer
@@ -204,8 +207,9 @@ forms of degree `n+1` in `P^n` — also a zero-dimensional square complete inter
 generator has degree `> N` at `N = n`, so `I_N = 0`, `h_N = M_N` and `h_N/M_N = 1`. Part h
 prints both columns side by side (`0.667, 0.400, 0.229, 0.020` for the quadric family at
 `n = 2,3,4,8` against `1.000` throughout for the degree-`(n+1)` family). The honest statement
-is: **the conversion factor can be exponential, so no unconditional conditional-output
-algorithm follows without a Hilbert-weight promise or a preparation oracle.** That retraction —
+is: **the acceptance weight can be exponentially small, making conditional normalization
+exponentially expensive; no unconditional conditional-output algorithm follows without a
+Hilbert-weight promise or preparation oracle.** That retraction —
 r0 had declared the overlap trap untriggered — is the FATAL fix.
 9.4 *Per-call cost, adjacent degrees, and filtering repetitions (O11, O18).* On block `(i,N)`,
 `L_W = q_{i,N}^† q_{i,N} + q_{i-1,N+1} q_{i-1,N+1}^†`; the first term uses `P_{0,N}`, but the
@@ -447,10 +451,12 @@ and PRD D15 / SP-0 (C-264) refuses `n log N` qubits versus `M_N` words as a spac
 
 **3. Quantum algorithm — FAILS (the r1 FATAL objection, and two further defects found at r2).**
 (a) The `W_N`-normalisation cost was omitted; with it (Step 9.2) the conditional output carries
-`M_N/h_N` or `sqrt(M_N/h_N)`. That factor is exponentially small **for the quadratic
-complete-intersection family at `N = n`, and potentially exponentially small in general** — but
-not for every square system, since `n` generic degree-`(n+1)` forms in `P^n` give
-`h_N/M_N = 1` at `N = n` (Step 9.3, part h, O21). (b) The ambient output must be obtained by
+`M_N/h_N` or `sqrt(M_N/h_N)`. The acceptance weight `h_N/M_N` is exponentially small for the
+quadratic complete-intersection family at `N = n`, and potentially exponentially small in
+general; equivalently, the rejection-sampling cost `M_N/h_N` and coherent-projection cost
+`sqrt(M_N/h_N)` are exponentially large. The acceptance weight is not exponentially small
+for every square system, since `n` generic degree-`(n+1)` forms in `P^n` give `h_N/M_N = 1` at
+`N = n` (Step 9.3, part h, O21, O23). (b) The ambient output must be obtained by
 filtering `L~ = L_W + j(1 - P̂_N)`, not from zero-extended `L_W` (Step 9.1, O17). (c) The block
 cannot be built from `H_N` alone: the incoming term contains `Q P_{0,N+1} Q^†`, so both
 adjacent degrees and both gap promises are required (Step 9.4, part h, O18). No advantage
@@ -606,13 +612,19 @@ requested `(i,j)`; and `reg(R/I) = reg(I) - 1`. Severity downgraded from medium 
 
 **K-KB11 (the conditional normalisation is the overlap wall — for a named family).** The
 `W_N`-conditional fraction costs `M_N/h_N` samples or `sqrt(M_N/h_N)` coherent projections
-(Step 9.2, C-096). That factor is exponentially small **for the quadratic complete-intersection
-family at `N = n`** — the family in which the applications memo's `0.75^codim` law was measured
-(caution 1) — **and potentially exponentially small in general**; it is **not** exponentially
-small for every square system, since `n` generic degree-`(n+1)` forms in `P^n` give
-`h_N/M_N = 1` at `N = n` (part h, O21). The surviving statement is: *the conversion factor can
-be exponential, so no unconditional conditional-output algorithm follows without a
-Hilbert-weight promise or preparation oracle.* Separately (O17), even the **ambient** output
+(Step 9.2, C-096). The acceptance weight `h_N/M_N` is exponentially small for the
+quadratic complete-intersection family at `N = n`, and potentially exponentially small in
+general; equivalently, the rejection-sampling cost `M_N/h_N` and coherent-projection cost
+`sqrt(M_N/h_N)` are exponentially large. The quadratic complete-intersection family is the
+one in which the applications memo's `0.75^codim` law was measured (caution 1); explicitly,
+`h_n = 2^n` and `M_n = C(2n,n)`, so `h_n/M_n ~ sqrt(pi n)/2^n` and
+`M_n/h_n ~ 2^n/sqrt(pi n)` — at `n = 8` the checker's `h_n/M_n = 0.019891` is a cost of
+`50.27`, not a small number. The acceptance weight is **not** exponentially small for every
+square system, since `n` generic degree-`(n+1)` forms in `P^n` give `h_N/M_N = 1` at `N = n`
+(part h, O21). The surviving statement is: *the acceptance weight can be exponentially small,
+making conditional normalization exponentially expensive; no unconditional conditional-output
+algorithm follows without a Hilbert-weight promise or preparation oracle.* Separately (O17), even the **ambient**
+output
 must be taken from the harmonic filter `L~ = L_W + j(1 - P̂_N)`, not from zero-extended `L_W`,
 which has `(M_N - h_N)b` spurious zero modes. This is the r1 FATAL objection O2, corrected at
 r2, turned into a killer; it supersedes the r0 claim that arm B escaped the overlap trap.
@@ -973,3 +985,33 @@ Definitions after repair: 8 (ACCEPT 5 — D-fermionic-modes, D-koszul-supercharg
 D-betti-laplacian, D-graded-betti-number, D-generator-koszul-supercharge; REWORDED verbatim at
 r2 3 — D-betti-gap = D5, D-normalised-betti-fraction = D6, D-betti-estimation-problem = D8;
 deleted 0).
+
+---
+
+## 10. Repair r3 response
+
+Verdict `verdicts/koszul-betti-r3.md`: FAIL(O23), one MAJOR. Of the six r2 objections the critic
+marks five VERIFIED (O17, O18, O19, O20, O22) and one NEW DEFECT inside O21, raised as O23. The
+exact-text audit passed on all seven required strings (D5, D6, D8, both HOLD missing-step
+sentences, both DEQUANT surviving statements, the NO-FREE-LUNCH surviving statement), and every
+row and definition is accepted. **No row and no definition is edited at r3.**
+
+| objection | severity | disposition | location of the edit | note |
+|---|---|---|---|---|
+| O23 | MAJOR | FIXED | status summary bullet (ii); §3 criterion 3(a); K-KB11; plus §1 Step 9.3's closing sentence, aligned to the r3 surviving statement | Three passages named the costs `M_N/h_N` and `sqrt(M_N/h_N)` and then called "that factor" exponentially small. The direction is reversed: for `n` quadrics in `P^n` at `N = n`, `h_n = 2^n` and `M_n = C(2n,n)`, so `h_n/M_n ~ sqrt(pi n)/2^n` is exponentially small while `M_n/h_n ~ 2^n/sqrt(pi n)` and its square root are exponentially **large** — at `n = 8` the checker's `h_n/M_n = 0.019891` is a cost of `50.27`. Each passage now carries the FIX DEMAND sentence verbatim: "The acceptance weight `h_N/M_N` is exponentially small for the quadratic complete-intersection family at `N = n`, and potentially exponentially small in general; equivalently, the rejection-sampling cost `M_N/h_N` and coherent-projection cost `sqrt(M_N/h_N)` are exponentially large." Step 9.3 already had the direction right (the critic confirms); its closing sentence is nevertheless brought into lockstep with the r3 surviving statement, "the acceptance weight can be exponentially small, making conditional normalization exponentially expensive; no unconditional conditional-output algorithm follows without a Hilbert-weight promise or preparation oracle." |
+
+Whole-memo sweep for the same error: the remaining occurrences of "exponentially small" are
+§1 Step 9.3 (the acceptance weight `h_N/M_N`, direction correct), §2 part g (the normalised
+Betti *fraction* `1/(2^n(n+1))`, not a cost), and the §9 r2-response row for O21, whose quoted
+phrases are the historical record of the r2 edit and refer to the acceptance weight; that audit
+trail is left intact, and O23 corrects the three summaries it produced. No other sentence in the
+memo calls a cost exponentially small.
+
+Dispositions over the single r3 objection: FIXED 1 (O23), RETRACTED 0, DOWNGRADED 0; the
+standing r1 O12 residue (M1–M4 red in-process but not registered in `checkers/MUTATIONS.md`,
+outside this lane's writable files) is unchanged.
+
+Rows after repair: 10 (CONJECTURE 6, REFUTED 2, HOLD 2, deleted 0) — unchanged, and no row text
+was edited at r3.
+Definitions after repair: 8 (ACCEPT 5, REWORDED verbatim at r2 3, deleted 0) — unchanged, and no
+definition text was edited at r3.
