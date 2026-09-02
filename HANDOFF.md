@@ -18,7 +18,8 @@
   (Opus, 325 lines, shortlist of 8, filters F1–F6, Observations A/B),
   `robotics-deep-dive.md` (Opus, 763 lines, bets R1–R3, killers K1–K10),
   `real-variety.md` (codex, 2146 lines, 10 routes, 15 killers, 0 refs marked unverified:
-  treat as unverified).
+  treat as unverified), `robotics-space.md` (Opus, 1363 lines, D13 proposer lane; refs
+  resolved live except the Watrous/BCP primaries, see its §8).
 - Checkers: `checkers/` 16 red-capable checkers (14 ported from seed + Fact 7.1 + Fact 7.2),
   3717 checks, 17 mutations all red; orchestrator re-ran both independently 2026-09-02
   (413 s wall, all PASS; 17/17 RED). Suite uses generators as written, NOT unit
@@ -27,6 +28,12 @@
   open questions for TJO (§7).
 
 ## Findings this session (not yet critiqued; nothing promoted)
+
+- SP-0 (space lane): BQSPACE(s) in DSPACE(s^2) and DTIME(2^O(s)); pure quantum space
+  advantage is capped at a quadratic gap. Bet R1's 250 GB sentence refuted; survivors are a
+  simultaneous (space,time) claim (conditional on bosonic GLH hardness, C-269) and an
+  unconditional streaming/communication separation with a one-photon linear-optics protocol.
+  Rows C-264..C-274, PRD D15 (pending TJO).
 
 - Fact 7.2 (quadric gap bound via Takagi) holds on all eight quadrics tested; cones pinch
   to equality Delta_N = ||f||^2_Fock; tau_min = 0.0165 explains the flat P^4 survey row.

@@ -4121,6 +4121,207 @@ Id map: C-255 = C-NEW-RV-REAL-SPAN, C-256 = C-NEW-RV-NO-K-PROJECTOR, C-257 = C-N
 - north-star relevance: exact real calibration family and Ising hardware hook.
 - traps audited: Grover-limited overlap; exact versus additive count; irrelevant torsion.
 
+
+## Rows merged from scouting/robotics-space.md §4 (2026-09-02, Opus lane; orchestrator merge, verbatim; all CONJECTURE per L1)
+
+Id map: C-264 = C-NEW-SP-WATROUS-CEILING, C-265 = C-NEW-SP-MINEIG-CONTAINMENT, C-266 = C-NEW-SP-MINEIG-HARDNESS, C-267 = C-NEW-SP-KRYLOV-WALL, C-268 = C-NEW-SP-R1-PREMISE, C-269 = C-NEW-SP-GLH-BOSONIC, C-270 = C-NEW-SP-STREAM-CONSISTENCY, C-271 = C-NEW-SP-LOOPCLOSURE, C-272 = C-NEW-SP-NO-QUANTUM-TABLE, C-273 = C-NEW-SP-SYNTHESIS-NO-SPACE, C-274 = C-NEW-SP-TIMESPACE-EXEMPTION
+
+## 4. Proposed claim rows and definitions
+
+All rows enter at **CONJECTURE** per L1. Ids `C-NEW-SP-<NAME>`.
+
+### C-264 (C-NEW-SP-WATROUS-CEILING)
+- statement: For every space-constructible `s(n) = Omega(log n)` and every promise problem `P`
+  decidable with bounded error by a quantum algorithm using `s(n)` qubits on an input available
+  on a read-only random-access tape, `P` is decidable by a deterministic classical algorithm
+  using `O(s(n)^2)` bits of workspace and `2^{O(s(n))}` time. Consequently, for every family of
+  problems in that model, the ratio (classical space)/(quantum space) is `O(s)`, and no
+  comparison of the form "quantum uses `O(n log N)` qubits while classical uses
+  `M_N = binom(N+n,n)` words" is a space separation.
+- status: CONJECTURE
+- depends-on: D-input-model
+- where-proved: Watrous DOI 10.1007/s00037-003-0177-8 composed with Borodin-Cook-Pippenger
+  DOI 10.1016/S0019-9958(83)80060-6; `s = log n` case quoted in arXiv:2006.03530
+- where-tested: none (it is a literature composition; the checker is a citation audit)
+- north-star relevance: it is the ceiling every space claim in the campaign must respect, and it
+  refutes bet R1's space sentence more strongly than K-RV8 does.
+- traps audited: comparing against the wrong classical algorithm; confusing an upper bound with a
+  lower bound.
+
+### C-265 (C-NEW-SP-MINEIG-CONTAINMENT)
+- statement: For every tuple of real homogeneous generators `f_1,...,f_d` of degree `<= m` in
+  `n+1` variables with `poly(n)` monomials and `poly(n)`-bit coefficients, and every `N` given in
+  unary, the promise problem "decide `lambda_min(H_N/alpha_BE) <= a` or `>= b`" with
+  `b - a > 2^{-O(N log n)}` lies in `BQ_USPACE[O(N log n)] = BQ_USPACE[O(log M_N)]`, because
+  `H_N` satisfies the Fefferman-Lin efficient-encoding condition with row sparsity `poly(n)` and
+  entries computable in `O(log M_N)` workspace; and consequently it lies in
+  `DSPACE(O(N^2 log^2 n))` at classical time `poly(M_N)`.
+- status: CONJECTURE
+- depends-on: D-macaulay-map, D-block-encoding-normalisation, D-input-model,
+  D-residual-spectral-hierarchy, C-264 (C-NEW-SP-WATROUS-CEILING)
+- where-proved: proposed here, §1.3; containment by arXiv:1604.01384 Def. 10 and Def. 17
+- where-tested: none; E1 measures the constants
+- north-star relevance: replaces bet R1's space claim with a correct one, and supplies the exact
+  classical space number (`O(log^2 B_r)` bits) that the R1 debate never reached.
+- traps audited: hiding exponential `N`; confusing absolute and normalised gaps.
+
+### C-266 (C-NEW-SP-MINEIG-HARDNESS)
+- statement: There exists a family of real homogeneous generator tuples arising from robot
+  perception residuals for which the promise problem of C-265 (C-NEW-SP-MINEIG-CONTAINMENT) is hard for
+  `BQ_USPACE[O(log M_N)]` under `NC^1` reductions; equivalently, an arbitrary efficiently
+  encoded PSD matrix can be embedded, with `poly` blow-up in `log M_N`, as the degree-`N`
+  Macaulay Hamiltonian of a `poly(n)`-sparse generator tuple.
+- status: CONJECTURE
+- depends-on: C-265 (C-NEW-SP-MINEIG-CONTAINMENT), D-hard-core-generators, D-quantum-k-sat
+- where-proved: proposed here; the analogous time-bounded statement is the seed's Prop. 8.2
+  (`QMA_1`-hardness of bosonic QSAT), and the analogous complex statement is C-124
+- where-tested: none
+- north-star relevance: this is the **space analogue of C-124**. It is the only theorem-shaped
+  product the space direction offers in the read-only-input model, and it does not depend on any
+  gap conjecture.
+- traps audited: treating the ground space as the variety; changing the output.
+
+### C-267 (C-NEW-SP-KRYLOV-WALL)
+- statement: For the residual spectral hierarchy at order `r = N` on `n` affine variables with
+  `B_r = binom(n+r, r)`, an implicit Lanczos or LOBPCG eigensolver retaining `k` Krylov vectors
+  requires `8 k B_r` bytes and `Omega(B_r)` arithmetic per matrix-vector product. In particular
+  at `k = 20`: `(n, r) = (100, 3) -> 28.3 MB`; `(100, 4) -> 736 MB`; `(100, 5) -> 15.4 GB`;
+  `(100, 6) -> 273 GB`; `(300, 3) -> 734 MB`; `(300, 4) -> 55.8 GB`; `(300, 5) -> 3.41 TB`.
+  Hence the K-RV8 baseline exhausts a 64 GB workstation at `r = 6` for `n = 100` and at `r = 4`
+  for `n = 300`.
+- status: CONJECTURE
+- depends-on: D-residual-spectral-hierarchy, D-lasserre-order, C-259
+- where-proved: arithmetic, this memo §1.3
+- where-tested: E1 measures the true `k`
+- north-star relevance: bounds the regime in which K-RV8 is decisive, and identifies the order at
+  which the time-efficient classical baseline fails.
+- traps audited: assuming sparse means quantum-fast only.
+
+### C-268 (C-NEW-SP-R1-PREMISE)
+- statement: No published source states that the second-order moment relaxation is loose for
+  outlier-robust geometric perception while the third-order relaxation is computationally out of
+  reach. Yang-Carlone (arXiv:2109.03349, DOI 10.1109/TPAMI.2022.3179463) use the **lowest** order
+  of the hierarchy and report it empirically exact for their truncated-least-squares
+  formulations at 30-70 measurements, with sparsity and basis reduction shrinking the SDP at that
+  order; TEASER (arXiv:2001.07715), QUASAR (arXiv:1905.12536) and One Ring (arXiv:2006.06769)
+  state no such wall. The only documented loss of tightness is for matrix-weighted noise
+  (Holmes-Dumbgen-Barfoot, arXiv:2308.07275, DOI 10.1109/TRO.2024.3475220), and the remedy those
+  authors propose is **redundant constraints at the same order**, not a higher order. Therefore
+  the motivating premise of bet R1 - that robotics needs `r >= 3` - is currently unsupported, and
+  every claim in §2.1 of `scouting/robotics-space.md` is conditional on exhibiting a robotics
+  family that provably requires `r >= 3`.
+- status: CONJECTURE
+- depends-on: C-259, C-260, C-261, D-lasserre-order
+- where-proved: literature scout, this memo §2.1; four primary sources checked directly, absence
+  reported explicitly rather than inferred
+- where-tested: E1/E4 would exhibit or fail to exhibit such a family
+- north-star relevance: removes the *motivation* for the R1 space claim rather than its
+  arithmetic, which is a stronger objection than K-RV8 or K-RV9.
+- traps audited: comparing against the wrong classical algorithm; changing the output.
+
+### C-269 (C-NEW-SP-GLH-BOSONIC)
+- statement: For every `m = O(1)` there is a family of degree-`m` real homogeneous generator
+  tuples in `n+1` variables, with `N = O(1)` or `N = poly(n)`, such that the guided problem
+  "given a guiding state with squared ground-space overlap `w >= 1/poly(n)` and a promise
+  `gamma_N = Delta/alpha_BE >= 1/poly(n, N)`, estimate `lambda_min(A_N)` to additive
+  `eps alpha_A` with `eps >= 1/poly(n,N)`" is BQP-hard; consequently no classical algorithm
+  solves it in `poly(n, N)` time and `poly(n, log N)` space unless `BQP = BPP`.
+- status: CONJECTURE
+- depends-on: D-residual-spectral-hierarchy, D-hamiltonian, C-260, C-099
+- where-proved: proposed here; the unrestricted guided-local-Hamiltonian problem is BQP-complete
+  (arXiv:2111.09079; 2-local with constant guiding fidelity, arXiv:2207.10250), but `H_N` is
+  permutation-invariant on `Sym^N(C^{n+1})` and the hardness is **not** inherited
+- where-tested: none
+- north-star relevance: the entire conditional content of the surviving R1. Without it, §2.1 has
+  no lower bound of any kind on the classical side.
+- traps audited: exponentially small overlap; ignoring dequantization; changing the output.
+- note: C-099 (Anschuetz-Bauer-Kiani-Lloyd, arXiv:2211.16998) makes the **fixed** local dimension
+  case classically easy, so any proof must use `n -> infinity`.
+
+### C-270 (C-NEW-SP-STREAM-CONSISTENCY)
+- statement: For every `n` and `alpha = 1/4`, in the one-pass streaming model of
+  D-streaming-polynomial-input with the fixed prefix split (point ideal first, binomial ideal
+  second), the promise problem SIGN-CONSISTENCY-STREAM(`n`, `alpha`) - decide
+  `1 in I_A + I_B` versus `1 not in I_A + I_B`, equivalently `lambda_min(H) = 0` versus
+  `lambda_min(H) = 4 alpha n` for the D-hamiltonian of the streamed tuple - is decided with
+  error `<= 1/3` by a quantum algorithm using `O(log n)` qubits and `O(log n)` classical bits,
+  while every classical randomized one-pass algorithm with error `<= 1/3` uses `Omega(sqrt n)`
+  bits. The separation is unconditional.
+- status: CONJECTURE
+- depends-on: D-boolean-ideal, D-hamiltonian, D-hilbert-function, D-streaming-polynomial-input
+- where-proved: proposed here, §2.2; the classical lower bound is
+  Gavinsky-Kempe-Kerenidis-Raz-de Wolf arXiv:quant-ph/0611209 Thm 1.2 transferred to streaming by
+  the prefix-split reduction; the quantum upper bound is the sequential-projection protocol of
+  §2.2, whose success probability telescopes to `2 alpha`
+- where-tested: E3 (14 qubits; runs on a laptop)
+- north-star relevance: **the only unconditional space separation in the campaign**, on an
+  ideal-theoretic decision problem, with a one-photon linear-optics realisation.
+- traps audited: changing the output (the output is one bit, on both sides); hidden state
+  preparation (the state is prepared by the stream itself); exponentially small overlap (none
+  arises).
+
+### C-271 (C-NEW-SP-LOOPCLOSURE)
+- statement: The two-robot loop-closure batch certification problem - robot A holds a binary label
+  per keyframe, robot B holds `alpha n` disjoint place-revisits with relative binary labels, and
+  the batch is promised either wholly consistent or wholly inverted - is an instance of
+  `alpha`-Partial Matching. Hence for `alpha = 1/4` it requires `Omega(sqrt n)` bits of one-way
+  classical communication from A to B and `O(log n)` qubits, unconditionally; and the quantum
+  protocol is realisable with one photon in `n` modes, `n` phase shifters and one beamsplitter.
+- status: CONJECTURE
+- depends-on: C-270 (C-NEW-SP-STREAM-CONSISTENCY), D-boolean-ideal
+- where-proved: proposed here, §2.2
+- where-tested: none; the closest existing experiment is DOI 10.1038/s41467-019-12139-z
+- north-star relevance: the campaign's cheapest heuristic-hardware attack and its only
+  unconditional application claim, simultaneously.
+- traps audited: claiming the coherent-state test as a quantum algorithm (this is not that: the
+  classical bound is a proven communication lower bound).
+
+### C-272 (C-NEW-SP-NO-QUANTUM-TABLE)
+- statement: For every `L`, every `p > 1/2`, and every quantum encoding `rho(T)` of a table
+  `T in {0,1}^L` from which an arbitrary queried bit `T_i` can be recovered with probability at
+  least `p`, `rho` occupies at least `(1 - H(p)) L` qubits. Consequently no quantum encoding of a
+  precomputed inverse-kinematics or roadmap lookup table saves space over the classical table,
+  and the on-robot-table direction admits no space claim.
+- status: CONJECTURE
+- depends-on: D-input-model
+- where-proved: Nayak arXiv:quant-ph/9904093 (FOCS 1999); Ambainis-Nayak-Ta-Shma-Vazirani
+  arXiv:quant-ph/9804043, JACM 49(4):496-511 (2002)
+- where-tested: none needed
+- north-star relevance: closes a direction permanently; a negative result is a product (L5).
+- traps audited: changing the output.
+
+### C-273 (C-NEW-SP-SYNTHESIS-NO-SPACE)
+- statement: For every six-bar kinematic-synthesis system, the classical algorithm with the
+  smallest working space (parameter homotopy continuation, `O(n^2)` doubles per path) is also the
+  classical algorithm with the best running time, so no space separation exists in this family;
+  in particular for Watt II eight-accuracy-point (22 quadrics in 22 unknowns) the homotopy
+  working set is `~4 kB` per path against a degree-23 Macaulay space of dimension
+  `binom(45,22) = 4.12e12` that no classical method builds.
+- status: CONJECTURE
+- depends-on: D-macaulay-matrix, D-saturation-regularity-stable-range
+- where-proved: proposed here, §2.4; K5
+- where-tested: E2 measures the actual solving degree, which is unpublished
+- north-star relevance: confirms K5 inside its true scope and blocks the space direction from
+  reclaiming bet R2's territory.
+- traps audited: comparing against the wrong classical algorithm.
+
+### C-274 (C-NEW-SP-TIMESPACE-EXEMPTION)
+- statement: The quantum time-space tradeoff lower bounds of Beame-Kornerup-Whitmeyer
+  (arXiv:2401.05321) for matrix-vector product, matrix multiplication, matrix powering and matrix
+  inversion are proved in a query model in which the matrix (or vector) entries are adversarial
+  queried inputs; they do not apply to `H_N`, whose rows are generated by a `poly(n)`-size
+  classical circuit computable in `O(log M_N)` workspace, and therefore do not obstruct
+  C-269 (C-NEW-SP-GLH-BOSONIC). They do apply to any robotics instance in which the matrix entries are
+  measured data that must be read.
+- status: CONJECTURE
+- depends-on: C-269 (C-NEW-SP-GLH-BOSONIC), D-block-encoding-normalisation
+- where-proved: proposed here, §1.1; the paper contains no explicit disclaimer, so this is a
+  reading of its model `[UNVERIFIED]`
+- where-tested: none
+- north-star relevance: the only known general obstruction to a quantum time-space advantage in
+  linear algebra; if the exemption fails, §2.1 dies.
+- traps audited: ignoring dequantization.
+
 ## Lane report
 
 254 rows: 157 SKETCH, 40 CONJECTURE, 57 REFUTED, 0 PROVED; 529 edges, acyclic. report.md §1-§9 = C-001-C-180, page81.tex = C-181-C-208, draft claims the referees killed = C-209-C-254. All 77 round-1 and 18 round-2 findings are accounted for (audit trail in EXTRACTION-NOTES.md).

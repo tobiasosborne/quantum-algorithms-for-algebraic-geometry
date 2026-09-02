@@ -915,6 +915,62 @@ For a projective toric ideal \(I_A\), the positive part is \(V(I_A)\cap\mathbb P
 Source: Sottile, arXiv:math/0212044.
 Pitfalls: occupation-basis positivity is not positivity of a coherent-state label. The positive torus is normally Zariski dense, so its coherent-state span equals the complex toric inverse system and is not selected by a projector.
 
+
+<!-- Merged verbatim from scouting/robotics-space.md §4 "Proposed definitions" (Opus lane, 2026-09-02); orchestrator merge. Status: proposed. -->
+
+MERGE PROPOSAL (`definitions/definitions.md`, new entry):
+
+### D-streaming-polynomial-input
+A one-pass stream `sigma = (g_1, ..., g_T)` whose items are generators of an ideal
+`I = (g_1, ..., g_T) subset R` (D-polynomial-ring), each with `poly(n)` monomials and
+`poly(n)`-bit coefficients. An algorithm for `sigma` holds `S(n)` bits, or `S(n)` qubits together
+with `S(n)` classical bits, reads each item exactly once in the given order, may not revisit an
+item, and produces its output after the last item. The **arrival order** is part of the problem
+specification. For a fixed prefix split `sigma = sigma_A sigma_B`, one-pass space is at least the
+one-way communication complexity of the induced two-party problem, so every one-way lower bound
+transfers. Distinguish from D-input-model, where the whole generator tuple is available for
+re-reading and `N` is given in unary.
+Source: proposed in `scouting/robotics-space.md` §2.2; streaming conventions follow
+Clarkson-Woodruff DOI 10.1145/1536414.1536445 and Kallaugher arXiv:2106.04633.
+Pitfalls: the model is vacuous for problems whose input is a small generator tuple and whose
+large object (`Phi_N`, `H_N`) is derived; it has content only when the generators themselves are
+consumed sensor data. The `Omega(sqrt n)` transfers only under a fixed prefix split; adversarial
+interleaving needs the Kapralov-Khanna-Sudan / Kallaugher-Parekh-Voronova machinery.
+
+MERGE PROPOSAL (`definitions/definitions.md`, new entry):
+
+### D-quantum-space-measure
+For an algorithm on a register of `q` logical qubits with a classical control of `c` bits, the
+quantum space is `q + c`, counting every ancilla including those of the row oracle and of QSVT
+phase angles, and the algorithm's description must be uniform in `O(q + c)` classical workspace.
+Two encodings of `R_N` are used and must never be conflated: the **occupation encoding**,
+`(n+1) ceil(log_2(N+1))` qubits (D-input-model), and the **compact encoding**,
+`ceil(log_2 M_N)` qubits. Fact SP-0 is stated in the compact encoding; the occupation encoding is
+larger by a factor `~ (n+1) log(N)/ (N log n)` and quoting a classical bound against it
+overstates the advantage.
+Source: proposed in `scouting/robotics-space.md` §1.3-§2.1; class definitions from
+Fefferman-Lin arXiv:1604.01384 and Fefferman-Remscrim arXiv:2006.03530.
+Pitfalls: `q` logical qubits is not a comparable resource to `q` classical bits of DRAM at any
+current or projected error rate; a space claim quoted in logical qubits against a classical
+byte count is a category error unless said so.
+
+MERGE PROPOSAL (`definitions/definitions.md`, new entry):
+
+### D-space-time-pareto
+A **space advantage** for a problem `P` is a pair of statements: a quantum algorithm attaining
+`(S_Q, T_Q)` and a proof that no classical algorithm attains `(S_C, T_C)` with
+`S_C = O(S_Q polylog)` and `T_C = O(T_Q polylog)`. By C-NEW-SP-WATROUS-CEILING a pure space
+statement (`T` unbounded) can never exceed a quadratic gap in the read-only-input model, so every
+nontrivial claim in this campaign is a statement about the `(S, T)` Pareto frontier and must
+quote both coordinates for both sides.
+Source: proposed in `scouting/robotics-space.md` §0, §1.0.
+Pitfalls: a space advantage bought with exponential time is not a claim (brief, task 2); nor is a
+time advantage bought with exponential space. The three classical points that must always be
+quoted for a succinctly-specified operator are: time-efficient (`O(M_N)` space), space-efficient
+(`O(log^2 M_N)` space, `poly(M_N)` time), and any sparsity-exploiting solver in between.
+
+---
+
 ### OPEN
 
 Issues found while building this register. Nothing here is repaired silently; each is a question for

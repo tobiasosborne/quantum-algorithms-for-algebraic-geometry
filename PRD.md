@@ -116,6 +116,28 @@ constraints (C-261 (C-NEW-RV-R1-NONEQUIVALENCE)), and the "250 GB versus 300 qub
 statement in bet R1 compares against dense SDP when the seed matrix admits O(B_3)-space
 Lanczos (K-RV8/9); R1 must be reframed as a spectral-hierarchy comparison.
 
+**Arm R, space direction (D13).** `scouting/robotics-space.md` (Opus, 1363 lines).
+Governing fact SP-0: BQSPACE(s) is contained in DSPACE(s^2) and DTIME(2^O(s)) (Watrous 2003
+composed with Borodin–Cook–Pippenger 1983; the log-space case is quoted verbatim by
+Fefferman–Remscrim). Consequences: with a re-readable input, a pure quantum space advantage
+can never exceed a quadratic gap in the space exponent; "n log N qubits versus M_N words" is
+not a space separation; at n=100, r=3 the honest classical space for the residual-hierarchy
+minimum eigenvalue is about 300 bits, not 250 GB and not 28 MB. What survives is a
+SIMULTANEOUS (space, time) claim: quantum poly(n, log N) space with poly time under a
+guiding-state promise, versus classical either M_N words or log^2 space with poly(M_N)
+time; no classical algorithm with both is known, and none exists unless BQP = BPP provided
+the bosonic guided-local-Hamiltonian problem (C-269 (C-NEW-SP-GLH-BOSONIC)) is BQP-hard.
+Two survivors: (i) streaming / communication: an UNCONDITIONAL separation, tiny margin,
+realisable with one photon in n modes plus phase shifters and one beamsplitter, close
+relative already run (DOI 10.1038/s41467-019-12139-z); (ii) succinct-operator (space, time)
+Pareto claim, large nominal margin, conditional, and currently missing a robotics family that
+provably needs Lasserre order r >= 3. Killer coverage: K5 right for zero-dimensional root
+lists, wrong for certification, inconsistent noisy systems, positive-dimensional witness
+sets, streaming; K6 right at polynomial space, silent at the s versus s^2 resolution where
+every real space claim lives; K-RV8 walls out at r=4..6 (736 MB to 273 GB at n=100); K-RV9
+is a treewidth statement that fails for hub-coupled TLS perception. Eleven rows
+C-264..C-274 and three definitions merged verbatim.
+
 **Arm X: kill-first checks (run before anything else is funded).**
 C-099: permutation-invariant Hamiltonians at fixed local dimension are classically easy
 (Schur–Weyl), which would remove the whole fixed-n, growing-N regime. C-110: whether a
@@ -159,6 +181,7 @@ asserts a speedup must name which traps it has been checked against.
 | D12 | 2026-09-02 | Real-variety lane harvested as arm E; robotics bet R1 loses its dense-SDP space comparison and is reframed against implicit Lanczos on the residual hierarchy (memo Q5, Q9). | orchestrator, from lane merge |
 | D13 | 2026-09-02 | Robotics explores BOTH space and time. The space killers (K5, K6, K-RV8, K-RV9) are judged vague and weak; a proposer lane develops space claims rigorously (`briefs/lane-robotics-space.md`). | TJO ("not convinced we have exhausted space claims") |
 | D14 | 2026-09-02 | Probe TJO's two-copy real-symmetry idea: the antilinear realness condition becomes linear on two copies via the pairing state; lane `briefs/lane-two-copy-real.md`. | TJO question, orchestrator |
+| D15 | 2026-09-02 | Fact SP-0 (quadratic ceiling on pure space advantage in the read-only-input model) is a campaign-wide constraint: every row comparing a qubit count to a classical word count must be audited against it; robotics bet R1's space sentence is refuted on these grounds, more strongly than by K-RV8. | orchestrator, from space lane; pending TJO ratification |
 
 ## 7. Current state and open questions for TJO
 
@@ -214,6 +237,18 @@ Questions only TJO can answer, in order of how much they change the next step:
     analytic day on whether a Hermite trace form can be block-encoded from Macaulay access
     without a D-element quotient basis, closing the route if circular; (e) close general
     ETR / CAD as a Fock-space arm (recommended yes).
-11. **Multigraded mechanism dictionary** (robotics memo Q5): a 2-local frustration-free
+11. **Space-direction follow-ups** (`scouting/robotics-space.md` §7, condensed): (a) does a
+    simultaneous (space, time) claim count as a space claim under D2, given SP-0 closes pure
+    space claims at a quadratic gap; (b) is a promise problem an acceptable robotics
+    deliverable, since every available space separation is one; (c) does communication
+    bandwidth count as space (the only unconditional separation is a communication one);
+    (d) is a BQ_USPACE-completeness theorem a product, given it also proves the problem
+    classically space-cheap; (e) budget: streaming lane for one week to run experiment E3,
+    then the succinct-operator route only if (f) is answered; (f) does anyone in TJO's
+    network know a robotics family that provably needs Lasserre order r >= 3, otherwise R1
+    closes as unmotivated; (g) ratify SP-0 as campaign-wide (D15) and audit qubit-vs-word
+    rows; (h) the robotics memo's contact-mode counts are off by three orders of magnitude
+    and Stephenson II is ten degree-8 equations in ten unknowns, not 26: merge corrections?
+12. **Multigraded mechanism dictionary** (robotics memo Q5): a 2-local frustration-free
     qutrit chain whose zero-energy product states are a mechanism's configurations. Not a
     speedup; possibly the right physics paper. Pursue as its own item?
