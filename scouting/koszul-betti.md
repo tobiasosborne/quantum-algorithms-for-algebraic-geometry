@@ -36,7 +36,7 @@ conditional fraction `beta_{i,j}/(HF(N) C(n+1,i))` costs `M_N/h_N` samples or
 `sqrt(M_N/h_N)` coherent projections (C-096). The acceptance weight `h_N/M_N` is
 exponentially small for the quadratic complete-intersection family at `N = n`, and
 potentially exponentially small in general; equivalently, the rejection-sampling cost
-`M_N/h_N` and coherent-projection cost `sqrt(M_N/h_N)` are exponentially large (O23). The
+`M_N/h_N` and coherent-projection cost `sqrt(M_N/h_N)` are exponentially large. The
 acceptance weight is **not** exponentially small for every square system (Step 9,
 K-KB11). (iii) *Betti information
 lives only at `N = j - i <= reg(R/I)`* (Step 6, K-KB1) —

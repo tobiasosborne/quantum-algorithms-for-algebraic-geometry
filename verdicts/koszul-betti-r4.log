@@ -1,0 +1,1623 @@
+Reading additional input from stdin...
+OpenAI Codex v0.152.1
+--------
+workdir: /home/tobias/Projects/quantum-algorithms-for-algebraic-geometry
+model: gpt-5.6-sol
+provider: openai
+approval: never
+sandbox: read-only
+reasoning effort: xhigh
+reasoning summaries: none
+session id: 01a0645b-bb06-7033-9561-ca07d20432cb
+--------
+user
+# Critic brief: scouting/koszul-betti.md, round 4 (adjudicate repair r3, single objection)
+
+You are the adversarial critic (codex); your r3 verdict verdicts/koszul-betti-r3.md was FAIL(O23) with every row and definition accepted. The proposer applied repair r3. Read-only sandbox; your ENTIRE output is your final message, saved verbatim as verdicts/koszul-betti-r4.md (Markdown, no preamble, no emoji). Repo root: /home/tobias/Projects/quantum-algorithms-for-algebraic-geometry.
+
+Read your r3 verdict, then `git diff f4a8ace HEAD -- scouting/koszul-betti.md` (the repair is exactly that diff; the proposer reports four passages edited and §5/§6 byte-identical), and the memo's '## Repair r3 response'. Verify: the FIX DEMAND sentence appears verbatim in the three named passages; no remaining sentence calls a cost exponentially small (grep the memo yourself and list every 'exponentially small' occurrence with your judgement of each); §5 and §6 are unchanged relative to f4a8ace (`git diff f4a8ace HEAD -- scouting/koszul-betti.md | grep '^[-+]' ` restricted to those sections). Attack only the changed text; new objections from O24 if any. Output: header with commands and exit codes, O23 disposition (VERIFIED / NOT VERIFIED), the 'exponentially small' occurrence list, the final row decision table (all ten C-NEW-KB-* ids, carried from r3 unless changed) and definition table (all eight), a LOCKSTEP line, and the final line exactly `VERDICT: PASS` or `VERDICT: FAIL(...)`. Keep it short.
+exec
+/bin/bash -lc 'bd prime' in /home/tobias/Projects/quantum-algorithms-for-algebraic-geometry
+ succeeded in 0ms:
+# Beads Workflow Context
+
+> **Context Recovery**: Run `bd prime` after compaction, clear, or new session
+> Hooks auto-call this in Claude Code when .beads/ detected
+
+# 🚨 SESSION CLOSE PROTOCOL 🚨
+
+**CRITICAL**: Before saying "done" or "complete", you MUST run this checklist:
+
+```
+[ ] bd close <id1> <id2> ...   (close completed issues)
+```
+
+**Note:** No git remote configured. Issues are saved locally only.
+
+## Core Rules
+- **Default**: Use beads for ALL task tracking (`bd create`, `bd ready`, `bd close`)
+- **Prohibited**: Do NOT use TodoWrite, TaskCreate, or markdown files for task tracking
+- **Workflow**: Create beads issue BEFORE writing code, mark in_progress when starting
+- **Memory**: Use `bd remember "insight"` for persistent knowledge across sessions. Do NOT use MEMORY.md files — they fragment across accounts. Search with `bd memories <keyword>`.
+- Persistence you don't need beats lost context
+- Git workflow: local-only (no git remote)
+- Session management: check `bd ready` for available work
+
+## Essential Commands
+
+### Finding Work
+- `bd ready` - Show issues ready to work (no blockers)
+- `bd list --status=open` - All open issues
+- `bd list --status=in_progress` - Your active work
+- `bd show <id>` - Detailed issue view with dependencies
+
+### Creating & Updating
+- `bd create --title="Summary of this issue" --description="Why this issue exists and what needs to be done" --type=task|bug|feature --priority=2` - New issue
+  - Priority: 0-4 or P0-P4 (0=critical, 2=medium, 4=backlog). NOT "high"/"medium"/"low"
+- `bd update <id> --claim` - Claim work
+- `bd update <id> --assignee=username` - Assign to someone
+- `bd update <id> --title/--description/--notes/--design` - Update fields inline
+- `bd close <id>` - Mark complete
+- `bd close <id1> <id2> ...` - Close multiple issues at once (more efficient)
+- `bd close <id> --reason="explanation"` - Close with reason
+- **Tip**: When creating multiple issues/tasks/epics, use parallel subagents for efficiency
+- **WARNING**: Do NOT use `bd edit` - it opens $EDITOR (vim/nano) which blocks agents
+
+### Dependencies & Blocking
+- `bd dep add <issue> <depends-on>` - Add dependency (issue depends on depends-on)
+- `bd blocked` - Show all blocked issues
+- `bd show <id>` - See what's blocking/blocked by this issue
+
+### Sync & Collaboration
+- `bd search <query>` - Search issues by keyword
+
+### Project Health
+- `bd stats` - Project statistics (open/closed/blocked counts)
+- `bd doctor` - Check for issues (sync problems, missing hooks)
+- `bd doctor --check=conventions` - Check for convention drift (lint, stale, orphans)
+
+### Quality Tools
+- `bd create --validate` - Check description has required sections
+- `bd create --acceptance="criteria"` - Set acceptance criteria (checked by --validate)
+- `bd create --design="decisions"` - Record design decisions
+- `bd create --notes="context"` - Add supplementary notes
+- `bd config set validation.on-create warn` - Auto-validate on every create
+- `bd lint` - Check existing issues for missing sections
+
+### Lifecycle & Hygiene
+- `bd defer <id> --until="date"` - Defer work to a future date
+- `bd supersede <id> --with=<new-id>` - Mark issue as superseded
+- `bd close <id> --suggest-next` - Show newly unblocked issues after closing
+- `bd stale` - Find issues with no recent activity
+- `bd orphans` - Find issues with broken dependencies
+- `bd preflight` - Pre-PR checks (lint, stale, orphans)
+- `bd human <id>` - Flag for human decision (list/respond/dismiss)
+
+### Structured Workflows
+- `bd formula list` - See available workflow templates
+- `bd mol pour <name>` - Start structured workflow from formula
+
+## Common Workflows
+
+**Starting work:**
+```bash
+bd ready           # Find available work
+bd show <id>       # Review issue details
+bd update <id> --claim  # Claim it
+```
+
+**Completing work:**
+```bash
+bd close <id1> <id2> ...    # Close all completed issues at once
+```
+
+**Creating dependent work:**
+```bash
+# Run bd create commands in parallel (use subagents for many items)
+bd create --title="Implement feature X" --description="Why this issue exists and what needs to be done" --type=feature
+bd create --title="Write tests for X" --description="Why this issue exists and what needs to be done" --type=task
+bd dep add beads-yyy beads-xxx  # Tests depend on Feature (Feature blocks tests)
+```
+
+exec
+/bin/bash -lc "rg -n -i -C 2 'Repair r3 response|exponentially small|FIX DEMAND' scouting/koszul-betti.md" in /home/tobias/Projects/quantum-algorithms-for-algebraic-geometry
+ succeeded in 0ms:
+35-conditional fraction `beta_{i,j}/(HF(N) C(n+1,i))` costs `M_N/h_N` samples or
+36-`sqrt(M_N/h_N)` coherent projections (C-096). The acceptance weight `h_N/M_N` is
+37:exponentially small for the quadratic complete-intersection family at `N = n`, and
+38:potentially exponentially small in general; equivalently, the rejection-sampling cost
+39-`M_N/h_N` and coherent-projection cost `sqrt(M_N/h_N)` are exponentially large (O23). The
+40:acceptance weight is **not** exponentially small for every square system (Step 9,
+41-K-KB11). (iii) *Betti information
+42-lives only at `N = j - i <= reg(R/I)`* (Step 6, K-KB1) —
+--
+203-memo's codimension law, `≈ rho^{codim}` with `rho ≈ 0.75`, was **measured for complete
+204-intersections of quadrics at `N = n`** (caution 1, F2), and in that family the factor is
+205:exponentially small. It is **not** a statement about square systems in general: for `n` generic
+206-forms of degree `n+1` in `P^n` — also a zero-dimensional square complete intersection — every
+207-generator has degree `> N` at `N = n`, so `I_N = 0`, `h_N = M_N` and `h_N/M_N = 1`. Part h
+208-prints both columns side by side (`0.667, 0.400, 0.229, 0.020` for the quadric family at
+209-`n = 2,3,4,8` against `1.000` throughout for the degree-`(n+1)` family). The honest statement
+210:is: **the acceptance weight can be exponentially small, making conditional normalization
+211-exponentially expensive; no unconditional conditional-output algorithm follows without a
+212-Hilbert-weight promise or preparation oracle.** That retraction —
+--
+384-then also polynomial, so nothing is compressed. For `c = n` and fixed `i` the fraction is
+385-`~ i! n^{-i}`, again with polynomial dimension. When `i = rho n` both the dimension and the
+386:Betti number can be exponential, but the fraction is exponentially small (`1/(2^n(n+1))` at
+387-`i = n`). **No regime with exponential block dimension and an inverse-polynomially visible
+388-fraction has been exhibited.** The r0 claim that arm B "survives F2 where arm A does not" is
+--
+452-**3. Quantum algorithm — FAILS (the r1 FATAL objection, and two further defects found at r2).**
+453-(a) The `W_N`-normalisation cost was omitted; with it (Step 9.2) the conditional output carries
+454:`M_N/h_N` or `sqrt(M_N/h_N)`. The acceptance weight `h_N/M_N` is exponentially small for the
+455:quadratic complete-intersection family at `N = n`, and potentially exponentially small in
+456-general; equivalently, the rejection-sampling cost `M_N/h_N` and coherent-projection cost
+457:`sqrt(M_N/h_N)` are exponentially large. The acceptance weight is not exponentially small
+458-for every square system, since `n` generic degree-`(n+1)` forms in `P^n` give `h_N/M_N = 1` at
+459-`N = n` (Step 9.3, part h, O21, O23). (b) The ambient output must be obtained by
+--
+510-(f) *Trap audit, corrected.* Dense rank — avoided. Changing the output — a normalised
+511-fraction, and r0 named the **wrong** normalisation; fixed. Hidden state preparation — **now
+512:priced** (Step 9.2), previously missing. **Exponentially small overlap — TRIGGERED**, retracting
+513-the r0 claim that it was not: `h_N/M_N ≈ rho^{codim}` (Step 9.3). Hiding exponential `N` —
+514-inapplicable (KB2). Ignoring gap closing — triggered (K-KB6, now with a proved counterfamily).
+--
+613-**K-KB11 (the conditional normalisation is the overlap wall — for a named family).** The
+614-`W_N`-conditional fraction costs `M_N/h_N` samples or `sqrt(M_N/h_N)` coherent projections
+615:(Step 9.2, C-096). The acceptance weight `h_N/M_N` is exponentially small for the
+616:quadratic complete-intersection family at `N = n`, and potentially exponentially small in
+617-general; equivalently, the rejection-sampling cost `M_N/h_N` and coherent-projection cost
+618-`sqrt(M_N/h_N)` are exponentially large. The quadratic complete-intersection family is the
+--
+620-`h_n = 2^n` and `M_n = C(2n,n)`, so `h_n/M_n ~ sqrt(pi n)/2^n` and
+621-`M_n/h_n ~ 2^n/sqrt(pi n)` — at `n = 8` the checker's `h_n/M_n = 0.019891` is a cost of
+622:`50.27`, not a small number. The acceptance weight is **not** exponentially small for every
+623-square system, since `n` generic degree-`(n+1)` forms in `P^n` give `h_N/M_N = 1` at `N = n`
+624:(part h, O21). The surviving statement is: *the acceptance weight can be exponentially small,
+625-making conditional normalization exponentially expensive; no unconditional conditional-output
+626-algorithm follows without a Hilbert-weight promise or preparation oracle.* Separately (O17), even the **ambient**
+--
+970-| O19 | MINOR | FIXED | `checkers/explore/koszul_laplacian.py` `ci_fraction_table()` (independent Hilbert-series and Pascal recomputation, `check` column); §2 part g table | The r1 memo printed `23730` and `886445` for `n = 20, c = 5`; the correct dimensions are `47460` and `2215780`. The table is now pasted from the script, which recomputes every dimension by a second route and prints OK/MISMATCH. |
+971-| O20 | MAJOR | DOWNGRADED | §1 Step 5.6 (critic's sentence quoted); K-KB6 (rewritten); D-betti-gap (= D5 verbatim); C-NEW-KB-GAP-INDEPENDENT (missing steps in the critic's r2 words) | The categorical "no lower bound `g >= phi(Delta_N)` exists" is replaced everywhere by: the `m`-cycle family rules out any uniform strictly positive lower bound on the **selected squarefree-summand** gap depending only on `Delta_2`, i.e. no `phi` with `phi(1) > 0`; `phi(1) = 0` is not excluded, no total-block comparison and no reverse inequality is established. |
+972:| O21 | MAJOR | DOWNGRADED | Status header bullet (ii); §1 Step 9.3 (rewritten); §2 part h (second table, new); §3 criterion 3(a); K-KB11 (rewritten) | "Exponentially small for every square system" is replaced by "exponentially small for the quadratic complete-intersection family at `N = n`, and potentially exponentially small in general". The script now prints the critic's counterfamily: `n` generic degree-`(n+1)` forms in `P^n` give `h_n/M_n = 1` at `N = n` for `n = 2,3,4,8`, against `0.667, 0.400, 0.229, 0.020` for the quadric family. The explicit `h_N/M_N` promise is preserved. |
+973-| O22 | MINOR | FIXED | D-betti-estimation-problem (replaced by D8 verbatim); §3 criterion 1 | The unused thresholds `a < b` are gone, `eps` is an input, and the optional regularity bound no longer appears among the promises of the single-block decision problem — it is metadata used only when enumerating the whole table. |
+974-
+--
+989----
+990-
+991:## 10. Repair r3 response
+992-
+993-Verdict `verdicts/koszul-betti-r3.md`: FAIL(O23), one MAJOR. Of the six r2 objections the critic
+--
+999-| objection | severity | disposition | location of the edit | note |
+1000-|---|---|---|---|---|
+1001:| O23 | MAJOR | FIXED | status summary bullet (ii); §3 criterion 3(a); K-KB11; plus §1 Step 9.3's closing sentence, aligned to the r3 surviving statement | Three passages named the costs `M_N/h_N` and `sqrt(M_N/h_N)` and then called "that factor" exponentially small. The direction is reversed: for `n` quadrics in `P^n` at `N = n`, `h_n = 2^n` and `M_n = C(2n,n)`, so `h_n/M_n ~ sqrt(pi n)/2^n` is exponentially small while `M_n/h_n ~ 2^n/sqrt(pi n)` and its square root are exponentially **large** — at `n = 8` the checker's `h_n/M_n = 0.019891` is a cost of `50.27`. Each passage now carries the FIX DEMAND sentence verbatim: "The acceptance weight `h_N/M_N` is exponentially small for the quadratic complete-intersection family at `N = n`, and potentially exponentially small in general; equivalently, the rejection-sampling cost `M_N/h_N` and coherent-projection cost `sqrt(M_N/h_N)` are exponentially large." Step 9.3 already had the direction right (the critic confirms); its closing sentence is nevertheless brought into lockstep with the r3 surviving statement, "the acceptance weight can be exponentially small, making conditional normalization exponentially expensive; no unconditional conditional-output algorithm follows without a Hilbert-weight promise or preparation oracle." |
+1002-
+1003:Whole-memo sweep for the same error: the remaining occurrences of "exponentially small" are
+1004-§1 Step 9.3 (the acceptance weight `h_N/M_N`, direction correct), §2 part g (the normalised
+1005-Betti *fraction* `1/(2^n(n+1))`, not a cost), and the §9 r2-response row for O21, whose quoted
+1006-phrases are the historical record of the r2 edit and refer to the acceptance weight; that audit
+1007-trail is left intact, and O23 corrects the three summaries it produced. No other sentence in the
+1008:memo calls a cost exponentially small.
+1009-
+1010-Dispositions over the single r3 objection: FIXED 1 (O23), RETRACTED 0, DOWNGRADED 0; the
+
+exec
+/bin/bash -lc "sed -n '1,240p' verdicts/koszul-betti-r3.md" in /home/tobias/Projects/quantum-algorithms-for-algebraic-geometry
+ succeeded in 0ms:
+# Adversarial critic verdict: `scouting/koszul-betti.md`, round 3
+
+- **Target:** `scouting/koszul-betti.md` and `checkers/explore/koszul_laplacian.py`
+- **Repair range:** `0f5ef2c..HEAD`
+- **Date:** 2026-09-03
+- **Critic model:** OpenAI Codex, GPT-5 family
+
+## Commands run
+
+| Command | Exit |
+|---|---:|
+| `bd prime` | 0 |
+| Required file inspections and exact-text searches | 0 |
+| `git diff 0f5ef2c HEAD -- scouting/koszul-betti.md checkers/explore/koszul_laplacian.py` | 0 |
+| `cd checkers && timeout 900 python3 explore/koszul_laplacian.py` | 0 |
+| Independent Python recomputation of O17, O19, and O21 quantities | 0 |
+
+The prescribed checker completed in 15.6 seconds. Parts A–H passed, the 5-cycle row reported `51/150` versus `1/150`, the adjacent-projector mutations reported nullity zero, both dimension computations agreed, and M1–M4 all reported `RED (good)`.
+
+## O17–O22 disposition
+
+| Objection | Proposer disposition | Adjudication |
+|---|---|---|
+| **O17** | FIXED | **VERIFIED.** The memo consistently distinguishes the harmonic projector extended by zero from the zero extension of \(L_W\). Fresh computation gives \(M_N=15\), \(h_N=10\), \(b=10\), and \(\beta=1\), hence harmonic-projector trace \(1/150\), while zero-extended \(L_W\) has nullity \((15-10)10+1=51\) and fraction \(51/150\). Part H reproduces both values. Step 9.5 prices the extra \(P_{0,N}\) use in \(\widetilde L\). |
+| **O18** | FIXED | **VERIFIED.** Step 9.4, §3, K-KB9, and D8 all require adjacent-degree access. Since \(q_{i-1,N+1}=P_{0,N}QP_{0,N+1}\), the incoming term depends on \(P_{0,N+1}\). Generator mode supplies \(H_N,H_{N+1}\) and both required normalized-gap promises; quotient mode supplies \(Z_{k,N},Z_{k,N+1}\). The adjacent-degree maximum is equivalent up to a constant to the requested sum. Part H obtains nullity zero after replacing \(P_{0,N+1}\) by the identity. |
+| **O19** | FIXED | **VERIFIED.** Independently, \(h_2=\binom{22}{2}-5=226\) and \(h_3=\binom{23}{3}-5\binom{21}{1}=1666\). Thus \(226\binom{21}{2}=47460\) and \(1666\binom{21}{3}=2215780\). Both corrected values occur in the memo and checker. |
+| **O20** | DOWNGRADED | **VERIFIED.** Step 5.6, K-KB6, D5, and the HOLD row restrict the conclusion to a uniformly positive lower bound on the selected squarefree summand with \(\phi(1)>0\). They explicitly disclaim total-block and reverse comparisons and retain all three missing steps. |
+| **O21** | DOWNGRADED | **NEW DEFECT.** The named-family quantifier, explicit promise, and counterfamily \(h_n/M_n=1\) are verified. However, three changed summaries incorrectly say that the costs \(M_N/h_N\) and \(\sqrt{M_N/h_N}\) are exponentially small. They are exponentially large when the acceptance weight \(h_N/M_N\) is exponentially small. See O23. |
+| **O22** | FIXED | **VERIFIED.** Active definition D8 includes \(\epsilon\), contains no thresholds, supplies both adjacent degrees, and makes regularity optional metadata only for whole-table enumeration. Historical discussion of the removed thresholds is not part of the problem definition. |
+
+## Exact-text audit
+
+| Required text | Result |
+|---|---|
+| **D5 — D-betti-gap** | **VERIFIED verbatim** |
+| **D6 — D-normalised-betti-fraction** | **VERIFIED verbatim** |
+| **D8 — D-betti-estimation-problem** | **VERIFIED verbatim and without thresholds** |
+| **C-NEW-KB-QMA1 missing step** | **VERIFIED verbatim:** “a polynomial reduction preserving the total-block normalized gap across all non-squarefree summands.” |
+| **C-NEW-KB-GAP-INDEPENDENT missing steps** | **VERIFIED verbatim:** “a total-block counterfamily, a specified positive class of forbidden lower bounds, and any reverse-direction result.” |
+| **C-NEW-KB-DEQUANT surviving statements** | **VERIFIED verbatim**, both sentences |
+| **C-NEW-KB-NO-FREE-LUNCH surviving statement** | **VERIFIED verbatim** |
+
+## New objections
+
+### O23 — MAJOR: the overlap cost is stated with the exponential direction reversed
+
+- **Location:** status summary, lines 35–38; §3 criterion 3(a), lines 448–452; K-KB11, lines 607–613.
+- **Computation:** These passages first identify the rejection and coherent costs as
+  \[
+  \frac{M_N}{h_N},\qquad \sqrt{\frac{M_N}{h_N}},
+  \]
+  and then call “that factor” exponentially small for the quadratic complete-intersection family. For \(n\) quadrics in \(\mathbf P^n\) at \(N=n\),
+  \[
+  h_n=2^n,\qquad M_n=\binom{2n}{n},
+  \]
+  so
+  \[
+  \frac{h_n}{M_n}\sim\frac{\sqrt{\pi n}}{2^n}
+  \]
+  is exponentially small, whereas
+  \[
+  \frac{M_n}{h_n}\sim\frac{2^n}{\sqrt{\pi n}}
+  \]
+  and its square root are exponentially large. At \(n=8\), the checker’s \(h_n/M_n=0.019891\) corresponds to \(M_n/h_n=50.2734\), not a small cost. Step 9.3 itself gets the direction right, so the three summaries are not in lockstep with it.
+- **FIX DEMAND:** In every affected passage, distinguish the overlap from its cost. Use: “The acceptance weight \(h_N/M_N\) is exponentially small for the quadratic complete-intersection family at \(N=n\), and potentially exponentially small in general; equivalently, the rejection-sampling cost \(M_N/h_N\) and coherent-projection cost \(\sqrt{M_N/h_N}\) are exponentially large.”
+- **SURVIVING STATEMENT:** The acceptance weight can be exponentially small, making conditional normalization exponentially expensive; no unconditional conditional-output algorithm follows without a Hilbert-weight promise or preparation oracle.
+
+## Final proposed-row decisions
+
+| Proposed row | Decision |
+|---|---|
+| **C-NEW-KB-HODGE** | **ACCEPT AS CONJECTURE** |
+| **C-NEW-KB-FREE** | **ACCEPT AS CONJECTURE** |
+| **C-NEW-KB-SUPPORT** | **ACCEPT AS CONJECTURE** |
+| **C-NEW-KB-HOCHSTER** | **ACCEPT AS CONJECTURE** |
+| **C-NEW-KB-QMA1** | **HOLD.** Missing step: “a polynomial reduction preserving the total-block normalized gap across all non-squarefree summands.” |
+| **C-NEW-KB-DEQUANT** | **ACCEPT AS REFUTED.** Surviving statements: “At constant normalized gap and constant additive error, the cited simplicial-complex estimator is polynomial-time classical.” “Apers et al. directly apply to the squarefree multidegree summands explicitly identified with ordinary simplicial Laplacians.” |
+| **C-NEW-KB-GAP-INDEPENDENT** | **HOLD.** Missing steps: “a total-block counterfamily, a specified positive class of forbidden lower bounds, and any reverse-direction result.” |
+| **C-NEW-KB-FRACTION** | **ACCEPT AS CONJECTURE** |
+| **C-NEW-KB-SEED-IS-A-BLOCK** | **ACCEPT AS CONJECTURE** |
+| **C-NEW-KB-NO-FREE-LUNCH** | **ACCEPT AS REFUTED.** Surviving statement: “If the only available quotient access is obtained by QSVT from \(H_N\), constructing a call to \(L_W\) inherits dependence on \(\alpha_{\mathrm{BE}}/\Delta_N\), with the required adjacent-degree gaps included.” |
+
+## Final definition decisions
+
+| Definition | Decision |
+|---|---|
+| **D-fermionic-modes** | **ACCEPT** |
+| **D-koszul-supercharge** | **ACCEPT** |
+| **D-betti-laplacian** | **ACCEPT** |
+| **D-graded-betti-number** | **ACCEPT** |
+| **D-betti-gap** | **ACCEPT** |
+| **D-normalised-betti-fraction** | **ACCEPT** |
+| **D-generator-koszul-supercharge** | **ACCEPT** |
+| **D-betti-estimation-problem** | **ACCEPT** |
+
+**LOCKSTEP:** NO — Step 9.2–9.3 and D-normalised-betti-fraction correctly distinguish the exponentially small acceptance weight \(h_N/M_N\) from the exponentially large costs \(M_N/h_N\) and \(\sqrt{M_N/h_N}\), but the status summary, §3 criterion 3(a), and K-KB11 call those costs exponentially small. All O17, O18, O20, and O22 qualifiers and both HOLD/REFUTED row dispositions are otherwise synchronized.
+
+VERDICT: FAIL(O23)
+exec
+/bin/bash -lc 'git diff --no-ext-diff --unified=80 f4a8ace HEAD -- scouting/koszul-betti.md' in /home/tobias/Projects/quantum-algorithms-for-algebraic-geometry
+ succeeded in 0ms:
+diff --git a/scouting/koszul-betti.md b/scouting/koszul-betti.md
+index 3289a6a..698c053 100644
+--- a/scouting/koszul-betti.md
++++ b/scouting/koszul-betti.md
+@@ -1,118 +1,121 @@
+ <!-- ROLE: arm B proposer lane (brief `briefs/lane-koszul-betti.md`): the supersymmetric
+      Koszul Laplacian for graded Betti numbers. Scouting memo, not a claims file.
+      Writable files of this lane: this file and checkers/explore/koszul_laplacian.py.
+      REPAIRED at round r1 against verdicts/koszul-betti-r1.md (FAIL, O2 FATAL, 11 MAJOR).
+      Every objection O1-O16 is dispositioned in §8. -->
+ 
+ # Koszul / supersymmetric Laplacian for graded Betti numbers (arm B, round 1, repaired r1)
+ 
+ Conventions C1–C12 of `definitions/definitions.md` are in force; symbols are cited by `D-`
+ id and never redefined. One departure, the same one `checkers/README.md` records for the
+ whole suite: every `Delta_N` printed by the numerics is the Macaulay gap of the generating
+ tuple **as written** (unit coefficients on monomials), not of a unit Bombieri–Weyl
+ presentation (C5, OPEN-1).
+ 
+ **Status after r1 (honest, and the header of the memo, not a footnote).** *Nothing here is a
+ theorem of this campaign.* All ten proposed rows are CONJECTURE, HOLD or REFUTED per L1; the
+ `D-` ids below are **not yet registered headings** in `definitions/definitions.md` and the
+ `C-NEW-KB-*` ids are **provisional** — a merge must register the definitions first and assign
+ real C-ids (O13). Measured against PRD §2, **none of criteria 1–5 is met** (§3, O14). What the
+ lane has is: a finite-dimensional identification, checked to machine precision against two
+ independent references; two exact structural facts about the compression; a reduction of the
+ squarefree part of the problem to simplicial Betti numbers; and one proved infinite
+ counterfamily separating the Betti gap from the Macaulay gap. What the lane does **not** have
+ is a quantum algorithm with a proven output, because the output as originally stated is a
+ `W_N`-conditional quantity whose preparation cost was omitted (O2, FATAL; fixed in Step 9 and
+ propagated).
+ 
+ **The four findings that decide the arm.** (i) *The naive compression is information-free*:
+ on the full Fock ⊗ Λ space the Koszul Laplacian is identically the free number operator
+ `N̂ + F̂`, so `P̂ L P̂ = (N+i) P̂` has no kernel (Step 4.3, K-KB2). (ii) *The estimable output is
+ an ambient trace of the harmonic projector, and the useful one is conditional on `W_N`*: the
+ ambient fraction `beta_{i,j}/(M_N C(n+1,i))` is the normalised trace of the harmonic projector
+ on `W_N ⊗ Lambda^i` **extended by zero**, reached by filtering `L~ = L_W + (N+i)(1 - P̂_N)` and
+ **not** by the zero-eigenvalue fraction of `L_W` extended by zero (O17); converting it to the
+-conditional fraction `beta_{i,j}/(HF(N) C(n+1,i))` costs `M_N/HF(N)` samples or
+-`sqrt(M_N/HF(N))` coherent projections (C-096), a factor that is exponentially small for the
+-quadratic complete-intersection family at `N = n` and potentially exponentially small in
+-general, but **not** for every square system (Step 9, K-KB11). (iii) *Betti information
++conditional fraction `beta_{i,j}/(HF(N) C(n+1,i))` costs `M_N/h_N` samples or
++`sqrt(M_N/h_N)` coherent projections (C-096). The acceptance weight `h_N/M_N` is
++exponentially small for the quadratic complete-intersection family at `N = n`, and
++potentially exponentially small in general; equivalently, the rejection-sampling cost
++`M_N/h_N` and coherent-projection cost `sqrt(M_N/h_N)` are exponentially large (O23). The
++acceptance weight is **not** exponentially small for every square system (Step 9,
++K-KB11). (iii) *Betti information
+ lives only at `N = j - i <= reg(R/I)`* (Step 6, K-KB1) —
+ note `N`, not `j`, and `reg(R/I) = reg(I) - 1`. (iv) *Only the squarefree multidegree summands
+ are simplicial Laplacians*, so the quantum-TDA hardness and dequantization theorems transfer
+ to a squarefree-multidegree version of the problem and **not** to the total-degree block
+ (Step 5.5, K-KB3, K-KB12).
+ 
+ ---
+ 
+ ## 1. Statement and sketch
+ 
+ Lamport-hierarchical; every leaf cites a `D-` id, a `C-` id, a named checker part, or a cited
+ theorem. All operator identities on the full Fock space are asserted on the **finite-particle
+ core** `R ⊗ Λ`, with closures understood; `a_k`, `Q` and `L` are unbounded on the completion
+ (O10). Finite-block nullities, norms and spectra are unaffected.
+ 
+ **ASSUME.** `R = C[z_0..z_n]` (D-polynomial-ring), `I = (f_1,...,f_d)` homogeneous and proper
+ with `deg f_j = m_j >= 1`, `H = sum_j a^†(f_j) a(f_j)` (D-hamiltonian), `H_N = H|_{R_N}`,
+ `P_{0,N}` the projector onto `ker H_N` (D-projectors), Fock inner product (C1).
+ **PROVE.** With `q`, `L_W`, `g_{i,N}` of Steps 2 and 5,
+ `dim ker(L_W | (i,N)) = beta_{i,i+N}(R/I)`; `||L_W|| <= N+i`; and `beta_{i,j} = 0` for
+ `j - i > reg(R/I)`.
+ 
+ **Step 1 (the graded inverse system, and its annihilation-invariance).** 1.1
+ `ker H_N = (I_N)^perp` (C-008, D-ground-space), the degree-`N` part of the Macaulay inverse
+ system of `conj(I)` (C-012, D-inverse-system); by C-014 the map `[u] |-> P_0 u` is a linear
+ isomorphism `(R/I)_N -> (I_N)^perp`. Write `W_N := (I_N)^perp`, `W := ⊕_N W_N`,
+ `P := ⊕_N P_{0,N}`. 1.2 For `u in W_N` and `h in I_{N-1}`,
+ `<a_k u, h> = <u, a_k^† h> = <u, z_k h> = 0` since `z_k h in I_N` (D-mode-operators); hence
+ `a_k W_N ⊆ W_{N-1}` for every `k, N`, equivalently `(1 - P_{0,N-1}) a_k P_{0,N} = 0`. No
+ radicality, saturation, genericity or stable-range hypothesis is used (O15).
+ 
+ **Step 2 (the supercharge).** 2.1 Adjoin `n+1` fermionic modes on `Lambda(C^{n+1})`,
+ `{c_k,c_l^†} = delta_{kl}`, `F̂ = sum_k c_k^† c_k`, basis `|S>` for `S ⊆ {0..n}` with
+ `c_k^†|S> = (-1)^{#{l in S : l<k}}|S ∪ {k}>` for `k not in S`, else `0`. 2.2
+ `Q := sum_k a_k ⊗ c_k^†` on the finite-particle core satisfies
+ `Q^2 = (1/2) sum_{k,l} a_k a_l {c_k^†, c_l^†} = 0` **exactly** — no compression, no error term.
+ 2.3 `Q` maps block `(i,N)` to `(i+1,N-1)`, preserving the **internal degree** `j := N+i`; the
+ natural sector is `j`, not `N`. 2.4 By Step 1.2, `Q(W ⊗ Lambda) ⊆ W ⊗ Lambda`; write
+ `P̂ := P ⊗ 1` and `q := Q P̂ = P̂ Q P̂`. 2.5 The adjoint *within* `W ⊗ Lambda` is
+ `q^† = sum_k Z_k ⊗ c_k` with `Z_k = P_{0,N} a_k^† P_{0,N-1}` the **compressed multiplication**
+ (D-compressed-multiplication) — not the restriction of `sum_k a_k^† ⊗ c_k`, since `a_k^†` does
+ not preserve `W`.
+ 
+ **Step 3 (the complex is the conjugate dual Koszul complex of `R/I`; Hodge).** 3.1
+ `K_.(z_0..z_n ; R/I)` has `(K_i)_j = (R/I)_{j-i} ⊗ Lambda^i`, `∂ = sum_k mu_{z_k} ⊗ iota_k`,
+ `H_i(K_.) = Tor_i^R(R/I,C)`, graded pieces `beta_{i,j}(R/I)` (Eisenbud, *The Geometry of
+ Syzygies*, GTM 229, DOI 10.1007/b137572). 3.2 Under C1 the Fock pairing is conjugate-linear in
+ its first argument, so `u |-> ([h] |-> <u,h>)` is an **anti-linear** isomorphism
+ `W_N -> (R/I)_N^*` (O10). Step 1.2 identifies `a_k` with the Hilbert adjoint of `mu_{z_k}` and
+ `c_k^†` with the adjoint of `iota_k`, so `(W ⊗ Lambda, q)` is the **conjugate-linear dual** of
+ `K_.(z; R/I)` — not literally a complex-linear transpose. Dimensions are unaffected. 3.3 For a
+ complex of finite-dimensional Hilbert spaces `ker L` is the harmonic space, of the dimension of
+ the homology there; homology of the (conjugate) dual is dual to the homology. Hence
+ 
+ > **KB1.** `dim ker(L_W | (i,N)) = beta_{i,i+N}(R/I)` for all `i in 0..n+1`, `N >= 0`.
+ 
+ Part A: exact agreement on every block of six ideals against **two** independent references —
+ Koszul ranks over GF(p) and hard-coded literature Betti tables (O12).
+ 
+ **Step 4 (the full Laplacian is the free number operator).** 4.1 On the finite-particle core,
+ with `a_k a_l^† = a_l^† a_k + delta_{kl}` and `c_l c_k^† = delta_{kl} - c_k^† c_l`,
+ `Q Q^† + Q^† Q = sum_k a_k^† a_k ⊗ 1 + 1 ⊗ sum_k c_k^† c_k = N̂ + F̂`, the scalar `N+i = j` on
+ block `(i,N)` (part B: `1.8e-15`). 4.2 *Exactness*: `ker L = 0` except at the vacuum.
+ 4.3 ***The naive compression is information-free***: `P̂ L P̂ = (N+i) P̂` exactly (part B:
+ `4.4e-15`), so its nullity on `range(P̂)` is `0` for `j > 0`. The operator to encode is `L_W`,
+ built from the `Z_k`. 4.4 *Normalisation*: with `X := P̂ Q (1-P̂)` — **constructed explicitly**
+ in part B, not defined as `(N+i)1 - L_W` (O12) — expanding
+ `P̂ Q Q^† P̂ = P̂ Q P̂ Q^† P̂ + X X^†` and using `(1-P̂) Q P̂ = 0` gives `L_W = (N+i)·1 - X X^†`
+ with `X X^† >= 0`, hence `0 <= L_W <= (N+i)1` and `||L_W|| <= j` (part B: `7.1e-15`; `L_W`
+ PSD to `-1.0e-15`). 4.5 *The `i=0` row is trivial*: `L_W|(0,N) = P_0 N̂ P_0 = N·1`.
+ 
+ **Step 5 (the Betti gap, and what supersymmetry actually pairs).** 5.1 When
+ `L_W|(i,N) != 0`, set `g_{i,N} := lambda_min^{>0}(L_W|(i,N))`, normalised `g_{i,N}/(N+i)`;
+ when the block Laplacian vanishes identically the gap is undefined and no promise may be made
+ (O1). 5.2 By 4.4, `g_{i,N} = j - lambda_max^{<j}(X X^†)`. 5.3 **Correction (O8).** Adjacent
+ *block Laplacians* do **not** share their nonzero spectra: for the twisted cubic at `j = 3`,
+ `g(0,3) = 3.0000` while `g(1,2) = 1.3333`. What supersymmetry gives is the singular-value
+ pairing of each *individual* differential,
+ `spec^{>0}(q_{(i,N)}^† q_{(i,N)}) = spec^{>0}(q_{(i,N)} q_{(i,N)}^†)`, the second living in
+ block `(i+1,N-1)`; `L_W|(i,N)` is the sum of two such contributions. Part C tests exactly this
+@@ -127,162 +130,163 @@ non-squarefree and is covered by no cited TDA theorem. Part D prints both dimens
+ 7-cycle at `(i=2,N=1)` the block has dimension 147 of which 105 is squarefree. 5.6
+ **Counterfamily.** For the `m`-cycle Stanley–Reisner ideal (`m >= 4`): `Delta_2 = 1` for every
+ `m` (monic monomial generators, `H_2` diagonal), while the squarefree summand `sigma = [m]` of
+ block `(i=m-2, N=2)` is unitarily the edge Laplacian `∂_1^† ∂_1` of the cycle graph — its
+ 1-chain group has no incoming `∂_2` because `C_m` has no 2-faces — with nullity
+ `1 = b_1(C_m)` and smallest nonzero eigenvalue exactly `2 - 2cos(2 pi/m) = Theta(m^{-2})`.
+ Part E verifies this closed form for `m = 4..12`. What this proves, stated with the
+ quantifier the evidence supports (O20): **"The `m`-cycle family rules out any uniform
+ strictly positive lower bound on the selected squarefree-summand gap depending only on
+ `Delta_2`: no `phi` with `phi(1) > 0` satisfies `g_sq >= phi(Delta_2)` throughout this family.
+ No total-block or reverse comparison is established."**
+ 
+ **Step 6 (support: Betti information lives at `N <= reg(R/I)`).** `reg(R/I) =
+ max{j-i : beta_{i,j} != 0}` (D-saturation-regularity-stable-range) and `beta_{i,j} = 0` for
+ `i > n+1` (Hilbert syzygy). Since the block label is `N = j-i`:
+ 
+ > **KB2.** `dim ker(L_W|(i,N)) = 0` for every `i` whenever `N > reg(R/I)`.
+ 
+ **The condition is on `N = j - i`, never on `j` (O1).** The twisted cubic has
+ `reg(R/I) = 1` and `beta_{2,3} = 2`, so `j = 3 > reg(R/I)` while `N = 1 <= reg(R/I)`; a
+ `j <= reg` condition would exclude a flagship positive block. Note also
+ `reg(I) = reg(R/I) + 1` for a nonzero proper homogeneous ideal; the memo uses `reg(R/I)`
+ throughout. Part A checks KB2 as a prediction to `N = 8,7,7,6,5,4` against
+ `reg(R/I) = 1,2,2,1,1,2`. This does not preclude large `N`: it says the useful `N` is bounded
+ by a regularity that may itself grow with `n`.
+ 
+ **Step 7 (relation to `Syz(I)_N` and the §5 rows).** 7.1 `Syz(I)_N = ker Phi_N`
+ (D-syzygy-module, C-052) is the non-minimal degree-`N` piece of the *tuple's* syzygies, of
+ dimension `sum_j dim R_{N-m_j} - dim I_N`, fixed by the Hilbert function; it is not a Betti
+ number. 7.2 **Corrected (O9).** `beta_{1,j}(R/I)` counts minimal generators of `I` in degree
+ `j`, and `beta_{2,j}(R/I)` counts the degree-`j` minimal relations in a **minimal free
+ resolution**, equivalently the minimal relations among a **minimal homogeneous presentation**.
+ The formula `beta_{2,j} = dim(Syz / m Syz)_j` is false for a non-minimal tuple: the redundant
+ tuple `(x, x)` for `I = (x)` has the constant syzygy `(1,-1)`, which survives mod `m Syz`,
+ although `beta_{2,*}(R/(x)) = 0`. 7.3 *Caution*: the first nonzero row is free. For `I` with
+ no linear forms, `L_W|(1,1) = 2 - X X^†` with `X f = sum_k (∂_k f) ⊗ e_k` the gradient on
+ `I_2`, and `sum_k ||∂_k f||^2 = <f, N̂ f> = 2||f||^2`, so `X^†X = 2` on `I_2` and
+ `beta_{1,2} = dim I_2` — a rank of the input (confirmed in every family: 3, 2, 5, 14). The
+ first genuinely non-input block is `i = 2`.
+ 
+ **Step 8 (the other supercharge: the seed's `H` is a Koszul block).** With `d` fermionic
+ annihilators `c_j` (fermion `j` carrying internal weight `m_j`) and
+ `Q_f := sum_j M_{f_j} ⊗ c_j`, `Q_f^2 = 0` and the fermion-number-zero block of
+ `Q_f Q_f^† + Q_f^† Q_f` is `sum_j M_{f_j} M_{f_j}^† = sum_j a^†(f_j) a(f_j) = H_N`. **Now
+ tested** (part F, `|L^{gen}_{i=0} - H_N| = 0` exactly for `N = 2..5` on the twisted cubic).
+ Its higher-block zero modes are `H_i(f;R) ≅ Tor_i^{C[y_1..y_d]}(C,R)`, which vanish for `i>0`
+ exactly when the positive-degree sequence is regular; these are **not** `beta_{i,j}(R/I)` —
+ part F prints both tables and they differ at `t = 2..6` (e.g. `t=2, i=1`: `H_1(f;R) = 0`
+ versus `beta_{1,2} = 3`). This is what makes mutation M4 a real red mutation.
+ 
+ **Step 9 (what a quantum algorithm actually costs — the O2 repair).** Let `M_N = dim R_N`,
+ `h_N = HF_{R/I}(N)`, `b = C(n+1,i)`.
+ 9.1 *Two different outputs, and the right operator for each (O17).* The **ambient-normalised**
+ fraction is `beta_{i,j}/(M_N b)`. It is the normalised trace of the **harmonic projector on
+ `W_N ⊗ Lambda^i` extended by zero** to `R_N ⊗ Lambda^i` — it is **not** the zero-eigenvalue
+ fraction of `L_W` extended by zero, because that extension makes the whole orthogonal
+ complement of `W_N ⊗ Lambda^i` a spurious zero eigenspace of dimension `(M_N - h_N) b`. The
+ operator to filter is therefore
+ `L~_{i,N} = L_W + j (1 - P̂_N)`, `j = N + i > 0`,
+ whose zero eigenspace is exactly the harmonic subspace; the extra `(1 - P̂_N)` term is one more
+ use of the ground-space projector and must be priced. Part h reproduces the critic's instance
+ exactly: the 5-cycle at `(i,N) = (3,2)` has `M_N = 15`, `h_N = 10`, `b = 10`, `beta_{3,5} = 1`,
+ ambient ratio `1/150 = 0.006667`, whereas zero-extended `L_W` has nullity
+ `(15-10)·10 + 1 = 51`, i.e. `51/150 = 0.34`. The **`W_N`-conditional** fraction
+ `beta_{i,j}/(h_N b)` — the quantity the r0 memo claimed — is a conditional probability inside
+ `W_N` and is estimated only with normalised access to `W_N`.
+ 9.2 *The missing factor.* Converting requires preparing `P_{0,N}/h_N`, which succeeds from the
+ ambient mixed state with weight `h_N/M_N`; so either `Theta(M_N/h_N)` rejection samples, or
+ `sqrt(M_N/h_N)` coherent projections (exactly the black-box-projection cost of **C-096**), or
+ an assumed efficient preparation oracle for `P_{0,N}/h_N`. Any conditional-output claim
+ therefore needs the extra promise `h_N/M_N >= 1/poly(n)`.
+ 9.3 *How expensive that promise is — with the quantifier the evidence supports (O21).*
+ `h_N/M_N` is the normalised Hilbert function (D-normalised-hilbert-function). The applications
+ memo's codimension law, `≈ rho^{codim}` with `rho ≈ 0.75`, was **measured for complete
+ intersections of quadrics at `N = n`** (caution 1, F2), and in that family the factor is
+ exponentially small. It is **not** a statement about square systems in general: for `n` generic
+ forms of degree `n+1` in `P^n` — also a zero-dimensional square complete intersection — every
+ generator has degree `> N` at `N = n`, so `I_N = 0`, `h_N = M_N` and `h_N/M_N = 1`. Part h
+ prints both columns side by side (`0.667, 0.400, 0.229, 0.020` for the quadric family at
+ `n = 2,3,4,8` against `1.000` throughout for the degree-`(n+1)` family). The honest statement
+-is: **the conversion factor can be exponential, so no unconditional conditional-output
+-algorithm follows without a Hilbert-weight promise or a preparation oracle.** That retraction —
++is: **the acceptance weight can be exponentially small, making conditional normalization
++exponentially expensive; no unconditional conditional-output algorithm follows without a
++Hilbert-weight promise or preparation oracle.** That retraction —
+ r0 had declared the overlap trap untriggered — is the FATAL fix.
+ 9.4 *Per-call cost, adjacent degrees, and filtering repetitions (O11, O18).* On block `(i,N)`,
+ `L_W = q_{i,N}^† q_{i,N} + q_{i-1,N+1} q_{i-1,N+1}^†`; the first term uses `P_{0,N}`, but the
+ incoming term contains `Q P_{0,N+1} Q^†`. **Access to `H_N` alone, with a promise only on
+ `Delta_N/alpha_N`, does not construct the block**: a small `Delta_{N+1}` defeats the
+ implementation even under that promise. Part h shows the failure is not gradual — rebuilding
+ the incoming term without `P_{0,N+1}` gives `q^†q + (jP̂ - q^†q) = j·1`, nullity `0` instead of
+ `beta`, in every block tested. So *generator mode* must supply `H_N` **and** `H_{N+1}` with
+ their normalisations and promise `Delta_r/alpha_r >= 1/poly(n)` for every nontrivial required
+ projector `r in {N, N+1}`; *quotient mode* must supply **both** adjacent compressed maps
+ `Z_{k,N} : W_{N-1} -> W_N` and `Z_{k,N+1} : W_N -> W_{N+1}`. It remains true (O11) that
+ quotient mode needs no per-call QSVT at all — for a monomial ideal the standard-monomial
+ membership predicate gives the `Z_k` directly. Separately, kernel-projector filtering needs
+ `O((j/g_{i,N}) log(1/eps))` **repetitions** of a call; `j/g` is a repetition count, not a
+ per-call factor.
+ 9.5 *The honest totals.* Ambient-normalised output at additive `eps`, filtering `L~`:
+ `Õ( C_call · (j/g_{i,N}) · eps^{-2} )`, with `C_call = O(n)` under quotient access to both
+ adjacent degrees, and `C_call = O(n · max_{r in {N,N+1}} alpha_r/Delta_r)` under generator
+ access to `H_N` and `H_{N+1}`; the `(1 - P̂_N)` term of `L~` adds one more projector use.
+ Conditional output: multiply by `M_N/h_N` (sampling) or `sqrt(M_N/h_N)` (coherent), or assume
+ the preparation oracle.
+ 9.6 *One honest positive.* `beta_{i,j}(R/I)` is an invariant of `I`, so `dim ker L_W` does not
+ move when the generating tuple changes — the presentation-independence `Delta_N` lacks
+ (D-macaulay-gap pitfall (i), C-106). Arm B's *output* is better posed than arm A's.
+ 
+ ---
+ 
+ ## 2. Numerics
+ 
+ Regenerate with (15.0 s wall on this machine, exit 0):
+ 
+ ```bash
+ cd /home/tobias/Projects/quantum-algorithms-for-algebraic-geometry/checkers
+ timeout 900 python3 explore/koszul_laplacian.py
+ ```
+ 
+ `checkers/explore/koszul_laplacian.py` is an **exploration** script, excluded from
+ `run_all.sh`, and red-capable (L4): every block prints OK/MISMATCH, exit 1 on any mismatch,
+ exit 2 on an unexpected exception. Repairs made at r1 (all demanded by O12): (1) a **literature
+ fixture Betti table per ideal** is asserted and compared alongside the GF(p) value, so mutating
+ a fixture ideal can no longer make the script verify a new ideal against itself; (2) `X` is
+ **constructed** as `P̂ Q (1-P̂)` and used to test `L_W = (N+i)1 - X X^†`, instead of being
+ defined as the difference; (3) nullity uses `|ev| < TOL` and positivity (`lambda_min > -TOL`)
+ is tested separately; (4) all four mutations M1–M4 are **run in-process** and must come out
+ red, with M4 driven by the part-F comparison rather than asserted; (5) GF(p) results are
+ labelled by characteristic (`p = 10^9+7`; the tested examples are characteristic-independent,
+ as the critic's independent SymPy computation over `Q` confirmed). Added at r2: (6) part **h**, which computes the ambient
+ harmonic-projector trace via `L~ = L_W + j(1 - P̂_N)`, exhibits the wrong zero-extended
+ quantity beside it, shows that dropping `P_{0,N+1}` collapses the block, and prints the
+ `h_N/M_N` counterfamily of O21 — each with its own OK/MISMATCH line; and (7) an **independent
+ recomputation** of the complete-intersection block dimensions in part g (Hilbert series by
+ explicit polynomial multiplication, binomials by a Pascal recurrence) with an OK/MISMATCH
+ line, after O19 found the r1 memo table stale. **Residue (unchanged):** registering M1–M4 in
+ `checkers/MUTATIONS.md` is a merge action — that file is outside this lane's writable set.
+ 
+ **(a) nullity per block against two independent references.** Twisted cubic, Betti-carrying
+ blocks and neighbours (`null` = quantum-side nullity, `GF(p)` = Koszul-rank reference,
+ `fix` = literature fixture, `lam_min` = smallest eigenvalue, tested `> -TOL`):
+ 
+ ```
+  i  N   j  dimblk  null  GF(p)  fix             g_{i,N}  g/(N+i)    lam_min   beta/dim
+  0  0   0       1     1      1    1        OK       nan      nan   0.00e+00  1.000e+00
+  1  1   2      16     3      3    3        OK    2.0000   1.0000  -9.44e-16  1.875e-01
+  2  1   3      24     2      2    2        OK    1.3333   0.4444  -1.03e-19  8.333e-02
+  3  1   4      16     0      0    0        OK    1.0677   0.2669   1.07e+00  0.000e+00
+  1  2   3      28     0      0    0        OK    1.3333   0.4444   1.33e+00  0.000e+00
+   reg(R/I) = 1 (so reg(I) = 2); support condition is N = j-i <= reg(R/I), NOT j <= reg
+   prediction 'nullity = 0 for every N > reg(R/I)' to N = 8: OK
+ ```
+ 
+ Six ideals in all — twisted cubic, a complete intersection of two random integer quadrics in
+ `P^3` (`beta_{1,2}=2, beta_{2,4}=1`, `reg(R/I)=2`), the monomial ideal `(z0^2,z0z1,z1^3)` in
+ `P^2` (a genuine two-row table `beta_{1,2}=2, beta_{1,3}=1, beta_{2,3}=1, beta_{2,4}=1`),
+ `(z0^2,z0z1,z1^2)` in `P^2` (`3, 2`), the rational normal quartic in `P^4` (Eagon–Northcott
+ `6, 8, 3`) and the 5-cycle Stanley–Reisner ideal (`5, 5, 1`) — every block of every family, no
+ mismatch, all three columns agreeing, `L_W` PSD throughout.
+ 
+ **(b) the uncompressed Laplacian, `X` constructed, and the dead compression.**
+ 
+ ```
+@@ -370,326 +374,334 @@ growing i (Boolean-type CI, c = n, i = n): fraction = 1/(2^n (n+1))
+      8           2304            1    4.340e-04  OK
+     20       22020096            1    4.541e-08  OK
+ ```
+ 
+ (The `check` column is the independent recomputation demanded by O19. The r1 memo printed
+ `23730` and `886445` for `n = 20, c = 5`; the correct dimensions are `47460` and `2215780`,
+ and the fractions printed beside them were always right.)
+ 
+ The exact fraction is `C(c,i)/(HF(i) C(n+1,i))`. **For fixed `c` and `i` and `n -> infinity`
+ it is asymptotic to `C(c,i)(i!)^2 n^{-2i}`** — inverse-polynomial, but the block dimension is
+ then also polynomial, so nothing is compressed. For `c = n` and fixed `i` the fraction is
+ `~ i! n^{-i}`, again with polynomial dimension. When `i = rho n` both the dimension and the
+ Betti number can be exponential, but the fraction is exponentially small (`1/(2^n(n+1))` at
+ `i = n`). **No regime with exponential block dimension and an inverse-polynomially visible
+ fraction has been exhibited.** The r0 claim that arm B "survives F2 where arm A does not" is
+ retracted (O6, and see Step 9.3 for the `h_N/M_N` half of the same problem).
+ 
+ **(h) the ambient observable, adjacent-degree necessity, and the `h_N/M_N` counterfamily
+ (new at r2).**
+ 
+ ```
+   ideal               i  N   M_N  h_N    b  beta null(0-ext) null(Ltilde)      amb frac null(no P_N+1)
+   5-cycle SR P^4      3  2    15   10   10     1          51            1  OK  0.006667      0 OK (differs)
+   5-cycle SR P^4      2  1     5    5   10     5           5            5  OK  0.100000      0 OK (differs)
+   twisted cubic P^3   1  1     4    4    4     3           3            3  OK  0.187500      0 OK (differs)
+   twisted cubic P^3   2  1     4    4    6     2           2            2  OK  0.083333      0 OK (differs)
+ 
+   (O21)  n  quadrics h_n/M_n   deg-(n+1) h_n/M_n
+          2          0.666667            1.000000  OK
+          3          0.400000            1.000000  OK
+          4          0.228571            1.000000  OK
+          8          0.019891            1.000000  OK
+ ```
+ 
+ Three readings. (1) `null(0-ext) = (M_N - h_N) b + beta` while `null(Ltilde) = beta`: the
+ zero-extended `L_W` has a spurious zero eigenspace, and only the harmonic-projector filter
+ `L~ = L_W + j(1 - P̂_N)` returns the ambient fraction (O17). The 5-cycle row is the critic's
+ own instance — `51/150 = 0.34` against the correct `1/150 = 0.006667`. (2) Rebuilding the
+ incoming term without `P_{0,N+1}` gives nullity `0` in every block, because `P̂ L P̂ = j P̂`
+ forces `q^†q + (jP̂ - q^†q) = j·1`: adjacent-degree access is **necessary**, not an
+ optimisation (O18). (3) For `n` generic degree-`(n+1)` forms in `P^n` — a zero-dimensional
+ square complete intersection — `h_N/M_N = 1` at `N = n`, so the overlap obstruction is a
+ statement about the *measured* quadric family, not about square systems in general (O21).
+ 
+ ---
+ 
+ ## 3. Against the north star (PRD §2, criteria 1–5): none met
+ 
+ Adjudication rewritten to match the critic's audit (O14). Each criterion states what fails and
+ what survives.
+ 
+ **1. Problem — FAILS as stated in r0, and the r1 restatement still carried defects.** r0 had a
+ false support condition (`j <= reg`), undefined denominators and gaps, and no access model
+ (O1); r1 added unused thresholds `a < b`, omitted `eps` from the input, and imposed the
+ optional regularity promise on the single-block decision problem (O22). The problem now used is
+ **D-betti-estimation-problem = the critic's D8, copied verbatim** (§5): `eps` is an input, the
+ thresholds are gone, regularity is optional metadata for enumerating the whole table, and both
+ access modes supply **adjacent degrees** (`H_N` and `H_{N+1}`, or `Z_{k,N}` and `Z_{k,N+1}`) as
+ O18 requires. *Survives*: a well-posed problem whose output is a presentation-independent
+ invariant of `I`, once the spectral, access and (for conditional output) Hilbert-weight
+ promises are supplied.
+ 
+ **2. Classical baseline — FAILS: no common-oracle comparison is established.** The relevant
+ methods are named but this memo does **not** determine which is best under the same access
+ model, nor give a complexity comparison in all of `n, N, i, eps, Delta_N, g, h_N/M_N`, and the
+ `n = 10..40` / `10^3..10^6` syzygy sizes are folklore practice numbers, **not tied to a sourced
+ benchmark for this task**. Named methods: minimal free resolutions by Schreyer frames and
+ Hilbert-function pruning (La Scala–Stillman, *J. Symbolic Comput.* 26(4) 409–431 (1998),
+ DOI 10.1006/jsco.1998.0221); finite-dimensional syzygies by fast linear algebra
+ (**Neiger–Schost** — two authors, correcting classical memo [R31] — *J. Complexity* 60, 101502
+ (2020), DOI 10.1016/j.jco.2020.101502, arXiv:1912.01848; `O(m D^{omega-1} + n D^omega log D)`);
+ and the one that would actually compete, stochastic Chebyshev/Lanczos eigenvalue counting on
+ the same sparse Koszul matrices (Di Napoli–Polizzi–Saad, *Numer. Linear Algebra Appl.* 23(4)
+ 674–692 (2016), DOI 10.1002/nla.2048, arXiv:1308.4275). *Survives*: the observation that the
+ classical filter needs the same projectors at **both** adjacent degrees and the same gap
+ promises, so a fair comparison must give both sides the same quotient access at `N` and `N+1`;
+ and PRD D15 / SP-0 (C-264) refuses `n log N` qubits versus `M_N` words as a space separation.
+ 
+ **3. Quantum algorithm — FAILS (the r1 FATAL objection, and two further defects found at r2).**
+ (a) The `W_N`-normalisation cost was omitted; with it (Step 9.2) the conditional output carries
+-`M_N/h_N` or `sqrt(M_N/h_N)`. That factor is exponentially small **for the quadratic
+-complete-intersection family at `N = n`, and potentially exponentially small in general** — but
+-not for every square system, since `n` generic degree-`(n+1)` forms in `P^n` give
+-`h_N/M_N = 1` at `N = n` (Step 9.3, part h, O21). (b) The ambient output must be obtained by
++`M_N/h_N` or `sqrt(M_N/h_N)`. The acceptance weight `h_N/M_N` is exponentially small for the
++quadratic complete-intersection family at `N = n`, and potentially exponentially small in
++general; equivalently, the rejection-sampling cost `M_N/h_N` and coherent-projection cost
++`sqrt(M_N/h_N)` are exponentially large. The acceptance weight is not exponentially small
++for every square system, since `n` generic degree-`(n+1)` forms in `P^n` give `h_N/M_N = 1` at
++`N = n` (Step 9.3, part h, O21, O23). (b) The ambient output must be obtained by
+ filtering `L~ = L_W + j(1 - P̂_N)`, not from zero-extended `L_W` (Step 9.1, O17). (c) The block
+ cannot be built from `H_N` alone: the incoming term contains `Q P_{0,N+1} Q^†`, so both
+ adjacent degrees and both gap promises are required (Step 9.4, part h, O18). No advantage
+ margin over any baseline is proven. *Survives*: the normalised trace of the harmonic projector
+ extended by zero is `beta_{i,j}/(M_N C(n+1,i))`, and given direct adjacent compressed maps, or
+ generator access with good gaps at every required adjacent degree, the filtering cost has the
+ advertised `j/g_{i,N}` dependence; and `||L_W|| <= j`, so the Koszul layer itself needs no
+ `alpha_BE`-type normalisation.
+ 
+ **4. Dequantization audit — FAILS: the r0 conclusion does not follow.** Two independent
+ errors, both conceded.
+ (a) *Arithmetic (O3).* Apers–Gribling–Sen–Szabó, *Quantum* 7, 1202 (2023),
+ DOI 10.22331/q-2023-12-06-1202, arXiv:2211.09618, estimate the `k`-th normalised Betti number
+ of a simplicial complex to additive `eps` in `n^{O(gamma^{-1/2} log(1/eps))}`, `gamma` the
+ combinatorial-Laplacian gap. At `gamma = Omega(1)` **and constant `eps`** this is polynomial.
+ At `gamma = Omega(1)` and `eps = 1/poly(n)` it is `n^{O(log n)}` — quasi-polynomial, which
+ **still permits a super-polynomial separation** from a polynomial quantum algorithm. The r0
+ sentences "no super-polynomial quantum advantage exists at `gamma = Omega(1)`" and "the only
+ surviving window is `gamma = 1/poly(n)`" are **withdrawn**.
+ (b) *Access model (O4).* The theorem is proved for combinatorial Laplacians of simplicial
+ complexes, using their row structure and bounded path-integral weights. A generic `L_W`
+ contains the generally dense `P_0`; a QSVT block encoding is not a classical sparse-row oracle;
+ and this memo never constructs sparse row access to `L_W` from the generators. Even for
+ Stanley–Reisner ideals the total-degree block contains non-squarefree multidegrees beyond the
+ induced-complex summands (part d). *Survives*: the theorem applies directly to the squarefree
+ multidegree summands that are literally simplicial Laplacians, and there it says that at
+ constant normalised gap and constant additive error the classical estimator is polynomial time.
+ (c) *Hardness that does hold.* Schmidhuber–Lloyd, *PRX Quantum* 4, 040349 (2023),
+ DOI 10.1103/PRXQuantum.4.040349, arXiv:2209.14286: exact Betti numbers #P-hard, multiplicative
+ approximation NP-hard. Through Hochster this transfers to `beta_{i,j}` of Stanley–Reisner
+ ideals unconditionally, agreeing with classical memo §10, C-091/C-092 and D-hardness-anchors.
+ (d) *Hardness that does not transfer as claimed (O5).* King–Kohler, arXiv:2311.17234, FOCS
+ 2024, 493–504, DOI 10.1109/FOCS61266.2024.00039 (also SIAM J. Comput. FOCS24 section,
+ DOI 10.1137/24M1710243), prove the gapped result for **weighted** clique complexes; C1's Fock
+ metric produces the **unweighted** squarefree block and this memo supplies no encoding of
+ arbitrary vertex-product weights. Hayakawa, arXiv:2608.02726 (2026, arXiv only), supplies an
+ unweighted gapped theorem, but for **one** clique-complex Laplacian, whereas `g_{i,N}` is a
+ minimum over the target squarefree multidegree **and every other multidegree in the block**;
+ Hochster preserves nullity, not that global gap. Also QMA_1-hardness excludes a BQP algorithm
+ only under `QMA_1 ⊄ BQP`. *Survives*: unweighted gapped clique homology transfers to a
+ **squarefree-multidegree** version of the Betti-Laplacian problem; the total-block gapped
+ version is unresolved (row C-NEW-KB-QMA1 is HOLD).
+ (e) *Novelty caution.* Cade–Crichigno, arXiv:2107.00011, *Quantum* 8, 1325 (2024),
+ DOI 10.22331/q-2024-04-30-1325, already formalise "N=2 SUSY local Hamiltonian, ground energy
+ zero iff a cohomology group is nontrivial", prove QMA-completeness, **and prove DQC1-hardness
+ of normalised Betti estimation on general cochain complexes** (O16). Crichigno,
+ arXiv:2011.01239 (arXiv only): the Witten index is #P-complete. The mechanism is not new; only
+ the algebro-geometric instance is. *Correction retained*: Gyurik–Cade–Dunjko, *Quantum* 6, 855
+ (2022), DOI 10.22331/q-2022-11-10-855, arXiv:2005.02607, prove DQC1-hardness of **low-lying
+ spectral density estimation**, not of normalised Betti estimation for clique complexes.
+ (f) *Trap audit, corrected.* Dense rank — avoided. Changing the output — a normalised
+ fraction, and r0 named the **wrong** normalisation; fixed. Hidden state preparation — **now
+ priced** (Step 9.2), previously missing. **Exponentially small overlap — TRIGGERED**, retracting
+ the r0 claim that it was not: `h_N/M_N ≈ rho^{codim}` (Step 9.3). Hiding exponential `N` —
+ inapplicable (KB2). Ignoring gap closing — triggered (K-KB6, now with a proved counterfamily).
+ Ignoring classical preconditioning — triggered (K-KB9).
+ 
+ **5. Heuristic attack — FAILS: at most a small monomial demonstration.** The full Koszul
+ Laplacian is the *free* Hamiltonian `N̂ + F̂` (Step 4.1); all content sits in `P_0`, which is
+ not an interaction, so the generic problem still needs a nonphysical projector. *Survives*, and
+ with a wording correction (O14): for a **monomial** ideal `H_N` is diagonal (C-111), `P_0` is a
+ computational-basis projector, and `L_W` is a sparse number-conserving hopping Hamiltonian on
+ the standard monomials tensored with a Jordan–Wigner fermion register on `n+1` sites. The
+ smallest demonstration is the Stanley–Reisner ideal of the 4-cycle, `I = (z_0z_2, z_1z_3)`,
+ block `(i=1,N=1)`: one boson in four modes — a **four-mode path (ququart) encoding, not a
+ dual-rail encoding** — plus one fermion in four modes, a 16-level two-particle problem with
+ zero-energy degeneracy `beta_{1,2} = 2`. The 7-cycle at `(i=3,N=1)` is 245-dimensional with
+ degeneracy 35 and normalised gap 0.146. Second survivor: the generator-Koszul supercharge of
+ Step 8, a genuine `max_j m_j`-body boson–fermion interaction with no projector whose `i=0`
+ block is exactly `H_N` (part f) — the only natively physical object this lane found, and it
+ computes Koszul homology of the sequence, not the Betti table.
+ 
+ **Lockstep line.** No PRD §2 criterion 1–5 is met. Two rows are on HOLD —
+ **C-NEW-KB-QMA1** (missing: a polynomial reduction preserving the total-block normalised gap
+ across all non-squarefree summands) and **C-NEW-KB-GAP-INDEPENDENT** (missing: a total-block
+ counterfamily, a specified positive class of forbidden lower bounds, and any reverse-direction
+ result) — two are REFUTED (C-NEW-KB-DEQUANT, C-NEW-KB-NO-FREE-LUNCH) and six are CONJECTURE.
+ §3, the killers K-KB1..K-KB12, the rows of §6 and the definitions of §5 state the same
+ qualifiers: the overlap obstruction is family-named (O21), the gap statement is quantified over
+ `phi(1) > 0` on the squarefree summand only (O20), the ambient observable is the harmonic
+ projector (O17), and every access mode is adjacent-degree (O18).
+ 
+ ---
+ 
+ ## 4. Killers
+ 
+ **K-KB1 (support collapse; F3).** `beta_{i,j} = 0` for `j-i > reg(R/I)` (Step 6, part a), so
+ the useful block label satisfies `N <= reg(R/I)`; the twisted cubic, the rational normal curves
+ and every determinantal example in the seed's survey have `reg(R/I) <= 2`. It does **not**
+ preclude large `N` when regularity grows: D-boolean-ideal / D-clause-ideal have
+ `reg(R/I) = Theta(n)` — and are exactly the #P-hard families. Severity high.
+ 
+ **K-KB2 (the naive compression is information-free).** `P̂ L P̂ = (N+i) P̂` exactly (Step 4.3,
+ part b): "block-encode the projected Koszul Laplacian" returns a scalar. `L_W` must be built
+ from `q^† = sum_k Z_k ⊗ c_k`. Severity decisive for how the operator is presented; see K-KB9
+ for what it costs, which is **not** unconditionally a QSVT per call (O11).
+ 
+ **K-KB3 (the squarefree part is quantum TDA; the rest is not).** Hochster plus part d: the
+ **squarefree multidegree summands** of `L_W` for a Stanley–Reisner ideal are simplicial
+ Laplacians of induced subcomplexes, so #P-hardness of exact evaluation and NP-hardness of
+ multiplicative approximation transfer unconditionally (arXiv:2209.14286), and the
+ Apers et al. estimator applies there. The **non-squarefree** part of the total block is covered
+ by no cited theorem (part d: 42 of 49, 105 of 147, 7 of 294 dimensions squarefree). Severity
+ decisive for the speedup, and the source of the HOLD on C-NEW-KB-QMA1.
+ 
+ **K-KB4 (novelty of the mechanism).** Cade–Crichigno arXiv:2107.00011 own the SUSY/cohomology
+ Hamiltonian framework *and* DQC1-hardness of normalised Betti estimation on general cochain
+ complexes; only the algebro-geometric instance is new here. Action: a C-110-style scout on
+ whether "graded Betti numbers = nullity of a Laplacian built from compressed multiplications on
+ the Macaulay inverse system" already exists (operator theory, C-015/C-017, or physics).
+ Severity medium.
+ 
+ **K-KB5 (the cheap blocks are input data).** `beta_{1,j}` counts minimal generators and
+ `beta_{1,2} = dim I_2` is a rank (Step 7.3, every family). The first genuinely non-input block
+ is `i = 2`, where the fraction is `~ n^{-4}` at fixed `c` (part g). Severity medium.
+ 
+ **K-KB6 (a constant Macaulay gap does not ensure a uniformly positive squarefree Betti gap).**
+ Stated with the quantifier the evidence supports (O20): *"The `m`-cycle family rules out any
+ uniform strictly positive lower bound on the selected squarefree-summand gap depending only on
+ `Delta_2`: no `phi` with `phi(1) > 0` satisfies `g_sq >= phi(Delta_2)` throughout this family.
+ No total-block or reverse comparison is established."* The proof is Step 5.6 (`Delta_2 = 1`
+ for every `m`; `g_sq = 2-2cos(2 pi/m)`), checked in part e for `m = 4..12`. It does **not** rule
+ out `phi(1) = 0`, does not concern the total-block `g_{i,N}` beyond the finite observations
+ `m <= 8`, and proves no reverse inequality. `g_{i,N}` is an invariant of the ideal and the Fock
+ metric, **not** presentation-dependent (O7); its *realisation cost* through `H_N` is what
+ depends on the tuple. No lower bound on `g` is known for any interesting class. Severity high:
+ the runtime carries `j/g`.
+ 
+ **K-KB7 (no hardware hook for `L_W`).** The full Koszul Laplacian is the *free* Hamiltonian
+ (Step 4.1). Survivors: the monomial-ideal ququart demonstration of §3.5 and the generator-Koszul
+ Hamiltonian of Step 8, now verified to have the seed `H_N` as its `i=0` block. Severity high
+ against PRD criterion 5.
+ 
+ **K-KB8 (output).** Only a normalised fraction is estimable; recovering `beta` needs
+ `eps < 1/(2 dim)`, which #P-hardness forbids anyway. Severity medium; same kind as C-091/C-093.
+ 
+ **K-KB9 (the access model decides the cost, it must span two degrees, and preconditioning is
+ symmetric).** The block is `L_W = q_{i,N}^† q_{i,N} + q_{i-1,N+1} q_{i-1,N+1}^†`, and the
+ incoming term contains `Q P_{0,N+1} Q^†`, so **access to `H_N` alone with a promise only on
+ `Delta_N/alpha_N` does not construct it** (O18): a small `Delta_{N+1}` defeats the
+ implementation, and part h shows that removing `P_{0,N+1}` outright collapses the block to
+ `j·1`. Generator mode therefore needs `H_N` *and* `H_{N+1}` with
+ `Delta_r/alpha_r >= 1/poly(n)` for every nontrivial required `r in {N,N+1}`, and the cost is an
+ adjacent-degree maximum `O(n · max_r alpha_r/Delta_r)`; quotient mode needs both `Z_{k,N}` and
+ `Z_{k,N+1}` and then no per-call QSVT at all (O11). Whichever access is granted must be granted
+ to the classical baseline too, and the residual `n log N` qubits versus `M_N` words is refused
+ as a space separation by PRD D15 / SP-0 (C-264). The arm should make no space claim.
+ Severity high.
+ 
+ **K-KB10 (regularity, downgraded).** `reg(I)` is worst-case doubly exponential (Mayr–Meyer;
+ Bayer–Mumford), but it is needed only to **enumerate** the Betti table, not to answer one
+ requested `(i,j)`; and `reg(R/I) = reg(I) - 1`. Severity downgraded from medium to minor (O1).
+ 
+ **K-KB11 (the conditional normalisation is the overlap wall — for a named family).** The
+ `W_N`-conditional fraction costs `M_N/h_N` samples or `sqrt(M_N/h_N)` coherent projections
+-(Step 9.2, C-096). That factor is exponentially small **for the quadratic complete-intersection
+-family at `N = n`** — the family in which the applications memo's `0.75^codim` law was measured
+-(caution 1) — **and potentially exponentially small in general**; it is **not** exponentially
+-small for every square system, since `n` generic degree-`(n+1)` forms in `P^n` give
+-`h_N/M_N = 1` at `N = n` (part h, O21). The surviving statement is: *the conversion factor can
+-be exponential, so no unconditional conditional-output algorithm follows without a
+-Hilbert-weight promise or preparation oracle.* Separately (O17), even the **ambient** output
++(Step 9.2, C-096). The acceptance weight `h_N/M_N` is exponentially small for the
++quadratic complete-intersection family at `N = n`, and potentially exponentially small in
++general; equivalently, the rejection-sampling cost `M_N/h_N` and coherent-projection cost
++`sqrt(M_N/h_N)` are exponentially large. The quadratic complete-intersection family is the
++one in which the applications memo's `0.75^codim` law was measured (caution 1); explicitly,
++`h_n = 2^n` and `M_n = C(2n,n)`, so `h_n/M_n ~ sqrt(pi n)/2^n` and
++`M_n/h_n ~ 2^n/sqrt(pi n)` — at `n = 8` the checker's `h_n/M_n = 0.019891` is a cost of
++`50.27`, not a small number. The acceptance weight is **not** exponentially small for every
++square system, since `n` generic degree-`(n+1)` forms in `P^n` give `h_N/M_N = 1` at `N = n`
++(part h, O21). The surviving statement is: *the acceptance weight can be exponentially small,
++making conditional normalization exponentially expensive; no unconditional conditional-output
++algorithm follows without a Hilbert-weight promise or preparation oracle.* Separately (O17), even the **ambient**
++output
+ must be taken from the harmonic filter `L~ = L_W + j(1 - P̂_N)`, not from zero-extended `L_W`,
+ which has `(M_N - h_N)b` spurious zero modes. This is the r1 FATAL objection O2, corrected at
+ r2, turned into a killer; it supersedes the r0 claim that arm B escaped the overlap trap.
+ Severity decisive.
+ 
+ **K-KB12 (NEW at r1: the total-block gap is not a clique-complex gap).** `g_{i,N}` is a minimum
+ over every multidegree in the block, while every cited gapped-clique-homology theorem controls
+ one simplicial Laplacian (O5). Until the non-squarefree summands are bounded below, neither the
+ hardness transfer nor the dequantization transfer is licensed at the total-block level.
+ Severity decisive for C-NEW-KB-QMA1 and C-NEW-KB-DEQUANT.
+ 
+ Ranking before arm B is worth a prover seat:
+ **K-KB11 > K-KB6 > K-KB12 > K-KB3 > K-KB9 > K-KB1 > K-KB7 > K-KB4 > K-KB5 > K-KB2 > K-KB8 > K-KB10.**
+ 
+ ---
+ 
+ ## 5. Proposed definitions
+ 
+ Ids proposed; **none is yet a registered heading in `definitions/definitions.md`**, and a merge
+ must register these before any `C-NEW-KB-*` row that cites them (O13). Rewordings follow the
+ critic's "Proposed definitions adjudication".
+ 
+ - **D-fermionic-modes** (ACCEPTED unchanged). `c_k, c_k^†` (`k = 0..n`) on `Lambda(C^{n+1})`
+   with `{c_k, c_l^†} = delta_{kl}`; basis `|S>`, `S ⊆ {0..n}`;
+   `c_k^†|S> = (-1)^{#{l in S : l<k}}|S ∪ {k}>` for `k not in S`, else 0; `F̂ = sum_k c_k^† c_k`.
+   Pitfall: dropping the sign breaks `Q^2 = 0` (mutation M3, run in-process).
+ - **D-koszul-supercharge** (REWORDED per O10/O12). On the **finite-particle core** `R ⊗ Λ` of
+   `F ⊗ Lambda(C^{n+1})`, `Q = sum_k a_k ⊗ c_k^†` (D-mode-operators, D-fermionic-modes);
+   `Q^2 = 0` exactly; `Q` maps block `(i,N)` to `(i+1,N-1)` and preserves `j = N+i`. With
+   `P = ⊕_N P_{0,N}` the **degreewise direct-sum** ground-space projector and `P̂ = P ⊗ 1`, the
+   restriction `q = Q P̂ = P̂ Q P̂` is well defined because `W` is `a_k`-invariant. Under the
+   conjugate-linear Fock pairing `(W ⊗ Lambda, q)` is the **conjugate dual** of the Koszul
+   complex of `R/I` on the variables. Pitfall: `Q^†` does not restrict; its restriction is
+   `sum_k Z_k ⊗ c_k` (D-compressed-multiplication). `a_k, Q, L` are unbounded on the completion.
+ - **D-betti-laplacian** (REWORDED). Globally on `W ⊗ Lambda`, `L_W = q q^† + q^† q`, which
+   preserves each internal-degree sector `j` and each block `(i,N)`, `N + i = j`. On a fixed `j`
+   sector, `L_W = j P̂ - X X^†` with `X = P̂ Q (1 - P̂)`; hence `0 <= L_W <= j P̂` and
+   `||L_W|| <= j`. A block may have `L_W|(i,N) = 0` (no positive spectrum); such a block admits
+   no gap and no gap promise. Pitfall: `L_W != P̂ L P̂`, which is the scalar `j P̂`.
+ - **D-graded-betti-number** (REWORDED per O1/O9). `beta_{i,j}(R/I) = dim Tor_i^R(R/I,C)_j`;
+   `beta_{i,j} = 0` for `i > n+1` and for `j - i > reg(R/I)`, where
+   `reg(R/I) = max{j-i : beta_{i,j} != 0}` and `reg(I) = reg(R/I) + 1` for a nonzero proper
+   homogeneous ideal. `beta_{1,j}` counts minimal generators of `I` in degree `j`; `beta_{2,j}`
+   counts the degree-`j` minimal relations **in a minimal free resolution**, equivalently among
+   a **minimal homogeneous presentation** — the quotient `Syz/m Syz` of an arbitrary tuple's
+   syzygy module is *not* `beta_2` (counterexample `(x,x)`). `Syz(I)_N` (D-syzygy-module) is a
+   tuple invariant, not a Betti number.
+ - **D-betti-gap** — **REWORDED at r2; the critic's D5, copied verbatim:**
+   > For a block for which \(L_W|_{(i,N)}\) has at least one positive eigenvalue, let
+   > \(g_{i,N}=\lambda_{\min}^{>0}(L_W|_{(i,N)})\), with normalized gap
+   > \(g_{i,N}/(N+i)\). On a fixed \(j=N+i\) sector,
+   > \(g_{i,N}=j-\lambda_{\max}^{<j}(XX^\dagger)\). The gap is an invariant of the
+   > ideal and the Fock metric; only its realization through \(H_N\) is
+   > presentation-dependent. The \(m\)-cycle family rules out a uniformly positive
+   > lower bound depending only on \(\Delta_2\) for the selected squarefree summand
+   > when \(\phi(1)>0\); it establishes neither a total-block comparison nor a
+   > reverse inequality. The gap is undefined when the block has no positive
+   > spectrum.
+ - **D-normalised-betti-fraction** — **REWORDED at r2; the critic's D6, copied verbatim:**
+   > Let \(M_N=\dim R_N\), \(h_N=\mathrm{HF}_{R/I}(N)\), and
+   > \(b=\binom{n+1}{i}\). The ambient normalized Betti fraction is
+   > \(\beta_{i,i+N}/(M_Nb)\). It equals the normalized trace of the harmonic
+   > projector on \(W_N\otimes\Lambda^i\) extended by zero to
+   > \(R_N\otimes\Lambda^i\); it is not the zero-eigenvalue fraction of \(L_W\)
+   > extended by zero. When \(h_N>0\), the conditional fraction is
+   > \(\beta_{i,i+N}/(h_Nb)\). Estimating the conditional ratio requires normalized
+   > access to \(W_N\), with ambient acceptance weight \(h_N/M_N\), or an explicit
+   > preparation oracle.
+ - **D-generator-koszul-supercharge** (REWORDED). For positive-degree homogeneous
+   `f_1,...,f_d`, `Q_f = sum_j M_{f_j} ⊗ c_j` with **fermionic annihilators** `c_j` on
+   `Lambda(C^d)`, fermion `j` carrying internal weight `deg f_j` (a weighted internal grading).
+   On the finite-particle core `Q_f^2 = 0`; the fermion-number-zero Laplacian block is
+   `sum_j M_{f_j} M_{f_j}^† = H` (D-hamiltonian). Only the **zero-mode dimensions** of the higher
+   blocks compute `H_i(f;R) ≅ Tor_i^{C[y_1..y_d]}(C,R)`, and all positive homology vanishes iff
+   the positive-degree sequence is regular. Pitfall: these are not `beta_{i,j}(R/I)`.
+ - **D-betti-estimation-problem** — REJECTED at r1 and resubmitted; the r1 resubmission still
+   carried unused thresholds, a missing `eps` input and a contradictory regularity promise (O22),
+   and omitted adjacent-degree access (O18). **REWORDED at r2; the critic's D8, copied
+   verbatim:**
+   > Input consists of homogeneous \(f_1,\ldots,f_d\) in \(n+1\) variables with
+@@ -896,80 +908,110 @@ where-tested: none. Kept forever per L1.
+    DQC1-hardness of normalised Betti estimation on general cochain complexes. Before anything
+    else: does "graded Betti numbers = nullity of a Laplacian built from compressed
+    multiplications on the Macaulay inverse system" already exist? Run with C-110.
+ 6. **Reference and citation corrections to merge** (all fetched, all confirmed by the critic's
+    independent audit): classical memo [R31] is **Neiger & Schost**, two authors, arXiv:1912.01848;
+    Gyurik–Cade–Dunjko prove DQC1-hardness of **LLSD**, not of normalised Betti estimation;
+    Hochster 1977 has **no DOI** (cite Miller–Sturmfels GTM 227, DOI 10.1007/b138602); and this
+    memo's r0 citation of **Fact 7.1 as C-107 was wrong — it is C-103**.
+ 7. **Merge ordering (O13).** None of the seven `D-` ids exists yet in
+    `definitions/definitions.md`, and the `C-NEW-KB-*` ids are provisional. Register the
+    definitions first, then assign real C-ids, then merge the rows.
+ 8. **`MUTATIONS.md` residue.** M1–M4 now run in-process and are red, but this lane may not edit
+    `checkers/MUTATIONS.md`. Who registers them?
+ 
+ ---
+ 
+ ## 8. Repair r1 response
+ 
+ Verdict `verdicts/koszul-betti-r1.md`: FAIL(O1, O2, O3, O4, O5, O6, O7, O8, O9, O11, O13, O14),
+ O2 FATAL, eleven MAJOR, two MINOR, two NOTE. Every objection is dispositioned.
+ 
+ | objection | severity | disposition | location of the edit | note |
+ |---|---|---|---|---|
+ | O1 | MAJOR | FIXED | §1 Step 6; §3.1; D-graded-betti-number, D-betti-estimation-problem (P1); K-KB10; part-A print | Support condition is now `N = j-i <= reg(R/I)`; `reg(I) = reg(R/I)+1` stated; `HF(N)>0` and a non-vanishing block required; regularity needed only to enumerate the table, so K-KB10 downgraded. |
+ | O2 | **FATAL** | FIXED | §1 Step 9 (new, 6 sub-steps); §3.3, §3.4(f); K-KB11 (new); D-normalised-betti-fraction; D-betti-estimation-problem (P5); C-NEW-KB-NO-FREE-LUNCH | Ambient versus `W_N`-conditional fraction separated; conversion priced at `M_N/h_N` samples or `sqrt(M_N/h_N)` coherent projections (C-096) or an assumed preparation oracle; promise `h_N/M_N >= 1/poly(n)` added; the r0 "overlap trap not triggered" line retracted. |
+ | O3 | MAJOR | RETRACTED | §3.4(a); C-NEW-KB-DEQUANT (now REFUTED); K-KB3 | `n^{O(gamma^{-1/2} log(1/eps))}` is polynomial only at constant `eps`; at `eps = 1/poly(n)` it is `n^{O(log n)}`, so a super-polynomial separation stays permitted. Both r0 sentences withdrawn. |
+ | O4 | MAJOR | FIXED | §1 Step 5.5; §2 part d (`sqfree` column, new); §3.4(b); C-NEW-KB-HOCHSTER, C-NEW-KB-DEQUANT; K-KB12 (new) | Only the squarefree multidegree summands are simplicial Laplacians; the access-model hypothesis of Apers et al. is stated and the sparse-row oracle for a generic `L_W` is acknowledged as unconstructed. |
+ | O5 | MAJOR | DOWNGRADED | §3.4(d); C-NEW-KB-QMA1 (HOLD); K-KB12 | Gap preservation is no longer claimed; hardness is stated for the squarefree-multidegree version, weighted-vs-unweighted distinguished, and `QMA_1 ⊄ BQP` conditionality noted. |
+ | O6 | MAJOR | FIXED | §2 part g (block dimensions printed, `i=n` row added); C-NEW-KB-FRACTION (critic's wording verbatim); K-KB5 | Regimes for `c` and `i` stated separately; the "arm B survives F2" claim retracted; polynomial block dimension at fixed `i` recorded in the row. |
+ | O7 | MAJOR | FIXED + partly supplied | §1 Steps 5.4, 5.6; §2 part e (new); D-betti-gap; C-NEW-KB-GAP-INDEPENDENT (HOLD); K-KB6 | "Presentation-dependent" withdrawn (`g` is ideal- and metric-dependent). A **proved** infinite counterfamily added: `m`-cycle, `Delta_2 = 1` versus squarefree gap `2-2cos(2 pi/m)`, verified `m = 4..12`. |
+ | O8 | MAJOR | FIXED | §1 Step 5.3; §2 part c (new O8 check, max deviation 2.1e-14) | Replaced by the per-differential singular-value pairing; the false adjacent-block claim removed and the critic's counterexample (`g(0,3)=3` vs `g(1,2)=4/3`) printed. |
+ | O9 | MAJOR | FIXED | §1 Step 7.2; D-graded-betti-number | `beta_2` restricted to a minimal free resolution / minimal presentation; the `(x,x)` counterexample recorded. |
+ | O10 | MINOR | FIXED | §1 preamble; Step 3.2; D-koszul-supercharge; C-NEW-KB-HODGE (verbatim) | Conjugate-linear duality and Hilbert adjoints; all full-Fock identities asserted on the finite-particle core with closures understood. |
+ | O11 | MAJOR | RETRACTED | §1 Step 9.4; §3.3; K-KB2 and K-KB9 (split); C-NEW-KB-NO-FREE-LUNCH (REFUTED) | "Every evaluation requires `P_0`" is false under quotient access; per-call cost separated from `O((j/g)log(1/eps))` filtering repetitions; the normalisation cost of O2 added. |
+ | O12 | MINOR | FIXED (one RESIDUE) | `checkers/explore/koszul_laplacian.py` docstring, `FIXTURES`, `X_block`, `nullity_and_gap`, `mutations()`; §2 preamble | Literature fixture tables added (so a fixture mutation is now caught); `X` constructed, not inferred; `abs(ev)<TOL` plus separate PSD test; M1–M4 run in-process, M4 driven by part f; GF(p) labelled by characteristic. **RESIDUE**: registering M1–M4 in `checkers/MUTATIONS.md` is outside this lane's writable set. |
+ | O13 | MAJOR | FIXED | Status header; §5 preamble; §6 preamble; §7 Q7; Fact 7.1 citation in Step 5.4 and K-KB6 | "Theorem", "settled" and "product" language removed; all rows explicitly conjectural; unregistered `D-` ids and provisional `C-NEW` ids flagged with a merge order; **C-107 corrected to C-103**. |
+ | O14 | MAJOR | FIXED | §3 rewritten: every criterion now opens "FAILS" with the surviving statement | None of PRD §2 criteria 1–5 is met; the ququart-vs-dual-rail wording corrected in §3.5; the memo is recast as a conditional dictionary identification plus a hardness probe. |
+ | O15 | NOTE | FIXED (retained) | §1 Steps 1–4, 6, with the O10 corrections applied | Core finite-dimensional mathematics retained as the critic confirms it, with conjugate-dual and operator-domain wording. |
+ | O16 | NOTE | FIXED | §3.4(a)–(e); §7 Q6 | Identifiers preserved; theorem applications rewritten to the exact access models, weights and gaps; Cade–Crichigno's DQC1-hardness for general cochain complexes added to the novelty caution. |
+ 
+ Dispositions over all 16 objections: FIXED 13 (O1, O2, O4, O6, O7, O8, O9, O10, O12, O13,
+ O14, O15, O16), RETRACTED 2 (O3, O11), DOWNGRADED 1 (O5); one RESIDUE inside O12 (registering
+ M1-M4 in `checkers/MUTATIONS.md`, outside this lane's writable set).
+ 
+ Rows after repair: 10 (CONJECTURE 6, REFUTED 2, HOLD 2, deleted 0).
+ Definitions after repair: 8 (accepted unchanged 1, reworded 6, rejected-and-resubmitted 1,
+ deleted 0).
+ 
+ ---
+ 
+ ## 9. Repair r2 response
+ 
+ Verdict `verdicts/koszul-betti-r2.md`: FAIL(O17, O18, O20, O21), four MAJOR plus O19 and O22
+ MINOR. Of the sixteen r1 objections the critic marks eleven VERIFIED and five NOT VERIFIED
+ (O1 via O22, O2 via O17/O18/O21, O6 via O19, O7 via O20, O11 via O18, plus the standing O12
+ `MUTATIONS.md` residue). All ten rows keep their r1 status; every definition is ACCEPT except
+ three, replaced below by the critic's D5, D6 and D8 **copied verbatim**.
+ 
+ | objection | severity | disposition | location of the edit | note |
+ |---|---|---|---|---|
+ | O17 | MAJOR | FIXED | §1 Step 9.1 (rewritten); status header bullet (ii); §2 part h (new); §3 criterion 3(b); K-KB11; D-normalised-betti-fraction (= D6 verbatim); D-betti-estimation-problem (= D8 verbatim) | The ambient fraction is the normalised trace of the **harmonic** projector extended by zero, reached by filtering `L~ = L_W + (N+i)(1 - P̂_N)`; zero-extended `L_W` has `(M_N-h_N)b` spurious zero modes. Part h reproduces the critic's 5-cycle instance exactly: `null(0-ext) = 51`, `null(Ltilde) = 1`, `1/150 = 0.006667` against `51/150 = 0.34`. The extra projector use is priced in Step 9.5. |
+ | O18 | MAJOR | FIXED | §1 Steps 9.4–9.5 (rewritten); §2 part h (last column); §3 criteria 1, 2, 3(c); K-KB9 (rewritten); D-betti-estimation-problem (= D8 verbatim); C-NEW-KB-NO-FREE-LUNCH surviving statement; §7 Q3 | The incoming term contains `Q P_{0,N+1} Q^†`, so generator mode must supply `H_N` **and** `H_{N+1}` with `Delta_r/alpha_r >= 1/poly(n)` for every nontrivial required `r in {N,N+1}`, and quotient mode both `Z_{k,N}` and `Z_{k,N+1}`. `O(n alpha_BE/Delta_N)` replaced by the adjacent-degree maximum. Part h shows the failure is total, not gradual: dropping `P_{0,N+1}` gives `q^†q + (jP̂ - q^†q) = j·1`, nullity `0` instead of `beta`, in every block tested. |
+ | O19 | MINOR | FIXED | `checkers/explore/koszul_laplacian.py` `ci_fraction_table()` (independent Hilbert-series and Pascal recomputation, `check` column); §2 part g table | The r1 memo printed `23730` and `886445` for `n = 20, c = 5`; the correct dimensions are `47460` and `2215780`. The table is now pasted from the script, which recomputes every dimension by a second route and prints OK/MISMATCH. |
+ | O20 | MAJOR | DOWNGRADED | §1 Step 5.6 (critic's sentence quoted); K-KB6 (rewritten); D-betti-gap (= D5 verbatim); C-NEW-KB-GAP-INDEPENDENT (missing steps in the critic's r2 words) | The categorical "no lower bound `g >= phi(Delta_N)` exists" is replaced everywhere by: the `m`-cycle family rules out any uniform strictly positive lower bound on the **selected squarefree-summand** gap depending only on `Delta_2`, i.e. no `phi` with `phi(1) > 0`; `phi(1) = 0` is not excluded, no total-block comparison and no reverse inequality is established. |
+ | O21 | MAJOR | DOWNGRADED | Status header bullet (ii); §1 Step 9.3 (rewritten); §2 part h (second table, new); §3 criterion 3(a); K-KB11 (rewritten) | "Exponentially small for every square system" is replaced by "exponentially small for the quadratic complete-intersection family at `N = n`, and potentially exponentially small in general". The script now prints the critic's counterfamily: `n` generic degree-`(n+1)` forms in `P^n` give `h_n/M_n = 1` at `N = n` for `n = 2,3,4,8`, against `0.667, 0.400, 0.229, 0.020` for the quadric family. The explicit `h_N/M_N` promise is preserved. |
+ | O22 | MINOR | FIXED | D-betti-estimation-problem (replaced by D8 verbatim); §3 criterion 1 | The unused thresholds `a < b` are gone, `eps` is an input, and the optional regularity bound no longer appears among the promises of the single-block decision problem — it is metadata used only when enumerating the whole table. |
+ 
+ Standing residue, unchanged and outside this lane's writable files: M1–M4 run in-process and are
+ red but are still absent from `checkers/MUTATIONS.md` (r1 O12; the r2 verdict records this as
+ NOT VERIFIED). Registering them is a merge action; §7 Q8 asks who does it.
+ 
+ Dispositions over the six r2 objections: FIXED 4 (O17, O18, O19, O22), DOWNGRADED 2 (O20, O21),
+ RETRACTED 0; one standing RESIDUE carried from r1 O12.
+ 
+ Rows after repair: 10 (CONJECTURE 6, REFUTED 2, HOLD 2, deleted 0) — unchanged from r1, as the
+ r2 rows decision requires.
+ Definitions after repair: 8 (ACCEPT 5 — D-fermionic-modes, D-koszul-supercharge,
+ D-betti-laplacian, D-graded-betti-number, D-generator-koszul-supercharge; REWORDED verbatim at
+ r2 3 — D-betti-gap = D5, D-normalised-betti-fraction = D6, D-betti-estimation-problem = D8;
+ deleted 0).
++
++---
++
++## 10. Repair r3 response
++
++Verdict `verdicts/koszul-betti-r3.md`: FAIL(O23), one MAJOR. Of the six r2 objections the critic
++marks five VERIFIED (O17, O18, O19, O20, O22) and one NEW DEFECT inside O21, raised as O23. The
++exact-text audit passed on all seven required strings (D5, D6, D8, both HOLD missing-step
++sentences, both DEQUANT surviving statements, the NO-FREE-LUNCH surviving statement), and every
++row and definition is accepted. **No row and no definition is edited at r3.**
++
++| objection | severity | disposition | location of the edit | note |
++|---|---|---|---|---|
++| O23 | MAJOR | FIXED | status summary bullet (ii); §3 criterion 3(a); K-KB11; plus §1 Step 9.3's closing sentence, aligned to the r3 surviving statement | Three passages named the costs `M_N/h_N` and `sqrt(M_N/h_N)` and then called "that factor" exponentially small. The direction is reversed: for `n` quadrics in `P^n` at `N = n`, `h_n = 2^n` and `M_n = C(2n,n)`, so `h_n/M_n ~ sqrt(pi n)/2^n` is exponentially small while `M_n/h_n ~ 2^n/sqrt(pi n)` and its square root are exponentially **large** — at `n = 8` the checker's `h_n/M_n = 0.019891` is a cost of `50.27`. Each passage now carries the FIX DEMAND sentence verbatim: "The acceptance weight `h_N/M_N` is exponentially small for the quadratic complete-intersection family at `N = n`, and potentially exponentially small in general; equivalently, the rejection-sampling cost `M_N/h_N` and coherent-projection cost `sqrt(M_N/h_N)` are exponentially large." Step 9.3 already had the direction right (the critic confirms); its closing sentence is nevertheless brought into lockstep with the r3 surviving statement, "the acceptance weight can be exponentially small, making conditional normalization exponentially expensive; no unconditional conditional-output algorithm follows without a Hilbert-weight promise or preparation oracle." |
++
++Whole-memo sweep for the same error: the remaining occurrences of "exponentially small" are
++§1 Step 9.3 (the acceptance weight `h_N/M_N`, direction correct), §2 part g (the normalised
++Betti *fraction* `1/(2^n(n+1))`, not a cost), and the §9 r2-response row for O21, whose quoted
++phrases are the historical record of the r2 edit and refer to the acceptance weight; that audit
++trail is left intact, and O23 corrects the three summaries it produced. No other sentence in the
++memo calls a cost exponentially small.
++
++Dispositions over the single r3 objection: FIXED 1 (O23), RETRACTED 0, DOWNGRADED 0; the
++standing r1 O12 residue (M1–M4 red in-process but not registered in `checkers/MUTATIONS.md`,
++outside this lane's writable files) is unchanged.
++
++Rows after repair: 10 (CONJECTURE 6, REFUTED 2, HOLD 2, deleted 0) — unchanged, and no row text
++was edited at r3.
++Definitions after repair: 8 (ACCEPT 5, REWORDED verbatim at r2 3, deleted 0) — unchanged, and no
++definition text was edited at r3.
+
+exec
+/bin/bash -lc "rg -n -U -F 'The acceptance weight "'`h_N/M_N` is exponentially small for the quadratic complete-intersection family at `N = n`, and potentially exponentially small in general; equivalently, the rejection-sampling cost `M_N/h_N` and coherent-projection cost `sqrt(M_N/h_N)` are exponentially large.'"' scouting/koszul-betti.md" in /home/tobias/Projects/quantum-algorithms-for-algebraic-geometry
+ succeeded in 0ms:
+1001:| O23 | MAJOR | FIXED | status summary bullet (ii); §3 criterion 3(a); K-KB11; plus §1 Step 9.3's closing sentence, aligned to the r3 surviving statement | Three passages named the costs `M_N/h_N` and `sqrt(M_N/h_N)` and then called "that factor" exponentially small. The direction is reversed: for `n` quadrics in `P^n` at `N = n`, `h_n = 2^n` and `M_n = C(2n,n)`, so `h_n/M_n ~ sqrt(pi n)/2^n` is exponentially small while `M_n/h_n ~ 2^n/sqrt(pi n)` and its square root are exponentially **large** — at `n = 8` the checker's `h_n/M_n = 0.019891` is a cost of `50.27`. Each passage now carries the FIX DEMAND sentence verbatim: "The acceptance weight `h_N/M_N` is exponentially small for the quadratic complete-intersection family at `N = n`, and potentially exponentially small in general; equivalently, the rejection-sampling cost `M_N/h_N` and coherent-projection cost `sqrt(M_N/h_N)` are exponentially large." Step 9.3 already had the direction right (the critic confirms); its closing sentence is nevertheless brought into lockstep with the r3 surviving statement, "the acceptance weight can be exponentially small, making conditional normalization exponentially expensive; no unconditional conditional-output algorithm follows without a Hilbert-weight promise or preparation oracle." |
+
+exec
+/bin/bash -lc "rg -n -i 'exponentially small' scouting/koszul-betti.md" in /home/tobias/Projects/quantum-algorithms-for-algebraic-geometry
+ succeeded in 0ms:
+37:exponentially small for the quadratic complete-intersection family at `N = n`, and
+38:potentially exponentially small in general; equivalently, the rejection-sampling cost
+40:acceptance weight is **not** exponentially small for every square system (Step 9,
+205:exponentially small. It is **not** a statement about square systems in general: for `n` generic
+210:is: **the acceptance weight can be exponentially small, making conditional normalization
+386:Betti number can be exponential, but the fraction is exponentially small (`1/(2^n(n+1))` at
+454:`M_N/h_N` or `sqrt(M_N/h_N)`. The acceptance weight `h_N/M_N` is exponentially small for the
+455:quadratic complete-intersection family at `N = n`, and potentially exponentially small in
+457:`sqrt(M_N/h_N)` are exponentially large. The acceptance weight is not exponentially small
+512:priced** (Step 9.2), previously missing. **Exponentially small overlap — TRIGGERED**, retracting
+615:(Step 9.2, C-096). The acceptance weight `h_N/M_N` is exponentially small for the
+616:quadratic complete-intersection family at `N = n`, and potentially exponentially small in
+622:`50.27`, not a small number. The acceptance weight is **not** exponentially small for every
+624:(part h, O21). The surviving statement is: *the acceptance weight can be exponentially small,
+972:| O21 | MAJOR | DOWNGRADED | Status header bullet (ii); §1 Step 9.3 (rewritten); §2 part h (second table, new); §3 criterion 3(a); K-KB11 (rewritten) | "Exponentially small for every square system" is replaced by "exponentially small for the quadratic complete-intersection family at `N = n`, and potentially exponentially small in general". The script now prints the critic's counterfamily: `n` generic degree-`(n+1)` forms in `P^n` give `h_n/M_n = 1` at `N = n` for `n = 2,3,4,8`, against `0.667, 0.400, 0.229, 0.020` for the quadric family. The explicit `h_N/M_N` promise is preserved. |
+1001:| O23 | MAJOR | FIXED | status summary bullet (ii); §3 criterion 3(a); K-KB11; plus §1 Step 9.3's closing sentence, aligned to the r3 surviving statement | Three passages named the costs `M_N/h_N` and `sqrt(M_N/h_N)` and then called "that factor" exponentially small. The direction is reversed: for `n` quadrics in `P^n` at `N = n`, `h_n = 2^n` and `M_n = C(2n,n)`, so `h_n/M_n ~ sqrt(pi n)/2^n` is exponentially small while `M_n/h_n ~ 2^n/sqrt(pi n)` and its square root are exponentially **large** — at `n = 8` the checker's `h_n/M_n = 0.019891` is a cost of `50.27`. Each passage now carries the FIX DEMAND sentence verbatim: "The acceptance weight `h_N/M_N` is exponentially small for the quadratic complete-intersection family at `N = n`, and potentially exponentially small in general; equivalently, the rejection-sampling cost `M_N/h_N` and coherent-projection cost `sqrt(M_N/h_N)` are exponentially large." Step 9.3 already had the direction right (the critic confirms); its closing sentence is nevertheless brought into lockstep with the r3 surviving statement, "the acceptance weight can be exponentially small, making conditional normalization exponentially expensive; no unconditional conditional-output algorithm follows without a Hilbert-weight promise or preparation oracle." |
+1003:Whole-memo sweep for the same error: the remaining occurrences of "exponentially small" are
+1008:memo calls a cost exponentially small.
+
+exec
+/bin/bash -lc 'git diff --no-ext-diff --unified=4 f4a8ace HEAD -- scouting/koszul-betti.md' in /home/tobias/Projects/quantum-algorithms-for-algebraic-geometry
+ succeeded in 0ms:
+diff --git a/scouting/koszul-betti.md b/scouting/koszul-betti.md
+index 3289a6a..698c053 100644
+--- a/scouting/koszul-betti.md
++++ b/scouting/koszul-betti.md
+@@ -31,12 +31,15 @@ on the full Fock ⊗ Λ space the Koszul Laplacian is identically the free numbe
+ an ambient trace of the harmonic projector, and the useful one is conditional on `W_N`*: the
+ ambient fraction `beta_{i,j}/(M_N C(n+1,i))` is the normalised trace of the harmonic projector
+ on `W_N ⊗ Lambda^i` **extended by zero**, reached by filtering `L~ = L_W + (N+i)(1 - P̂_N)` and
+ **not** by the zero-eigenvalue fraction of `L_W` extended by zero (O17); converting it to the
+-conditional fraction `beta_{i,j}/(HF(N) C(n+1,i))` costs `M_N/HF(N)` samples or
+-`sqrt(M_N/HF(N))` coherent projections (C-096), a factor that is exponentially small for the
+-quadratic complete-intersection family at `N = n` and potentially exponentially small in
+-general, but **not** for every square system (Step 9, K-KB11). (iii) *Betti information
++conditional fraction `beta_{i,j}/(HF(N) C(n+1,i))` costs `M_N/h_N` samples or
++`sqrt(M_N/h_N)` coherent projections (C-096). The acceptance weight `h_N/M_N` is
++exponentially small for the quadratic complete-intersection family at `N = n`, and
++potentially exponentially small in general; equivalently, the rejection-sampling cost
++`M_N/h_N` and coherent-projection cost `sqrt(M_N/h_N)` are exponentially large (O23). The
++acceptance weight is **not** exponentially small for every square system (Step 9,
++K-KB11). (iii) *Betti information
+ lives only at `N = j - i <= reg(R/I)`* (Step 6, K-KB1) —
+ note `N`, not `j`, and `reg(R/I) = reg(I) - 1`. (iv) *Only the squarefree multidegree summands
+ are simplicial Laplacians*, so the quantum-TDA hardness and dequantization theorems transfer
+ to a squarefree-multidegree version of the problem and **not** to the total-degree block
+@@ -203,10 +206,11 @@ exponentially small. It is **not** a statement about square systems in general:
+ forms of degree `n+1` in `P^n` — also a zero-dimensional square complete intersection — every
+ generator has degree `> N` at `N = n`, so `I_N = 0`, `h_N = M_N` and `h_N/M_N = 1`. Part h
+ prints both columns side by side (`0.667, 0.400, 0.229, 0.020` for the quadric family at
+ `n = 2,3,4,8` against `1.000` throughout for the degree-`(n+1)` family). The honest statement
+-is: **the conversion factor can be exponential, so no unconditional conditional-output
+-algorithm follows without a Hilbert-weight promise or a preparation oracle.** That retraction —
++is: **the acceptance weight can be exponentially small, making conditional normalization
++exponentially expensive; no unconditional conditional-output algorithm follows without a
++Hilbert-weight promise or preparation oracle.** That retraction —
+ r0 had declared the overlap trap untriggered — is the FATAL fix.
+ 9.4 *Per-call cost, adjacent degrees, and filtering repetitions (O11, O18).* On block `(i,N)`,
+ `L_W = q_{i,N}^† q_{i,N} + q_{i-1,N+1} q_{i-1,N+1}^†`; the first term uses `P_{0,N}`, but the
+ incoming term contains `Q P_{0,N+1} Q^†`. **Access to `H_N` alone, with a promise only on
+@@ -446,12 +450,14 @@ promises, so a fair comparison must give both sides the same quotient access at
+ and PRD D15 / SP-0 (C-264) refuses `n log N` qubits versus `M_N` words as a space separation.
+ 
+ **3. Quantum algorithm — FAILS (the r1 FATAL objection, and two further defects found at r2).**
+ (a) The `W_N`-normalisation cost was omitted; with it (Step 9.2) the conditional output carries
+-`M_N/h_N` or `sqrt(M_N/h_N)`. That factor is exponentially small **for the quadratic
+-complete-intersection family at `N = n`, and potentially exponentially small in general** — but
+-not for every square system, since `n` generic degree-`(n+1)` forms in `P^n` give
+-`h_N/M_N = 1` at `N = n` (Step 9.3, part h, O21). (b) The ambient output must be obtained by
++`M_N/h_N` or `sqrt(M_N/h_N)`. The acceptance weight `h_N/M_N` is exponentially small for the
++quadratic complete-intersection family at `N = n`, and potentially exponentially small in
++general; equivalently, the rejection-sampling cost `M_N/h_N` and coherent-projection cost
++`sqrt(M_N/h_N)` are exponentially large. The acceptance weight is not exponentially small
++for every square system, since `n` generic degree-`(n+1)` forms in `P^n` give `h_N/M_N = 1` at
++`N = n` (Step 9.3, part h, O21, O23). (b) The ambient output must be obtained by
+ filtering `L~ = L_W + j(1 - P̂_N)`, not from zero-extended `L_W` (Step 9.1, O17). (c) The block
+ cannot be built from `H_N` alone: the incoming term contains `Q P_{0,N+1} Q^†`, so both
+ adjacent degrees and both gap promises are required (Step 9.4, part h, O18). No advantage
+ margin over any baseline is proven. *Survives*: the normalised trace of the harmonic projector
+@@ -605,15 +611,21 @@ Bayer–Mumford), but it is needed only to **enumerate** the Betti table, not to
+ requested `(i,j)`; and `reg(R/I) = reg(I) - 1`. Severity downgraded from medium to minor (O1).
+ 
+ **K-KB11 (the conditional normalisation is the overlap wall — for a named family).** The
+ `W_N`-conditional fraction costs `M_N/h_N` samples or `sqrt(M_N/h_N)` coherent projections
+-(Step 9.2, C-096). That factor is exponentially small **for the quadratic complete-intersection
+-family at `N = n`** — the family in which the applications memo's `0.75^codim` law was measured
+-(caution 1) — **and potentially exponentially small in general**; it is **not** exponentially
+-small for every square system, since `n` generic degree-`(n+1)` forms in `P^n` give
+-`h_N/M_N = 1` at `N = n` (part h, O21). The surviving statement is: *the conversion factor can
+-be exponential, so no unconditional conditional-output algorithm follows without a
+-Hilbert-weight promise or preparation oracle.* Separately (O17), even the **ambient** output
++(Step 9.2, C-096). The acceptance weight `h_N/M_N` is exponentially small for the
++quadratic complete-intersection family at `N = n`, and potentially exponentially small in
++general; equivalently, the rejection-sampling cost `M_N/h_N` and coherent-projection cost
++`sqrt(M_N/h_N)` are exponentially large. The quadratic complete-intersection family is the
++one in which the applications memo's `0.75^codim` law was measured (caution 1); explicitly,
++`h_n = 2^n` and `M_n = C(2n,n)`, so `h_n/M_n ~ sqrt(pi n)/2^n` and
++`M_n/h_n ~ 2^n/sqrt(pi n)` — at `n = 8` the checker's `h_n/M_n = 0.019891` is a cost of
++`50.27`, not a small number. The acceptance weight is **not** exponentially small for every
++square system, since `n` generic degree-`(n+1)` forms in `P^n` give `h_N/M_N = 1` at `N = n`
++(part h, O21). The surviving statement is: *the acceptance weight can be exponentially small,
++making conditional normalization exponentially expensive; no unconditional conditional-output
++algorithm follows without a Hilbert-weight promise or preparation oracle.* Separately (O17), even the **ambient**
++output
+ must be taken from the harmonic filter `L~ = L_W + j(1 - P̂_N)`, not from zero-extended `L_W`,
+ which has `(M_N - h_N)b` spurious zero modes. This is the r1 FATAL objection O2, corrected at
+ r2, turned into a killer; it supersedes the r0 claim that arm B escaped the overlap trap.
+ Severity decisive.
+@@ -972,4 +984,34 @@ r2 rows decision requires.
+ Definitions after repair: 8 (ACCEPT 5 — D-fermionic-modes, D-koszul-supercharge,
+ D-betti-laplacian, D-graded-betti-number, D-generator-koszul-supercharge; REWORDED verbatim at
+ r2 3 — D-betti-gap = D5, D-normalised-betti-fraction = D6, D-betti-estimation-problem = D8;
+ deleted 0).
++
++---
++
++## 10. Repair r3 response
++
++Verdict `verdicts/koszul-betti-r3.md`: FAIL(O23), one MAJOR. Of the six r2 objections the critic
++marks five VERIFIED (O17, O18, O19, O20, O22) and one NEW DEFECT inside O21, raised as O23. The
++exact-text audit passed on all seven required strings (D5, D6, D8, both HOLD missing-step
++sentences, both DEQUANT surviving statements, the NO-FREE-LUNCH surviving statement), and every
++row and definition is accepted. **No row and no definition is edited at r3.**
++
++| objection | severity | disposition | location of the edit | note |
++|---|---|---|---|---|
++| O23 | MAJOR | FIXED | status summary bullet (ii); §3 criterion 3(a); K-KB11; plus §1 Step 9.3's closing sentence, aligned to the r3 surviving statement | Three passages named the costs `M_N/h_N` and `sqrt(M_N/h_N)` and then called "that factor" exponentially small. The direction is reversed: for `n` quadrics in `P^n` at `N = n`, `h_n = 2^n` and `M_n = C(2n,n)`, so `h_n/M_n ~ sqrt(pi n)/2^n` is exponentially small while `M_n/h_n ~ 2^n/sqrt(pi n)` and its square root are exponentially **large** — at `n = 8` the checker's `h_n/M_n = 0.019891` is a cost of `50.27`. Each passage now carries the FIX DEMAND sentence verbatim: "The acceptance weight `h_N/M_N` is exponentially small for the quadratic complete-intersection family at `N = n`, and potentially exponentially small in general; equivalently, the rejection-sampling cost `M_N/h_N` and coherent-projection cost `sqrt(M_N/h_N)` are exponentially large." Step 9.3 already had the direction right (the critic confirms); its closing sentence is nevertheless brought into lockstep with the r3 surviving statement, "the acceptance weight can be exponentially small, making conditional normalization exponentially expensive; no unconditional conditional-output algorithm follows without a Hilbert-weight promise or preparation oracle." |
++
++Whole-memo sweep for the same error: the remaining occurrences of "exponentially small" are
++§1 Step 9.3 (the acceptance weight `h_N/M_N`, direction correct), §2 part g (the normalised
++Betti *fraction* `1/(2^n(n+1))`, not a cost), and the §9 r2-response row for O21, whose quoted
++phrases are the historical record of the r2 edit and refer to the acceptance weight; that audit
++trail is left intact, and O23 corrects the three summaries it produced. No other sentence in the
++memo calls a cost exponentially small.
++
++Dispositions over the single r3 objection: FIXED 1 (O23), RETRACTED 0, DOWNGRADED 0; the
++standing r1 O12 residue (M1–M4 red in-process but not registered in `checkers/MUTATIONS.md`,
++outside this lane's writable files) is unchanged.
++
++Rows after repair: 10 (CONJECTURE 6, REFUTED 2, HOLD 2, deleted 0) — unchanged, and no row text
++was edited at r3.
++Definitions after repair: 8 (ACCEPT 5, REWORDED verbatim at r2 3, deleted 0) — unchanged, and no
++definition text was edited at r3.
+
+exec
+/bin/bash -lc "diff -u <(git show f4a8ace:scouting/koszul-betti.md | sed -n '/"'^## 5'"\\./,/"'^## 7'"\\./p' | sed '"'$d'"') <(sed -n '/"'^## 5'"\\./,/"'^## 7'"\\./p' scouting/koszul-betti.md | sed '"'$d'"')" in /home/tobias/Projects/quantum-algorithms-for-algebraic-geometry
+ succeeded in 0ms:
+exec
+/bin/bash -lc "rg -n -i -o 'exponentially small' scouting/koszul-betti.md" in /home/tobias/Projects/quantum-algorithms-for-algebraic-geometry
+ succeeded in 0ms:
+37:exponentially small
+38:exponentially small
+40:exponentially small
+205:exponentially small
+210:exponentially small
+386:exponentially small
+454:exponentially small
+455:exponentially small
+457:exponentially small
+512:Exponentially small
+615:exponentially small
+616:exponentially small
+622:exponentially small
+624:exponentially small
+972:Exponentially small
+972:exponentially small
+972:exponentially small
+1001:exponentially small
+1001:exponentially small
+1001:exponentially small
+1001:exponentially small
+1001:exponentially small
+1003:exponentially small
+1008:exponentially small
+
+exec
+/bin/bash -lc "sed -n '190,215p;375,390p;445,462p;505,515p;608,628p;965,975p;995,1010p' scouting/koszul-betti.md" in /home/tobias/Projects/quantum-algorithms-for-algebraic-geometry
+ succeeded in 0ms:
+use of the ground-space projector and must be priced. Part h reproduces the critic's instance
+exactly: the 5-cycle at `(i,N) = (3,2)` has `M_N = 15`, `h_N = 10`, `b = 10`, `beta_{3,5} = 1`,
+ambient ratio `1/150 = 0.006667`, whereas zero-extended `L_W` has nullity
+`(15-10)·10 + 1 = 51`, i.e. `51/150 = 0.34`. The **`W_N`-conditional** fraction
+`beta_{i,j}/(h_N b)` — the quantity the r0 memo claimed — is a conditional probability inside
+`W_N` and is estimated only with normalised access to `W_N`.
+9.2 *The missing factor.* Converting requires preparing `P_{0,N}/h_N`, which succeeds from the
+ambient mixed state with weight `h_N/M_N`; so either `Theta(M_N/h_N)` rejection samples, or
+`sqrt(M_N/h_N)` coherent projections (exactly the black-box-projection cost of **C-096**), or
+an assumed efficient preparation oracle for `P_{0,N}/h_N`. Any conditional-output claim
+therefore needs the extra promise `h_N/M_N >= 1/poly(n)`.
+9.3 *How expensive that promise is — with the quantifier the evidence supports (O21).*
+`h_N/M_N` is the normalised Hilbert function (D-normalised-hilbert-function). The applications
+memo's codimension law, `≈ rho^{codim}` with `rho ≈ 0.75`, was **measured for complete
+intersections of quadrics at `N = n`** (caution 1, F2), and in that family the factor is
+exponentially small. It is **not** a statement about square systems in general: for `n` generic
+forms of degree `n+1` in `P^n` — also a zero-dimensional square complete intersection — every
+generator has degree `> N` at `N = n`, so `I_N = 0`, `h_N = M_N` and `h_N/M_N = 1`. Part h
+prints both columns side by side (`0.667, 0.400, 0.229, 0.020` for the quadric family at
+`n = 2,3,4,8` against `1.000` throughout for the degree-`(n+1)` family). The honest statement
+is: **the acceptance weight can be exponentially small, making conditional normalization
+exponentially expensive; no unconditional conditional-output algorithm follows without a
+Hilbert-weight promise or preparation oracle.** That retraction —
+r0 had declared the overlap trap untriggered — is the FATAL fix.
+9.4 *Per-call cost, adjacent degrees, and filtering repetitions (O11, O18).* On block `(i,N)`,
+`L_W = q_{i,N}^† q_{i,N} + q_{i-1,N+1} q_{i-1,N+1}^†`; the first term uses `P_{0,N}`, but the
+    20       22020096            1    4.541e-08  OK
+```
+
+(The `check` column is the independent recomputation demanded by O19. The r1 memo printed
+`23730` and `886445` for `n = 20, c = 5`; the correct dimensions are `47460` and `2215780`,
+and the fractions printed beside them were always right.)
+
+The exact fraction is `C(c,i)/(HF(i) C(n+1,i))`. **For fixed `c` and `i` and `n -> infinity`
+it is asymptotic to `C(c,i)(i!)^2 n^{-2i}`** — inverse-polynomial, but the block dimension is
+then also polynomial, so nothing is compressed. For `c = n` and fixed `i` the fraction is
+`~ i! n^{-i}`, again with polynomial dimension. When `i = rho n` both the dimension and the
+Betti number can be exponential, but the fraction is exponentially small (`1/(2^n(n+1))` at
+`i = n`). **No regime with exponential block dimension and an inverse-polynomially visible
+fraction has been exhibited.** The r0 claim that arm B "survives F2 where arm A does not" is
+retracted (O6, and see Step 9.3 for the `h_N/M_N` half of the same problem).
+
+and the one that would actually compete, stochastic Chebyshev/Lanczos eigenvalue counting on
+the same sparse Koszul matrices (Di Napoli–Polizzi–Saad, *Numer. Linear Algebra Appl.* 23(4)
+674–692 (2016), DOI 10.1002/nla.2048, arXiv:1308.4275). *Survives*: the observation that the
+classical filter needs the same projectors at **both** adjacent degrees and the same gap
+promises, so a fair comparison must give both sides the same quotient access at `N` and `N+1`;
+and PRD D15 / SP-0 (C-264) refuses `n log N` qubits versus `M_N` words as a space separation.
+
+**3. Quantum algorithm — FAILS (the r1 FATAL objection, and two further defects found at r2).**
+(a) The `W_N`-normalisation cost was omitted; with it (Step 9.2) the conditional output carries
+`M_N/h_N` or `sqrt(M_N/h_N)`. The acceptance weight `h_N/M_N` is exponentially small for the
+quadratic complete-intersection family at `N = n`, and potentially exponentially small in
+general; equivalently, the rejection-sampling cost `M_N/h_N` and coherent-projection cost
+`sqrt(M_N/h_N)` are exponentially large. The acceptance weight is not exponentially small
+for every square system, since `n` generic degree-`(n+1)` forms in `P^n` give `h_N/M_N = 1` at
+`N = n` (Step 9.3, part h, O21, O23). (b) The ambient output must be obtained by
+filtering `L~ = L_W + j(1 - P̂_N)`, not from zero-extended `L_W` (Step 9.1, O17). (c) The block
+cannot be built from `H_N` alone: the incoming term contains `Q P_{0,N+1} Q^†`, so both
+adjacent degrees and both gap promises are required (Step 9.4, part h, O18). No advantage
+of normalised Betti estimation on general cochain complexes** (O16). Crichigno,
+arXiv:2011.01239 (arXiv only): the Witten index is #P-complete. The mechanism is not new; only
+the algebro-geometric instance is. *Correction retained*: Gyurik–Cade–Dunjko, *Quantum* 6, 855
+(2022), DOI 10.22331/q-2022-11-10-855, arXiv:2005.02607, prove DQC1-hardness of **low-lying
+spectral density estimation**, not of normalised Betti estimation for clique complexes.
+(f) *Trap audit, corrected.* Dense rank — avoided. Changing the output — a normalised
+fraction, and r0 named the **wrong** normalisation; fixed. Hidden state preparation — **now
+priced** (Step 9.2), previously missing. **Exponentially small overlap — TRIGGERED**, retracting
+the r0 claim that it was not: `h_N/M_N ≈ rho^{codim}` (Step 9.3). Hiding exponential `N` —
+inapplicable (KB2). Ignoring gap closing — triggered (K-KB6, now with a proved counterfamily).
+Ignoring classical preconditioning — triggered (K-KB9).
+
+**K-KB10 (regularity, downgraded).** `reg(I)` is worst-case doubly exponential (Mayr–Meyer;
+Bayer–Mumford), but it is needed only to **enumerate** the Betti table, not to answer one
+requested `(i,j)`; and `reg(R/I) = reg(I) - 1`. Severity downgraded from medium to minor (O1).
+
+**K-KB11 (the conditional normalisation is the overlap wall — for a named family).** The
+`W_N`-conditional fraction costs `M_N/h_N` samples or `sqrt(M_N/h_N)` coherent projections
+(Step 9.2, C-096). The acceptance weight `h_N/M_N` is exponentially small for the
+quadratic complete-intersection family at `N = n`, and potentially exponentially small in
+general; equivalently, the rejection-sampling cost `M_N/h_N` and coherent-projection cost
+`sqrt(M_N/h_N)` are exponentially large. The quadratic complete-intersection family is the
+one in which the applications memo's `0.75^codim` law was measured (caution 1); explicitly,
+`h_n = 2^n` and `M_n = C(2n,n)`, so `h_n/M_n ~ sqrt(pi n)/2^n` and
+`M_n/h_n ~ 2^n/sqrt(pi n)` — at `n = 8` the checker's `h_n/M_n = 0.019891` is a cost of
+`50.27`, not a small number. The acceptance weight is **not** exponentially small for every
+square system, since `n` generic degree-`(n+1)` forms in `P^n` give `h_N/M_N = 1` at `N = n`
+(part h, O21). The surviving statement is: *the acceptance weight can be exponentially small,
+making conditional normalization exponentially expensive; no unconditional conditional-output
+algorithm follows without a Hilbert-weight promise or preparation oracle.* Separately (O17), even the **ambient**
+output
+must be taken from the harmonic filter `L~ = L_W + j(1 - P̂_N)`, not from zero-extended `L_W`,
+
+| objection | severity | disposition | location of the edit | note |
+|---|---|---|---|---|
+| O17 | MAJOR | FIXED | §1 Step 9.1 (rewritten); status header bullet (ii); §2 part h (new); §3 criterion 3(b); K-KB11; D-normalised-betti-fraction (= D6 verbatim); D-betti-estimation-problem (= D8 verbatim) | The ambient fraction is the normalised trace of the **harmonic** projector extended by zero, reached by filtering `L~ = L_W + (N+i)(1 - P̂_N)`; zero-extended `L_W` has `(M_N-h_N)b` spurious zero modes. Part h reproduces the critic's 5-cycle instance exactly: `null(0-ext) = 51`, `null(Ltilde) = 1`, `1/150 = 0.006667` against `51/150 = 0.34`. The extra projector use is priced in Step 9.5. |
+| O18 | MAJOR | FIXED | §1 Steps 9.4–9.5 (rewritten); §2 part h (last column); §3 criteria 1, 2, 3(c); K-KB9 (rewritten); D-betti-estimation-problem (= D8 verbatim); C-NEW-KB-NO-FREE-LUNCH surviving statement; §7 Q3 | The incoming term contains `Q P_{0,N+1} Q^†`, so generator mode must supply `H_N` **and** `H_{N+1}` with `Delta_r/alpha_r >= 1/poly(n)` for every nontrivial required `r in {N,N+1}`, and quotient mode both `Z_{k,N}` and `Z_{k,N+1}`. `O(n alpha_BE/Delta_N)` replaced by the adjacent-degree maximum. Part h shows the failure is total, not gradual: dropping `P_{0,N+1}` gives `q^†q + (jP̂ - q^†q) = j·1`, nullity `0` instead of `beta`, in every block tested. |
+| O19 | MINOR | FIXED | `checkers/explore/koszul_laplacian.py` `ci_fraction_table()` (independent Hilbert-series and Pascal recomputation, `check` column); §2 part g table | The r1 memo printed `23730` and `886445` for `n = 20, c = 5`; the correct dimensions are `47460` and `2215780`. The table is now pasted from the script, which recomputes every dimension by a second route and prints OK/MISMATCH. |
+| O20 | MAJOR | DOWNGRADED | §1 Step 5.6 (critic's sentence quoted); K-KB6 (rewritten); D-betti-gap (= D5 verbatim); C-NEW-KB-GAP-INDEPENDENT (missing steps in the critic's r2 words) | The categorical "no lower bound `g >= phi(Delta_N)` exists" is replaced everywhere by: the `m`-cycle family rules out any uniform strictly positive lower bound on the **selected squarefree-summand** gap depending only on `Delta_2`, i.e. no `phi` with `phi(1) > 0`; `phi(1) = 0` is not excluded, no total-block comparison and no reverse inequality is established. |
+| O21 | MAJOR | DOWNGRADED | Status header bullet (ii); §1 Step 9.3 (rewritten); §2 part h (second table, new); §3 criterion 3(a); K-KB11 (rewritten) | "Exponentially small for every square system" is replaced by "exponentially small for the quadratic complete-intersection family at `N = n`, and potentially exponentially small in general". The script now prints the critic's counterfamily: `n` generic degree-`(n+1)` forms in `P^n` give `h_n/M_n = 1` at `N = n` for `n = 2,3,4,8`, against `0.667, 0.400, 0.229, 0.020` for the quadric family. The explicit `h_N/M_N` promise is preserved. |
+| O22 | MINOR | FIXED | D-betti-estimation-problem (replaced by D8 verbatim); §3 criterion 1 | The unused thresholds `a < b` are gone, `eps` is an input, and the optional regularity bound no longer appears among the promises of the single-block decision problem — it is metadata used only when enumerating the whole table. |
+
+Standing residue, unchanged and outside this lane's writable files: M1–M4 run in-process and are
+exact-text audit passed on all seven required strings (D5, D6, D8, both HOLD missing-step
+sentences, both DEQUANT surviving statements, the NO-FREE-LUNCH surviving statement), and every
+row and definition is accepted. **No row and no definition is edited at r3.**
+
+| objection | severity | disposition | location of the edit | note |
+|---|---|---|---|---|
+| O23 | MAJOR | FIXED | status summary bullet (ii); §3 criterion 3(a); K-KB11; plus §1 Step 9.3's closing sentence, aligned to the r3 surviving statement | Three passages named the costs `M_N/h_N` and `sqrt(M_N/h_N)` and then called "that factor" exponentially small. The direction is reversed: for `n` quadrics in `P^n` at `N = n`, `h_n = 2^n` and `M_n = C(2n,n)`, so `h_n/M_n ~ sqrt(pi n)/2^n` is exponentially small while `M_n/h_n ~ 2^n/sqrt(pi n)` and its square root are exponentially **large** — at `n = 8` the checker's `h_n/M_n = 0.019891` is a cost of `50.27`. Each passage now carries the FIX DEMAND sentence verbatim: "The acceptance weight `h_N/M_N` is exponentially small for the quadratic complete-intersection family at `N = n`, and potentially exponentially small in general; equivalently, the rejection-sampling cost `M_N/h_N` and coherent-projection cost `sqrt(M_N/h_N)` are exponentially large." Step 9.3 already had the direction right (the critic confirms); its closing sentence is nevertheless brought into lockstep with the r3 surviving statement, "the acceptance weight can be exponentially small, making conditional normalization exponentially expensive; no unconditional conditional-output algorithm follows without a Hilbert-weight promise or preparation oracle." |
+
+Whole-memo sweep for the same error: the remaining occurrences of "exponentially small" are
+§1 Step 9.3 (the acceptance weight `h_N/M_N`, direction correct), §2 part g (the normalised
+Betti *fraction* `1/(2^n(n+1))`, not a cost), and the §9 r2-response row for O21, whose quoted
+phrases are the historical record of the r2 edit and refer to the acceptance weight; that audit
+trail is left intact, and O23 corrects the three summaries it produced. No other sentence in the
+memo calls a cost exponentially small.
+
+Dispositions over the single r3 objection: FIXED 1 (O23), RETRACTED 0, DOWNGRADED 0; the
+
+exec
+/bin/bash -lc "git diff --no-ext-diff f4a8ace HEAD -- scouting/koszul-betti.md | awk 'BEGIN{s=0} /"'^[-+]## 5'"\\./{s=1} /"'^[-+]## 7'"\\./{s=0} s && /"'^[-+]/ && !/''^---/ && !/''^'"\\+\\+\\+/'" in /home/tobias/Projects/quantum-algorithms-for-algebraic-geometry
+ succeeded in 0ms:
+exec
+/bin/bash -lc 'git status --short && git rev-parse --short HEAD && git rev-parse --short f4a8ace' in /home/tobias/Projects/quantum-algorithms-for-algebraic-geometry
+ succeeded in 0ms:
+?? briefs/critic-koszul-betti-r4.md
+?? checkers/explore/intersection_observables.py
+?? verdicts/koszul-betti-r4.log
+421c88f
+f4a8ace
+
+exec
+/bin/bash -lc "git diff --no-ext-diff --unified=0 f4a8ace HEAD -- scouting/koszul-betti.md | rg '"'^[-+]'"'" in /home/tobias/Projects/quantum-algorithms-for-algebraic-geometry
+ succeeded in 0ms:
+--- a/scouting/koszul-betti.md
++++ b/scouting/koszul-betti.md
+-conditional fraction `beta_{i,j}/(HF(N) C(n+1,i))` costs `M_N/HF(N)` samples or
+-`sqrt(M_N/HF(N))` coherent projections (C-096), a factor that is exponentially small for the
+-quadratic complete-intersection family at `N = n` and potentially exponentially small in
+-general, but **not** for every square system (Step 9, K-KB11). (iii) *Betti information
++conditional fraction `beta_{i,j}/(HF(N) C(n+1,i))` costs `M_N/h_N` samples or
++`sqrt(M_N/h_N)` coherent projections (C-096). The acceptance weight `h_N/M_N` is
++exponentially small for the quadratic complete-intersection family at `N = n`, and
++potentially exponentially small in general; equivalently, the rejection-sampling cost
++`M_N/h_N` and coherent-projection cost `sqrt(M_N/h_N)` are exponentially large (O23). The
++acceptance weight is **not** exponentially small for every square system (Step 9,
++K-KB11). (iii) *Betti information
+-is: **the conversion factor can be exponential, so no unconditional conditional-output
+-algorithm follows without a Hilbert-weight promise or a preparation oracle.** That retraction —
++is: **the acceptance weight can be exponentially small, making conditional normalization
++exponentially expensive; no unconditional conditional-output algorithm follows without a
++Hilbert-weight promise or preparation oracle.** That retraction —
+-`M_N/h_N` or `sqrt(M_N/h_N)`. That factor is exponentially small **for the quadratic
+-complete-intersection family at `N = n`, and potentially exponentially small in general** — but
+-not for every square system, since `n` generic degree-`(n+1)` forms in `P^n` give
+-`h_N/M_N = 1` at `N = n` (Step 9.3, part h, O21). (b) The ambient output must be obtained by
++`M_N/h_N` or `sqrt(M_N/h_N)`. The acceptance weight `h_N/M_N` is exponentially small for the
++quadratic complete-intersection family at `N = n`, and potentially exponentially small in
++general; equivalently, the rejection-sampling cost `M_N/h_N` and coherent-projection cost
++`sqrt(M_N/h_N)` are exponentially large. The acceptance weight is not exponentially small
++for every square system, since `n` generic degree-`(n+1)` forms in `P^n` give `h_N/M_N = 1` at
++`N = n` (Step 9.3, part h, O21, O23). (b) The ambient output must be obtained by
+-(Step 9.2, C-096). That factor is exponentially small **for the quadratic complete-intersection
+-family at `N = n`** — the family in which the applications memo's `0.75^codim` law was measured
+-(caution 1) — **and potentially exponentially small in general**; it is **not** exponentially
+-small for every square system, since `n` generic degree-`(n+1)` forms in `P^n` give
+-`h_N/M_N = 1` at `N = n` (part h, O21). The surviving statement is: *the conversion factor can
+-be exponential, so no unconditional conditional-output algorithm follows without a
+-Hilbert-weight promise or preparation oracle.* Separately (O17), even the **ambient** output
++(Step 9.2, C-096). The acceptance weight `h_N/M_N` is exponentially small for the
++quadratic complete-intersection family at `N = n`, and potentially exponentially small in
++general; equivalently, the rejection-sampling cost `M_N/h_N` and coherent-projection cost
++`sqrt(M_N/h_N)` are exponentially large. The quadratic complete-intersection family is the
++one in which the applications memo's `0.75^codim` law was measured (caution 1); explicitly,
++`h_n = 2^n` and `M_n = C(2n,n)`, so `h_n/M_n ~ sqrt(pi n)/2^n` and
++`M_n/h_n ~ 2^n/sqrt(pi n)` — at `n = 8` the checker's `h_n/M_n = 0.019891` is a cost of
++`50.27`, not a small number. The acceptance weight is **not** exponentially small for every
++square system, since `n` generic degree-`(n+1)` forms in `P^n` give `h_N/M_N = 1` at `N = n`
++(part h, O21). The surviving statement is: *the acceptance weight can be exponentially small,
++making conditional normalization exponentially expensive; no unconditional conditional-output
++algorithm follows without a Hilbert-weight promise or preparation oracle.* Separately (O17), even the **ambient**
++output
++
++---
++
++## 10. Repair r3 response
++
++Verdict `verdicts/koszul-betti-r3.md`: FAIL(O23), one MAJOR. Of the six r2 objections the critic
++marks five VERIFIED (O17, O18, O19, O20, O22) and one NEW DEFECT inside O21, raised as O23. The
++exact-text audit passed on all seven required strings (D5, D6, D8, both HOLD missing-step
++sentences, both DEQUANT surviving statements, the NO-FREE-LUNCH surviving statement), and every
++row and definition is accepted. **No row and no definition is edited at r3.**
++
++| objection | severity | disposition | location of the edit | note |
++|---|---|---|---|---|
++| O23 | MAJOR | FIXED | status summary bullet (ii); §3 criterion 3(a); K-KB11; plus §1 Step 9.3's closing sentence, aligned to the r3 surviving statement | Three passages named the costs `M_N/h_N` and `sqrt(M_N/h_N)` and then called "that factor" exponentially small. The direction is reversed: for `n` quadrics in `P^n` at `N = n`, `h_n = 2^n` and `M_n = C(2n,n)`, so `h_n/M_n ~ sqrt(pi n)/2^n` is exponentially small while `M_n/h_n ~ 2^n/sqrt(pi n)` and its square root are exponentially **large** — at `n = 8` the checker's `h_n/M_n = 0.019891` is a cost of `50.27`. Each passage now carries the FIX DEMAND sentence verbatim: "The acceptance weight `h_N/M_N` is exponentially small for the quadratic complete-intersection family at `N = n`, and potentially exponentially small in general; equivalently, the rejection-sampling cost `M_N/h_N` and coherent-projection cost `sqrt(M_N/h_N)` are exponentially large." Step 9.3 already had the direction right (the critic confirms); its closing sentence is nevertheless brought into lockstep with the r3 surviving statement, "the acceptance weight can be exponentially small, making conditional normalization exponentially expensive; no unconditional conditional-output algorithm follows without a Hilbert-weight promise or preparation oracle." |
++
++Whole-memo sweep for the same error: the remaining occurrences of "exponentially small" are
++§1 Step 9.3 (the acceptance weight `h_N/M_N`, direction correct), §2 part g (the normalised
++Betti *fraction* `1/(2^n(n+1))`, not a cost), and the §9 r2-response row for O21, whose quoted
++phrases are the historical record of the r2 edit and refer to the acceptance weight; that audit
++trail is left intact, and O23 corrects the three summaries it produced. No other sentence in the
++memo calls a cost exponentially small.
++
++Dispositions over the single r3 objection: FIXED 1 (O23), RETRACTED 0, DOWNGRADED 0; the
++standing r1 O12 residue (M1–M4 red in-process but not registered in `checkers/MUTATIONS.md`,
++outside this lane's writable files) is unchanged.
++
++Rows after repair: 10 (CONJECTURE 6, REFUTED 2, HOLD 2, deleted 0) — unchanged, and no row text
++was edited at r3.
++Definitions after repair: 8 (ACCEPT 5, REWORDED verbatim at r2 3, deleted 0) — unchanged, and no
++definition text was edited at r3.
+
+exec
+/bin/bash -lc 'git diff --check f4a8ace HEAD -- scouting/koszul-betti.md' in /home/tobias/Projects/quantum-algorithms-for-algebraic-geometry
+ succeeded in 0ms:
+exec
+/bin/bash -lc "cmp <(git show f4a8ace:scouting/koszul-betti.md | sed -n '/"'^## 5'"\\./,/"'^## 7'"\\./p' | sed '"'$d'"') <(sed -n '/"'^## 5'"\\./,/"'^## 7'"\\./p' scouting/koszul-betti.md | sed '"'$d'"')" in /home/tobias/Projects/quantum-algorithms-for-algebraic-geometry
+ succeeded in 0ms:
+exec
+/bin/bash -lc "for spec in 'status:31,45' 'criterion-3a:450,462' 'K-KB11:611,628'; do name="'${spec%%:*}; range=${spec#*:}; count=$(sed -n "${range}p" scouting/koszul-betti.md | tr '"'\\n' ' ' | rg -o -F 'The acceptance weight "'`h_N/M_N` is exponentially small for the quadratic complete-intersection family at `N = n`, and potentially exponentially small in general; equivalently, the rejection-sampling cost `M_N/h_N` and coherent-projection cost `sqrt(M_N/h_N)` are exponentially large'"\\.' | wc -l); printf '%s %s\\n' \""'$name" "$count"; done' in /home/tobias/Projects/quantum-algorithms-for-algebraic-geometry
+ succeeded in 0ms:
+status 0
+criterion-3a 0
+K-KB11 0
+
+exec
+/bin/bash -lc "for spec in 'status:31,45' 'criterion-3a:450,462' 'K-KB11:611,628'; do name="'${spec%%:*}; range=${spec#*:}; count=$(sed -n "${range}p" scouting/koszul-betti.md | tr '"'\\n' ' ' | rg -o -F 'The acceptance weight "'`h_N/M_N` is exponentially small for the quadratic complete-intersection family at `N = n`, and potentially exponentially small in general; equivalently, the rejection-sampling cost `M_N/h_N` and coherent-projection cost `sqrt(M_N/h_N)` are exponentially large.'"' | wc -l); printf '%s %s\\n' \""'$name" "$count"; done' in /home/tobias/Projects/quantum-algorithms-for-algebraic-geometry
+ succeeded in 0ms:
+status 0
+criterion-3a 1
+K-KB11 1
+
+exec
+/bin/bash -lc "phrase='The acceptance weight "'`h_N/M_N` is exponentially small for the quadratic complete-intersection family at `N = n`, and potentially exponentially small in general; equivalently, the rejection-sampling cost `M_N/h_N` and coherent-projection cost `sqrt(M_N/h_N)` are exponentially large.'"'; status="'$(sed -n '"'31,45p' scouting/koszul-betti.md | tr '\\n' ' ' | rg -o -F \""'$phrase" | wc -l); criterion=$(sed -n '"'450,462p' scouting/koszul-betti.md | tr '\\n' ' ' | rg -o -F \""'$phrase" | wc -l); key=$(sed -n '"'611,628p' scouting/koszul-betti.md | tr '\\n' ' ' | rg -o -F \""'$phrase" | wc -l); printf '"'status=%s criterion-3a=%s K-KB11=%s\\n' \""'$status" "$criterion" "$key"; test "$status" -eq 1 -a "$criterion" -eq 1 -a "$key" -eq 1' in /home/tobias/Projects/quantum-algorithms-for-algebraic-geometry
+ exited 1 in 0ms:
+status=0 criterion-3a=1 K-KB11=1
+
+codex
+# Adversarial critic verdict: `scouting/koszul-betti.md`, round 4
+
+## Commands run
+
+| Command | Exit |
+|---|---:|
+| `bd prime` | 0 |
+| `sed -n '1,240p' verdicts/koszul-betti-r3.md` | 0 |
+| `git diff f4a8ace HEAD -- scouting/koszul-betti.md` | 0 |
+| `rg -n -i -o 'exponentially small' scouting/koszul-betti.md` | 0 |
+| Normalized-whitespace verbatim FIX-DEMAND audit | 1 (`status=0`, `criterion-3a=1`, `K-KB11=1`) |
+| Byte comparison of §§5–6 against `f4a8ace` | 0 |
+| `git diff --check f4a8ace HEAD -- scouting/koszul-betti.md` | 0 |
+
+## O23 disposition
+
+**NOT VERIFIED.** The exponential direction is now correct everywhere, and no sentence calls either cost exponentially small. However, the mandated sentence is verbatim in §3 criterion 3(a) and K-KB11 only. In the status summary it ends “are exponentially large **(O23).**” rather than the required “are exponentially large.” Thus the explicit verbatim FIX DEMAND remains unmet. Sections 5 and 6 are byte-identical to `f4a8ace`. No separate O24 is raised.
+
+## “Exponentially small” occurrence audit
+
+All 24 case-insensitive occurrences are accounted for:
+
+| Lines | Count | Judgment |
+|---|---:|---|
+| 37, 38, 40 | 3 | Acceptance weight, including the qualified and negated forms; correct. |
+| 205, 210 | 2 | `h_N/M_N` acceptance weight; correct. |
+| 386 | 1 | Normalized Betti fraction; correct, not a cost. |
+| 454, 455, 457 | 3 | Acceptance weight and its qualification; correct. |
+| 512 | 1 | Exponentially small overlap `h_N/M_N`; correct. |
+| 615, 616, 622, 624 | 4 | Acceptance weight and its qualification; correct. |
+| 972 | 3 | Historical quoted wording in the r2 audit; not a current cost claim. |
+| 1001 | 5 | Repair metacommentary, the correct ratio, FIX-DEMAND wording, and surviving statement; no current cost claim. |
+| 1003 | 1 | Metalinguistic occurrence-audit heading; harmless. |
+| 1008 | 1 | Negated metalinguistic claim that no cost is called exponentially small; correct. |
+
+## Final proposed-row decisions
+
+| Proposed row | Decision |
+|---|---|
+| C-NEW-KB-HODGE | ACCEPT AS CONJECTURE |
+| C-NEW-KB-FREE | ACCEPT AS CONJECTURE |
+| C-NEW-KB-SUPPORT | ACCEPT AS CONJECTURE |
+| C-NEW-KB-HOCHSTER | ACCEPT AS CONJECTURE |
+| C-NEW-KB-QMA1 | HOLD — missing a polynomial reduction preserving the total-block normalized gap across all non-squarefree summands. |
+| C-NEW-KB-DEQUANT | ACCEPT AS REFUTED |
+| C-NEW-KB-GAP-INDEPENDENT | HOLD — missing a total-block counterfamily, a specified positive class of forbidden lower bounds, and any reverse-direction result. |
+| C-NEW-KB-FRACTION | ACCEPT AS CONJECTURE |
+| C-NEW-KB-SEED-IS-A-BLOCK | ACCEPT AS CONJECTURE |
+| C-NEW-KB-NO-FREE-LUNCH | ACCEPT AS REFUTED |
+
+## Final definition decisions
+
+| Definition | Decision |
+|---|---|
+| D-fermionic-modes | ACCEPT |
+| D-koszul-supercharge | ACCEPT |
+| D-betti-laplacian | ACCEPT |
+| D-graded-betti-number | ACCEPT |
+| D-betti-gap | ACCEPT |
+| D-normalised-betti-fraction | ACCEPT |
+| D-generator-koszul-supercharge | ACCEPT |
+| D-betti-estimation-problem | ACCEPT |
+
+**LOCKSTEP:** NO — the mathematics is synchronized, but the status summary does not reproduce the mandated sentence verbatim; §§5–6, rows, and definitions remain unchanged.
+
+VERDICT: FAIL(O23)
+tokens used
+47,740
+# Adversarial critic verdict: `scouting/koszul-betti.md`, round 4
+
+## Commands run
+
+| Command | Exit |
+|---|---:|
+| `bd prime` | 0 |
+| `sed -n '1,240p' verdicts/koszul-betti-r3.md` | 0 |
+| `git diff f4a8ace HEAD -- scouting/koszul-betti.md` | 0 |
+| `rg -n -i -o 'exponentially small' scouting/koszul-betti.md` | 0 |
+| Normalized-whitespace verbatim FIX-DEMAND audit | 1 (`status=0`, `criterion-3a=1`, `K-KB11=1`) |
+| Byte comparison of §§5–6 against `f4a8ace` | 0 |
+| `git diff --check f4a8ace HEAD -- scouting/koszul-betti.md` | 0 |
+
+## O23 disposition
+
+**NOT VERIFIED.** The exponential direction is now correct everywhere, and no sentence calls either cost exponentially small. However, the mandated sentence is verbatim in §3 criterion 3(a) and K-KB11 only. In the status summary it ends “are exponentially large **(O23).**” rather than the required “are exponentially large.” Thus the explicit verbatim FIX DEMAND remains unmet. Sections 5 and 6 are byte-identical to `f4a8ace`. No separate O24 is raised.
+
+## “Exponentially small” occurrence audit
+
+All 24 case-insensitive occurrences are accounted for:
+
+| Lines | Count | Judgment |
+|---|---:|---|
+| 37, 38, 40 | 3 | Acceptance weight, including the qualified and negated forms; correct. |
+| 205, 210 | 2 | `h_N/M_N` acceptance weight; correct. |
+| 386 | 1 | Normalized Betti fraction; correct, not a cost. |
+| 454, 455, 457 | 3 | Acceptance weight and its qualification; correct. |
+| 512 | 1 | Exponentially small overlap `h_N/M_N`; correct. |
+| 615, 616, 622, 624 | 4 | Acceptance weight and its qualification; correct. |
+| 972 | 3 | Historical quoted wording in the r2 audit; not a current cost claim. |
+| 1001 | 5 | Repair metacommentary, the correct ratio, FIX-DEMAND wording, and surviving statement; no current cost claim. |
+| 1003 | 1 | Metalinguistic occurrence-audit heading; harmless. |
+| 1008 | 1 | Negated metalinguistic claim that no cost is called exponentially small; correct. |
+
+## Final proposed-row decisions
+
+| Proposed row | Decision |
+|---|---|
+| C-NEW-KB-HODGE | ACCEPT AS CONJECTURE |
+| C-NEW-KB-FREE | ACCEPT AS CONJECTURE |
+| C-NEW-KB-SUPPORT | ACCEPT AS CONJECTURE |
+| C-NEW-KB-HOCHSTER | ACCEPT AS CONJECTURE |
+| C-NEW-KB-QMA1 | HOLD — missing a polynomial reduction preserving the total-block normalized gap across all non-squarefree summands. |
+| C-NEW-KB-DEQUANT | ACCEPT AS REFUTED |
+| C-NEW-KB-GAP-INDEPENDENT | HOLD — missing a total-block counterfamily, a specified positive class of forbidden lower bounds, and any reverse-direction result. |
+| C-NEW-KB-FRACTION | ACCEPT AS CONJECTURE |
+| C-NEW-KB-SEED-IS-A-BLOCK | ACCEPT AS CONJECTURE |
+| C-NEW-KB-NO-FREE-LUNCH | ACCEPT AS REFUTED |
+
+## Final definition decisions
+
+| Definition | Decision |
+|---|---|
+| D-fermionic-modes | ACCEPT |
+| D-koszul-supercharge | ACCEPT |
+| D-betti-laplacian | ACCEPT |
+| D-graded-betti-number | ACCEPT |
+| D-betti-gap | ACCEPT |
+| D-normalised-betti-fraction | ACCEPT |
+| D-generator-koszul-supercharge | ACCEPT |
+| D-betti-estimation-problem | ACCEPT |
+
+**LOCKSTEP:** NO — the mathematics is synchronized, but the status summary does not reproduce the mandated sentence verbatim; §§5–6, rows, and definitions remain unchanged.
+
+VERDICT: FAIL(O23)
