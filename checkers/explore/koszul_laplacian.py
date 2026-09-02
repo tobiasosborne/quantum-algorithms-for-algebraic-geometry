@@ -60,7 +60,15 @@ unexpected exception):
   G   normalised Betti fraction for complete intersections, with the two
       asymptotic regimes (fixed i / growing i) stated separately (O6), and the
       block dimension printed alongside so the polynomial-dimension regime is
-      visible.
+      visible.  Dimensions are recomputed by an independent route (O19).
+  H   O17: the AMBIENT normalised fraction is the normalised trace of the
+      HARMONIC projector extended by zero, obtained by filtering
+      Ltilde = L_W + (N+i)(1 - Phat_N); the zero-eigenvalue fraction of L_W
+      extended by zero is a DIFFERENT and larger number, (M_N-h_N)b + beta.
+      O18: rebuilding the block without the adjacent-degree projector P_{0,N+1}
+      collapses it to the scalar j, so adjacent-degree access is necessary.
+      O21: h_N/M_N is 1, not exponentially small, for n generic degree-(n+1)
+      forms in P^n at N = n -- also a zero-dimensional square system.
 
 MUTATIONS (run in-process by `mutations()`, each must come out RED):
   M1  drop the compression: use Phat L Phat instead of L_W.
@@ -635,34 +643,144 @@ def generator_koszul_section():
           f"{'confirmed (M4 is a real mutation)' if differ else 'NOT confirmed'}")
 
 
+
+def ambient_extension_section():
+    """(H) O17/O18: the ambient observable, and adjacent-degree necessity."""
+    print("=" * 78)
+    print("(H) O17: the AMBIENT normalised fraction is the normalised trace of the")
+    print("    HARMONIC projector extended by zero -- NOT the zero-eigenvalue fraction")
+    print("    of L_W extended by zero.  Filtering  Ltilde = L_W + j(1 - Phat_N)")
+    print("    on R_N (x) Lambda^i has zero eigenspace exactly the harmonic subspace.")
+    print("    O18: dropping the ADJACENT-degree projector P_{0,N+1} destroys the block.")
+    print("=" * 78)
+    cases = []
+    _, g5, _ = cycle_complex(5)
+    cases.append(("5-cycle SR P^4", 5, g5, [(3, 2), (2, 1), (1, 1)], True))
+    nv, g, _, _ = ideals.twisted_cubic()
+    cases.append(("twisted cubic P^3", nv, g, [(1, 1), (2, 1)], False))
+    print(f"  {'ideal':<18} {'i':>2} {'N':>2} {'M_N':>5} {'h_N':>4} {'b':>4} {'beta':>5} "
+          f"{'null(0-ext)':>11} {'null(Ltilde)':>12} {'':>9} {'amb frac':>10} "
+          f"{'null(no P_N+1)':>14} {'':>9}")
+    for name, nvv, gens, blocks, mono in cases:
+        quo = Quotient(nvv, gens, max(N for _, N in blocks) + 2)
+        Bs = {N: (monomial_kernel_basis(quo, nvv, N) if mono
+                  else kernel_basis(gens, nvv, N, quo.hf(N)))
+              for N in range(0, max(N for _, N in blocks) + 2)}
+        for i, N in blocks:
+            b = math.comb(nvv, i)
+            MN, hN, j = bf.dim_h(nvv, N), quo.hf(N), N + i
+            beta = betti(quo, nvv, i, N)
+            E = np.kron(Bs[N], np.eye(b))                 # W_N (x) L^i -> R_N (x) L^i
+            Lw = L_block(Bs, nvv, i, N)
+            Lzero = E @ Lw @ E.conj().T                   # extended by zero
+            n0 = int((np.abs(spec(Lzero)) < TOL).sum())
+            Ltil = Lzero + j * (np.eye(MN * b) - E @ E.conj().T)
+            n1 = int((np.abs(spec(Ltil)) < TOL).sum())
+            ok = (n1 == beta) and (n0 == (MN - hN) * b + beta)
+            check(ok, f"{name}: (i={i},N={N}) null(0-ext)={n0} exp "
+                      f"{(MN-hN)*b+beta}, null(Ltilde)={n1} exp {beta}")
+            # O18: same block with the adjacent projector P_{0,N+1} removed
+            mixed = dict(Bs)
+            mixed[N + 1] = np.eye(bf.dim_h(nvv, N + 1), dtype=complex)
+            Qin = Q_block(mixed, nvv, i - 1, N + 1) if i >= 1 else None
+            Qout = Q_block(Bs, nvv, i, N)
+            Lbad = Qout.conj().T @ Qout
+            if Qin is not None and Qin.size:
+                Lbad = Lbad + Qin @ Qin.conj().T
+            nbad = int((np.abs(spec(Lbad)) < TOL).sum())
+            ok2 = nbad != beta
+            check(ok2, f"{name}: (i={i},N={N}) dropping P_0,N+1 still gives beta")
+            print(f"  {name:<18} {i:>2} {N:>2} {MN:>5} {hN:>4} {b:>4} {beta:>5} "
+                  f"{n0:>11} {n1:>12} {'OK' if ok else 'MISMATCH':>9} "
+                  f"{beta/(MN*b):>10.6f} {nbad:>14} "
+                  f"{'OK (differs)' if ok2 else 'MISMATCH':>9}")
+    print("  the 'null(0-ext)' column is (M_N - h_N)*b + beta, NOT beta: the whole")
+    print("  orthogonal complement of W_N is a spurious zero eigenspace (O17).")
+    print("  the last column is the nullity when P_{0,N+1} is dropped from the incoming")
+    print("  term: it collapses to 0 because Phat L Phat = j Phat, so adjacent-degree")
+    print("  access is NECESSARY, not an optimisation (O18).")
+
+    print()
+    print("  (O21) the conversion weight h_N/M_N is NOT exponentially small for every")
+    print("  square system.  Left: c = n quadrics in P^n at N = n (the family in which")
+    print("  the applications memo's 0.75^codim law was measured).  Right: n generic")
+    print("  forms of degree n+1 in P^n -- also a zero-dimensional square complete")
+    print("  intersection -- where at N = n every generator has degree > N, so I_N = 0.")
+    print(f"  {'n':>3} {'quadrics h_n/M_n':>17} {'deg-(n+1) h_n/M_n':>19} {'':>9}")
+    okq = True
+    for n in (2, 3, 4, 8):
+        nv = n + 1
+        Mn = bf.dim_h(nv, n)
+        hq = sum((-1) ** t * math.comb(n, t) * bf.dim_h(nv, n - 2 * t)
+                 for t in range(0, n + 1))
+        rng = np.random.default_rng(5 + n)
+        gh = [int_random_form(nv, n + 1, rng) for _ in range(n)]
+        quo = Quotient(nv, gh, n)
+        rat = quo.hf(n) / Mn
+        ok = abs(rat - 1.0) < 1e-12
+        okq = okq and ok
+        print(f"  {n:>3} {hq/Mn:>17.6f} {rat:>19.6f} "
+              f"{'OK' if ok else 'MISMATCH':>9}")
+    check(okq, "high-degree square system does not have h_N/M_N = 1 at N = n")
+    print("  so the overlap obstruction is a statement about the measured family, not")
+    print("  about square systems in general.")
+
+
 def ci_fraction_table():
     print("=" * 78)
     print("(G) normalised Betti fraction, complete intersection of c quadrics in P^n,")
     print("    block (i, N=i): beta_{i,2i} = C(c,i), dim = HF(i)*C(n+1,i).  The two")
     print("    regimes are printed separately (O6): fixed i (dimension POLYNOMIAL in n,")
     print("    so no compression) and i = rho*n (dimension exponential, fraction tiny).")
+    print("    Dimensions are recomputed by an INDEPENDENT route (O19): the Hilbert")
+    print("    series (1-t^2)^c/(1-t)^{n+1} by explicit polynomial multiplication, and")
+    print("    C(n+1,i) by a Pascal recurrence.")
     print("=" * 78)
 
     def hf(nv, c, N):
         return sum((-1) ** t * math.comb(c, t) * bf.dim_h(nv, N - 2 * t)
                    for t in range(0, c + 1))
-    print("  fixed i, c:")
+
+    def hf_series(nv, c, N):
+        """Independent: coefficients of (1-t^2)^c * (1-t)^{-nv} up to t^N."""
+        num = [0] * (N + 1)
+        for t in range(0, min(c, N // 2) + 1):
+            num[2 * t] = (-1) ** t * math.comb(c, t)
+        den = [math.comb(k + nv - 1, nv - 1) for k in range(0, N + 1)]
+        return sum(num[k] * den[N - k] for k in range(0, N + 1))
+
+    def pascal(nn, kk):
+        row = [1]
+        for _ in range(nn):
+            row = [1] + [row[t] + row[t + 1] for t in range(len(row) - 1)] + [1]
+        return row[kk]
+
+    okdim = True
+    print("  fixed i, c (block dimension is POLYNOMIAL in n, so there is no compression):")
     print(f"  {'n':>4} {'c':>3} " + " ".join(f"{'i=%d frac' % i:>12}" for i in range(1, 4))
-          + "   " + " ".join(f"{'i=%d dim' % i:>11}" for i in range(1, 4)))
+          + "   " + " ".join(f"{'i=%d dim' % i:>11}" for i in range(1, 4)) + "  check")
     for n, c in [(10, 3), (20, 5), (40, 5), (40, 10)]:
         nv = n + 1
-        fr, dm = "", ""
+        fr, dm, good = "", "", True
         for i in range(1, 4):
-            dim = hf(nv, c, i) * math.comb(nv, i)
-            fr += f"{math.comb(c, i)/dim:>12.3e} "
-            dm += f"{dim:>11d} "
-        print(f"  {n:>4} {c:>3} {fr}  {dm}")
+            h1, h2 = hf(nv, c, i), hf_series(nv, c, i)
+            d1, d2 = h1 * math.comb(nv, i), h2 * pascal(nv, i)
+            good = good and (h1 == h2) and (d1 == d2)
+            fr += f"{math.comb(c, i)/d1:>12.3e} "
+            dm += f"{d1:>11d} "
+        okdim = okdim and good
+        print(f"  {n:>4} {c:>3} {fr}  {dm}  {'OK' if good else 'MISMATCH'}")
     print("  growing i (Boolean-type CI, c = n), i = n:  fraction = 1/(2^n (n+1)),")
-    print(f"  {'n':>4} {'dim block':>14} {'beta_{n,2n}':>12} {'fraction':>12}")
+    print(f"  {'n':>4} {'dim block':>14} {'beta_{n,2n}':>12} {'fraction':>12}  check")
     for n in (8, 12, 16, 20):
         nv = n + 1
-        dim = hf(nv, n, n) * math.comb(nv, n)
-        print(f"  {n:>4} {dim:>14d} {1:>12d} {1/dim:>12.3e}")
+        d1 = hf(nv, n, n) * math.comb(nv, n)
+        d2 = hf_series(nv, n, n) * pascal(nv, n)
+        good = (d1 == d2) and (d1 == 2 ** n * (n + 1))
+        okdim = okdim and good
+        print(f"  {n:>4} {d1:>14d} {1:>12d} {1/d1:>12.3e}  "
+              f"{'OK' if good else 'MISMATCH'}")
+    check(okdim, "complete-intersection block dimensions disagree between the two routes")
     print("  So there is NO exhibited regime with exponential block dimension AND an")
     print("  inverse-polynomial fraction: at fixed i the dimension is polynomial.")
 
@@ -772,6 +890,8 @@ def main():
     print()
     generator_koszul_section()
     print()
+    ambient_extension_section()
+    print()
     ci_fraction_table()
     print()
     mutations()
@@ -786,7 +906,10 @@ def main():
     print("      L_W is PSD; the uncompressed Laplacian is the scalar N+i; X is")
     print("      constructed and reproduces L_W; the singular-value pairing holds per")
     print("      differential; the cycle counterfamily matches 2-2cos(2pi/m); the")
-    print("      generator-Koszul i=0 block is H_N; all four mutations are red.")
+    print("      generator-Koszul i=0 block is H_N; the ambient harmonic filter")
+    print("      Ltilde = L_W + j(1-Phat_N) has nullity beta while zero-extended L_W")
+    print("      does not; dropping P_{0,N+1} collapses the block; the two independent")
+    print("      routes to the CI block dimensions agree; all four mutations are red.")
     return 0
 
 
