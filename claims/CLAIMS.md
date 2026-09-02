@@ -13,6 +13,10 @@ Status legend and entry rule (rk-light L1):
 
 - `SKETCH` — a proof or derivation exists in the seed, but no converged critic verdict in
   THIS campaign. Every seed "theorem-level" item enters here. **Nothing enters as PROVED.**
+  Widened 2026-09-03 (orchestrator, verdicts/quantum-primitives-r3.md Q16): a published theorem
+  imported from the literature with a resolved arXiv id or DOI also enters as SKETCH, marked
+  `(cited theorem)` in where-proved, following the existing C-092/C-099 convention; it is not a
+  campaign proof and is promoted only by a verdict that checks the citation and its hypotheses.
 - `CONJECTURE` — seed §8 conjectures, open questions, and directional statements.
 - `REFUTED` — killed by the seed itself or by a referee round. Each REFUTED row names the
   surviving weaker statement by C-id.
@@ -1377,8 +1381,9 @@ the full list is reconciled in `EXTRACTION-NOTES.md`.
 - depends-on: C-004, C-021, C-057
 - where-proved: report.md §6 (cited theorem)
 - where-tested: none
-- referee: not addressed in either round. Citation not resolved to an arXiv id or DOI here
-  [UNVERIFIED].
+- referee: not addressed in either round. Citation resolved 2026-09-02 by the critic in
+  verdicts/quantum-primitives-r1.md (O23): Anschuetz–Bauer–Kiani–Lloyd, arXiv:2211.16998,
+  DOI 10.22331/q-2023-11-28-1189.
 - north-star relevance: **speedup (critical)** — the sharpest classical-competitor result
   in the seed. If correct it kills every fixed-`n` advantage claim, including the
   Section 5 tasks at fixed ideal. Must be verified early.
@@ -4337,6 +4342,7 @@ MERGE PROPOSAL (`claims/CLAIMS.md`), all CONJECTURE per L1; where-tested is
   `Tr(P_0 P_0^T)/M_N = (sum_i tau_i^2)/M_N`, the `tau_i` being the cosines of the principal angles
   between `ker H_N` and its complex conjugate; for real generators every `tau_i = 1`, the eigenvalue
   is `HF_{R/I}(N)/M_N`, the eigenvector the ground-space pairing state.
+- status: CONJECTURE
 - depends-on: D-pairing-state, D-two-copy-real-filter, D-projectors, D-ground-space,
   D-takagi-factorisation; where-proved: Proposition TC1; where-tested: part A, `N = 2..8`, four
   ideals in `P^2`. Relevance/traps: settles what the construction is as a linear operator; guards
@@ -4348,6 +4354,7 @@ MERGE PROPOSAL (`claims/CLAIMS.md`), all CONJECTURE per L1; where-tested is
   `HF_{R/I}(N)`, and no construction built from `P_0` and `|Phi_N>` alone decides whether `V_R(I)` is
   empty. In particular `z0z1 - z2^2` (real locus `RP^1`) and `z0^2+z1^2+z2^2` (real locus empty) have
   identical `F_N` spectra at every `N`.
+- status: CONJECTURE
 - depends-on: D-real-structure, D-two-copy-real-filter, C-275 (C-NEW-TC-RANK-ONE), C-256; where-proved:
   Proposition TC2; where-tested: part A, difference 3.55e-15 at `N = 2..8`. Relevance/traps: closes
   the strong form of the proposal (real-point information needs the algebra action, not the real
@@ -4358,6 +4365,7 @@ MERGE PROPOSAL (`claims/CLAIMS.md`), all CONJECTURE per L1; where-tested is
   `|p^T p| = 2 max_{x real, |x|=1}|<x|p>|^2 - 1 = cos 2t` with `t` the Fubini-Study distance from
   `[p]` to `RP^n`; a complex point at angle `t` is therefore suppressed as
   `exp(-4Nt^2(1+O(t^2)))`, so the filter's angular resolution about `RP^n` is `Theta(N^{-1/2})`.
+- status: CONJECTURE
 - depends-on: D-coherent-state, D-realness-witness; where-proved: Statement; where-tested: part B,
   four points, `N = 2..10`, agreement to 1e-9. Relevance/traps: the exact filter rate and its
   resolution limit; guards against confusing exponential filter strength with exponential separation
@@ -4368,6 +4376,7 @@ MERGE PROPOSAL (`claims/CLAIMS.md`), all CONJECTURE per L1; where-tested is
   `|p>^{x N} + |conj(p)>^{x N}` lies in `ker H_N` and has `R = 1` exactly, and the `K`-fixed subset
   of `ker H_N` is a real subspace of real dimension `HF_{R/I}(N)`, nonzero even when `V_R(I) = {}`;
   so `R(psi) = 1` certifies that the ray is real, not that `psi` is a real point's coherent state.
+- status: CONJECTURE
 - depends-on: D-realness-witness, D-coherent-state, D-real-structure, C-255; where-proved: K-TC1;
   where-tested: part C (`R = 1.000000000000` for the ghost; `R = 1` real ground vectors for both
   real-point-free conics). Relevance/traps: refutes "postselecting prepares real points"; real
@@ -4380,6 +4389,7 @@ MERGE PROPOSAL (`claims/CLAIMS.md`), all CONJECTURE per L1; where-tested is
   `Gh_{ab} = <x_a|x_b>^N` and `G_{ab} = (x_a^T x_b)^N` satisfy `G = P_sigma Gh` with `P_sigma` the
   permutation matrix of complex conjugation on `V(I)`; hence `Tr(Gh^{-1}G) = #V_R(I)` and
   `Tr(Gh^{-1}Gh) = D`.
+- status: CONJECTURE
 - depends-on: D-coherent-gram-matrix, D-pairing-state, D-coherent-state,
   D-real-locus-and-real-radical; where-proved: Algorithmic content; where-tested: part D, three
   binary quartics with 4, 2, 0 real roots, `N = 3,5,8,12,20`, exact integers; mutation `G -> Gh`
@@ -4393,6 +4403,7 @@ MERGE PROPOSAL (`claims/CLAIMS.md`), all CONJECTURE per L1; where-tested is
   `C = sum_j a_j b_j` both equal `1` if and only if `psi = |p>^{x N}` for some `p` with
   `[p] in V_R(I)`; both have operator norm at most one and are estimable to additive `eps` with
   `O(1/eps^2)` copies and no postselection.
+- status: CONJECTURE
 - depends-on: D-one-particle-reduced-state, D-realness-witness, D-coherent-state, D-ground-space;
   where-proved: Algorithmic content; where-tested: parts C and F (real point `(1,1)`, complex point
   `(1, 0.111)`, ghost `(0.557, 0.557)`, real ground vector `(0.387, 0.387)`). Relevance/traps: a
@@ -4412,3 +4423,205 @@ MERGE PROPOSAL — append to `PRD.md` §6 Decision record (PRD.md was created by
 > Scope for the next critic cycle is the eight rows of CLAIMS "Critical claims for the north star": C-124 (distance-to-ideal BQP-hardness), C-132 (uniform Bombieri inequality), C-170/C-172 (Macaulay gap vs Bürgisser-Cucker condition number), C-144/C-146 (adiabatic Gröbner deformation), C-136 (cone criterion for gap growth), C-150/C-154 (root sampling), C-166/C-168 (geometric overlaps, Toeplitz integration), C-099 (permutation-invariant Hamiltonians at fixed local dimension are classically easy).
 > The north star's hardware half rests on two unrefereed rows: C-024 (the conic Hamiltonian is the Law-Pu-Bigelow spinor-BEC spin-mixing Hamiltonian, already realised in the laboratory) and C-044 (few-mode Bose-Hubbard parents, still presentation-dependent). Its novelty half rests on C-075 and C-110, which need a literature scout, not a proof.
 > Sequencing: settle C-110 and C-099 first — the first says whether C-132 is open at all, the second may rule out the entire fixed-`n` regime and with it most of §5. Cheapest high-value numerics, both ~20 lines on `bf.py` and both currently untested: Fact 7.2's slope `4 τ_min^2` (C-108/C-109) and the cone criterion on a cubic (C-136).
+
+## Rows merged from scouting/quantum-primitives.md (2026-09-03, codex lane; critic loop verdicts/quantum-primitives-r1.md FAIL(10 MAJOR) -> r2 FAIL(3 MAJOR) -> r3 PASS, Opus critic; orchestrator merge, verbatim from the memo's "Proposed claim rows" at commit 6fc3f34, with the r3 rewording of C-NEW-QP-TDA-REAL-VARIETY; statuses as adjudicated in r3 §4: 6 SKETCH (cited published theorems with resolved ids, per the C-092/C-099 convention), 6 CONJECTURE, 11 REFUTED)
+
+Id map: C-281 = C-NEW-QP-MACAULAY-HHL-UNIFORM, C-282 = C-NEW-QP-MACAULAY-CONDITION-EQUALITY, C-283 = C-NEW-QP-ZETA-CURVE, C-284 = C-NEW-QP-ZETA-HYPERSURFACE, C-285 = C-NEW-QP-PRINCIPAL-IDEAL, C-286 = C-NEW-QP-UNIT-GROUP, C-287 = C-NEW-QP-HIDDEN-POLYNOMIAL, C-288 = C-NEW-QP-HIDDEN-EXPLICIT-TRANSFER, C-289 = C-NEW-QP-SUSY-HODGE-SPEEDUP, C-290 = C-NEW-QP-WITTEN-INDEX-COUNT, C-291 = C-NEW-QP-TDA-REAL-VARIETY, C-292 = C-NEW-QP-TDA-GENERIC-EXPONENTIAL, C-293 = C-NEW-QP-PATH-AA, C-294 = C-NEW-QP-PATH-INTERNAL-SPEEDUP, C-295 = C-NEW-QP-MHOM-BEZOUT-PERMANENT, C-296 = C-NEW-QP-BOSON-COUNT, C-297 = C-NEW-QP-ANALOGUE-DEGENERACY, C-298 = C-NEW-QP-FIXED-MODE-HARDWARE, C-299 = C-NEW-QP-ANNEALING-DEMONSTRATION, C-300 = C-NEW-QP-GROEBNER-ANNEALER, C-301 = C-NEW-QP-QPCA-SECANT, C-302 = C-NEW-QP-GIBBS-QUADRATIC, C-303 = C-NEW-QP-VOLUME-EHRHART
+
+### C-281 (C-NEW-QP-MACAULAY-HHL-UNIFORM)
+
+- statement: For every Boolean system F with n variables whose solutions all have minimum Hamming weight h, and for the degree-d Macaulay linear system of Chen–Gao with t solutions, if all t solutions have equal Hamming weight or the minimum-\(\ell_2\) solution lies in the convex hull of the t solution vectors, then the truncated QLS condition number satisfies \(\kappa_b(M) \ge \sqrt{((d+1)^h - 1)/t}\) at max degree and \(\kappa_b(M) \ge \sqrt{(\binom{d+h}{h} - 1)/t}\) at total degree; in particular \(\kappa_b(M) \ge \sqrt{(3n)^h/t}\) at Chen–Gao's \(d = 3n\), and \(\Omega(2^{h/2})\) for the reduced Boolean Macaulay system. Hence the original construction is no faster than fixed-weight Grover search, which costs \(O(\sqrt{\binom{n}{h}})\) evaluations, whenever \(d + h \ge n\).
+- status: SKETCH
+- depends-on: D-boolean-macaulay-solve, D-hardness-anchors, C-097
+- where-proved: arXiv:2111.00405 Theorem 4.5 and §1 (cited theorem)
+- where-tested: none
+- note: sharpens C-097
+
+### C-282 (C-NEW-QP-MACAULAY-CONDITION-EQUALITY)
+
+- statement: For every homogeneous tuple \((f_j)\) and every \(N\), the Chen–Gao truncated QLS condition number \(\kappa_b(M)\) equals the seed ratio \(\alpha_{\mathrm{BE}}/\Delta_N\).
+- status: REFUTED
+- surviving statement: C-097 — the two obstructions are analogous and no reduction is known between them.
+- depends-on: D-boolean-macaulay-solve, D-macaulay-map, D-normalised-gap, C-052, C-055, C-097, C-246
+- where-proved: explicit instance: \(f_1=z_0\), \(f_2=(z_0+z_1)/\sqrt2\) in \(\mathbb C[z_0,z_1,z_2]\), \(N=1\), unit Bombieri–Weyl generators; \(H_1\) has spectrum \(\{0,1-1/\sqrt2,1+1/\sqrt2\}\), so \(\alpha_{\mathrm{BE}}/\Delta_1=(1+\sqrt2)^2\approx5.8284\), while \(\kappa_b(\Phi_1)=1\) on the largest left singular vector and \(1+\sqrt2\approx2.4142\) on the smallest.
+- where-tested: none
+
+### C-283 (C-NEW-QP-ZETA-CURVE)
+
+- statement: For every smooth projective geometrically irreducible genus-\(g\) curve \(C/\mathbb F_q\) supplied by a plane model of degree \(\operatorname{poly}(g)\) and explicit data describing the singularities and their resolution, there is a bounded-error quantum algorithm computing the exact numerator \(P_C(T)\) of \(Z(C,T)\) in \(\operatorname{poly}(g,\log q)\) time.
+- status: SKETCH
+- depends-on: D-curve-zeta-problem
+- where-proved: arXiv:math/0411623 Theorem 1 (cited theorem)
+- where-tested: none
+
+### C-284 (C-NEW-QP-ZETA-HYPERSURFACE)
+
+- statement: The claim that Kedlaya’s curve algorithm computes the full zeta function of every smooth projective hypersurface of variable dimension and degree in time polynomial in the input length is false; the algorithm realizes only \(H^1\) through Jacobians, and no corresponding general realization of higher cohomology is supplied.
+- status: REFUTED
+- surviving statement: Kedlaya’s theorem computes the exact zeta numerator for curves under D-curve-zeta-problem; structured higher-dimensional \(P_i\) factors require separate algorithms
+- depends-on: D-curve-zeta-problem, D-finite-field-analogue
+- where-proved: arXiv:math/0411623 §10
+- where-tested: none
+
+### C-285 (C-NEW-QP-PRINCIPAL-IDEAL)
+
+- statement: For every real quadratic number field and ideal supplied under D-number-field-ideal-problems, Hallgren’s algorithm decides principality in time polynomial in the logarithm of the field discriminant and, for a principal ideal, returns the compact infrastructure-distance representation used to recover or verify its generator; a literal generator may have exponentially many bits.
+- status: SKETCH
+- depends-on: D-number-field-ideal-problems
+- where-proved: DOI 10.1145/1206035.1206039 (cited theorem)
+- where-tested: none
+
+### C-286 (C-NEW-QP-UNIT-GROUP)
+
+- statement: For every arbitrary-degree number field supplied under D-number-field-ideal-problems, Eisenträger–Hallgren–Kitaev–Song give a quantum algorithm computing its unit group in time polynomial in the field degree and the logarithm of the absolute discriminant.
+- status: SKETCH
+- depends-on: D-number-field-ideal-problems
+- where-proved: DOI 10.1145/2591796.2591860 (cited theorem)
+- where-tested: none
+
+### C-287 (C-NEW-QP-HIDDEN-POLYNOMIAL)
+
+- statement: For every fixed number \(a\) of variables and fixed total degree \(t\), and for all but finitely many field sizes \(q\), the hidden polynomial function graph problem of D-hidden-polynomial-structure has a bounded-error quantum algorithm running in \(\operatorname{polylog}(q)\) time, while every classical black-box algorithm needs \(\Omega(\sqrt q)\) queries for constant success probability.
+- status: SKETCH
+- depends-on: D-hidden-polynomial-structure
+- where-proved: arXiv:0706.1219 (cited theorem)
+- where-tested: none
+
+### C-288 (C-NEW-QP-HIDDEN-EXPLICIT-TRANSFER)
+
+- statement: No reduction is known from sparse coefficient access over \(\mathbb F_q\) to the obfuscated coherent fiber oracle of D-hidden-polynomial-structure, and the natural constructions require enumerating or solving the fibers; hence no efficient algorithm for explicitly presented sparse systems over \(\mathbb F_q\) follows from the hidden-polynomial results.
+- status: CONJECTURE
+- depends-on: D-hidden-polynomial-structure, D-input-model, D-finite-field-analogue
+- where-proved: none
+- where-tested: none
+
+### C-289 (C-NEW-QP-SUSY-HODGE-SPEEDUP)
+
+- statement: For the family of smooth degree-\(d\) hypersurfaces in \(\mathbb P^n\), the claim that SUSY ground-state counting supplies an asymptotic speedup for Hodge numbers is false: the Jacobian ideal is a complete intersection with Hilbert series \((1-t^{d-1})^{n+1}/(1-t)^{n+1}\), while the normalized middle-Hodge signal can be exponentially small.
+- status: REFUTED
+- surviving statement: singular isolated hypersurface inputs retain mathematical content, but no quantum resource theorem or polynomially resolvable normalized signal is known
+- depends-on: D-jacobian-ring-susy, D-hilbert-function, D-normalised-hilbert-function, C-061, C-091
+- where-proved: complete-intersection formula; `scouting/applications-wide-net.md` F2
+- where-tested: none
+- note: `scouting/applications-wide-net.md` F2 is the origin of both the closed form and the \(e^{-0.249n}\) to \(e^{-0.299n}\) fits
+
+### C-290 (C-NEW-QP-WITTEN-INDEX-COUNT)
+
+- statement: There exist supersymmetric models — e.g. Witten's deformed de Rham complex on a compact manifold with \(b_0 = b_1\) — in which the Witten index \(\operatorname{Tr}(-1)^F\) does not determine the individual Betti numbers, since it is an alternating supertrace. This does not apply to the Landau–Ginzburg model with isolated non-degenerate critical locus, where all vacua lie in one fermion-number sector and \(\operatorname{Tr}(-1)^F = \pm\mu = \pm\dim\operatorname{Jac}(W)\).
+- status: CONJECTURE
+- depends-on: D-jacobian-ring-susy
+- where-proved: none (composition); DOI 10.4310/jdg/1214437492 supports the de Rham component, DOI 10.1016/0550-3213(89)90474-4 supports the chiral-ring component, and the explicit cancellation witness is \(S^1\), with \(b_0=b_1=1\)
+- where-tested: none
+
+### C-291 (C-NEW-QP-TDA-REAL-VARIETY)
+
+- statement: For every compact smooth positive-reach real variety \(V_{\mathbb R}\subset\mathbb R^a\), a sufficiently dense independent sample satisfies the Čech/union-of-balls reconstruction theorem, while the cited quantum resource bound estimates \(\beta_{k-1}/|\mathrm{Cl}_k|\) for a Vietoris–Rips clique complex; identifying the latter with a persistent Betti number of \(V_{\mathbb R}\) requires a VR–Čech interleaving and persistence-interval step not supplied here.
+- status: CONJECTURE
+- depends-on: D-vr-betti-estimation, D-real-locus-and-real-radical
+- missing step: VR–Čech interleaving plus a persistence-interval theorem connecting the two scales
+- where-proved: none (composition proposed)
+- where-tested: none
+
+### C-292 (C-NEW-QP-TDA-GENERIC-EXPONENTIAL)
+
+- statement: The claim that LGZ gives an exponential end-to-end speedup for multiplicatively estimating Betti numbers on asymptotically almost all clique-complex inputs in the vertex-and-edge input model is false; its runtime contains \(\sqrt{\binom{s}{k}/\beta_{k-1}}\), which is exponential on asymptotically almost all inputs in the analyzed regime. Approximating Betti numbers up to multiplicative error is NP-hard, and an exponential advantage may be recoverable when the input is a specification of simplices rather than a list of vertices and edges.
+- status: REFUTED
+- surviving statement: in the vertex-and-edge input model LGZ gives at most a quadratic advantage on asymptotically almost all inputs; the simplices-specification regime is an explicit exception
+- depends-on: D-vr-betti-estimation
+- where-proved: arXiv:2209.14286
+- where-tested: none
+
+### C-293 (C-NEW-QP-PATH-AA)
+
+- statement: For every family of \(D\) continuation paths with \(r\ge1\) marked endpoints, if the coherent path oracle and predicate can be computed and uncomputed with per-invocation error \(o(\sqrt{r/D})\) and cost \(C_{\mathrm{track}}\), amplitude amplification returns a marked endpoint using \(O(\sqrt{D/r}\,C_{\mathrm{track}})\) gates up to polylogarithmic overhead.
+- status: CONJECTURE
+- depends-on: D-coherent-path-oracle
+- where-proved: none (conditional composition with amplitude amplification)
+- where-tested: none
+
+### C-294 (C-NEW-QP-PATH-INTERNAL-SPEEDUP)
+
+- statement: The claim that amplitude amplification by itself reduces the arithmetic cost of tracking one homotopy path is false; it reduces only the number of coherent path-oracle invocations and leaves \(C_{\mathrm{track}}\) unchanged.
+- status: REFUTED
+- surviving statement: amplitude amplification conditionally reduces the number of complete path-oracle invocations from \(D/r\) to \(O(\sqrt{D/r})\)
+- depends-on: D-coherent-path-oracle
+- where-proved: query-composition argument
+- where-tested: none
+
+### C-295 (C-NEW-QP-MHOM-BEZOUT-PERMANENT)
+
+- statement: For every \(n\times n\) nonnegative degree matrix \(A\) describing a square multihomogeneous system with one-dimensional variable blocks, the multihomogeneous Bézout coefficient of \(\prod_i\sum_jA_{ij}t_j\) at \(t_1\cdots t_n\) equals \(\operatorname{per}(A)\).
+- status: CONJECTURE
+- depends-on: D-multihomogeneous-bezout
+- where-proved: coefficient expansion
+- where-tested: none
+
+### C-296 (C-NEW-QP-BOSON-COUNT)
+
+- statement: The claim that sample access to a boson-sampling distribution computes a specified multihomogeneous Bézout permanent to relative error \(\varepsilon\) using \(\operatorname{poly}(n,1/\varepsilon)\) shots for every embedded degree matrix is false; estimating an event of probability \(p\) requires \(\Omega(1/(p\varepsilon^2))\) independent shots, and the unitary embedding can make \(p\) exponentially small.
+- status: REFUTED
+- surviving statement: the device supplies permanent-weighted samples; such samples are useful only when the requested output is the distribution or when the relevant event probability is not too small
+- depends-on: D-optical-counting-access
+- where-proved: Bernoulli sample-complexity bound
+- where-tested: none
+
+### C-297 (C-NEW-QP-ANALOGUE-DEGENERACY)
+
+- statement: Ground-state energy measurements alone determine \(\operatorname{HF}_{R/I}(N)\).
+- status: REFUTED
+- surviving statement: spectroscopy can verify zero ground energy or selected levels, but degeneracy requires temperature below the spectral gap, calibrated partition function or entropy, control of excited-state contamination, and \(\Omega(1/\varepsilon^2)\) shots to resolve \(\operatorname{HF}/M_N\) to additive \(\varepsilon\) (D-analogue-degeneracy-readout)
+- depends-on: D-analogue-degeneracy-readout, D-ground-space, C-009
+- where-proved: measurement-distribution and Bernoulli sample-complexity identities
+- where-tested: none
+
+### C-298 (C-NEW-QP-FIXED-MODE-HARDWARE)
+
+- statement: For every fixed \(n\), with \(N\) given in unary (D-input-model), \(\binom{N+n}{n}=\operatorname{poly}(N)\) is polynomial in the input length, so a fixed-mode analogue Hilbert-function experiment cannot yield an exponential asymptotic advantage merely by increasing \(N\).
+- status: CONJECTURE
+- depends-on: D-hamiltonian, D-symmetric-sector, D-input-model, C-057, C-099
+- where-proved: restatement of C-057 and C-099
+- where-tested: none
+
+### C-299 (C-NEW-QP-ANNEALING-DEMONSTRATION)
+
+- statement: The claim that the D-Wave Boolean-MQ demonstrations establish an asymptotic quantum speedup is false: the experiments reach at most nine original variables, use iterative classical fixing, and supply neither a minimum-gap bound nor a scaling comparison with BooleanSolve, SAT, or Groverized algebraic search.
+- status: REFUTED
+- surviving statement: the experiments establish hardware feasibility and embedding data for small Boolean residual Hamiltonians
+- depends-on: D-boolean-residual-energy, D-hardness-anchors, C-097
+- where-proved: resource audit of arXiv:2111.13224
+- where-tested: none
+
+### C-300 (C-NEW-QP-GROEBNER-ANNEALER)
+
+- statement: The claim that the factorization experiment of arXiv:1604.05796 used a quantum annealer to compute a Gröbner basis is false; the Gröbner basis was computed classically and used to reduce the QUBO supplied to the annealer.
+- status: REFUTED
+- surviving statement: classical Gröbner preprocessing can be combined with an annealer as a hybrid factorization heuristic
+- depends-on: D-boolean-residual-energy
+- where-proved: method description in DOI 10.1038/srep43048
+- where-tested: none
+
+### C-301 (C-NEW-QP-QPCA-SECANT)
+
+- statement: The claim that quantum PCA or HOSVD decides CP-rank-\(\le r\) or border-rank-\(\le r\) for every tensor is false, because those algorithms diagonalize matrix-valued reductions and do not solve membership in the \(r\)-th Segre or Veronese secant variety.
+- status: REFUTED
+- surviving statement: quantum PCA and quantum HOSVD estimate spectra or multilinear ranks under quantum-data access
+- depends-on: D-tensor-secant-problem
+- where-proved: output-type comparison
+- where-tested: none
+
+### C-302 (C-NEW-QP-GIBBS-QUADRATIC)
+
+- statement: For every partition-function problem satisfying the hypotheses of Wocjan–Chiang–Abeyesinghe–Nagaj — an FPRAS based on simulated annealing with MCMC along a non-adaptive cooling schedule — their quantum algorithm gives linked quadratic improvements in the spectral-gap and accuracy dependences; it does not prove that the Markov-chain gap is polynomial for D-real-variety-gibbs.
+- status: SKETCH
+- depends-on: D-real-variety-gibbs
+- where-proved: arXiv:0811.0596 (cited theorem)
+- where-tested: none
+
+### C-303 (C-NEW-QP-VOLUME-EHRHART)
+
+- statement: The claim that a multiplicative quantum volume estimate for a rational polytope yields its exact Ehrhart value \(L_P(N)\) in polynomial time for every growing-dimensional input is false, because bodies of equal or multiplicatively close volume can have different lattice-point counts and exact recovery can require additive error below one lattice cell; moreover the cited volume algorithm has an \(\Omega(\sqrt d+1/\varepsilon)\) quantum membership-query lower bound, ruling out exponential speedup in \(d\) for its own continuous-volume output.
+- status: REFUTED
+- surviving statement: continuous volume admits the cited polynomial quantum query improvement, but it does not determine exact Ehrhart or Hilbert data
+- depends-on: D-toric-lattice-counting
+- where-proved: precision and non-identifiability argument; arXiv:1908.03903 lower bound
+- where-tested: none

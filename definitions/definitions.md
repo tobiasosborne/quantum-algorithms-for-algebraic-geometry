@@ -1095,6 +1095,253 @@ orthogonal to the variables $f$ depends on") and does not claim necessity. Wheth
 is open, and 8.3(b)/(e) implicitly need the converse. Referee round2 #6 flagged the earlier
 "strict otherwise" as false ($f=z_0+z_1$, $h=(z_0-z_1)^{N-1}$).
 
+### Merged from scouting/quantum-primitives.md (2026-09-03; critic loop PASS at verdicts/quantum-primitives-r3.md, all 14 ACCEPT; orchestrator merge, verbatim)
+
+### D-boolean-macaulay-solve
+
+For a Boolean polynomial system \(\mathcal F\subseteq\mathbb F_2[x_1,\ldots,x_n]\), a Boolean Macaulay solve is a complex linear system \(M_{\mathcal F}y=b\) constructed after adjoining Boolean field equations and, where required, lifting finite-field equations to complex equations.
+
+The original Chen–Gao matrix has approximate dimensions
+
+\[
+(m+n)(3n+1)^n\times(3n+1)^n.
+\]
+
+The reduced Boolean Macaulay matrix of Ding et al. has dimensions
+
+\[
+m2^n\times2^n.
+\]
+
+Its right-hand-side-dependent truncated QLS condition number is
+
+\[
+\kappa_b(M)
+=
+\|M\|\frac{\|M^+b\|}{\|b\|}.
+\]
+
+Source: arXiv:1712.06239 and arXiv:2111.00405.
+
+Pitfalls: this is not D-macaulay-map in Fock norms, its condition parameter is not D-macaulay-gap, and its output is a linear-system state rather than D-projectors. The Grover cost \(O(\sqrt{\binom nh})\) is not a condition-number bound.
+
+### D-curve-zeta-problem
+
+For a smooth projective geometrically irreducible curve \(C/\mathbb F_q\) of genus \(g\),
+
+\[
+Z(C,T)
+=
+\exp\!\left(
+\sum_{r\ge1}
+\#C(\mathbb F_{q^r})\frac{T^r}{r}
+\right)
+=
+\frac{P_C(T)}{(1-T)(1-qT)},
+\]
+
+where \(P_C\in\mathbb Z[T]\) has degree \(2g\).
+
+The computational problem is to output every coefficient of \(P_C\) from a polynomial-size plane model, explicit normalization/desingularization data, and finite-field arithmetic.
+
+Source: arXiv:math/0411623, DOI 10.1007/s00037-006-0204-7.
+
+Pitfalls: the input includes more than one polynomial equation. Kedlaya constructs the unique-encoding class-group/Jacobian operations from this input protocol; they are not an additional oracle promise.
+
+### D-number-field-ideal-problems
+
+Let \(K\) be a number field of degree \(d_K\), discriminant \(\Delta_K\), and ring of integers \(\mathcal O_K\), supplied with an effective integral basis and arithmetic.
+
+The principal ideal problem takes an ideal \(\mathfrak a\subseteq\mathcal O_K\), represented by an integral lattice basis, and asks whether \(\mathfrak a=(\alpha)\). If so, the output must specify whether it is a literal generator or a compact infrastructure/logarithmic representation, because \(\alpha\) may have exponentially many bits.
+
+The unit-group problem asks for the torsion subgroup and a basis of the logarithmic unit lattice representing \(\mathcal O_K^\times\).
+
+Source: DOI 10.1145/1206035.1206039 and DOI 10.1145/2591796.2591860.
+
+Pitfalls: an ideal of \(\mathcal O_K\) is not D-homogeneous-ideal in a coordinate polynomial ring. Hallgren’s 2007 principal-ideal theorem is for real quadratic fields; the arbitrary-degree cited theorem computes unit groups. Output representation and regulator precision are part of the resource statement.
+
+### D-hidden-polynomial-structure
+
+Fix a finite field \(\mathbb F_q\), variable count \(a\), and degree \(t\).
+
+A hidden polynomial structure consists of an unknown \(h\in\mathbb F_q[x_1,\ldots,x_a]\) and a coherent oracle \(O\) whose level sets coincide with the fibers of \(h\), while distinct fibers receive distinct arbitrary labels.
+
+The task is to identify \(h\) up to scalar or other equivalences invisible to the labeled partition.
+
+Source: arXiv:0705.2784, arXiv:0706.1219, and arXiv:1107.2189.
+
+Pitfalls: this oracle is stronger than coefficient access, value access, membership in one zero set, or classical samples from one fiber.
+
+### D-jacobian-ring-susy
+
+For \(W\in\mathbb C[z_0,\ldots,z_n]\),
+
+\[
+J_W=(\partial_0W,\ldots,\partial_nW),
+\qquad
+\operatorname{Jac}(W)=R/J_W.
+\]
+
+A Jacobian-ring SUSY model is a graded supercharge complex whose cohomology is \(\operatorname{Jac}(W)\) under isolated-critical-locus and regularity hypotheses.
+
+The following campaign assertion is [UNVERIFIED]: for a Landau–Ginzburg model with isolated non-degenerate critical locus, all vacua lie in one fermion-number sector and
+
+\[
+\operatorname{Tr}(-1)^F
+=
+\pm\mu
+=
+\pm\dim\operatorname{Jac}(W).
+\]
+
+Source: DOI 10.1016/0550-3213(89)90474-4 and DOI 10.1016/0370-2693(89)90473-5.
+
+Pitfalls: Landau–Ginzburg chiral-ring cohomology, Witten’s de Rham complex, and the finite-degree seed inverse system are related but not identical Hilbert-space models. Alternating-index cancellation in a de Rham model does not refute the Landau–Ginzburg equality above. The cited sources identify the chiral ring with the Jacobian quotient but no specific theorem or equation for the displayed \(\pm\mu\) assertion has been supplied.
+
+### D-vr-betti-estimation
+
+For a graph \(G\) on \(s\) sampled points, let \(\mathrm{Cl}_k(G)\) be its set of \(k\)-vertex cliques, hence its \((k-1)\)-simplices. Let \(\Delta_{k-1}\) be the corresponding combinatorial Laplacian, \(\beta_{k-1}=\dim\ker\Delta_{k-1}\), and \(\Gamma_{k-1}\) its smallest nonzero eigenvalue.
+
+Normalized Vietoris–Rips Betti estimation returns
+
+\[
+\frac{\beta_{k-1}}{|\mathrm{Cl}_k(G)|}
+\]
+
+to stated additive or relative error, including clique-mixture preparation and spectral filtering in the cost.
+
+Persistent estimation replaces one kernel dimension by the appropriate image rank between two Vietoris–Rips filtration scales.
+
+Source: arXiv:1408.3106 and arXiv:2209.13581.
+
+Pitfalls: Niyogi–Smale–Weinberger reconstruct a positive-reach submanifold through a union of balls and its Čech nerve. A separate VR–Čech interleaving and persistence-interval argument is required before this normalized VR output is identified with a Betti number of the sampled real variety.
+
+### D-coherent-path-oracle
+
+For a homotopy with \(D\) indexed start solutions, a coherent path oracle is a reversible circuit
+
+\[
+|i\rangle|0\rangle
+\longmapsto
+|i\rangle|\widetilde x_i(1)\rangle|\mathrm{work}_i\rangle
+\]
+
+that tracks path \(i\) to the target parameter, bounds failure and branch-switching error, evaluates a marked-root predicate, and can be uncomputed.
+
+Its cost \(C_{\mathrm{track}}(\mu,L,b)\) includes conditioning \(\mu\), predictor-corrector length \(L\), arithmetic precision \(b\), and every stored or recomputed checkpoint.
+
+Source: proposed here from arXiv:1609.08722 and amplitude amplification.
+
+Pitfalls: a classical adaptive tracker is not automatically reversible or coherent. Under \(O(\sqrt{D/r})\) oracle invocations, the per-invocation error must be \(o(\sqrt{r/D})\), not merely a bound on an unspecified total error.
+
+### D-multihomogeneous-bezout
+
+For a nonnegative \(n\times n\) degree matrix \(A=(A_{ij})\), define
+
+\[
+B_A
+=
+[t_1\cdots t_n]
+\prod_{i=1}^n
+\left(\sum_{j=1}^n A_{ij}t_j\right).
+\]
+
+This is the multihomogeneous Bézout coefficient for the corresponding square system with one-dimensional variable blocks. Direct coefficient expansion gives
+
+\[
+B_A
+=
+\sum_{\sigma\in S_n}\prod_iA_{i,\sigma(i)}
+=
+\operatorname{per}(A).
+\]
+
+Source: multihomogeneous Bézout theorem and coefficient expansion.
+
+Pitfalls: \(B_A\) is not the general BKK mixed volume. Optical access to an event with probability proportional to \(|B_A|^2\) is a separate object, D-optical-counting-access.
+
+### D-optical-counting-access
+
+Optical counting access to a matrix \(A\) means an efficiently prepared passive or Gaussian optical experiment whose specified outcome \(S\) has probability
+
+\[
+p_S=c(A,S)|\operatorname{per}(A_S)|^2,
+\]
+
+or the analogous hafnian or Torontonian expression, with the normalization \(c(A,S)\) known.
+
+Source: arXiv:1011.3245, arXiv:1612.01199, and arXiv:1807.01639.
+
+Pitfalls: sample access does not give signed amplitudes, relative estimation of a rare \(p_S\) costs \(\Omega(1/p_S)\) shots, and embedding a nonunitary matrix can make \(c(A,S)\) exponentially small.
+
+### D-analogue-degeneracy-readout
+
+For a physical realization of D-hamiltonian, an analogue degeneracy readout is a protocol estimating
+
+\[
+\dim\ker H_N
+\quad\text{or}\quad
+\frac{\dim\ker H_N}{\dim R_N}
+\]
+
+with specified confidence, temperature, state preparation, energy resolution, and shot count.
+
+Source: proposed here; algebraic identity from D-ground-space.
+
+Pitfalls: spectroscopy of one ground state, measurement of zero energy, and low-temperature occupation do not individually determine the degeneracy. Resolving a normalized fraction to additive error \(\varepsilon\) from independent samples requires \(\Omega(1/\varepsilon^2)\) shots.
+
+### D-boolean-residual-energy
+
+For Boolean polynomials \(p_i\in\mathbb F_2[x_1,\ldots,x_n]\), a Boolean residual-energy Hamiltonian is a diagonal real Hamiltonian obtained by converting each Boolean function to an integer-valued numerical normal form and adding nonnegative penalties so that its zero-energy bit strings are precisely the common zeros.
+
+Source: arXiv:2111.13224, DOI 10.1103/PhysRevResearch.4.013096.
+
+Pitfalls: the ANF-to-integer conversion can have \(2^n-1\) terms; quadratization of a general \(n\)-body term can require \(2^{(n+2)/2}-2\) total qubits for even \(n\) or \(3\cdot2^{(n-1)/2}-2\) for odd \(n\), before minor embedding.
+
+### D-tensor-secant-problem
+
+For \(T\in V_1\otimes\cdots\otimes V_p\), CP rank at most \(r\) means that \(T\) is a sum of at most \(r\) simple tensors.
+
+Border rank at most \(r\) means that \([T]\) lies in the \(r\)-th secant variety of the Segre variety; for symmetric tensors use the Veronese variety and Waring rank.
+
+Source: arXiv:0911.1393 and arXiv:1512.04312.
+
+Pitfalls: matrix flattening rank, Tucker rank, HOSVD rank, CP rank, and border rank are different outputs.
+
+### D-real-variety-gibbs
+
+For real polynomials \(f_1,\ldots,f_d\), compact domain \(K\), and \(\beta>0\),
+
+\[
+\pi_\beta(dx)
+=
+Z_\beta^{-1}
+e^{-\beta\sum_jf_j(x)^2}
+\mathbf1_K(x)\,dx.
+\]
+
+A real-variety Gibbs sampler returns a sample within stated total-variation distance of \(\pi_\beta\).
+
+Source: proposed here; partition-function annealing framework from arXiv:0811.0596.
+
+Pitfalls: finite \(\beta\) samples a tube, not the variety; mixing can be exponentially slow across components, and a bosonic Gibbs state is not automatically this classical coherent-state distribution. The Wocjan et al. theorem assumes an FPRAS built from MCMC along a non-adaptive cooling schedule and does not prove a polynomial gap for polynomial residuals.
+
+### D-toric-lattice-counting
+
+For a rational polytope \(P\subset\mathbb R^d\),
+
+\[
+L_P(N)=|NP\cap\mathbb Z^d|
+\]
+
+is its Ehrhart counting function.
+
+The exact task returns \(L_P(N)\) or the Ehrhart polynomial; the approximate-volume task returns \(\operatorname{vol}(P)\) multiplicatively.
+
+Source: DOI 10.1287/moor.19.4.769 and arXiv:math/0211146.
+
+Pitfalls: volume estimation, uniform lattice-point sampling, and exact Ehrhart evaluation are inequivalent. The cited quantum volume algorithm has an \(\Omega(\sqrt d+1/\varepsilon)\) membership-query lower bound.
+
 ## Lane report
 
 Included: 66 entries in five parts - the three inner products with exact degreewise scalars; all operators ($a_j$, $a(f)$, $M_f$, $\Phi_N$, shifts, compressed multiplications); ideals, Hilbert function, inverse system, monomial/toric/boolean/clause ideals, Grobner deformation; Hamiltonian, ground space, frustration-freeness, parent Hamiltonians, $k$-body vs few-mode, $\Delta_N$ and its normalisations, coherent states, Takagi; algorithmic/geometric objects (input model, QSVT, the distance-to-ideal problem verbatim, Bergman projector, hardness anchors, condition number, hard-gap instances, finite fields, Bose-Hubbard). Every mandatory entry in the brief is present. `D-reserved-photonic` is a stub: the seed uses no boson-sampling / linear-optics / GBS object, so it lists what must be defined first. 14 OPEN issues, 5 of them substantive (OPEN-1,3,5,6,7); `notation.md` holds the symbol table and 18 page81-vs-report conflicts with the chosen convention.
