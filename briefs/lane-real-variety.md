@@ -1,0 +1,22 @@
+# Lane: real-variety scout (PRD D11)
+
+Work fully autonomously; do not ask questions. Repo root: /home/tobias/Projects/quantum-algorithms-for-algebraic-geometry. Read first, in order: CLAUDE.md (laws, north star), PRD.md (arms, decisions D1-D11, open questions), definitions/definitions.md (binding conventions C1-C12; cite D-ids, never redefine), scouting/applications-wide-net.md §1 (filters F1-F6, Observations A/B) and its Questions for TJO item 1, scouting/robotics-deep-dive.md (bets R1-R3, killers K2 and K3 especially), scouting/classical-landscape.md §8 and §15 (distance to a variety; SOS/Lasserre) and its Traps section, seed/analysis-2026-09-01/report.md (untrusted proposer document). No emoji. Mark any citation you cannot resolve to an arXiv id or DOI as [UNVERIFIED]. Do not touch seed/ or any file outside your lane.
+
+## Your lane
+- scouting/real-variety.md (written via the codex -o path; orchestrator places it)
+
+## Why this lane exists
+The seed construction is complex projective: ground space of H_N is the degree-N Macaulay inverse system of a complex ideal. Nearly every classical application (robotics, statistics, optimisation, power systems, vision) asks a REAL or POSITIVE question: real roots, real critical points, feasibility of polynomial inequalities. The applications scout flagged this as the largest scoping decision; TJO opened the lane (D11). Design-time speedups count (D10).
+
+## Task
+Find, and evaluate honestly against the north star, every route by which a Fock-space / Macaulay-matrix / coherent-state formulation can SEE real or positive points. Candidates to cover at minimum:
+1. Hermite's method: real root count = signature of the trace form Tr(M_g M_h) on the quotient; the seed's accessible observable is a trace, the needed output is a signature (integer). Is there an additively-estimable real observable (e.g. normalised signature at O(1) precision for exponentially many roots) that is meaningful and classically hard?
+2. Complex conjugation K commutes with H_N; real points are K-fixed coherent states. Is there a Hamiltonian, or a modified inner product (e.g. a real Bargmann / Segal-Bargmann restriction, Gaussian weight on R^n rather than C^n), whose ground space is spanned by real-point coherent states? What replaces the Macaulay inverse system?
+3. The moment/SOS side: the coherent-state energy <p^{tensor N}|H_N|p^{tensor N}> is a sum of squared residuals; the DPS / symmetric-extension hierarchy and Lasserre's moment hierarchy are ground-energy problems on symmetric subspaces. State exactly which Lasserre level corresponds to which N and which Hamiltonian, and whether a quantum ground-energy estimate (QPE, variational, Gibbs) beats the best classical SDP solver (chordal sparsity, Burer-Monteiro, first-order) in time or space. Robotics bet R1 lives here; assess it.
+4. Positive points and nonnegative real varieties: toric/binomial ideals with positive real points, the moment map, algebraic statistics' positive orthant. Does the Bose-Hubbard / number-conserving hopping picture see positivity naturally?
+5. Real algebraic geometry proper: Sturm/Budan-Fourier, real root isolation, cylindrical algebraic decomposition, Positivstellensatz certificates, Tarski-Seidenberg, and their complexity (singly vs doubly exponential; real feasibility in PSPACE; existential theory of the reals is ETR-complete). Where would a quantum method plausibly land, and which trap (classical memo) does each route fall into?
+6. Hardware: for each route, the cheapest heuristic attack (linear optics with postselection / MBQC; boson sampling; Bose-Hubbard or spinor BEC; also Ising/annealers for Boolean-real problems), and whether the real structure is natural or needs gadgets.
+
+For each route: precise problem statement with input model and size parameters; classical baseline with complexity exponent and software; the quantum observable and its precision/normalisation; dequantization risk; hardware fit; plausibility score 1-5 with one line. Then "## Ranked routes" (<=5), "## Killers" (sharp reasons a real-variety speedup is likely not real), "## Proposed definitions" (exact MERGE PROPOSAL text for new D-entries in definitions/definitions.md, in the register's format), "## Proposed claim rows" (exact statements with quantifiers, status CONJECTURE, for claims/CLAIMS.md), and "## Questions for TJO".
+
+Length target 400-800 lines. Be quantitative; cite theorems.

@@ -1,28 +1,74 @@
-# Handoff — complex projective varieties as ground spaces (2026-09-02)
+<!-- ROLE: current state + next steps. UPDATE POLICY: rewritten whole at session close,
+     <=150 lines. TRIGGER: read at session start (item 4 of the CLAUDE.md read order). -->
 
-## State
-- Source: `page81.tex` (transcribed notebook page, preliminary quantum-algorithm ideas).
-- Deliverable: `analysis-2026-09-01/report.md` + `report.html` (render with `fmd-report report.md -o report.html`; last render 847 equations, 0 fallbacks).
-- Support: `analysis-2026-09-01/numerics/` (bf.py core; task1–9 scripts + `*_out.txt`; `run_all.sh`), `referee/round1.md`, `round2.md` (codex gpt-5.6-sol xhigh critiques), `literature-2026-09-02.md` (three Opus lit scouts, citations unverified unless marked).
+# HANDOFF — quantum-algorithms-for-algebraic-geometry
 
-## Established (theorem-level, in report Sections 2–4, 7)
-- H = Σ_j f_j(a†) f̄_j(a) on Fock space; ker H_N = (I_N)^⊥ = Macaulay inverse system; dim = Hilbert function. Frustration-free. Coherent states |p>^{⊗N} in kernel ⟺ p̄ ∈ V. Multidegree-(1,…,1) sector = quantum k-SAT exactly.
-- No k-body parent Hamiltonian for I_N (Fact 4.1); few-mode parents only for ideals confined to few modes (Fact 4.2).
-- Principal ideals uniformly gapped (Bombieri inequality, Fact 7.1); quadric gap ≥ 4 d_min²(N−2)+‖f‖² via Takagi (Fact 7.2), exact for the conic (Δ_N = N+1).
-- Bosonic QSAT (symmetric sector) is QMA1-hard via hard-core terms (Prop 8.2).
-- Conic Hamiltonian = Law–Pu–Bigelow spinor-BEC spin mixing; 2N+1 ground states already realised experimentally.
+## State (2026-09-02, session 1 close: campaign stood up under rk-light)
 
-## Open / conjectures (report Section 8)
-8.1 gapped distance-to-ideal BQP-hard; 8.3(a) inf_N Δ_N > 0 for fixed tuple; 8.3(b) cone criterion for gap growth; 8.3(c) generic forms gapped uniformly in n; 8.4 adiabatic Gröbner deformation; 8.6 root sampling Grover-limited; 8.7 low-codim degree/dim from normalised HF; 8.10 geometric overlaps / Toeplitz integration; 8.11 Macaulay gap vs Bürgisser–Cucker condition number.
+- Method: rk-light (CLAUDE.md laws L1–L5, rules 1–10). Not rk. Tracking: bd, prefix `qaag-`.
+- North star: CLAUDE.md §1. Robotics is a first-class arm (PRD D5).
+- Seed (2026-09-01 analysis + notebook page 81) is read-only under `seed/`.
+- `definitions/definitions.md`: 66 entries + 2 stubs (D-arveson-curvature,
+  D-essential-normality), conventions C1–C12 binding, 14 OPEN issues (substantive:
+  OPEN-1, 3, 5, 6, 7). `definitions/notation.md`: symbol table, 18 page81-vs-report conflicts.
+- `claims/CLAIMS.md`: 254 rows (157 SKETCH, 40 CONJECTURE, 57 REFUTED, 0 PROVED), 529
+  edges, acyclic. Critical-claims section lists the 8 rows for the first critic cycle.
+- Scouting: `scouting/classical-landscape.md` (codex, 2113 lines, 9 ranked candidates,
+  21 traps, 63 refs none marked unverified: treat as unverified), `applications-wide-net.md`
+  (Opus, 325 lines, shortlist of 8, filters F1–F6, Observations A/B),
+  `robotics-deep-dive.md` (Opus, 763 lines, bets R1–R3, killers K1–K10).
+- Checkers: `checkers/` 16 red-capable checkers (14 ported from seed + Fact 7.1 + Fact 7.2),
+  3717 checks, 17 mutations all red; orchestrator re-ran both independently 2026-09-02
+  (413 s wall, all PASS; 17/17 RED). Suite uses generators as written, NOT unit
+  Bombieri–Weyl (departs from C5, matching the seed); a unit-BW re-run is bead work.
+- PRD.md: north star, success criteria, arms A/B/C/D/R/X, phases, decisions D1–D9, ten
+  open questions for TJO (§7).
 
-## Suggested next small steps
-1. Check Fact 7.2 numerically on the survey's random quadric in P^4: compute Takagi values, compare slope of Δ_N with 4 d_min². (bf.py has everything; ~20 lines.)
-2. Test the cone criterion (8.3(b)) for a non-quadric hypersurface: cubic with/without linearly dependent partials, Δ_N vs N.
-3. Test 8.10(a): Tr(P_I P_J) scaling for two curves meeting in a point vs disjoint, N ≤ 12.
-4. If writing up: Sections 2, 3, 7 and Props 3.1/8.2 are the solid core; keep 8.x labelled as conjectures.
+## Findings this session (not yet critiqued; nothing promoted)
+
+- Fact 7.2 (quadric gap bound via Takagi) holds on all eight quadrics tested; cones pinch
+  to equality Delta_N = ||f||^2_Fock; tau_min = 0.0165 explains the flat P^4 survey row.
+  Four minor seed discrepancies recorded in checkers/README.md, none touching a §2–7 theorem.
+
+- Seed's §7 gap survey used unit-coefficient, not unit-Bombieri–Weyl, generators
+  (definitions OPEN-1): it is not yet evidence for Conjecture 8.3(a) / C-132.
+- Three seed errors missed by both referee rounds: 8.3(b) upper bound inequality backwards
+  for d >= 2 (C-135); page81 annihilation identity fails at k=(1,1,1) (C-193 REFUTED);
+  distance formula report L146 off by ||f|| (C-078).
+- Round-1 finding #77 (FATAL on the whole quantum-algorithmic programme) was never
+  retracted: C-250. This is why nothing enters above SKETCH.
+- Robotics: kinematics is zero-dimensional (codim = n) and the seed's observables need
+  codim O(1); only closure/self-motion varieties (bet R3) escape. Motion planning is
+  PSPACE-complete so no quantum space advantage exists there.
+- Applications: the construction is complex projective; nearly every classical application
+  asks a real question. Best fit is quantum-native varieties (multigraded QSAT).
+
+## Next steps
+
+TJO answered Q1 and Q2 on 2026-09-02 (PRD D10, D11): design-time speedups count, robotics
+target is bet R2; real-variety lane opened (`briefs/lane-real-variety.md`, codex scout,
+output `scouting/real-variety.md`). Still open: Q3–Q10.
+
+1. Harvest the real-variety scout; merge its proposed D-entries and claim rows (orchestrator).
+2. Arm X kill-first checks (each one bead, one checker or one short memo):
+   C-099 Schur–Weyl classical easiness at fixed local dimension; C-110 literature scout
+   for a multi-generator Bombieri inequality (codex or Opus, not a proof); re-run the gap
+   survey with unit-BW generators (OPEN-1).
+3. Cheapest numerics, ~20 lines each on `checkers/bf.py`: Fact 7.2 Takagi slope
+   (C-108/C-109); cone criterion on a cubic with/without dependent partials (C-136);
+   robotics bet R3 degree growth via HomotopyContinuation.jl (one day).
+4. First critic round on the 8 critical claims (codex gpt-5.6-sol xhigh as critic, Opus
+   as proposer; verdicts in `verdicts/<claim>-r1.md` per CLAUDE.md L5).
+5. Reference verification pass over both scouting ledgers (bead filed).
 
 ## Conventions / pitfalls
-- Fock basis |k> = z^k/√k!, a(f) = conj-coefficient differential operator. Sphere/Bombieri norms agree with Fock only degreewise.
-- Gröbner path (5.5) needs a w-Gröbner basis as generators, else not flat at t=0.
-- Δ_N depends on the generating tuple (not just I); use unit Bombieri–Weyl generators when comparing.
-- Tooling: no Fable subagents; Opus subagents or `codex exec -m gpt-5.6-sol -c model_reasoning_effort="xhigh" -s read-only --skip-git-repo-check -o out.md "<prompt>" < /dev/null` (stdin must be closed).
+
+- Fock basis |k> = z^k/sqrt(k!); page81's projective basis differs degreewise by the
+  scalars in D-norm-comparison. Spectral promise is on Delta_N / alpha_BE (C5, C7).
+- Fact 7.1 uniform gap is a Fock-normalisation statement; in Bombieri–Weyl it reads
+  Delta_N >= binom(N,m)^{-1} ||f||_BW^2.
+- Delta_N depends on the generating tuple, not the ideal; compare only at unit BW.
+- Gröbner path needs a w-Gröbner basis as generators, else not flat at t = 0.
+- Subagents: Opus, or codex per CLAUDE.md rule 2. No Fable subagents. Briefs as files
+  under `briefs/`; disjoint lanes; shared files merged by the orchestrator only.
+- Lane timing this session: Opus lanes 25–38 min each; codex classical memo ~25 min.

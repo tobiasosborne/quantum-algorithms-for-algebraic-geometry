@@ -64,3 +64,7 @@ algebraic geometry.
    detached processes.
 9. **Commit discipline.** Atomic commits; message states what changed and which
    verdict or checker backs it; end with the acting model's `Co-Authored-By:` line.
+10. **Conventions are binding** (added 2026-09-02, definitions lane merge). Conventions
+    C1–C12 of `definitions/definitions.md` are binding; an artifact departing from one
+    says so in its first paragraph, and cites definition ids rather than restating
+    definitions.
