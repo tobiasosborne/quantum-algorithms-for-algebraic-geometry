@@ -336,7 +336,7 @@ By the multiprojective Nullstellensatz, \(J_Q\) is the multihomogeneous vanishin
 \(V_{X_0}(I_Q)\subseteq X_0\), of any dimension. Adopt \(I(\varnothing)=R\). Indeed,
 \(V_{X_0}(I_Q)=\varnothing\) implies \(B\subseteq\sqrt{I_Q}\), hence
 \(B^k\subseteq I_Q\) for some \(k\), so \(I_Q:B^\infty=R\) and \(J_Q=R\).  
-[D-QN-MULTIPROJECTIVE-SATURATION; [Feigin–Makhlin, Theorem 1.8.1](https://doi.org/10.1007/s00029-024-00935-5)]
+[D-QN-MULTIPROJECTIVE-SATURATION]
 
 **2.5 PROVE.**  
 The linear span of all fully product ground states is
@@ -534,7 +534,7 @@ The converse fails: nonzero \(\operatorname{HF}(2,\ldots,2)\) does not imply a p
 This is a multihomogeneous Nullstellensatz certificate. Conversely, if
 \(V_{X_0}(I)=\varnothing\), then \(I:B^\infty=R\), so \(B^k\subseteq I\) for some saturation exponent \(k\). Consequently
 \(I_{\mathbf r}=R_{\mathbf r}\) for every sufficiently large componentwise multidegree, and some finite Hilbert-function level vanishes. No effective bound on the first such multidegree in terms of the encoded input parameters is established here; that degree-bound problem remains open in this memo.  
-[D-QN-MULTIPROJECTIVE-SATURATION; [Feigin–Makhlin, Theorem 1.8.1](https://doi.org/10.1007/s00029-024-00935-5)]
+[D-QN-MULTIPROJECTIVE-SATURATION]
 
 ### Two-qubit exact example
 
@@ -671,7 +671,7 @@ The product-state variety \((\mathbb P^1)^4\) has dimension four.
 
 **6.4 PROVE.**  
 Five generic hypersurfaces of class \(h_1+h_2+h_3+h_4\) have empty common intersection: four meet in \(4!=24\) points counting multiplicity, and a fifth generic hypersurface avoids those points.  
-[D-multihomogeneous-bezout; arXiv:2412.19623, Definition 52]
+[D-multihomogeneous-bezout]
 
 **6.5 COMPUTE.**  
 For generic clause vectors, the diagonal Hilbert profile is
@@ -747,7 +747,7 @@ in the Chow ring
 \mathbb Z[h_1,\ldots,h_n]/(h_1^q,\ldots,h_n^q).
 \]
 
-[arXiv:2412.19623, Definition 52]
+[arXiv:2412.19623, §5.1, Eq. (16)]
 
 **7.4 PROVE.**  
 When the common product-solution scheme is zero-dimensional, its generic length is the existing D-multihomogeneous-bezout coefficient
@@ -814,7 +814,7 @@ The product-span formula in step 2 and the finite-degree entangled-only certific
 | \((I_Q)_{\mathbf1}^{\perp}\) | QSAT ground space | Implicitly described by clauses; an explicit basis can be exponentially large | A witness may inhabit it, but preparation is not supplied | D-inverse-system, D-quantum-k-sat |
 | Promise problem: \(\operatorname{HF}_{R/I_Q}(\mathbf1)>0\) versus \(\lambda_{\min}(H_Q)\ge1/\operatorname{poly}(n)\) | Promised frustration freeness | In P for qubit \(2\)-QSAT | \(\mathrm{QMA}_1\)-complete for qubit \(3\)-QSAT and bilinear \((2,5)\)-QSAT | C-034–C-037; arXiv:quant-ph/0602108; arXiv:1302.0290; arXiv:2401.02368 |
 | Exact \(\operatorname{HF}_{R/I_Q}(\mathbf1)>0\), no promise | Exact frustration freeness | In P for qubit \(2\)-QSAT | Not thereby in \(\mathrm{QMA}_1\) | C-038; arXiv:quant-ph/0602108 |
-| Exact \(\operatorname{HF}_{R/I_Q}(\mathbf1)\) | Ground-state degeneracy | Computing it exactly is \(\#\mathrm P\)-hard already for qubit \(2\)-QSAT, by Ji–Wei–Zeng’s reduction to and from the classical analogue composed with \(\#\mathrm{2\text{-}SAT}\) hardness | General gapped local degeneracy is \(\#\mathrm{BQP}\)-complete, not ordinary BQP | D-hardness-anchors; arXiv:1010.2480; DOI:10.1016/0304-3975(79)90044-6; arXiv:1010.3060 |
+| Exact \(\operatorname{HF}_{R/I_Q}(\mathbf1)\) | Ground-state degeneracy | Computing it exactly is \(\#\mathrm P\)-hard already for qubit \(2\)-QSAT, by Ji–Wei–Zeng’s reduction to and from the classical analogue composed with \(\#\mathrm{MONOTONE\text{-}2\text{-}SAT}\) hardness | General gapped local degeneracy is \(\#\mathrm{BQP}\)-complete, not ordinary BQP | D-hardness-anchors; arXiv:1010.2480; Valiant, Theorem 1, problem 7; DOI:10.1137/0208032; arXiv:1010.3060 |
 | \(\operatorname{HF}(\mathbf r)\), \(\mathbf r\ne\mathbf1\) | Degeneracy of a local bosonic occupation extension | Rank of a matrix of dimension \(\prod_i\binom{r_i+q-1}{q-1}\) | No known generic advantage | D-multidegree-sector |
 | Minimal multigraded generators | Constraints not implied at lower multidegrees after complementary-site multiplication | Minimizing the ideal presentation can require Gröbner computations and exponential output | No known quantum algorithm | D-homogeneous-ideal |
 | First syzygies | Linear dependencies among forbidden vectors tensored with complementary states | Kernel of the Macaulay map; exponential sector size | A relation-space nullity, not a ground-state observable by itself | D-syzygy-module |
@@ -839,8 +839,8 @@ The product-span formula in step 2 and the finite-degree entangled-only certific
 - Only the promise decision boundary for qubit \(2\)-QSAT is classically polynomial.
 - Computing \(\operatorname{HF}_{R/I_Q}(\mathbf1)\) exactly is \(\#\mathrm P\)-hard already for qubit \(2\)-QSAT, by Ji–Wei–Zeng’s reduction to and from the classical analogue
   (arXiv:1010.2480, DOI:10.1103/PhysRevA.84.042338) composed with
-  \(\#\mathrm{2\text{-}SAT}\) hardness
-  (Valiant 1979, DOI:10.1016/0304-3975(79)90044-6); see D-hardness-anchors.
+  \(\#\mathrm{MONOTONE\text{-}2\text{-}SAT}\) hardness
+  (Valiant 1979, Theorem 1, problem 7, DOI:10.1137/0208032); see D-hardness-anchors.
 - Exact ground-space degeneracy of qubit \(2\)-QSAT is equivalent in both directions to its classical counting analogue; the decision problem is in P, so decision and counting separate.
 - No \(\#\mathrm P\)-completeness claim is made without a containment argument.
 - Qubit \(3\)-QSAT promised frustration-freeness is \(\mathrm{QMA}_1\)-complete
@@ -907,7 +907,7 @@ Suppose \(f_1,\ldots,f_d\) are homogeneous degree-\(m\) equations for a candidat
 \(|F_j\rangle\in\operatorname{Sym}^m(\mathcal H)\) such that
 
 \[
-f_j(\overline\psi)
+\overline{f_j(\overline\psi)}
 =
 \langle F_j|\psi^{\otimes m}\rangle.
 \]
@@ -1555,8 +1555,8 @@ Qubit \(3\)-QSAT is \(\mathrm{QMA}_1\)-complete
 
 ### K-QN3 — Degeneracy is harder than satisfiability
 
-Computing \(\operatorname{HF}_{R/I_Q}(\mathbf1)\) exactly is \(\#\mathrm P\)-hard already for qubit \(2\)-QSAT, by Ji–Wei–Zeng’s equivalence with the classical analogue composed with \(\#\mathrm{2\text{-}SAT}\) hardness
-(arXiv:1010.2480; DOI:10.1016/0304-3975(79)90044-6; D-hardness-anchors). The decision problem remains polynomial. A degeneracy measurement is not a free readout.
+Computing \(\operatorname{HF}_{R/I_Q}(\mathbf1)\) exactly is \(\#\mathrm P\)-hard already for qubit \(2\)-QSAT, by Ji–Wei–Zeng’s equivalence with the classical analogue composed with \(\#\mathrm{MONOTONE\text{-}2\text{-}SAT}\) hardness
+(arXiv:1010.2480; Valiant 1979, Theorem 1, problem 7, DOI:10.1137/0208032; D-hardness-anchors). The decision problem remains polynomial. A degeneracy measurement is not a free readout.
 
 ### K-QN4 — Other multidegrees change the physical system
 
@@ -1676,7 +1676,7 @@ of any dimension. Adopt \(I(\varnothing)=R\). If
 \(V_{X_0}(I)=\varnothing\), then \(B\subseteq\sqrt I\), hence
 \(B^k\subseteq I\) for some \(k\), so \(I:B^\infty=R\).
 
-Source: [Feigin–Makhlin, Theorem 1.8.1](https://doi.org/10.1007/s00029-024-00935-5); multiprojective use in arXiv:2412.19623.
+Source: Cox–Little–Schenck, `Toric Varieties`, Propositions 5.2.6–5.2.7 (ISBN:978-0-8218-4819-7); multiprojective use in arXiv:2412.19623.
 
 Pitfalls: \(I_{\mathbf1}=J_{\mathbf1}\) is only a degreewise equality and does not imply global radicality or saturation. The closed subscheme need not be finite.
 
@@ -1731,7 +1731,7 @@ For homogeneous degree-\(m\) equations \(f_j\) on a pure-state amplitude space, 
 \(|F_j\rangle\in\operatorname{Sym}^m(\mathcal H)\) satisfy, under C3,
 
 \[
-f_j(\overline\psi)
+\overline{f_j(\overline\psi)}
 =
 \langle F_j|\psi^{\otimes m}\rangle.
 \]
@@ -1831,8 +1831,7 @@ Pitfalls: this counts product solutions with multiplicity, not QSAT ground-space
 - depends-on: C-008, C-009, C-033, D-macaulay-map, D-multidegree-sector,
   D-quantum-k-sat, D-inverse-system, D-ground-space, C-030, C-031, C-032
 - where-proved: Statement and sketch, steps 1.1–1.18
-- where-tested: numerically verified on four instances in
-  `verdicts/quantum-native-r1.md`; no L4 checker or mutation record yet
+- where-tested: none
 
 ### C-NEW-QN-PRODUCT-SPAN-DEFECT
 
@@ -1848,8 +1847,7 @@ Pitfalls: this counts product solutions with multiplicity, not QSAT ground-space
 - depends-on: D-QN-MULTIPROJECTIVE-SATURATION, D-QN-PRODUCT-SPAN,
   D-QN-MULTIGRADED-ENTANGLED-DEFECT, D-entangled-defect, C-028, C-029
 - where-proved: Statement and sketch, steps 2.1–2.10
-- where-tested: numerically verified on three point sets and an explicit
-  `e_Q = 1` instance in `verdicts/quantum-native-r1.md`; no L4 checker
+- where-tested: none
 
 ### C-NEW-QN-HILBERT-VANISH-ENTANGLEMENT
 
@@ -1868,8 +1866,7 @@ Pitfalls: this counts product solutions with multiplicity, not QSAT ground-space
   D-QN-MULTIPROJECTIVE-SATURATION,
   D-QN-MULTIGRADED-ENTANGLED-DEFECT
 - where-proved: Statement and sketch, steps 4.1–4.9
-- where-tested: the four-qubit profile was numerically recomputed in
-  `verdicts/quantum-native-r1.md`; no L4 checker
+- where-tested: none
 
 ### C-NEW-QN-SINGLET-HILBERT-WITNESS
 
@@ -1883,10 +1880,9 @@ Pitfalls: this counts product solutions with multiplicity, not QSAT ground-space
   basis-dependent under C1.
 - status: CONJECTURE
 - depends-on: C-NEW-QN-QSAT-INVERSE-SYSTEM,
-  C-NEW-QN-HILBERT-VANISH-ENTANGLEMENT, D-macaulay-matrix, C1
+  C-NEW-QN-HILBERT-VANISH-ENTANGLEMENT, D-macaulay-matrix
 - where-proved: Statement and sketch, steps 5.1–5.8
-- where-tested: exactly recomputed in `verdicts/quantum-native-r1.md`; no
-  L4 checker or recorded red mutation
+- where-tested: none
 
 ### C-NEW-QN-HF2-COMPLETE
 
@@ -1902,8 +1898,7 @@ Pitfalls: this counts product solutions with multiplicity, not QSAT ground-space
 - depends-on: D-hilbert-function, D-variety,
   C-NEW-QN-HILBERT-VANISH-ENTANGLEMENT
 - where-proved: refuted by the generic four-qubit family in steps 6.1–6.8
-- where-tested: profile recomputed in `verdicts/quantum-native-r1.md`; no
-  L4 checker
+- where-tested: none
 
 ### C-NEW-QN-BEZOUT-NOVELTY
 
@@ -1921,14 +1916,13 @@ Pitfalls: this counts product solutions with multiplicity, not QSAT ground-space
   DOI:10.1103/PhysRevA.81.062345.
 - depends-on: D-multihomogeneous-bezout, D-quantum-k-sat, C-295
 - where-proved: literature comparison in steps 7.1–7.11
-- where-tested: coefficient/permanent equality recomputed in
-  `verdicts/quantum-native-r1.md`
+- where-tested: none
 
 ### C-NEW-QN-COPY-RESIDUAL
 
 - statement: For every normalized pure state `|\psi⟩`, every finite family
   of homogeneous degree-`m` equations `f_j`, coefficient vectors `|F_j⟩`
-  satisfying `f_j(\bar\psi)=⟨F_j|\psi^{⊗m}⟩`, and nonnegative weights
+  satisfying `\overline{f_j(\bar\psi)}=⟨F_j|\psi^{⊗m}⟩`, and nonnegative weights
   `w_j`, let `Λ=Σ_jw_j\|F_j\|²` and
   `A_F=Λ^{-1}Σ_jw_j|F_j⟩⟨F_j|`. Then `0≤A_F≤1`,
   `\|F_j\|=\|f_j\|_{BW}` by C-019, and
@@ -1957,7 +1951,7 @@ Pitfalls: this counts product solutions with multiplicity, not QSAT ground-space
   no identity can hold for all generating tuples. Quantitative distance
   bounds require fixed normalization and a condition, reach, or
   Łojasiewicz constant.
-- depends-on: D-QN-COPY-RESIDUAL-OBSERVABLE, D-condition-number, C3
+- depends-on: D-QN-COPY-RESIDUAL-OBSERVABLE, D-condition-number
 - where-proved: generator-rescaling counterexample and singular-order
   argument in Entanglement varieties
 - where-tested: none
@@ -2004,8 +1998,7 @@ Pitfalls: this counts product solutions with multiplicity, not QSAT ground-space
 - depends-on: D-optical-counting-access, D-QN-DUAL-RAIL-SECTOR,
   D-multidegree-sector, D-coherent-state, C-295, C-296
 - where-proved: Hardware, “Relation to boson sampling”
-- where-tested: factorization and Bézout/permanent identities recomputed
-  in `verdicts/quantum-native-r1.md`
+- where-tested: none
 
 ### C-NEW-QN-OPTICAL-SINGLET-DEMO
 
@@ -2027,8 +2020,7 @@ Pitfalls: this counts product solutions with multiplicity, not QSAT ground-space
   C-NEW-QN-SINGLET-HILBERT-WITNESS
 - where-proved: Hardware, “Smallest nontrivial instance” and “What a
   degeneracy measurement would demonstrate”
-- where-tested: state-preparation probability and Hoeffding count
-  recomputed in `verdicts/quantum-native-r1.md`; no loss-aware L4 checker
+- where-tested: none
 
 ### C-NEW-QN-C024-WEAKENING
 
@@ -2044,13 +2036,13 @@ Pitfalls: this counts product solutions with multiplicity, not QSAT ground-space
 - depends-on: C-023, C-024, C-297,
   D-analogue-degeneracy-readout
 - where-proved: Hardware, “Spinor-BEC conic”
-- where-tested: source comparison in `verdicts/quantum-native-r1.md`
+- where-tested: none
 - lockstep: C-024, its shard, HANDOFF, and the PRD §4 Arm A sentence must
   move together if merged
 
 ### C-NEW-QN-ARM-D-NORTHSTAR
 
-- statement: CONJECTURE: For every algorithm family whose only Arm D
+- statement: For every algorithm family whose only Arm D
   operation is to compose an algorithm for QSAT decision, ground-state
   preparation, gap estimation, degeneracy, or readout with the
   polynomial-time invertible, spectrum-preserving relabelling
@@ -2066,8 +2058,8 @@ Pitfalls: this counts product solutions with multiplicity, not QSAT ground-space
   for other learning tasks
   (arXiv:2111.05881, DOI:10.1126/science.abn7293), but no such separation
   is established here for variety membership.
-- status: CONJECTURE; HOLD — do not merge as discharging the PRD §4 Arm D
-  sentence
+- status: CONJECTURE
+- hold: do not merge as discharging the PRD §4 Arm D sentence; the broad Arm D negative remains an open negative
 - depends-on: D-quantum-k-sat, D-multidegree-sector,
   D-QN-PHYSICAL-DATA-ACCESS, C-NEW-QN-QSAT-INVERSE-SYSTEM,
   C-034, C-036, C-129, C-130
@@ -2169,8 +2161,8 @@ Pitfalls: this counts product solutions with multiplicity, not QSAT ground-space
 27. C. R. Laumann, A. M. Läuchli, R. Moessner, A. Scardicchio, and S. L. Sondhi, “Product, generic, and random generic quantum satisfiability,”
     [DOI:10.1103/PhysRevA.81.062345](https://doi.org/10.1103/PhysRevA.81.062345).
 
-28. Leslie G. Valiant, “The Complexity of Computing the Permanent,”
-    [DOI:10.1016/0304-3975(79)90044-6](https://doi.org/10.1016/0304-3975(79)90044-6).
+28. Leslie G. Valiant, “The Complexity of Enumeration and Reliability Problems,”
+    [DOI:10.1137/0208032](https://doi.org/10.1137/0208032).
 
 29. Sitan Chen, Jordan Cotler, Hsin-Yuan Huang, and Jerry Li, “Exponential separations between learning with and without quantum memory,”
     [arXiv:2111.05881](https://arxiv.org/abs/2111.05881).
@@ -2179,8 +2171,8 @@ Pitfalls: this counts product solutions with multiplicity, not QSAT ground-space
     [arXiv:2112.00778](https://arxiv.org/abs/2112.00778),
     [DOI:10.1126/science.abn7293](https://doi.org/10.1126/science.abn7293).
 
-31. Evgeny Feigin and Igor Makhlin, “Relative poset polytopes and semitoric degenerations,”
-    [DOI:10.1007/s00029-024-00935-5](https://doi.org/10.1007/s00029-024-00935-5).
+31. David A. Cox, John B. Little, and Henry K. Schenck, `Toric Varieties`, Graduate Studies in Mathematics 124, American Mathematical Society (2011),
+    [ISBN:978-0-8218-4819-7](https://bookstore.ams.org/gsm-124).
 
 The erroneous orphan entry naming “Changhyoup Oh” has been removed; the correct first-author name is Changhun Oh. The other listed-but-uncited entries
 arXiv:1004.3787, arXiv:1801.02662, arXiv:1508.01907, and arXiv:cs/0405021 have also been removed.
@@ -2219,7 +2211,9 @@ arXiv:1004.3787, arXiv:1801.02662, arXiv:1508.01907, and arXiv:cs/0405021 have a
 
 13. PRD §2 currently has no novelty criterion; novelty appears in CLAUDE.md §1 / PRD §1. Should novelty remain there, or should PRD §2 be amended with an explicit sixth criterion?
 
-# Repair r1 response
+# Repair r2 response
+
+## r1
 
 | objection | severity | disposition | exact location | one-line note |
 |---|---|---|---|---|
@@ -2245,4 +2239,16 @@ arXiv:1004.3787, arXiv:1801.02662, arXiv:1508.01907, and arXiv:cs/0405021 have a
 | O20 | MINOR | FIXED | Steps 7.1 and 7.7 | Restricted Bézout claims to square subsystems and genericity subject to fixed supports and clause-orthonormality constraints. |
 | O21 | MINOR | FIXED | C-NEW-QN-QSAT-INVERSE-SYSTEM | Added C-008, C-009, C-033, and D-macaulay-map dependencies and stated that the row is the multidegree-\(\mathbf1\) instance of C-008/C-009. |
 
-Rows after repair: 13 (CONJECTURE 7, REFUTED 5, HOLD 1, deleted 0)
+## r2
+
+| objection | severity | disposition | exact location | note |
+|---|---|---|---|---|
+| O22 | FATAL | FIXED | Steps 2.4 and 4.9; D-QN-MULTIPROJECTIVE-SATURATION; reference 31 | Removed the Feigin–Makhlin attribution everywhere and replaced it with Cox–Little–Schenck, Propositions 5.2.6–5.2.7, ISBN:978-0-8218-4819-7. |
+| O23 | MAJOR | FIXED | QSAT dictionary; Complexity conclusions; K-QN3; reference 28 | Replaced the permanent-paper DOI by DOI:10.1137/0208032 and identified Valiant’s Theorem 1, problem 7, as the `#MONOTONE-2-SAT` hardness source. |
+| O24 | MINOR | FIXED | C-NEW-QN-ARM-D-NORTHSTAR | Made `status: CONJECTURE`, moved HOLD to a separate `hold:` field, and removed the repeated status from the statement. |
+| O25 | MINOR | FIXED | What the seed can estimate from copies; D-QN-COPY-RESIDUAL-OBSERVABLE; C-NEW-QN-COPY-RESIDUAL | Replaced the defining identity by `\overline{f_j(\bar\psi)}=⟨F_j|\psi^{⊗m}⟩` in all three loci. |
+| O26 | MINOR | FIXED | C-NEW-QN-SINGLET-HILBERT-WITNESS; C-NEW-QN-RESIDUAL-EQUALS-DISTANCE | Removed convention labels C1 and C3 from the `depends-on` fields; the conventions remain cited in prose. |
+| O27 | MINOR | FIXED | Steps 6.4 and 7.3 | Cited D-multihomogeneous-bezout alone for the 24-point count and cited arXiv:2412.19623 §5.1, Eq. (16), for the Chow-ring intersection setup. |
+| O28 | MINOR | FIXED | `where-tested` fields in Proposed claim rows | Replaced every pointer to non-repository scratch computations by `none`. |
+
+Rows after repair: 13 (CONJECTURE 7, REFUTED 5, held 1, deleted 0)
