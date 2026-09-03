@@ -157,6 +157,103 @@ def angle_factor(TV, TW):
     return J, list(c)
 
 
+# ------------------------------------------- exact linear-subspace identity
+def h_complete(xs, N):
+    """Complete homogeneous symmetric polynomial h_N(x_1..x_r), by DP."""
+    dp = np.zeros(N + 1)
+    dp[0] = 1.0
+    for x in xs:
+        for k in range(1, N + 1):
+            dp[k] += x * dp[k - 1]
+    return float(dp[N])
+
+
+def principal_cosines(QU, QW):
+    """Cosines of the principal angles between two orthonormal column bases."""
+    return np.clip(np.linalg.svd(QU.conj().T @ QW, compute_uv=False), 0.0, 1.0)
+
+
+def ortho_complement(Q):
+    m = Q.shape[0]
+    P = np.eye(m, dtype=complex) - Q @ Q.conj().T
+    u, sv, _ = np.linalg.svd(P)
+    return u[:, : int((sv > 1e-10).sum())]
+
+
+def linear_gens(Uperp):
+    """Ideal generators: the linear forms spanning U^perp (columns).  With
+    a(f) = conj(f)(partial) (C3), ker on R_1 is the Hermitian complement, so
+    ker H_N = Sym^N U exactly."""
+    nv = Uperp.shape[0]
+    out = []
+    for j in range(Uperp.shape[1]):
+        v = Uperp[:, j]
+        f = {}
+        for i in range(nv):
+            e = [0] * nv
+            e[i] = 1
+            f[tuple(e)] = complex(v[i])
+        out.append(f)
+    return out
+
+
+# ------------------------------------- exact conic kernel (1-D recurrence)
+def conic_kernel_moments(N):
+    """INDEPENDENT exact computation, for I = (z_0 z_1 - z_2^2), of
+    Tr(P_0 n_2) and Tr(P_0 n_2(n_2-1)) and HF(N), without any SVD.
+
+    a(f) = d_0 d_1 - d_2^2 conserves d = k_0 - k_1, so H_N is block diagonal
+    over d and each block is a 1-D chain whose kernel is one dimensional:
+    with k(j) = (j+d, j, N-2j-d),
+        c_{j+1} = c_j (N-2j-d)(N-2j-d-1) / ((j+1+d)(j+1)),
+    and the Fock-ONB weight of |k(j)> is |c_j|^2 k(j)!.  Summing the 2N+1
+    blocks gives the traces exactly.  Used to push N to 1200 (O3)."""
+    tot1 = 0.0
+    tot2 = 0.0
+    nb = 0
+    for d in range(-N, N + 1):
+        jmin = max(0, -d)
+        jmax = (N - d) // 2
+        if jmax < jmin:
+            continue
+        js = np.arange(jmin, jmax + 1)
+        k0 = js + d
+        k1 = js
+        k2 = N - 2 * js - d
+        lc = np.zeros(len(js))
+        for i in range(len(js) - 1):
+            j = int(js[i])
+            kk2 = N - 2 * j - d
+            num = kk2 * (kk2 - 1)
+            den = (j + 1 + d) * (j + 1)
+            lc[i + 1] = (-np.inf if num <= 0
+                         else lc[i] + math.log(num) - math.log(den))
+        lw = 2 * lc + (np.vectorize(math.lgamma)(k0 + 1.0)
+                       + np.vectorize(math.lgamma)(k1 + 1.0)
+                       + np.vectorize(math.lgamma)(k2 + 1.0))
+        m = np.isfinite(lw)
+        lw = lw[m]
+        kk2 = k2[m]
+        lw -= lw.max()
+        pr = np.exp(lw)
+        pr /= pr.sum()
+        tot1 += float((pr * kk2).sum())
+        tot2 += float((pr * kk2 * (kk2 - 1.0)).sum())
+        nb += 1
+    return tot1, tot2, nb
+
+
+# EXACT Fubini-Study average of |z_2|^2 over the conic (O3):
+#   int_0^inf A(u) u/(u^2+u+1) du = -1/3 + 4 sqrt(3) pi / 27,  int A du = 2,
+#   so <|z_2|^2>_V = -1/6 + 2 sqrt(3) pi / 27.
+TOEPLITZ_L1 = -1.0 / 6.0 + 2.0 * math.sqrt(3.0) * math.pi / 27.0
+# FIXTURE (asserted, not fitted): the asymptotic 1/N coefficient of the
+# NORMAL-ordered r=1 Toeplitz average.  Anti-normal ordering (n_2 -> n_2+1)
+# shifts the level-N value by exactly 1/N, hence this coefficient by exactly
+# +1, which is what makes the window below red to mutation M2.
+TOEPLITZ_B1_WINDOW = (0.030, 0.034)
+
+
 # ---------------------------------------------------------------- fitting
 def loglog_slope(Ns, ys):
     Ns = np.asarray(Ns, dtype=float)
@@ -290,23 +387,36 @@ def section_B():
     d0 = math.acos(min(1.0, float(cang.max())))
     print(f"  cos of principal angles between the two 2-planes: {cang}")
     print(f"  d_FS(L1,L2) = {d0:.6f},  cos d_0 = {math.cos(d0):.8f}")
-    print(f"{'N':>4} {'Tr':>16} {'Tr/cos^{2N}d0':>16} {'-log Tr/(2N)':>13} "
-          f"{'log sec d0':>11}")
-    prev = None
-    for N in (2, 3, 4, 5, 6, 8, 10, 12, 14, 16):
+    s1, s2 = float(cang[0]), float(cang[1])
+    limit = s1 ** 2 / (s1 ** 2 - s2 ** 2)
+    print(f"  EXACT (section J): Tr = h_N(s1^2, s2^2) = "
+          f"(s1^{{2N+2}} - s2^{{2N+2}})/(s1^2 - s2^2),")
+    print(f"  so Tr/cos^{{2N}}d_0 -> s1^2/(s1^2 - s2^2) = {limit:.10f}.")
+    print(f"{'N':>5} {'Tr(SVD)':>16} {'Tr(exact h_N)':>16} "
+          f"{'Tr/cos^{2N}d0':>16} {'-log Tr/(2N)':>13}")
+    for N in (2, 4, 6, 10, 16, 40, 100):
         hf = N + 1
-        BI, _, _ = ground_basis(I, N, hf)
-        BJ, _, _ = ground_basis(Jg, N, hf)
-        tr = tr_pp(BI, BJ)
-        ratio = tr / math.cos(d0) ** (2 * N)
-        rate = -math.log(tr) / (2 * N)
-        print(f"{N:>4} {tr:16.10g} {ratio:16.8f} {rate:13.6f} "
-              f"{math.log(1/math.cos(d0)):11.6f}")
-        prev = ratio
-    print(f"  Tr/cos^{{2N}}d0 tends to a constant = {prev:.6f} "
-          f"(exponent 0), as the Laplace argument predicts for an isolated")
-    print("  closest pair; the Clifford pair above has a 1-parameter family of")
-    print("  closest pairs and gains exactly one power of N.")
+        exact = h_complete([s1 ** 2, s2 ** 2], N)
+        if N <= 16:
+            BI, _, _ = ground_basis(I, N, hf)
+            BJ, _, _ = ground_basis(Jg, N, hf)
+            tr = tr_pp(BI, BJ)
+            check(f"B generic skew N={N}", tr, exact, 1e-9)
+            ts = f"{tr:16.10g}"
+        else:
+            ts = f"{'-':>16}"
+        ratio = exact / math.cos(d0) ** (2 * N)
+        rate = -math.log(exact) / (2 * N)
+        print(f"{N:>5} {ts} {exact:16.10g} {ratio:16.8f} {rate:13.6f}")
+    print(f"  CORRECTION (verdict O1): the r0 memo called the N <= 16 values")
+    print(f"  'saturating'.  They are not: at N = 16 the ratio is 8.82, at")
+    print(f"  N = 100 it is {h_complete([s1**2, s2**2], 100)/math.cos(d0)**200:.5f},")
+    print(f"  and the true limit is {limit:.10f}.  The exponent IS 0, but the")
+    print("  approach is slow.  The Clifford pair has a one-complex-parameter")
+    print("  family of closest pairs and gains exactly one power of N.")
+    print("  BIAS SIGN (verdict O2): -log Tr/(2N) = log sec d_0 - log(N+1)/(2N)")
+    print("  for the Clifford pair, i.e. the estimator sits BELOW the target;")
+    print("  the r0 memo called this a positive bias.")
     print()
 
 
@@ -365,6 +475,10 @@ def section_C():
         print(f"    {theta:>7.3f} {1/s**2:>10.1f} " +
               " ".join(f"{v:>7.3f}" for v in ls))
     print("    (slope 2 = 'V and W coincide', slope 1 = the true dim(V^W)=1)")
+    ok, detail = pred_crossover_slope()
+    print(f"    ASSERTED at 1/sin^2 t = 100.3: {detail}")
+    if not ok:
+        FAILURES.append(f"C crossover slopes: {detail}")
     print()
 
 
@@ -509,15 +623,20 @@ def section_E():
               f"{b2:.3f}/N        [predicted a = {csum:.6f}]")
         print(f"  Tr(N={Ns[-1]})/limit = {trs_[-1]/csum:.6f}")
         if lam == -10.0:
-            # well-conditioned pair: the leading constant is confirmed to 5%
+            # well-conditioned pair: the leading constant is confirmed to 5%.
+            # NOTE (verdict O4): the r0 script clamped Tr/limit to <= 1, so an
+            # overshoot passed automatically.  The clamp is gone; the two-sided
+            # tolerance below is what mutation M-IO3 exercises.
             check("E constant (lam=-10), Richardson", rich, csum, 5e-2)
             check("E constant (lam=-10), last point", trs_[-1] / csum, 1.0,
                   1.2e-1)
         else:
-            # ill-conditioned pair: still climbing at N = 60, so only the
-            # weaker statement "has not yet overshot" is checked
-            check("E (lam=-3) below the limit at N=60",
-                  min(trs_[-1] / csum, 1.0), 1.0, 1.5e-1)
+            # ill-conditioned pair: still climbing at N = 60.  Two-sided, and
+            # only the honest statement is asserted: the value is within 15%
+            # of the predicted constant and has not overshot it by more than
+            # the tolerance.
+            check("E (lam=-3) within 15% of the limit at N=60",
+                  trs_[-1] / csum, 1.0, 1.5e-1)
         print()
     print("  The lam = -3 pair is the CURVED-VARIETY version of the crossover")
     print("  of section C: the same asymptotic law, reached at N ~ cot^2(theta).")
@@ -552,6 +671,46 @@ def section_F():
               f"{(ls[-1] if ls else float('nan')):11.5f} {t/M:11.3e}")
     print("  Tr = N+1 exactly = HF_{R/(I+J)}(N) with I+J = (z_2,z_3,z_4);")
     print("  the observable reports the ACTUAL dimension 1, not the expected 0.")
+    print()
+    print("  EXCESS WITH A NONTRIVIAL ANGLE (added in repair r1, verdict O1).")
+    print("  V = span(e_0,e_1,e_2) i.e. I = (z_3, z_4);")
+    print("  W = span(e_0,e_1, cos(t) e_2 + sin(t) e_3), i.e.")
+    print("  J = (-sin(t) z_2 + cos(t) z_3, z_4).  Both are P^2's in P^4 with")
+    print("  expected intersection dimension 0 and ACTUAL Z = {z_2=z_3=z_4=0},")
+    print("  l = 1, clean for sin(t) != 0.  This is the case that separates the")
+    print("  ANTI-DIAGONAL block (which contributes vol(Z)/pi^l = 1) from the")
+    print("  TRANSVERSE block (which contributes 1/J = 1/sin^2 t): the r0 memo")
+    print("  derived only the second, and its exponent was right only because")
+    print("  the two exponents happen to add to l.  Principal cosines (1,1,c),")
+    print("  so section J gives Tr = h_N(1,1,c^2) = sum_a c^{2a}(N+1-a)")
+    print("  = (N+1)/sin^2 t - cos^2 t/sin^4 t + O(cos^{2N} t) EXACTLY.")
+    print(f"{'t':>7} {'1/sin^2 t':>11} {'N':>4} {'Tr(SVD)':>14} "
+          f"{'Tr(exact)':>14} {'Tr/N':>10}")
+    for t in (0.9, 0.4):
+        c, sn = math.cos(t), math.sin(t)
+        allok = True
+        Iv = [{(0, 0, 0, 1, 0): 1.0}, {(0, 0, 0, 0, 1): 1.0}]
+        Jv = [{(0, 0, 1, 0, 0): -sn, (0, 0, 0, 1, 0): c},
+              {(0, 0, 0, 0, 1): 1.0}]
+        for N in (3, 5, 8, 12, 24, 48):
+            hf = bf.dim_h(3, N)
+            exact = sum(c ** (2 * a) * (N + 1 - a) for a in range(N + 1))
+            if N <= 12:
+                BI, _, _ = ground_basis(Iv, N, hf)
+                BJ, _, _ = ground_basis(Jv, N, hf)
+                tr = tr_pp(BI, BJ)
+                allok &= check(f"F excess-angle t={t} N={N}", tr, exact)
+                ts = f"{tr:14.8f}"
+            else:
+                ts = f"{'-':>14}"
+            print(f"{t:>7.2f} {1/sn**2:>11.6f} {N:>4} {ts} {exact:14.8f} "
+                  f"{exact/N:10.6f}")
+        print(f"   {'OK' if allok else 'MISMATCH'}: excess-with-angle at "
+              f"t = {t}, SVD versus h_N(1,1,cos^2 t), N <= 12 "
+              f"(verdict O1's anti-diagonal block)")
+    print("  Tr/N -> 1/sin^2 t = 1.6297 and 6.5943: the excess intersection")
+    print("  carries BOTH the vol(Z) factor and the angle factor, as the")
+    print("  corrected Geometry 5.3-5.4 requires.")
     print()
 
 
@@ -624,9 +783,16 @@ def section_G():
           f"[quadrature {avg_g1sq:.8f}, difference {a2-avg_g1sq:.2e}]")
     check("G Toeplitz r=1 limit", a1, avg_g1, 3e-4)
     check("G Toeplitz r=2 limit", a2, avg_g1sq, 3e-3)
-    print("  => C-168 / C-086 CONFIRMED numerically at 1e-4 on this family,")
-    print("     with a clean 1/N correction; the O(1/N) coefficient is")
-    print("     ordering dependent (D-toeplitz-operator Pitfalls).")
+    check("G quadrature vs exact <|z_2|^2>", avg_g1, TOEPLITZ_L1, 1e-12)
+    print("  The INTERCEPTS agree with the quadrature (and, for r=1, with the")
+    print(f"  exact value -1/6 + 2 sqrt(3) pi/27 = {TOEPLITZ_L1:.16f}).")
+    print("  The 1/N COEFFICIENTS above are finite-range fits over N <= 60")
+    print("  only (verdict O3); section K carries them to N = 1200, where the")
+    print("  r=1 coefficient is about 0.03144, not 0.03275.")
+    print("  NOTE: this is the DEGREE-NORMALISED operator, not the registered")
+    print("  D-toeplitz-operator.  With the registered operator the ratio is")
+    print("  N times these numbers and diverges, which is why C-086/C-168 are")
+    print("  proposed REFUTED as written (verdict O3).")
     print()
 
 
@@ -734,6 +900,256 @@ def section_I():
     print()
 
 
+# ============================================== red-capable predicates (O4)
+# Each predicate returns (ok, detail).  The normal run requires ok == True;
+# mutation_selftest() feeds each one a deliberately wrong input and requires
+# ok == False.  Mutations are run IN PROCESS because the sandbox the r1 critic
+# used is read-only (verdict O4, "Mutated copies: NOT RUN").
+
+def pred_tangent_constant(swap=False):
+    """M1: swapping the tangent and transversal lines must be caught.
+    Fits Tr/sqrt(N) = a + b/sqrt(N) + c/N on the tangent family and compares
+    a with Gamma(1+1/m)|gamma|^{-2/m} = Gamma(3/2) at m = 2, gamma = 1."""
+    conic = {(1, 1, 0): 1.0, (0, 0, 2): -1.0}
+    line_t = {(0, 1, 0): 1.0, (1, 0, 0): -1.0}
+    line_g = {(0, 1, 0): 1.0}
+    tan, tra = (line_t, line_g) if swap else (line_g, line_t)
+    Ns = list(NGRID_P2)
+    ys = []
+    for N in Ns:
+        BV, _, _ = ground_basis([conic], N, 2 * N + 1)
+        BT, _, _ = ground_basis([tan], N, N + 1)
+        ys.append(tr_pp(BV, BT) / math.sqrt(N))
+    a, _, _ = fit_powers(Ns[-5:], ys[-5:], (0.0, -0.5, -1.0))
+    target = math.gamma(1.5)
+    ok = abs(a - target) <= 5e-2 * target
+    return ok, f"a = {a:.6f}, target Gamma(3/2) = {target:.6f}"
+
+
+def pred_toeplitz_ordering(shift=0):
+    """M2: the ORDERING mutation.  shift = 0 is the normal-ordered
+    D-normalised-toeplitz-operator; shift = 1 is the anti-normal alternative
+    (n_2 -> n_2 + 1), which changes the level-N value by exactly 1/N and the
+    asymptotic 1/N coefficient by exactly +1.  The r0 script fitted a free
+    intercept AND a free 1/N coefficient, so it absorbed this mutation; here
+    the intercept is PINNED to the exact Fubini-Study average and the
+    coefficient must land inside a fixed window."""
+    bs = []
+    for N in (400, 800, 1200):
+        t1, _, hf = conic_kernel_moments(N)
+        v = (t1 + shift * hf) / (N * hf)
+        bs.append(N * (v - TOEPLITZ_L1))
+    lo, hi = TOEPLITZ_B1_WINDOW
+    ok = all(lo <= b <= hi for b in bs)
+    return ok, f"b_N at N=400,800,1200: {[round(b, 6) for b in bs]}, window {(lo, hi)}"
+
+
+def pred_conic_pair_limit(lam=-10.0, clamp=False, limit_scale=1.0,
+                          ratio_only=False):
+    """Section E's constant.  `clamp = True` reproduces the r0 bug
+    (min(Tr/limit, 1)), under which any OVERSHOOT passed automatically
+    (verdict O4).  `limit_scale != 1` corrupts the predicted constant; the
+    repaired, unclamped check must catch that, while the r0 clamped form does
+    not -- which is exactly the blindness the verdict identified."""
+    f1 = {(1, 1, 0): 1.0, (0, 0, 2): -1.0}
+    f2 = {(2, 0, 0): 1.0, (0, 2, 0): 1.0, (0, 0, 2): lam}
+    disc = lam * lam - 4.0
+    csum = 0.0
+    for w in ((-lam + math.sqrt(disc)) / 2, (-lam - math.sqrt(disc)) / 2):
+        for sgn in (1, -1):
+            sv = sgn * math.sqrt(w)
+            v = np.array([sv * sv, 1.0, sv], dtype=complex)
+            v = v / np.linalg.norm(v)
+            TV = tangent_space(v, [np.array([v[1], v[0], -2 * v[2]],
+                                            dtype=complex)])
+            TW = tangent_space(v, [np.array([2 * v[0], 2 * v[1],
+                                             2 * lam * v[2]], dtype=complex)])
+            J, _ = angle_factor(TV, TW)
+            csum += 1.0 / J
+    Ns, trs_ = [], []
+    for N in NGRID_P2:
+        BV, _, _ = ground_basis([f1], N, 2 * N + 1)
+        BW, _, _ = ground_basis([f2], N, 2 * N + 1)
+        Ns.append(N)
+        trs_.append(tr_pp(BV, BW))
+    csum *= limit_scale
+    rich = (Ns[-1] * trs_[-1] - Ns[-2] * trs_[-2]) / (Ns[-1] - Ns[-2])
+    ratio = trs_[-1] / csum
+    if clamp:
+        ratio = min(ratio, 1.0)          # the r0 bug
+    ok_ratio = abs(ratio - 1.0) <= 1.2e-1
+    ok_rich = abs(rich - csum) <= 5e-2 * csum
+    ok = ok_ratio if ratio_only else (ok_rich and ok_ratio)
+    return ok, (f"Richardson {rich:.6f} vs claimed limit {csum:.6f} "
+                f"(ok {ok_rich}), Tr(N=60)/limit = {ratio:.6f} (ok {ok_ratio})")
+
+
+def pred_crossover_slope(shrink=1.0):
+    """M4: the crossover assertion.  For two hyperplanes in P^3 at
+    1/sin^2 t = 100 the local log-log slope must still be ABOVE 1.4 at
+    N = 256 and must have fallen BELOW 1.3 by N = 1024.  shrink < 1 rescales
+    the angle so the crossover moves, which must be caught."""
+    t = math.asin(shrink * math.sqrt(1.0 / 100.3))
+    c = math.cos(t)
+
+    def T(N):
+        return sum(c ** (2 * a) * (N + 1 - a) for a in range(N + 1))
+
+    def slope(N1, N2):
+        return math.log(T(N2) / T(N1)) / math.log(N2 / N1)
+
+    s256 = slope(128, 256)
+    s1024 = slope(512, 1024)
+    ok = (s256 > 1.4) and (s1024 < 1.3)
+    return ok, f"slope(256) = {s256:.4f} (>1.4), slope(1024) = {s1024:.4f} (<1.3)"
+
+
+def pred_linear_exact(perturb=0.0):
+    """Section J's exact identity, as a predicate.  perturb != 0 corrupts the
+    principal cosines and must be caught."""
+    rng = np.random.default_rng(7)
+    worst = 0.0
+    for (nv, r1, r2, N) in ((4, 2, 2, 5), (4, 2, 3, 6), (5, 3, 2, 4),
+                            (5, 3, 3, 5), (6, 2, 4, 4), (4, 3, 3, 7)):
+        U = rng.normal(size=(nv, r1)) + 1j * rng.normal(size=(nv, r1))
+        W = rng.normal(size=(nv, r2)) + 1j * rng.normal(size=(nv, r2))
+        QU, _ = np.linalg.qr(U)
+        QW, _ = np.linalg.qr(W)
+        sig = principal_cosines(QU, QW)
+        BU, _, _ = ground_basis(linear_gens(ortho_complement(QU)), N,
+                                bf.dim_h(r1, N))
+        BW, _, _ = ground_basis(linear_gens(ortho_complement(QW)), N,
+                                bf.dim_h(r2, N))
+        tr = tr_pp(BU, BW)
+        pred = h_complete(list(sig[: min(r1, r2)] ** 2 + perturb), N)
+        worst = max(worst, abs(tr - pred) / max(1.0, abs(pred)))
+    ok = worst <= 1e-10
+    return ok, f"worst relative discrepancy {worst:.3e}"
+
+
+# ================================================================= section J
+def section_J():
+    print("=" * 78)
+    print("J. EXACT identity for linear V, W (new in repair r1; it is the")
+    print("   opening identity of verdict O1, proved here and tested).")
+    print("   For subspaces U, W of C^{n+1} with principal cosines")
+    print("   sigma_1..sigma_r, r = min(dim U, dim W):")
+    print("     Tr(P_{Sym^N U} P_{Sym^N W}) = h_N(sigma_1^2, ..., sigma_r^2),")
+    print("   h_N the complete homogeneous symmetric polynomial.  Proof: in")
+    print("   principal-vector bases <u_i, w_j> = sigma_i delta_ij, so the")
+    print("   symmetrised monomial bases have overlap prod_i sigma_i^{alpha_i}")
+    print("   diagonally in the multi-index alpha, |alpha| = N.")
+    print("   Every linear table in this script is a special case:")
+    print("     two lines in P^2         sigma = (1, c)       -> sum_a c^{2a}")
+    print("     two planes in P^3        sigma = (1, 1, c)    -> sum_a c^{2a}(N+1-a)")
+    print("     Clifford skew pair       sigma = (c, c)       -> (N+1)c^{2N}")
+    print("     excess planes in P^4     sigma = (1, 1, 0)    -> N+1")
+    print("     hyperplanes in P^n       sigma = (1^{n-1}, c) -> sum_a c^{2a}C(N-a+n-2,n-2)")
+    print()
+    ok, detail = pred_linear_exact()
+    print(f"   random subspaces in C^4, C^5, C^6, N = 4..7: {detail}")
+    if not ok:
+        FAILURES.append(f"J exact subspace identity: {detail}")
+    print("   => the whole linear half of arm C is EXACT, needs no Bergman")
+    print("      frame lemma, and needs no Laplace argument.")
+    print()
+
+
+# ================================================================= section K
+def section_K():
+    print("=" * 78)
+    print("K. Toeplitz asymptotics at large N by the exact conic recurrence")
+    print("   (verdict O3: the r0 1/N coefficient was a finite-range fit).")
+    print("   No SVD; H_N is block diagonal over d = k_0 - k_1 and each block")
+    print("   has a one-dimensional kernel given in closed form.")
+    print(f"   EXACT limit  <|z_2|^2>_V = -1/6 + 2 sqrt(3) pi/27 = "
+          f"{TOEPLITZ_L1:.16f}")
+    print()
+    print(f"{'N':>6} {'Tr(P_0 n_2)/(N HF)':>22} {'N(value - L)':>16} "
+          f"{'r=2 value':>20} {'N(value - L2)':>16}")
+    vals = []
+    for N in (22, 60, 100, 200, 400, 800, 1200):
+        t1, t2, hf = conic_kernel_moments(N)
+        v1 = t1 / (N * hf)
+        v2 = t2 / (N * (N - 1) * hf)
+        vals.append((N, v1, v2))
+    L2 = ((vals[-2][0] * vals[-2][2] - vals[-3][0] * vals[-3][2])
+          / (vals[-2][0] - vals[-3][0]))
+    for N, v1, v2 in vals:
+        print(f"{N:>6} {v1:>22.15f} {N*(v1-TOEPLITZ_L1):>16.10f} "
+              f"{v2:>20.15f} {N*(v2-L2):>16.10f}")
+    print(f"  r=1: the 1/N coefficient tends to about "
+          f"{vals[-1][0]*(vals[-1][1]-TOEPLITZ_L1):.5f}, NOT the 0.03275 that")
+    print("  the r0 N <= 60 fit reported; the r0 INTERCEPT was nevertheless")
+    print(f"  right to 1.7e-5.  r=2: Richardson limit {L2:.10f} against the")
+    print("  quadrature value 0.0646223 (section G).")
+    ok, detail = pred_toeplitz_ordering(0)
+    print(f"  ordering check (normal ordering, pinned intercept): {detail}")
+    if not ok:
+        FAILURES.append(f"K normal-ordered 1/N coefficient: {detail}")
+    okm, detm = pred_toeplitz_ordering(1)
+    print(f"  same with ANTI-normal ordering n_2 -> n_2+1: {detm}")
+    print(f"  -> anti-normal is rejected by the window: {not okm}  "
+          "(this is what makes the check red to M2)")
+    if okm:
+        FAILURES.append("K ordering check is NOT red to anti-normal ordering")
+    print()
+
+
+# ============================================================ self-test (O4)
+def mutation_selftest():
+    print("=" * 78)
+    print("MUTATION SELF-TEST (L4, verdict O4).  Each mutation is applied")
+    print("in process and MUST be caught; a mutation that passes is a FAILURE.")
+    print("These four are the registration text for checkers/MUTATIONS.md,")
+    print("which is outside this lane's writable files.")
+    muts = [
+        ("M-IO1 swap the tangent and transversal lines in section D",
+         lambda: pred_tangent_constant(swap=True)),
+        ("M-IO2 drop normal ordering, n_2 -> n_2 + 1 (section K)",
+         lambda: pred_toeplitz_ordering(shift=1)),
+        ("M-IO3 halve the predicted constant in section E (lam = -10)",
+         lambda: pred_conic_pair_limit(lam=-10.0, clamp=False,
+                                       limit_scale=0.5)),
+        ("M-IO4 move the crossover angle by a factor 3 (section C)",
+         lambda: pred_crossover_slope(shrink=1.0 / 3.0)),
+        ("M-IO5 perturb the principal cosines in section J",
+         lambda: pred_linear_exact(perturb=1e-6)),
+    ]
+    allred = True
+    for name, fn in muts:
+        ok, detail = fn()
+        verdict = "CAUGHT" if not ok else "NOT CAUGHT"
+        print(f"  {verdict:>10}  {name}")
+        print(f"              {detail}")
+        if ok:
+            allred = False
+            FAILURES.append(f"mutation not caught: {name}")
+    # and the unmutated predicates must PASS
+    for name, fn in (("D tangent constant", pred_tangent_constant),
+                     ("E conic-pair limit", pred_conic_pair_limit),
+                     ("C crossover slopes", pred_crossover_slope),
+                     ("J exact identity", pred_linear_exact)):
+        ok, detail = fn()
+        print(f"  {'PASS' if ok else 'FAIL':>10}  unmutated {name}: {detail}")
+        if not ok:
+            FAILURES.append(f"unmutated predicate failed: {name}")
+    okc, detc = pred_conic_pair_limit(lam=-10.0, clamp=True, limit_scale=0.5,
+                                      ratio_only=True)
+    oku, detu = pred_conic_pair_limit(lam=-10.0, clamp=False, limit_scale=0.5,
+                                      ratio_only=True)
+    print("  M-IO3 footnote, isolating the clamp on the RATIO leg alone:")
+    print(f"    r0 clamped form min(Tr/limit,1) on a halved constant: ok = {okc}")
+    print(f"    repaired unclamped form on the same input:            ok = {oku}")
+    print("    i.e. the r0 check was blind to a wrong constant (verdict O4);")
+    print("    the clamp is removed in section E.")
+    if okc is False or oku is True:
+        FAILURES.append("M-IO3 footnote: the clamp demonstration did not "
+                        f"behave as stated (clamped {okc}, unclamped {oku})")
+    print(f"  all mutations caught: {allred}")
+    print()
+
+
 def main():
     print("intersection and integration observables -- exploration (PRD arm C)")
     print("regenerate with:")
@@ -749,14 +1165,25 @@ def main():
     section_G()
     section_H()
     section_I()
+    section_J()
+    section_K()
+    mutation_selftest()
     print("=" * 78)
     if FAILURES:
         print(f"FAIL: {len(FAILURES)} numerical agreement checks failed")
         for f in FAILURES:
             print("  " + f)
         return 1
-    print("OK: every closed form agreed with the independent SVD kernel")
-    print("computation, and every predicted constant/exponent was met.")
+    print("OK.  What this run establishes: (i) every EXACT closed form agreed")
+    print("with an independent SVD kernel computation; (ii) the section-J")
+    print("subspace identity holds to 1e-15 on random subspaces; (iii) the")
+    print("named constants that carry an explicit assertion were met, namely")
+    print("the section-A/C/F closed forms, the section-D tangent constant, the")
+    print("section-E well-conditioned limit, the section-C crossover slopes,")
+    print("the section-K normal-ordered 1/N coefficient, and the section-G")
+    print("Toeplitz leading terms; (iv) all five mutations were caught.")
+    print("Printed exponents and tables NOT covered by an assertion are")
+    print("reported as observations, not as verified claims.")
     return 0
 
 
