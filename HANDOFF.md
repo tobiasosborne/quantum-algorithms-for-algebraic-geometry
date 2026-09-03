@@ -70,6 +70,32 @@
 
 ## Next steps
 
+**TJO directive (2026-09-04, PRD D21): the next session is ANOTHER EXPLORATION ROUND, focused on yet
+more approaches.** TJO is not convinced the space of ideas has been explored well; breadth over
+depth. Same loop protocol (two concurrent subagents, proposer then cross-family critic, merge only
+from the final verdict). Round 2 should NOT re-litigate arms A–E or the primitives already mapped;
+it should open directions the campaign has not touched. Orchestrator's seed list of untouched
+directions, for the next session to prune and extend before writing briefs (none of these is in
+any memo yet):
+- Different quantum resources: measurement-based / MBQC-native encodings of ideals (graph states
+  as varieties), Clifford-plus-magic counting of algebraic sets over F_2, fermionic linear optics
+  and matchgates for determinantal and Pfaffian ideals, Gaussian states for quadratic ideals.
+- Different algebraic objects: D-modules and holonomic systems (Weyl algebra as a bosonic
+  Hamiltonian algebra), tropical varieties and Newton polytopes (combinatorial, no Fock space),
+  toric ideals as lattice gauge theories, Groebner fans as phase diagrams, cluster algebras.
+- Different problems: numerical irreducible decomposition and monodromy as quantum walks on
+  witness sets, resultants and discriminants as spectral quantities, Hilbert scheme and moduli
+  points as ground-state manifolds, syzygies of monomial ideals via free-fermion models,
+  positivity / SOS certificates via quantum SDP solvers (Brandao-Svore) with the real-variety
+  killers already recorded.
+- Different input models: the copy-access door left open by arm D (needs Q4), streaming /
+  communication models (SP-0 lane E3), quantum-data varieties where the state is the input.
+- Different hardware-first framings: what does a Bose–Hubbard or spinor-BEC experiment measure
+  that is an algebraic-geometry invariant of ANY kind, then ask whether it is classically hard,
+  reversing the usual order.
+Deliverable of round 2: new scouting memos with proposed rows, each through a critic loop; the DAG
+and PRD arms updated; a ranked list of which new directions merit a round-3 deep lane.
+
 1. TJO rulings that now gate work: Q4 (does an exponential copy saving count; decides whether the
    arm D open door is worth a lane), Q13 (should novelty be an explicit PRD §2 criterion),
    ratification of D15 (SP-0), D17–D20.
