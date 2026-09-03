@@ -1622,6 +1622,60 @@ DOI:10.1038/35051009.
 
 Pitfalls: general passive interferometers do not preserve per-site occupation; output postselection is not an energetic hard-core constraint.
 
+### Merged from scouting/intersection-observables.md (2026-09-03; critic loop verdicts/intersection-observables-r1..r3, PASS at r3, codex critic; orchestrator merge, verbatim from memo "Proposed definitions": the adjudicated rewordings of the r1/r2 critic in the memo's ASCII convention)
+
+### D-intersection-overlap
+"For homogeneous ideals `I, J`
+and degree `N`, define
+`T_N(I,J) = Tr(P_{0,N}^{(I)} P_{0,N}^{(J)}) = Tr(P_{0,N}^{(I)} P_{0,N}^{(J)} P_{0,N}^{(I)}) >= 0`.
+Equivalently, `T_N = ||B_I^dag B_J||_F^2` for orthonormal ground-space bases. When `I, J` are radical
+and `N` is in their stable ranges, the two factors are the Bergman projectors of
+D-bergman-projector. The normalizations in use are `tau_N = T_N/M_N`, `T_N/sqrt(HF_I HF_J)`, and
+`T_N/(HF_I HF_J) = Tr(rho_I rho_J)`. It is not
+`Tr(P_{I_N}P_{J_N}) = M_N - HF_I - HF_J + T_N`."
+Retained note (r1, folded in from the deleted C-NEW-IO-PROJECTOR-AMBIGUITY row): the seed's
+Conjecture 8.10(a) and rows C-085, C-166, C-167 do not say which projector they mean, and only the
+`P_{0,N}` reading has the asserted geometric asymptotics, so those rows should be amended to cite
+this id. The three normalisations differ by factors exponential in codimension, so a signal-size
+statement must say which.
+
+### D-clean-intersection
+"Smooth `V, W` in `CP^n` intersect cleanly along a
+smooth pure-dimensional `Z = V ^ W` if `T_xZ = T_xV ^ T_xW` for every `x in Z`. Transverse
+intersections are clean; clean intersections may have excess dimension."
+
+### D-intersection-angle-condition-number
+"For a clean intersection, let
+`A_x = T_xV (-) T_xZ` and `B_x = T_xW (-) T_xZ`. Define `J(x) = prod_i sin^2 theta_i(x)`, padding the
+principal-angle list with `pi/2` when the dimensions differ, and `mu_cap = sup_Z J^{-1} < infinity`.
+No universal crossover scale follows from this definition alone."
+
+### D-bergman-frame-operator
+"Define
+`S_V^{(N)} = int_V |e_p><e_p| dvol_V(p)`. Exactly,
+`ran S_V^{(N)} = (I(V)_N)^perp = ran P_{0,N}^{(I(V))}`. The claimed operator-norm asymptotic is
+`S_V^{(N)} = (pi/N)^k(P_{0,N}^{(I(V))} + E_N)`, with `||E_N|| = O(N^{-1})`. This asymptotic is a
+separate conjectural/theorem claim requiring a precise source; it is not part of the definition."
+(r2, verdict O10: the r1 text wrote `P_{I(V),N}`, which under D-projectors denotes the projector
+onto the ideal piece -- the wrong complementary projector.)
+
+### D-normalised-toeplitz-operator
+"For `N >= r` and a
+bihomogeneous polynomial `g(z, conj z)` of bidegree `(r,r)`, regarded as a projective symbol by
+evaluation on unit representatives, define
+`T~_g^{(N)} = ((N-r)!/N!) P_{0,N} :g(a^dag,a): P_{0,N}`. If `I` is radical, `N` is stable, and
+`x in V(I)`, then the C3-compatible restricted coherent-state symbol is exactly
+`<conj(x)^{x N}| T~_g^{(N)} |conj(x)^{x N}> = g(x, conj x)`."
+A distinct definition, not an amendment to D-toeplitz-operator (verdict O3). (r2, verdict O10: the
+r1 text said "`p in V(I)`", violating binding convention C3, under which a geometric point
+`x in V(I)` is carried by the coherent state `|conj(x)>^{x N}`.)
+
+### D-contact-order
+"At a common point of smooth plane curves choose holomorphic
+coordinates unitary for the Fubini-Study metric at the point and flatten `W` to `v = 0`. If `V` has
+`v = gamma u^m + O(u^{m+1})`, `gamma != 0`, then `m` is the contact order and local intersection
+multiplicity. `m = 1` is transverse; `m >= 2` is tangent."
+
 ## Lane report
 
 Included: 66 entries in five parts - the three inner products with exact degreewise scalars; all operators ($a_j$, $a(f)$, $M_f$, $\Phi_N$, shifts, compressed multiplications); ideals, Hilbert function, inverse system, monomial/toric/boolean/clause ideals, Grobner deformation; Hamiltonian, ground space, frustration-freeness, parent Hamiltonians, $k$-body vs few-mode, $\Delta_N$ and its normalisations, coherent states, Takagi; algorithmic/geometric objects (input model, QSVT, the distance-to-ideal problem verbatim, Bergman projector, hardness anchors, condition number, hard-gap instances, finite fields, Bose-Hubbard). Every mandatory entry in the brief is present. `D-reserved-photonic` is a stub: the seed uses no boson-sampling / linear-optics / GBS object, so it lists what must be defined first. 14 OPEN issues, 5 of them substantive (OPEN-1,3,5,6,7); `notation.md` holds the symbol table and 18 page81-vs-report conflicts with the chosen convention.
