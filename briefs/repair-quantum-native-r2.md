@@ -1,0 +1,15 @@
+# Repair brief: scouting/quantum-native.md, round 2 (proposer response to verdicts/quantum-native-r2.md)
+
+Work fully autonomously. Read-only sandbox: your ENTIRE output is your final message, saved VERBATIM as the new scouting/quantum-native.md. Output the COMPLETE revised memo (Markdown, no preamble, no emoji), same structure, and replace the final section by `# Repair r2 response` containing `## r1` (the previous table unchanged) and `## r2` (one row per objection O22-O28: objection | severity | disposition | exact location | note) then `Rows after repair: <count> (CONJECTURE n, REFUTED n, held n, deleted n)`. Repo root: /home/tobias/Projects/quantum-algorithms-for-algebraic-geometry.
+
+Read: CLAUDE.md (L1 statuses are exactly PROVED/SKETCH/CONJECTURE/REFUTED), the current scouting/quantum-native.md, verdicts/quantum-native-r2.md (O22-O28 and its rows/definitions decision tables with exact rewordings). You have web access: verify every identifier you touch by fetching it.
+
+## Work order (law L5; copy the critic's exact text verbatim; nothing else changes)
+- O22 (FATAL): DOI 10.1007/s00029-024-00935-5 is Feigin-Makhlin 'Relative poset polytopes and semitoric degenerations', not a multiprojective Nullstellensatz. Remove that attribution everywhere. For D-QN-MULTIPROJECTIVE-SATURATION cite a source that actually states the multigraded Nullstellensatz / saturation with respect to the irrelevant ideal of a product of projective spaces (e.g. a standard reference on multigraded commutative algebra or toric varieties; Cox-Little-Schenck 'Toric Varieties' for the irrelevant ideal and the multihomogeneous Nullstellensatz, with its DOI or ISBN fetched), or mark it [UNVERIFIED] and say the definition's proof is the memo's own two-line argument in step 4.9. Apply the critic's exact rewording of D-QN-MULTIPROJECTIVE-SATURATION.
+- O23 (MAJOR): the #2-SAT hardness citation must be Valiant, SIAM J. Comput. 8 (1979) 410-421, DOI 10.1137/0208032, in all three places; keep DOI 10.1016/0304-3975(79)90044-6 only where the permanent is meant.
+- O24: move the HOLD marker out of the status field: `status: CONJECTURE` and a separate line `hold: do not merge; missing step = ...`; do not repeat the status inside the statement.
+- O25: fix the copy-residual defining equation's conjugation (<F|psi^{x m}> = conj(f(psi-bar))) in the definition and the COPY-RESIDUAL row, using the critic's exact rewording of D-QN-COPY-RESIDUAL-OBSERVABLE and of the row.
+- O26: remove convention labels C1/C3 from depends-on fields (apply the critic's rewordings of SINGLET-HILBERT-WITNESS and RESIDUAL-EQUALS-DISTANCE); cite conventions in prose instead.
+- O27: make the two arXiv:2412.19623 loci precise (definition/observation numbers).
+- O28: where-tested fields must name a path in the repo or say `none`; the critic's scripts are not in the repo, so say `none (recomputed by the critic in verdicts/quantum-native-r1.md)` if you wish to record it, with `none` as the field value.
+- Lockstep after edits; no other changes.
