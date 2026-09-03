@@ -62,8 +62,9 @@ Candidates: additive estimation of the distance to a degree piece of an ideal (c
 memo rank 1; rows C-124, C-078); normalised Hilbert function in low codimension (rank 2);
 the Macaulay gap itself: uniform Bombieri inequality C-132, cone criterion C-136, gap
 versus Bürgisser–Cucker condition number C-170/C-172. Baseline: sparse Krylov / LSQR /
-Hutch++ on the implicit Macaulay matrix, NOT dense rank. Hardware: Bose–Hubbard and
-spinor-BEC spin mixing for quadric generators (row C-024, unrefereed). Dequantization
+Hutch++ on the implicit Macaulay matrix, NOT dense rank. Hardware: Bose–Hubbard and spinor-BEC spin mixing for quadric generators (row C-024, weakened
+2026-09-03 by C-323 (C-NEW-QN-C024-WEAKENING): the interaction is realised and its spin-changing dynamics
+observed, but the `2N+1` degeneracy has not been measured). Dequantization
 risk medium to high. This arm is where the first critic cycle (D9) lands.
 
 **Arm B: syzygies and Betti numbers as a supersymmetric Koszul Laplacian.**
@@ -84,9 +85,17 @@ Candidates: multigraded quantum k-SAT ground spaces and their inverse-system des
 (seed Prop 8.2; applications shortlist 1), entanglement and tensor-network varieties,
 with phylogenetic varieties as the classical shadow (shortlist 5). The only area where
 the input model does not defeat the construction. Hardware: dual-rail linear optics for
-the (1,...,1) sector, the existing spinor-BEC conic. Products are new statements about
-QSAT, plus possibly an analogue demonstration; a speedup in the north-star sense is not
-on offer here and the arm should say so.
+the (1,...,1) sector, the existing spinor-BEC conic. Products are new statements about QSAT, plus possibly an analogue demonstration. The arm reports
+(2026-09-03, `scouting/quantum-native.md`, critic loop r1–r3): no north-star speedup is
+established. What is argued is only that composing an algorithm with the QSAT–inverse-system
+relabelling supplies no asymptotic advantage (C-324 (C-NEW-QN-ARM-D-NORTHSTAR), CONJECTURE, held) — a
+tautology about a spectrum-preserving relabelling, not an impossibility theorem. The broad
+negative "no arm D speedup exists" is NOT proved and remains an open negative; it explicitly
+excludes the bosonic Proposition 8.2 sector (C-129/C-130), copy-access membership and distance
+testing for entanglement, secant, MPS and tensor-network varieties, and structured QSAT
+subfamilies. For copy-access problems the comparator is adaptive single-copy measurement plus
+classical post-processing; exponential separations against it exist for other learning tasks
+(arXiv:2111.05881; DOI 10.1126/science.abn7293) but no transfer to variety membership is known.
 
 **Arm R: robotics (TJO priority, D5).**
 `scouting/robotics-deep-dive.md` finds three bets and ten killers. Bets: R1, certified
@@ -197,6 +206,7 @@ asserts a speedup must name which traps it has been checked against.
 | D16 | 2026-09-02 | Two-copy real-symmetry filter: strong form (spectral selector of real points) closed by C-276/C-278; certificate and count forms stay open as instruments. Rows C-275..C-280 merged. | orchestrator, from lane; pending TJO |
 | D17 | 2026-09-03 | Exploration round 1 (TJO directive: rapid ground, then verifiers, loop; two concurrent subagents). Quantum-primitives map (`scouting/quantum-primitives.md`, codex proposer, Opus critic, PASS at r3 with objections 25 -> 11 -> 3) merged as C-281..C-303 and 14 definitions. Verdict of the map: no known quantum primitive scores above 4/5 against §2; Kedlaya's curve-zeta algorithm (4/5, prior art, no hardware hook) and Hallgren / Eisentraeger-Hallgren-Kitaev-Song number-field ideal problems (3/5, prior art; input is an ideal of a number field, not a projective variety) are the benchmarks any campaign claim must beat; eleven primitive-problem pairs enter REFUTED (C-282, C-284, C-289, C-292, C-294, C-296, C-297, C-299, C-300, C-301, C-303). The SKETCH legend of CLAIMS.md is widened to admit cited published theorems with resolved ids (C-092/C-099 convention). Arm B (Koszul/Betti Laplacian, `scouting/koszul-betti.md`) is in its critic loop; arms C and D lanes launched. | orchestrator; pending TJO ratification of the benchmark reading |
 | D18 | 2026-09-03 | Arm B (Koszul/SUSY Betti Laplacian, `scouting/koszul-betti.md`, Opus proposer, codex critic) converged: verdicts r1 FAIL(1 FATAL, 11 MAJOR) -> r2 FAIL(4) -> r3 FAIL(1) -> r4 (verbatim residue) -> r5 PASS. Merged C-304..C-311 (6 CONJECTURE, 2 REFUTED) and 8 definitions; C-NEW-KB-QMA1 and C-NEW-KB-GAP-INDEPENDENT held in the memo. Verdict of the arm: the Betti table IS the ground-state degeneracy of a boson-fermion Laplacian on the inverse system (exact, tested on six ideals), but no PRD §2 criterion is met: the problem reduces to quantum TDA via Hochster (K-KB3), the naive compression is information-free (K-KB2), the Betti gap has no lower bound (K-KB6), and the Hilbert-function acceptance weight h_N/M_N is exponentially small on the quadratic complete-intersection family (K-KB11). Arm B is an instrument and a hardness anchor, not a speedup candidate; no prover seat. | orchestrator, from the loop; pending TJO |
+| D19 | 2026-09-03 | Arm D (quantum-native varieties, `scouting/quantum-native.md`, codex proposer, Opus critic) converged: r1 FAIL(12 MAJOR, 9 MINOR) -> r2 FAIL(1 FATAL, 1 MAJOR, 5 MINOR) -> r3 PASS. Merged C-312..C-324 (8 CONJECTURE, 5 REFUTED; C-324 held) and 8 definitions plus a D-multihomogeneous-bezout amendment. Verdict of the arm: the QSAT ground space IS the multidegree-1 piece of a Macaulay inverse system (exact, verified numerically), product ground states ARE the points of a multiprojective variety with an entangled defect e_Q, and diagonal Hilbert-function vanishing is a multihomogeneous Nullstellensatz hierarchy of product-unsatisfiability certificates whose level 2 is incomplete (first certifying level r = 4 on the generic four-qubit family); but no PRD §2 criterion 3 is met, the product-satisfiability geometry is prior art (Laumann et al. 2010; Aldi-Gharibian-Rudolph 2026), and arm D is an instrument and a dictionary, not a speedup candidate. The broad negative is NOT proved (see §4 arm D). C-024 weakened in lockstep. Open for TJO: Q4 (does an exponential copy saving count) and Q13 (should novelty become an explicit §2 criterion). | orchestrator, from the loop; pending TJO |
 
 ## 7. Current state and open questions for TJO
 

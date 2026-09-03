@@ -1260,6 +1260,20 @@ Source: multihomogeneous Bézout theorem and coefficient expansion.
 
 Pitfalls: \(B_A\) is not the general BKK mixed volume. Optical access to an event with probability proportional to \(|B_A|^2\) is a separate object, D-optical-counting-access.
 
+Amendment (2026-09-03, scouting/quantum-native.md, verdicts/quantum-native-r3.md): general-\(q\) coefficient
+
+\[
+B_D
+=
+[t_1^{q-1}\cdots t_n^{q-1}]
+\prod_{a=1}^{n(q-1)}
+\left(\sum_i d_{ai}t_i\right).
+\]
+
+For \(q=2\), \(D\) is square and this coefficient is \(\operatorname{per}(D)\). Definition 52 and Observation 55 of arXiv:2412.19623 supply the PRODSAT Bézout/weighted-SDR formulation; arXiv:2005.14485 supplies the permanent formulation for the one-dimensional-block case.
+
+Pitfalls: this counts product solutions with multiplicity, not QSAT ground-space degeneracy, and it applies directly only to square subsystems.
+
 ### D-optical-counting-access
 
 Optical counting access to a matrix \(A\) means an efficiently prepared passive or Gaussian optical experiment whose specified outcome \(S\) has probability
@@ -1429,6 +1443,184 @@ the positive-degree sequence is regular. Pitfall: these are not `beta_{i,j}(R/I)
 > \(\beta_{i,i+N}=0\) versus \(\beta_{i,i+N}\ge1\) under the spectral and access
 > promises. A supplied bound on \(\operatorname{reg}(R/I)\) is optional and is
 > used only when enumerating the whole table.
+
+### Merged from scouting/quantum-native.md (2026-09-03; critic loop verdicts/quantum-native-r1..r3, PASS at r3, Opus critic; 8 ACCEPT with D-QN-MULTIPROJECTIVE-SATURATION reworded per r3 O30; orchestrator merge, verbatim)
+
+### D-QN-QSAT-IDEAL
+For a quantum \(k\)-SAT instance \(Q=\{\Pi_a\}\), choose an orthonormal rank-one decomposition
+
+\[
+\Pi_a=\sum_\mu|\phi_{a\mu}\rangle\langle\phi_{a\mu}|.
+\]
+
+Write each \(|\phi_{a\mu}\rangle\) as a multilinear coefficient tensor on its support and form \(f_{a\mu}\) using those coefficients unconjugated. The **QSAT ideal** is
+
+\[
+I_Q=(f_{a\mu})
+\]
+
+in the Cox ring of \((\mathbb P^{q-1})^n\).
+
+The ideal does not depend on the chosen orthonormal rank-one decomposition, because
+\(\operatorname{span}_{\mu}\{f_{a\mu}\}\) is the image of
+\(\operatorname{ran}\Pi_a\) in the multilinear forms on \(S_a\); another orthonormal decomposition changes these generators by a unitary matrix.
+
+Source: D-multidegree-sector, D-quantum-k-sat, C-030–C-032.
+
+Pitfalls: coefficients are taken unconjugated; this is what makes
+\(a^\dagger(f)a(f)|_{R_{\mathbf1}}=|\phi\rangle\langle\phi|\). The ideal forgets positive weights and spectral conditioning. Under C3 its ground space is the multidegree-\(\mathbf1\) inverse system of \(\overline{I_Q}\).
+
+### D-QN-MULTIPROJECTIVE-SATURATION
+For
+
+\[
+R=\mathbb C[z_{i,s}]
+\]
+
+with site multigrading, let
+
+\[
+B=\bigcap_i(z_{i,0},\ldots,z_{i,q-1}).
+\]
+
+The **reduced multiprojective saturation** of \(I\) is
+
+\[
+J=\sqrt{I:B^\infty}.
+\]
+
+By the multiprojective Nullstellensatz, \(J\) is the multihomogeneous vanishing ideal of the reduced closed subscheme
+
+\[
+V_{X_0}(I)\subseteq(\mathbb P^{q-1})^n,
+\]
+
+of any dimension. Adopt \(I(\varnothing)=R\). If
+\(V_{X_0}(I)=\varnothing\), then \(B\subseteq\sqrt I\), hence
+\(B^k\subseteq I\) for some \(k\), so \(I:B^\infty=R\).
+
+Source: Cox–Little–Schenck, `Toric Varieties`, GSM 124, AMS 2011 (ISBN:978-0-8218-4819-7): Proposition 5.2.6 (Toric Weak Nullstellensatz) for the empty case, Proposition 5.2.7 (Toric Ideal-Variety Correspondence), and Proposition 6.A.7 for the B(Σ)-saturation normalisation; multiprojective use in arXiv:2412.19623.
+
+Pitfalls: \(I_{\mathbf1}=J_{\mathbf1}\) is only a degreewise equality and does not imply global radicality or saturation. The closed subscheme need not be finite. (P^{q-1})^n is smooth, hence simplicial, so the hypotheses of 5.2.6/5.2.7 (simplicial) and 6.A.7 (smooth) are met; 5.2.7 normalises the ideal of a subvariety as a radical ideal contained in B(Σ) rather than as the B-saturation, and the two agree in multidegree 1 because B_1 = R_1.
+
+### D-QN-PRODUCT-SPAN
+For a QSAT ideal \(I_Q\) and
+\(J_Q=\sqrt{I_Q:B^\infty}\), the **product-ground span** is
+
+\[
+\mathcal P_Q=(J_Q)_{\mathbf1}^{\perp}.
+\]
+
+Equivalently,
+
+\[
+\mathcal P_Q
+=
+\operatorname{span}
+\left\{
+\bigotimes_i|\overline{x_i}\rangle:
+x\in V_{X_0}(I_Q)
+\right\},
+\]
+
+with \(\mathcal P_Q=\{0\}\) when the variety is empty.
+
+Source: D-coherent-state and C-028.
+
+Pitfalls: \(\mathcal P_Q\) contains entangled superpositions; it is not the set of product states.
+
+### D-QN-MULTIGRADED-ENTANGLED-DEFECT
+The **multigraded entangled defect** of \(Q\) is
+
+\[
+e_Q
+=
+\dim(I_Q)_{\mathbf1}^{\perp}
+-
+\dim(J_Q)_{\mathbf1}^{\perp}
+=
+\dim(J_Q)_{\mathbf1}-\dim(I_Q)_{\mathbf1}.
+\]
+
+Source: specialization of D-entangled-defect.
+
+Pitfalls: it counts linear directions orthogonal to the product-ground span, not entangled rays or an entanglement entropy.
+
+### D-QN-COPY-RESIDUAL-OBSERVABLE
+For homogeneous degree-\(m\) equations \(f_j\) on a pure-state amplitude space, let
+\(|F_j\rangle\in\operatorname{Sym}^m(\mathcal H)\) satisfy, under C3,
+
+\[
+\overline{f_j(\overline\psi)}
+=
+\langle F_j|\psi^{\otimes m}\rangle.
+\]
+
+C-019 gives
+
+\[
+\|F_j\|=\|f_j\|_{\mathrm{BW}}.
+\]
+
+For \(w_j\ge0\), define
+
+\[
+\Lambda=\sum_jw_j\|F_j\|^2,
+\qquad
+A_F=\Lambda^{-1}\sum_jw_j|F_j\rangle\langle F_j|.
+\]
+
+Then \(A_F\) acts on \(\operatorname{Sym}^m(\mathcal H)\), satisfies
+\(0\le A_F\le\mathbb1\), and has expectation
+
+\[
+\langle\psi|^{\otimes m}A_F|\psi\rangle^{\otimes m}
+=
+\Lambda^{-1}\sum_jw_j|f_j(\overline\psi)|^2.
+\]
+
+Each shot consumes \(m\) copies.
+
+Source: D-coherent-state, C-019, and the normalized form of C-027.
+
+Pitfalls: residual is not distance; implementing the sum can scale with the number of generators; uncontrolled copies do not supply amplitude-estimation reflections.
+
+### D-QN-TENSOR-NETWORK-VARIETY
+For a graph \(G\), local dimensions, and bond bounds \(\boldsymbol\chi\), the
+**tensor-network variety** is the Zariski closure of the polynomial contraction image.
+
+For trees and open chains, the bounded-rank locus is characterized by edge-flattening rank conditions
+(arXiv:2608.19071). arXiv:1501.01120 concerns comparison of tree tensor formats.
+
+Source: arXiv:1105.4449, arXiv:1501.01120, arXiv:2101.03148,
+arXiv:2608.19071.
+
+Pitfalls: the exact parametrized image can be nonclosed; “bond dimension exactly
+\(\chi\)” is generally a stratum rather than the closed variety.
+
+### D-QN-PHYSICAL-DATA-ACCESS
+D-QN-PHYSICAL-DATA-ACCESS **extends**, rather than replaces, the campaign’s classical
+D-input-model. A physical data-state problem must specify one of:
+
+1. uncontrolled copies of \(\rho\);
+2. a preparation circuit \(U_\rho\);
+3. controlled \(U_\rho,U_\rho^\dagger\);
+4. classical measurement samples;
+5. a classical amplitude description.
+
+For a comparison, both algorithms must receive the same declared input or the statement must explicitly describe different measurement models on the same physical source.
+
+Source: D-input-model; proposed extension for physical/copy access.
+
+Pitfalls: copy bounds, coherent-query bounds, and classical input runtimes cannot be compared without fixing the access model. A classical copy-access baseline means single-copy, possibly adaptive measurements followed by classical post-processing, not possession of a dense amplitude array.
+
+### D-QN-DUAL-RAIL-SECTOR
+The **dual-rail \(\mathbf1\) sector** for \(n\) qubits is the two-optical-mode-per-site Fock subspace with exactly one photon in each mode pair.
+
+Source: D-multidegree-sector; linear-optical computation in
+DOI:10.1038/35051009.
+
+Pitfalls: general passive interferometers do not preserve per-site occupation; output postselection is not an energetic hard-core constraint.
 
 ## Lane report
 

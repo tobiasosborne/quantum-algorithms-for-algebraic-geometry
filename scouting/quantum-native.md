@@ -814,7 +814,7 @@ The product-span formula in step 2 and the finite-degree entangled-only certific
 | \((I_Q)_{\mathbf1}^{\perp}\) | QSAT ground space | Implicitly described by clauses; an explicit basis can be exponentially large | A witness may inhabit it, but preparation is not supplied | D-inverse-system, D-quantum-k-sat |
 | Promise problem: \(\operatorname{HF}_{R/I_Q}(\mathbf1)>0\) versus \(\lambda_{\min}(H_Q)\ge1/\operatorname{poly}(n)\) | Promised frustration freeness | In P for qubit \(2\)-QSAT | \(\mathrm{QMA}_1\)-complete for qubit \(3\)-QSAT and bilinear \((2,5)\)-QSAT | C-034–C-037; arXiv:quant-ph/0602108; arXiv:1302.0290; arXiv:2401.02368 |
 | Exact \(\operatorname{HF}_{R/I_Q}(\mathbf1)>0\), no promise | Exact frustration freeness | In P for qubit \(2\)-QSAT | Not thereby in \(\mathrm{QMA}_1\) | C-038; arXiv:quant-ph/0602108 |
-| Exact \(\operatorname{HF}_{R/I_Q}(\mathbf1)\) | Ground-state degeneracy | Computing it exactly is \(\#\mathrm P\)-hard already for qubit \(2\)-QSAT, by Ji–Wei–Zeng’s reduction to and from the classical analogue composed with \(\#\mathrm{MONOTONE\text{-}2\text{-}SAT}\) hardness | General gapped local degeneracy is \(\#\mathrm{BQP}\)-complete, not ordinary BQP | D-hardness-anchors; arXiv:1010.2480; Valiant, Theorem 1, problem 7; DOI:10.1137/0208032; arXiv:1010.3060 |
+| Exact \(\operatorname{HF}_{R/I_Q}(\mathbf1)\) | Ground-state degeneracy | Computing it exactly is \(\#\mathrm P\)-hard already for qubit \(2\)-QSAT, by Ji–Wei–Zeng’s reduction to and from the classical analogue composed with \(\#\mathrm{MONOTONE\text{-}2\text{-}SAT}\) hardness | General gapped local degeneracy is \(\#\mathrm{BQP}\)-complete, not ordinary BQP | D-hardness-anchors; arXiv:1010.2480; Valiant; DOI:10.1137/0208032; arXiv:1010.3060 |
 | \(\operatorname{HF}(\mathbf r)\), \(\mathbf r\ne\mathbf1\) | Degeneracy of a local bosonic occupation extension | Rank of a matrix of dimension \(\prod_i\binom{r_i+q-1}{q-1}\) | No known generic advantage | D-multidegree-sector |
 | Minimal multigraded generators | Constraints not implied at lower multidegrees after complementary-site multiplication | Minimizing the ideal presentation can require Gröbner computations and exponential output | No known quantum algorithm | D-homogeneous-ideal |
 | First syzygies | Linear dependencies among forbidden vectors tensored with complementary states | Kernel of the Macaulay map; exponential sector size | A relation-space nullity, not a ground-state observable by itself | D-syzygy-module |
@@ -840,7 +840,7 @@ The product-span formula in step 2 and the finite-degree entangled-only certific
 - Computing \(\operatorname{HF}_{R/I_Q}(\mathbf1)\) exactly is \(\#\mathrm P\)-hard already for qubit \(2\)-QSAT, by Ji–Wei–Zeng’s reduction to and from the classical analogue
   (arXiv:1010.2480, DOI:10.1103/PhysRevA.84.042338) composed with
   \(\#\mathrm{MONOTONE\text{-}2\text{-}SAT}\) hardness
-  (Valiant 1979, Theorem 1, problem 7, DOI:10.1137/0208032); see D-hardness-anchors.
+  (Valiant 1979 DOI:10.1137/0208032); see D-hardness-anchors.
 - Exact ground-space degeneracy of qubit \(2\)-QSAT is equivalent in both directions to its classical counting analogue; the decision problem is in P, so decision and counting separate.
 - No \(\#\mathrm P\)-completeness claim is made without a containment argument.
 - Qubit \(3\)-QSAT promised frustration-freeness is \(\mathrm{QMA}_1\)-complete
@@ -1556,7 +1556,7 @@ Qubit \(3\)-QSAT is \(\mathrm{QMA}_1\)-complete
 ### K-QN3 — Degeneracy is harder than satisfiability
 
 Computing \(\operatorname{HF}_{R/I_Q}(\mathbf1)\) exactly is \(\#\mathrm P\)-hard already for qubit \(2\)-QSAT, by Ji–Wei–Zeng’s equivalence with the classical analogue composed with \(\#\mathrm{MONOTONE\text{-}2\text{-}SAT}\) hardness
-(arXiv:1010.2480; Valiant 1979, Theorem 1, problem 7, DOI:10.1137/0208032; D-hardness-anchors). The decision problem remains polynomial. A degeneracy measurement is not a free readout.
+(arXiv:1010.2480; Valiant 1979 DOI:10.1137/0208032; D-hardness-anchors). The decision problem remains polynomial. A degeneracy measurement is not a free readout.
 
 ### K-QN4 — Other multidegrees change the physical system
 
@@ -2244,7 +2244,7 @@ arXiv:1004.3787, arXiv:1801.02662, arXiv:1508.01907, and arXiv:cs/0405021 have a
 | objection | severity | disposition | exact location | note |
 |---|---|---|---|---|
 | O22 | FATAL | FIXED | Steps 2.4 and 4.9; D-QN-MULTIPROJECTIVE-SATURATION; reference 31 | Removed the Feigin–Makhlin attribution everywhere and replaced it with Cox–Little–Schenck, Propositions 5.2.6–5.2.7, ISBN:978-0-8218-4819-7. |
-| O23 | MAJOR | FIXED | QSAT dictionary; Complexity conclusions; K-QN3; reference 28 | Replaced the permanent-paper DOI by DOI:10.1137/0208032 and identified Valiant’s Theorem 1, problem 7, as the `#MONOTONE-2-SAT` hardness source. |
+| O23 | MAJOR | FIXED | QSAT dictionary; Complexity conclusions; K-QN3; reference 28 | Replaced the permanent-paper DOI by DOI:10.1137/0208032 and identified Valiant’s as the `#MONOTONE-2-SAT` hardness source. |
 | O24 | MINOR | FIXED | C-NEW-QN-ARM-D-NORTHSTAR | Made `status: CONJECTURE`, moved HOLD to a separate `hold:` field, and removed the repeated status from the statement. |
 | O25 | MINOR | FIXED | What the seed can estimate from copies; D-QN-COPY-RESIDUAL-OBSERVABLE; C-NEW-QN-COPY-RESIDUAL | Replaced the defining identity by `\overline{f_j(\bar\psi)}=⟨F_j|\psi^{⊗m}⟩` in all three loci. |
 | O26 | MINOR | FIXED | C-NEW-QN-SINGLET-HILBERT-WITNESS; C-NEW-QN-RESIDUAL-EQUALS-DISTANCE | Removed convention labels C1 and C3 from the `depends-on` fields; the conventions remain cited in prose. |

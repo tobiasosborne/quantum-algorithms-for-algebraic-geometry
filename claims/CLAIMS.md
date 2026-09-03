@@ -341,18 +341,23 @@ the full list is reconciled in `EXTRACTION-NOTES.md`.
   matched to a physical Hamiltonian in C-024.
 
 ### C-024
-- statement: The operator of C-023 is the spin-mixing Hamiltonian of a spin-1 spinor
-  Bose–Einstein condensate in the single-mode approximation (Law–Pu–Bigelow 1998) under
-  `(z_0, z_1, z_2) ↔ (a_{+1}, a_{-1}, a_0)`; its ferromagnetic phase has exactly `2N+1`
-  degenerate ground states, which is `HF_{R/(f)}(N)` for the conic. Hence this quadric
-  ideal's ground space has already been realised experimentally.
+- statement: The operator of C-023 is the spin-mixing Hamiltonian of a spin-1 spinor Bose–Einstein condensate
+  in the single-mode approximation (Law–Pu–Bigelow 1998, arXiv:cond-mat/9807258,
+  DOI 10.1103/PhysRevLett.81.5257) under `(z_0, z_1, z_2) ↔ (a_{+1}, a_{-1}, a_0)`; its
+  ferromagnetic phase has exactly `2N+1` degenerate ground states, which is `HF_{R/(f)}(N)` for the
+  conic. The INTERACTION has been physically realised and its spin-changing dynamics observed
+  (Chang et al. 2004, DOI 10.1103/PhysRevLett.92.140403); a direct experimental measurement of the
+  `2N+1` ground-space dimension has NOT been identified, so the former clause "this quadric ideal's
+  ground space has already been realised experimentally" is WITHDRAWN.
 - status: SKETCH
-- depends-on: C-009, C-023, D-spin-mixing-hamiltonian
+- depends-on: C-009, C-023, D-spin-mixing-hamiltonian, C-297
 - where-proved: report.md §3 (identification asserted; the `2N+1` degeneracy is C-009)
 - where-tested: task1_conic.py, task3c_exact.py (degeneracy `2N+1`, `Δ_N = N+1` for `N≤30`)
-- referee: not addressed in either round.
+- referee: not addressed in either round; weakened 2026-09-03 by C-323 (C-NEW-QN-C024-WEAKENING)
+  (verdicts/quantum-native-r1.md O9; r3 lockstep).
 - north-star relevance: **hardware attack (highest)** — this is the campaign's only
-  existing physical realisation of a projective-variety ground space, and the natural seed
+  existing physical realisation of the INTERACTION whose ground space is a projective-variety
+  ground space; the degeneracy readout is not demonstrated. The natural seed
   for the required "cheaper heuristic attack" via a condensed-matter model.
 
 ### C-025
@@ -4695,3 +4700,249 @@ Id map: C-304 = C-NEW-KB-HODGE, C-305 = C-NEW-KB-FREE, C-306 = C-NEW-KB-SUPPORT,
 - where-proved: scouting/koszul-betti.md §1 Step 9
 - where-tested: none
 - relevance/traps: REFUTED row, kept forever per L1.
+
+## Rows merged from scouting/quantum-native.md (2026-09-03, codex lane, arm D; critic loop verdicts/quantum-native-r1.md FAIL(12 MAJOR) -> r2 FAIL(1 FATAL, 1 MAJOR) -> r3 PASS, Opus critic; orchestrator merge, verbatim from memo at commit 90d5c5c; 8 CONJECTURE, 5 REFUTED; C-324 (C-NEW-QN-ARM-D-NORTHSTAR) carries a hold field: it does not discharge the PRD §4 arm D sentence)
+
+Id map: C-312 = C-NEW-QN-QSAT-INVERSE-SYSTEM, C-313 = C-NEW-QN-PRODUCT-SPAN-DEFECT, C-314 = C-NEW-QN-HILBERT-VANISH-ENTANGLEMENT, C-315 = C-NEW-QN-SINGLET-HILBERT-WITNESS, C-316 = C-NEW-QN-HF2-COMPLETE, C-317 = C-NEW-QN-BEZOUT-NOVELTY, C-318 = C-NEW-QN-COPY-RESIDUAL, C-319 = C-NEW-QN-RESIDUAL-EQUALS-DISTANCE, C-320 = C-NEW-QN-MPS-TOMOGRAPHY-SPEEDUP, C-321 = C-NEW-QN-COHERENT-OVERLAP-PERMANENT, C-322 = C-NEW-QN-OPTICAL-SINGLET-DEMO, C-323 = C-NEW-QN-C024-WEAKENING, C-324 = C-NEW-QN-ARM-D-NORTHSTAR
+
+### C-312 (C-NEW-QN-QSAT-INVERSE-SYSTEM)
+- statement: For every finite `n`-qudit quantum `k`-SAT instance `Q = {Π_a}` and every orthonormal rank-one decomposition `Π_a = Σ_μ|φ_{aμ}⟩⟨φ_{aμ}|`, let `I_Q` be the associated D-QN-QSAT-IDEAL and `Φ_{\mathbf 1}` the multidegree-`\mathbf 1` Macaulay map (D-macaulay-map, D-multidegree-sector). Under the unitary identification `R_{\mathbf 1} ≅ (\mathbb C^q)^{⊗n}`: `H_Q = Φ_{\mathbf 1}Φ_{\mathbf 1}^†`; `ker H_Q = ((I_Q)_{\mathbf 1})^{⊥} = \{u ∈ R_{\mathbf 1} : \bar f(∂)u = 0\ ∀f ∈ I_Q\}`, i.e. the multidegree-`\mathbf 1` piece of the Macaulay inverse system of `\overline{I_Q}` (C3, D-inverse-system); and `\dim\ker H_Q = HF_{R/I_Q}(\mathbf 1)`. This is the multidegree-`\mathbf 1` instance of C-008 and C-009.
+- status: CONJECTURE
+- depends-on: C-008, C-009, C-033, D-macaulay-map, D-multidegree-sector,
+  D-quantum-k-sat, D-inverse-system, D-ground-space, C-030, C-031, C-032
+- where-proved: Statement and sketch, steps 1.1–1.18
+- where-tested: none
+- critic: recomputed independently in verdicts/quantum-native-r1.md (Recomputation record) and r3 (Disposition verification)
+
+### C-313 (C-NEW-QN-PRODUCT-SPAN-DEFECT)
+- statement: For every QSAT ideal `I_Q`, let
+  `J_Q := \sqrt{I_Q : B^∞}` with `B` the irrelevant ideal
+  (D-QN-MULTIPROJECTIVE-SATURATION), and let `J_Q = R` when
+  `V_{X_0}(I_Q) = ∅`. The span of all fully product ground states means
+  `span\{⊗_i|\bar x_i⟩ : x ∈ V_{X_0}(I_Q)\}`, with value `{0}` when
+  `V = ∅`; it equals `((J_Q)_{\mathbf 1})^⊥`. The dimension of its orthogonal
+  complement in the full ground space is
+  `e_Q = \dim(J_Q)_{\mathbf 1} - \dim(I_Q)_{\mathbf 1}`.
+- status: CONJECTURE
+- depends-on: D-QN-MULTIPROJECTIVE-SATURATION, D-QN-PRODUCT-SPAN,
+  D-QN-MULTIGRADED-ENTANGLED-DEFECT, D-entangled-defect, C-028, C-029
+- where-proved: Statement and sketch, steps 2.1–2.10
+- where-tested: none
+- critic: recomputed independently in verdicts/quantum-native-r1.md (Recomputation record) and r3 (Disposition verification)
+
+### C-314 (C-NEW-QN-HILBERT-VANISH-ENTANGLEMENT)
+- statement: For every multihomogeneous ideal `I` in the Cox ring of
+  `(\mathbb P^{q-1})^n`, if there exists
+  `\mathbf r ≥ \mathbf 1`, `\mathbf r ≠ \mathbf 1`, with
+  `HF_{R/I}(\mathbf r)=0`, then `V_{X_0}(I)=∅`. For a QSAT ideal `I_Q`
+  with `HF_{R/I_Q}(\mathbf 1)>0`, every nonzero ground state is then
+  entangled and, under the convention `I(∅)=R`,
+  `e_Q=HF_{R/I_Q}(\mathbf 1)`. This is a multihomogeneous Nullstellensatz
+  certificate. The existential completeness direction
+  `V_{X_0}(I)=∅ ⇒ HF_{R/I}(\mathbf r)=0` for some finite `\mathbf r`
+  follows from saturation; an effective input-size degree bound remains open here.
+- status: CONJECTURE
+- depends-on: D-hilbert-function, D-variety, D-entangled-defect,
+  D-QN-MULTIPROJECTIVE-SATURATION,
+  D-QN-MULTIGRADED-ENTANGLED-DEFECT
+- where-proved: Statement and sketch, steps 4.1–4.9
+- where-tested: none
+- critic: recomputed independently in verdicts/quantum-native-r1.md (Recomputation record) and r3 (Disposition verification)
+
+### C-315 (C-NEW-QN-SINGLET-HILBERT-WITNESS)
+- statement: For
+  `I = (x_0y_0, x_1y_1, x_0y_1+x_1y_0)`, one has
+  `HF_{R/I}(1,1)=1`, `HF_{R/I}(2,2)=0`, and
+  `V_{\mathbb P^1\times\mathbb P^1}(I)=∅`; the `(1,1)` inverse-system
+  piece is the Bell singlet line. The `9×12` bidegree-`(2,2)` Macaulay
+  matrix has rank `9`; 18 of its 220 `9×9` minors are nonzero, each with
+  `|det|=1` in the monomial basis. These determinant values are
+  basis-dependent under C1.
+- status: CONJECTURE
+- depends-on: C-312 (C-NEW-QN-QSAT-INVERSE-SYSTEM),
+  C-314 (C-NEW-QN-HILBERT-VANISH-ENTANGLEMENT), D-macaulay-matrix
+- where-proved: Statement and sketch, steps 5.1–5.8
+- where-tested: none
+- critic: recomputed independently in verdicts/quantum-native-r1.md (Recomputation record) and r3 (Disposition verification)
+
+### C-316 (C-NEW-QN-HF2-COMPLETE)
+- statement: For every QSAT ideal `I_Q`,
+  `HF_{R/I_Q}(2,\ldots,2)>0` implies the existence of a product ground
+  state.
+- status: REFUTED
+- surviving statement: Vanishing at `(2,\ldots,2)` is sufficient for the
+  absence of product ground states, but nonvanishing is inconclusive. For
+  five generic four-local rank-one clause vectors on four qubits,
+  `HF(1^4)=11`, `HF(2^4)=11`, `HF(3^4)=1`, and `HF(4^4)=0`; the product
+  variety is empty and the first certifying diagonal level is `r=4`.
+- depends-on: D-hilbert-function, D-variety,
+  C-314 (C-NEW-QN-HILBERT-VANISH-ENTANGLEMENT)
+- where-proved: refuted by the generic four-qubit family in steps 6.1–6.8
+- where-tested: none
+- critic: recomputed independently in verdicts/quantum-native-r1.md (Recomputation record) and r3 (Disposition verification)
+
+### C-317 (C-NEW-QN-BEZOUT-NOVELTY)
+- statement: The permanent-form multiprojective Bézout count for generic
+  product solutions of a QSAT instance is a new consequence of the seed.
+- status: REFUTED
+- surviving statement: Definition 52 (Bézout number) and Observation 55
+  (“the number of weighted SDRs in a PRODSAT instance is equal to the
+  Bézout number”) of arXiv:2412.19623 /
+  DOI:10.4230/LIPIcs.ITCS.2026.7, together with its remark that computing
+  `d_Béz` counts perfect matchings, already contain the QSAT/PRODSAT
+  count. The permanent formulation is in arXiv:2005.14485 and in
+  D-multihomogeneous-bezout/C-295, not in arXiv:2412.19623. The earlier
+  product-satisfiability geometry is due to Laumann et al.,
+  DOI:10.1103/PhysRevA.81.062345.
+- depends-on: D-multihomogeneous-bezout, D-quantum-k-sat, C-295
+- where-proved: literature comparison in steps 7.1–7.11
+- where-tested: none
+- critic: recomputed independently in verdicts/quantum-native-r1.md (Recomputation record) and r3 (Disposition verification)
+
+### C-318 (C-NEW-QN-COPY-RESIDUAL)
+- statement: For every normalized pure state `|\psi⟩`, every finite family
+  of homogeneous degree-`m` equations `f_j`, coefficient vectors `|F_j⟩`
+  satisfying `\overline{f_j(\bar\psi)}=⟨F_j|\psi^{⊗m}⟩`, and nonnegative weights
+  `w_j`, let `Λ=Σ_jw_j\|F_j\|²` and
+  `A_F=Λ^{-1}Σ_jw_j|F_j⟩⟨F_j|`. Then `0≤A_F≤1`,
+  `\|F_j\|=\|f_j\|_{BW}` by C-019, and
+  `⟨\psi|^{⊗m}A_F|\psi⟩^{⊗m}
+  =Λ^{-1}Σ_jw_j|f_j(\bar\psi)|²`. In
+  D-QN-PHYSICAL-DATA-ACCESS case 1, given a measurement of `A_F`, its
+  expectation can be estimated to additive error `ε` and failure
+  probability `δ` using `m·O(ε^{-2}\log(1/δ))` copies. This is the
+  normalized form of C-027.
+- status: CONJECTURE
+- depends-on: D-QN-COPY-RESIDUAL-OBSERVABLE,
+  D-QN-PHYSICAL-DATA-ACCESS, D-coherent-state, C-019, C-027
+- where-proved: Entanglement varieties, “What the seed can estimate from copies”
+- where-tested: none
+- critic: recomputed independently in verdicts/quantum-native-r1.md (Recomputation record) and r3 (Disposition verification)
+
+### C-319 (C-NEW-QN-RESIDUAL-EQUALS-DISTANCE)
+- statement: For every projective variety
+  `X=V(f_1,\ldots,f_d)` in `P(\mathcal H)` and every normalized `\psi`,
+  `Σ_j|f_j(\bar\psi)|²=dist_{FS}([\bar\psi],X)²`, where `dist_{FS}` is
+  Fubini–Study distance.
+- status: REFUTED
+- surviving statement: The residual vanishes exactly on `X` when the
+  equations define `X` set-theoretically. Replacing `f_j` by `λf_j`
+  multiplies the left side by `|λ|²` and leaves the right side fixed, so
+  no identity can hold for all generating tuples. Quantitative distance
+  bounds require fixed normalization and a condition, reach, or
+  Łojasiewicz constant.
+- depends-on: D-QN-COPY-RESIDUAL-OBSERVABLE, D-condition-number
+- where-proved: generator-rescaling counterexample and singular-order
+  argument in Entanglement varieties
+- where-tested: none
+- critic: recomputed independently in verdicts/quantum-native-r1.md (Recomputation record) and r3 (Disposition verification)
+
+### C-320 (C-NEW-QN-MPS-TOMOGRAPHY-SPEEDUP)
+- statement: The `O(nr²)`-copy MPS tester of arXiv:2201.01824 is a
+  north-star exponential speedup over the
+  `Ω(q^n/ε)`-copy tomography lower bound of arXiv:2206.11185.
+- status: REFUTED
+- surviving statement: The Soleimanifar–Wright tester is an exponential
+  physical-query saving relative to full tomography, with
+  `Ω(q^n/ε)` being the `r=1` case of Yuen’s `Ω(rd/ε)` lower bound, but it
+  is published prior art and therefore fails the novelty requirement of
+  CLAUDE.md §1 / PRD §1. It also compares a membership bit with a complete
+  classical description. PRD §2 has no novelty criterion, and its
+  criterion 3 makes the input model part of the problem. The same-input
+  classical comparator—single-copy adaptive measurement plus classical
+  post-processing—is not audited here and is deferred to Question 6.
+  Exponential separations for that measurement-model comparison are
+  proven for other learning tasks in arXiv:2111.05881 and
+  DOI:10.1126/science.abn7293, but no transfer to an entanglement or
+  tensor-network variety is established.
+- depends-on: D-QN-PHYSICAL-DATA-ACCESS,
+  D-QN-TENSOR-NETWORK-VARIETY, D-tensor-secant-problem
+- where-proved: Against the north star
+- where-tested: none
+- critic: recomputed independently in verdicts/quantum-native-r1.md (Recomputation record) and r3 (Disposition verification)
+
+### C-321 (C-NEW-QN-COHERENT-OVERLAP-PERMANENT)
+- statement: Multigraded coherent-state overlaps are general matrix
+  permanents and therefore provide a boson-sampling speedup for QSAT
+  product-state geometry.
+- status: REFUTED
+- surviving statement: Segre product-state overlaps factor as
+  `∏_i⟨x_i|y_i⟩`; nontrivial permanents arise only from global
+  interferometer transitions, which can leave the multidegree sector.
+  C-296 already records that boson-sampling devices supply
+  permanent-weighted samples rather than the requested scalar count.
+  The QSAT Bézout incidence matrices are nonnegative and hence admit the
+  Jerrum–Sinclair–Vigoda FPRAS
+  (DOI:10.1145/1008731.1008738), so no optical sampling advantage is
+  available for that count.
+- depends-on: D-optical-counting-access, D-QN-DUAL-RAIL-SECTOR,
+  D-multidegree-sector, D-coherent-state, C-295, C-296
+- where-proved: Hardware, “Relation to boson sampling”
+- where-tested: none
+- critic: recomputed independently in verdicts/quantum-native-r1.md (Recomputation record) and r3 (Disposition verification)
+
+### C-322 (C-NEW-QN-OPTICAL-SINGLET-DEMO)
+- statement: Two photons in four dual-rail modes, passed through two
+  balanced beamsplitters and postselected on one photon per rail pair,
+  prepare with probability exactly `1/2` the unique ground state
+  `-|ψ^-⟩` of the rank-three two-qubit QSAT projector
+  `1-|ψ^-⟩⟨ψ^-|`. Conditioned on the occupation pattern `(1,1)` in each
+  rail pair and assuming an ideal, unit-efficiency implementation of the
+  projector `|ψ^-⟩⟨ψ^-|` and of the maximally mixed probe on the
+  four-dimensional dual-rail sector, the acceptance is `1/4` and `119`
+  post-selected shots suffice for a `1/8`-additive estimate at `95%`
+  confidence. The unconditioned acceptance is
+  `η_sector/4`; `η_sector`, losses, and a complete readout protocol remain
+  missing ingredients.
+- status: CONJECTURE
+- depends-on: D-QN-DUAL-RAIL-SECTOR,
+  D-analogue-degeneracy-readout, C-297,
+  C-315 (C-NEW-QN-SINGLET-HILBERT-WITNESS)
+- where-proved: Hardware, “Smallest nontrivial instance” and “What a
+  degeneracy measurement would demonstrate”
+- where-tested: none
+- critic: recomputed independently in verdicts/quantum-native-r1.md (Recomputation record) and r3 (Disposition verification)
+
+### C-323 (C-NEW-QN-C024-WEAKENING)
+- statement: C-024’s clause “this quadric ideal’s ground space has already
+  been realised experimentally” is not supported by
+  DOI:10.1103/PhysRevLett.92.140403, which reports spin-mixing dynamics,
+  not a measurement of the `2N+1` ground-space dimension. The supported
+  statement is that the Hamiltonian of C-023 has been physically realised
+  (arXiv:cond-mat/9807258,
+  DOI:10.1103/PhysRevLett.81.5257) and its spin-changing dynamics
+  observed.
+- status: CONJECTURE
+- depends-on: C-023, C-024, C-297,
+  D-analogue-degeneracy-readout
+- where-proved: Hardware, “Spinor-BEC conic”
+- where-tested: none
+- lockstep: applied at merge (2026-09-03): C-024 statement/depends-on/referee/north-star relevance, PRD §4 arm A hardware sentence, HANDOFF findings line
+- critic: recomputed independently in verdicts/quantum-native-r1.md (Recomputation record) and r3 (Disposition verification)
+
+### C-324 (C-NEW-QN-ARM-D-NORTHSTAR)
+- statement: For every algorithm family whose only Arm D
+  operation is to compose an algorithm for QSAT decision, ground-state
+  preparation, gap estimation, degeneracy, or readout with the
+  polynomial-time invertible, spectrum-preserving relabelling
+  `Π_a ↔ f_{aμ}`, the relabelling supplies no asymptotic speedup. This
+  covers exactly algorithms that merely compose with the dictionary. It
+  does not cover the bosonic Proposition 8.2 sector C-129/C-130,
+  copy-access membership or distance problems for entanglement or
+  tensor-network varieties, structured QSAT subfamilies exploiting
+  additional structure, or algorithms with new preparation, gap,
+  measurement, or readout theorems. For copy-access problems the correct
+  comparator is adaptive single-copy measurement plus classical
+  post-processing; exponential separations against that comparator exist
+  for other learning tasks
+  (arXiv:2111.05881, DOI:10.1126/science.abn7293), but no such separation
+  is established here for variety membership.
+- status: CONJECTURE
+- hold: do not merge as discharging the PRD §4 Arm D sentence; the broad Arm D negative remains an open negative
+- depends-on: D-quantum-k-sat, D-multidegree-sector,
+  D-QN-PHYSICAL-DATA-ACCESS, C-312 (C-NEW-QN-QSAT-INVERSE-SYSTEM),
+  C-034, C-036, C-129, C-130
+- where-proved: Against the north star, steps 8.1–8.10, for the scoped
+  relabelling-composition family only
+- where-tested: none
+- critic: recomputed independently in verdicts/quantum-native-r1.md (Recomputation record) and r3 (Disposition verification)
