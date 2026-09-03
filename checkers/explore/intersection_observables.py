@@ -1001,7 +1001,8 @@ def pred_crossover_slope(shrink=1.0):
     s256 = slope(128, 256)
     s1024 = slope(512, 1024)
     ok = (s256 > 1.4) and (s1024 < 1.3)
-    return ok, f"slope(256) = {s256:.4f} (>1.4), slope(1024) = {s1024:.4f} (<1.3)"
+    return ok, (f"slope(256) = {s256:.4f} (target > 1.4: {s256 > 1.4}), "
+                f"slope(1024) = {s1024:.4f} (target < 1.3: {s1024 < 1.3})")
 
 
 def pred_linear_exact(perturb=0.0):
@@ -1101,7 +1102,7 @@ def mutation_selftest():
     print("=" * 78)
     print("MUTATION SELF-TEST (L4, verdict O4).  Each mutation is applied")
     print("in process and MUST be caught; a mutation that passes is a FAILURE.")
-    print("These four are the registration text for checkers/MUTATIONS.md,")
+    print("These five are the registration text for checkers/MUTATIONS.md,")
     print("which is outside this lane's writable files.")
     muts = [
         ("M-IO1 swap the tangent and transversal lines in section D",

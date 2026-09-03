@@ -45,8 +45,10 @@ folded into the proposed D-intersection-overlap and into the C-085/C-166/C-167 a
    the surviving statement (C-NEW-IO-TOEPLITZ) and it is confirmed numerically.
 4. **The r0 `1/N` Toeplitz coefficient was a finite-range fit.** Section K carries the conic to
    `N = 1200` by an exact 1-D kernel recurrence: the coefficient is about **0.03144**, not 0.03275.
-   The r0 intercept was nevertheless right to 1.7e-5 against the exact
-   `<|z_2|^2>_V = -1/6 + 2 sqrt(3) pi/27`.
+   The r2 critic reproduced the recurrence independently, added `N = 2400` (0.236412953732136,
+   `N(v-L) = 0.031428032211`) and extrapolated the **asymptotic** coefficient to about
+   **0.03142**, calling 0.03144 "an acceptable finite-`N` summary". The r0 intercept was
+   nevertheless right to 1.7e-5 against the exact `<|z_2|^2>_V = -1/6 + 2 sqrt(3) pi/27`.
 5. **K-IO2 is RETRACTED** (verdict O6, FATAL). It contradicted this lane's own N9: visibility
    persists to `codim(V ^ W) = O(log n)`, not `O(1)`, so the "small degrees" squeeze fails --
    `n^{O(log n)}` is quasipolynomial. The cited Sommese-Verschelde-Wampler and Lairez results also
@@ -64,10 +66,11 @@ folded into the proposed D-intersection-overlap and into the C-085/C-166/C-167 a
    exactly it can be divided out, so no `N = Omega(eta^{-1}log(1/eta))` is forced. The exponentially
    small normalised signal is real (`tau_N = 1.657e-37` at `d_0 = 0.3`, `N = 800`); the alleged
    necessity was not.
-8. **Score 1/5** (verdict O8), or at most 2/5 if the trivial linear-subspace demonstration takes
-   full criterion-5 credit. Criteria 2, 3 and 4 are not met. The outputs are one exact identity, one
-   conjectural asymptotic with a named missing step, exact closed forms for six families, and
-   negative evidence -- **not** "three theorems" (r0 wording, an L1 violation).
+8. **Score 1/5** (verdict O8, re-VERIFIED at r2), or at most 2/5 if the trivial linear-subspace
+   demonstration takes full criterion-5 credit. Criteria 2, 3 and 4 are not met. The outputs are one
+   exact identity, one conjectural asymptotic with a named missing step, exact closed forms for six
+   families, and negative evidence -- **not** "three theorems" (r0 wording, an L1 violation). At r2
+   the SUM-IDEAL row also becomes HOLD, since it explicitly assumes the held CLEAN row.
 
 ## Numerics
 
@@ -211,7 +214,9 @@ recurrence, so the traces are computed exactly with no SVD. Values agree with th
 | 800 | 0.236439169045958 | 0.0314482618 |
 | 1200 | 0.236426057170887 | 0.0314381426 |
 
-The asymptotic coefficient is about **0.03144**, not the r0 short-range 0.03275. **Ordering check
+The coefficient at `N = 1200` is about **0.03144**, not the r0 short-range 0.03275; the r2 critic's
+independent recurrence adds `N = 2400` (`N(v-L) = 0.031428032211`) and extrapolates the asymptotic
+value to about **0.03142**. **Ordering check
 (O4):** the intercept is now pinned to the exact `L` and the coefficient must land in `[0.030,
 0.034]`; the anti-normal alternative `n_2 -> n_2 + 1` shifts the level-`N` value by exactly `1/N`
 and the coefficient by exactly `+1`, so it is rejected. r0's free-intercept, free-coefficient fit
@@ -341,10 +346,14 @@ structure-aware classical shortcut. No such family is proved here. The r0 statem
 at `n = 4, 8, 32` for orthogonal hyperplanes, while `tau_N = 7.110e-10` at `t = 0.6, N = 40` and
 `1.657e-37` at `t = 0.3, N = 800` in the distance experiment, and `1.23e-6` at `codim = 16`.
 
-**5 -- Heuristic hardware: PARTIAL.** With `rho_I = P_I/HF_I`, `rho_J = P_J/HF_J`, mode-wise beam
-splitters followed by **total photon-number parity** estimate `Tr(rho_I rho_J)` with `O(eps^{-2})`
-shots. Two honest qualifications (verdict O8): photon counting/parity is a **non-Gaussian
-measurement**, and ground-space mixture preparation is an **explicit assumption**. For linear
+**5 -- Heuristic hardware: PARTIAL.** With `rho_I = P_I/HF_I`, `rho_J = P_J/HF_J`, apply mode-wise
+50:50 beam splitters and measure **the parity of the total photon number in the
+antisymmetric/difference output modes**, `(-1)^{sum_j n_{j,-}}`; its expectation is
+`Tr(rho_I rho_J)`, estimable with `O(eps^{-2})` shots. (r2, verdict O12: r1 wrote "total
+photon-number parity", which is identically `+1` -- both inputs occupy the fixed `N`-particle
+sector, so the total output number is always `2N`.) Two honest qualifications (verdict O8): photon
+counting/parity is a **non-Gaussian measurement**, and ground-space mixture preparation is an
+**explicit assumption**. For linear
 subspaces the mixture is produced by a **passive-optics Haar twirl** (r0's "phase-randomised source"
 is insufficient); at `n = 2, N = 1` the result is `(1+cos^2 t)/4`, an interferometric reading of the
 angle between two projective lines and classically trivial. For the conic the state is the
@@ -412,19 +421,25 @@ both normal blocks present (N7a, N7b).
 
 ## Proposed definitions
 
-MERGE PROPOSAL (`definitions/definitions.md`). Texts below are the r1 critic's adjudicated
-rewordings, verbatim, with the verdict's inline LaTeX rendered in this memo's ASCII convention.
+MERGE PROPOSAL (`definitions/definitions.md`). Texts below are the adjudicated rewordings of the r1
+or r2 critic, verbatim, with the verdicts' inline LaTeX rendered in this memo's ASCII convention.
+Round-2 decisions come from `verdicts/intersection-observables-r2.md`, "Per-definition decisions";
+D-clean-intersection, D-intersection-angle-condition-number and D-contact-order were ACCEPTED
+unchanged at r2.
 
-**D-intersection-overlap (ACCEPT).** `T_N(I,J) := Tr(P_{0,N}^{(I)}P_{0,N}^{(J)})`, `P_{0,N}` the
-projector onto `ker H_N` (D-projectors), i.e. the Bergman projector of D-bergman-projector;
-equivalently `||B_I^dag B_J||_F^2` for orthonormal ground-space bases, and `= Tr(P_I P_J P_I) >= 0`.
-Three normalisations, all in use: `tau_N = T_N/M_N` (the D-dqc1-style-estimate quantity),
-`T_N/sqrt(HF_I HF_J)`, `T_N/(HF_I HF_J) = Tr(rho_I rho_J)` (what a two-copy SWAP test measures).
-Pitfalls: it is **not** `Tr(P_{I_N}P_{J_N}) = M_N - HF_I - HF_J + T_N = Theta(M_N)`; the seed's
-Conjecture 8.10(a) and rows C-085, C-166, C-167 do not say which projector they mean, and only this
-reading has the asserted geometric asymptotics -- those rows should be amended to cite this id
-(folded in here from the rejected C-NEW-IO-PROJECTOR-AMBIGUITY row). The three normalisations differ
-by factors exponential in codimension, so a signal-size statement must say which.
+**D-intersection-overlap (r2: ACCEPT WITH REWORDING, verbatim).** "For homogeneous ideals `I, J`
+and degree `N`, define
+`T_N(I,J) = Tr(P_{0,N}^{(I)} P_{0,N}^{(J)}) = Tr(P_{0,N}^{(I)} P_{0,N}^{(J)} P_{0,N}^{(I)}) >= 0`.
+Equivalently, `T_N = ||B_I^dag B_J||_F^2` for orthonormal ground-space bases. When `I, J` are radical
+and `N` is in their stable ranges, the two factors are the Bergman projectors of
+D-bergman-projector. The normalizations in use are `tau_N = T_N/M_N`, `T_N/sqrt(HF_I HF_J)`, and
+`T_N/(HF_I HF_J) = Tr(rho_I rho_J)`. It is not
+`Tr(P_{I_N}P_{J_N}) = M_N - HF_I - HF_J + T_N`."
+Retained note (r1, folded in from the deleted C-NEW-IO-PROJECTOR-AMBIGUITY row): the seed's
+Conjecture 8.10(a) and rows C-085, C-166, C-167 do not say which projector they mean, and only the
+`P_{0,N}` reading has the asserted geometric asymptotics, so those rows should be amended to cite
+this id. The three normalisations differ by factors exponential in codimension, so a signal-size
+statement must say which.
 
 **D-clean-intersection (REWORD, verbatim).** "Smooth `V, W` in `CP^n` intersect cleanly along a
 smooth pure-dimensional `Z = V ^ W` if `T_xZ = T_xV ^ T_xW` for every `x in Z`. Transverse
@@ -435,16 +450,23 @@ intersections are clean; clean intersections may have excess dimension."
 principal-angle list with `pi/2` when the dimensions differ, and `mu_cap = sup_Z J^{-1} < infinity`.
 No universal crossover scale follows from this definition alone."
 
-**D-bergman-frame-operator (REWORD, verbatim).** "Define
-`S_V^{(N)} = int_V |e_p><e_p| dvol_V(p)`. Exactly, `ran S_V^{(N)} = (I(V)_N)^perp`. The claimed
-operator-norm asymptotic `S_V^{(N)} = (pi/N)^k(P_{I(V),N} + O(N^{-1}))` is a separate
-conjectural/theorem claim requiring a precise source; it is not part of the definition."
+**D-bergman-frame-operator (r2: ACCEPT WITH REWORDING, verbatim).** "Define
+`S_V^{(N)} = int_V |e_p><e_p| dvol_V(p)`. Exactly,
+`ran S_V^{(N)} = (I(V)_N)^perp = ran P_{0,N}^{(I(V))}`. The claimed operator-norm asymptotic is
+`S_V^{(N)} = (pi/N)^k(P_{0,N}^{(I(V))} + E_N)`, with `||E_N|| = O(N^{-1})`. This asymptotic is a
+separate conjectural/theorem claim requiring a precise source; it is not part of the definition."
+(r2, verdict O10: the r1 text wrote `P_{I(V),N}`, which under D-projectors denotes the projector
+onto the ideal piece -- the wrong complementary projector.)
 
-**D-normalised-toeplitz-operator (REWORD, verbatim).** "For `N >= r` and a projective bihomogeneous
-symbol `g(z, conj z)` of bidegree `(r,r)`, define
-`T~_g^{(N)} = ((N-r)!/N!) P_{0,N} :g(a^dag,a): P_{0,N}`. If `I` is radical, `N` is stable and
-`p in V(I)`, its restricted coherent-state symbol is exactly `g(p, conj p)`." (Not an amendment to
-D-toeplitz-operator: a distinct definition, per verdict O3.)
+**D-normalised-toeplitz-operator (r2: ACCEPT WITH REWORDING, verbatim).** "For `N >= r` and a
+bihomogeneous polynomial `g(z, conj z)` of bidegree `(r,r)`, regarded as a projective symbol by
+evaluation on unit representatives, define
+`T~_g^{(N)} = ((N-r)!/N!) P_{0,N} :g(a^dag,a): P_{0,N}`. If `I` is radical, `N` is stable, and
+`x in V(I)`, then the C3-compatible restricted coherent-state symbol is exactly
+`<conj(x)^{x N}| T~_g^{(N)} |conj(x)^{x N}> = g(x, conj x)`."
+A distinct definition, not an amendment to D-toeplitz-operator (verdict O3). (r2, verdict O10: the
+r1 text said "`p in V(I)`", violating binding convention C3, under which a geometric point
+`x in V(I)` is carried by the coherent state `|conj(x)>^{x N}`.)
 
 **D-contact-order (REWORD, verbatim).** "At a common point of smooth plane curves choose holomorphic
 coordinates unitary for the Fubini-Study metric at the point and flatten `W` to `v = 0`. If `V` has
@@ -453,11 +475,13 @@ multiplicity. `m = 1` is transverse; `m >= 2` is tangent."
 
 ## Proposed claim rows
 
-MERGE PROPOSAL (`claims/CLAIMS.md`). Statements marked *verbatim* are the r1 critic's adjudicated
-rewordings, copied unchanged. `where-tested` is
-`checkers/explore/intersection_observables.py` by section letter.
+MERGE PROPOSAL (`claims/CLAIMS.md`). Statements marked *verbatim* are the adjudicated rewordings of
+the r1 or r2 critic, copied unchanged, with the verdicts' inline LaTeX rendered in this memo's ASCII
+convention. `where-tested` is `checkers/explore/intersection_observables.py` by section letter.
+Round-2 decisions come from `verdicts/intersection-observables-r2.md`, "Final per-row decisions".
 
-**C-NEW-IO-LINEAR-EXACT** (new at r1, from verdict O1's opening identity).
+**C-NEW-IO-LINEAR-EXACT** -- CONJECTURE (r2 decision: ACCEPT AS CONJECTURE; "the identity is proved
+above and the quantifiers are complete").
 - statement: For all `n >= 1`, all linear subspaces `U, W` of `C^{n+1}` with `dim U, dim W >= 1`,
   all `N >= 0`, and `r = min(dim U, dim W)` with `sigma_1 >= ... >= sigma_r >= 0` the cosines of the
   principal angles between `U` and `W`:
@@ -465,34 +489,37 @@ rewordings, copied unchanged. `where-tested` is
   symmetric polynomial of degree `N`. Under D-intersection-overlap with `I = I(P(U))`,
   `J = I(P(W))` (linear ideals, `reg = 1`, so every `N >= 1` is stable),
   `T_N(I,J) = h_N(sigma^2)`.
-- status: CONJECTURE (L1: an elementary proof is given here -- in principal-vector bases
-  `<u_i, w_j> = sigma_i delta_ij`, so symmetrised monomial bases have overlap
-  `prod_i sigma_i^{alpha_i}` diagonally in `alpha`, `|alpha| = N` -- but nothing enters PROVED
-  without a verdict).
+- status: CONJECTURE (L1: an elementary proof is given here and independently reproduced in the r2
+  verdict -- in principal-vector bases `<u_i, w_j> = sigma_i delta_ij`, normalised occupation-vector
+  bases have overlap `delta_{alpha beta} prod_i sigma_i^{alpha_i}` on the paired coordinates and
+  zero overlap on any unpaired direction -- but nothing enters PROVED without a verdict promotion).
 - depends-on: D-intersection-overlap, D-ground-space, D-symmetric-sector, C-026, C-028.
-- where-proved: this memo, N11. where-tested: N11 (random subspaces in `C^4, C^5, C^6`, `N = 4..7`,
-  worst relative discrepancy `< 1e-14`, mutation M-IO5); specialisations N1, N2, N4, N7, N9.
+- where-proved: this memo, N11; independently recomputed in r2 "Exact linear row". where-tested: N11
+  (random subspaces in `C^4, C^5, C^6`, `N = 4..7`, worst relative discrepancy `< 1e-14`, mutation
+  M-IO5); specialisations N1, N2, N4, N7, N9.
 - north-star relevance: the lane's most defensible product; it makes every linear family exact and
   independent of Geometry 2.4.
 
-**C-NEW-IO-CLEAN** -- status CONJECTURE, marked **HOLD (do not merge)** per the quantum-primitives
-convention; the adjudication is "HOLD missing step".
+**C-NEW-IO-CLEAN** -- status CONJECTURE, marked **HOLD (do not merge)** (r2 decision: HOLD missing
+step; "Geometry 2.4 remains unproved").
 - statement: For fixed homogeneous radical `I, J` in `C[z_0..z_n]` with `V = V(I)`, `W = V(J)`
   smooth and intersecting cleanly (D-clean-intersection) along `Z` of pure complex dimension `l`, as
   `N -> infinity` through the stable range,
   `T_N(I,J) = (N/pi)^l int_Z J(x)^{-1} dvol_Z(x) . (1 + O_{I,J}(N^{-1}))` in the convention
   `d = arccos|<p,q>|`, `J(x)` as in D-intersection-angle-condition-number.
 - MISSING STEP (why HOLD): Geometry 2.4, the ambient Bergman-frame operator-norm estimate
-  `S_V^{(N)} = (pi/N)^k(P_I + O(N^{-1}))`. Mean-eigenvalue flatness (2.2-2.3) does not imply it, and
-  no ambient-coordinate statement for a subvariety was found that can be cited verbatim. The
-  anti-diagonal normal block, the other half of verdict O1, IS supplied (Geometry 5.3-5.4) and
-  tested (N7b).
+  `S_V^{(N)} = (pi/N)^k(P_{0,N}^{(I(V))} + E_N)`, `||E_N|| = O(N^{-1})`. Mean-eigenvalue flatness
+  (2.2-2.3) does not imply it, and no ambient-coordinate statement for a subvariety was found that
+  can be cited verbatim. The anti-diagonal normal block, the other half of verdict O1, IS supplied
+  (Geometry 5.3-5.4), tested (N7b), and VERIFIED by the r2 critic.
 - depends-on: C-026, C-028, C-079, D-intersection-overlap, D-clean-intersection,
   D-intersection-angle-condition-number, D-bergman-frame-operator,
   D-saturation-regularity-stable-range.
 - where-proved: Geometry 1-6 modulo 2.4. where-tested: N1, N2, N5, N6, N7a, N7b, N10.
 
-**C-NEW-IO-SUM-IDEAL** -- CONJECTURE; statement *verbatim*:
+**C-NEW-IO-SUM-IDEAL** -- status CONJECTURE, marked **HOLD (do not merge)** (r2 decision: HOLD
+missing step; "its wording is correct, but it explicitly assumes the held CLEAN row"). Statement
+*verbatim* (r1):
 "Assume C-NEW-IO-CLEAN. If `J(x) = J_0 > 0` on `Z`, then, as `N -> infinity`,
 `T_N(I,J) = J_0^{-1} HF_{R/(I+J)}(N)(1 + O_{I,J}(N^{-1}))`. Moreover `I_N + J_N` is the row span of
 the concatenated degree-`N` Macaulay matrices. This identity alone does not give the dimension from
@@ -502,149 +529,228 @@ one Hilbert-function value or establish a polynomial classical algorithm."
 - north-star relevance: negative -- reduces arm C to arm A on a concatenated generator list. Traps
   checked: "changing the output", "hiding an elimination".
 
-**C-NEW-IO-TANGENCY** -- CONJECTURE; statement *verbatim*:
-"Let `I = I(V)` and `J = I(W)` be homogeneous radical ideals of smooth plane curves meeting only at
-`x`, and take `N` in the stable range. If their contact order is `m >= 2` and in unitary
-Fubini-Study normal coordinates their normal separation is `gamma u^m + O(u^{m+1})`, then
-`T_N(I,J) = Gamma(1 + 1/m)|gamma|^{-2/m}N^{1-1/m}(1 + o(1))`."
+**C-NEW-IO-TANGENCY** -- CONJECTURE; statement *verbatim* (r2):
+"For fixed homogeneous radical ideals `I = I(V)` and `J = I(W)` of smooth plane curves
+`V, W` in `CP^2` meeting only at `x`, let `N -> infinity` through the stable range. If their contact
+order is `m >= 2` and in unitary Fubini-Study normal coordinates their normal separation is
+`gamma u^m + O(u^{m+1})`, then
+`T_N(I,J) = Gamma(1 + 1/m)|gamma|^{-2/m} N^{1-1/m}(1 + o(1))`."
 - depends-on: C-026, C-028, C-079, D-contact-order, D-intersection-overlap,
   D-bergman-frame-operator, D-saturation-regularity-stable-range. NOT on C-NEW-IO-CLEAN: tangency is
   expressly outside its hypotheses (verdict O7). Its derivation nevertheless shares the Geometry 2.4
   leaf, so it is conjectural for the same reason.
-- where-proved: Geometry, "what fails without A3". where-tested: N5 (`m = 2`, `gamma = 1`: exponent
-  0.42 -> 1/2, constant 0.8915 versus 0.886227; mutation M-IO1).
+- where-proved: Geometry, "what fails without A3"; recomputed in r2 "Tangency and distance".
+  where-tested: N5 (`m = 2`, `gamma = 1`: exponent 0.42 -> 1/2, fitted constant 0.891497 against
+  `Gamma(3/2) = 0.88622692545`; mutation M-IO1).
 - north-star relevance: refutes C-085; shows the observable is metric, not algebraic, off the clean
   locus.
 
-**C-NEW-IO-DISTANCE** -- CONJECTURE; statement *verbatim*:
-"Let `V, W` be disjoint smooth projective varieties in the stable range. Assume the closest-pair set
-`S subset V x W` is a compact smooth real Morse-Bott minimum manifold of real dimension `r`, with
-nondegenerate normal Hessian. Then `T_N(I,J) = C N^{r/2}cos^{2N}(d_0)(1 + O(N^{-1}))`, `C > 0`, and
-`-log T_N/(2N) = log sec d_0 - r log N/(4N) + O(N^{-1})`."
+**C-NEW-IO-DISTANCE** -- CONJECTURE; statement *verbatim* (r2):
+"Let `I = I(V)` and `J = I(W)` be fixed homogeneous radical ideals of disjoint smooth projective
+varieties. Let `N -> infinity` through the stable range. Assume the closest-pair set `S` in
+`V x W` is a compact smooth real Morse-Bott minimum manifold of real dimension `r`, with
+nondegenerate normal Hessian. Then
+`T_N(I,J) = C N^{r/2} cos^{2N}(d_0)(1 + O_{I,J}(N^{-1}))`, `C > 0`, and
+`-log T_N/(2N) = log sec d_0 - r log N/(4N) + O_{I,J}(N^{-1})`."
 - Exactly solvable instances: the Clifford pair (`r = 2`, `T_N = (N+1)cos^{2N}t` for every `N`) and
   the generic skew pair (`r = 0`, `T_N = h_N(sigma_1^2, sigma_2^2)` by C-NEW-IO-LINEAR-EXACT).
 - depends-on: C-167, C-NEW-IO-LINEAR-EXACT, D-intersection-overlap, D-coherent-state,
   D-bergman-frame-operator. where-proved: Corollary 6c. where-tested: N4.
 
-**C-NEW-IO-DISTANCE-COST** -- **REFUTED** (adjudication "REFUTE with counterexample").
-- refuted statement (r0): additive estimation of `d_FS` forces
-  `N = Omega(eta^{-1}log(1/eta))` and hence `exp(Omega(eta^{-1}log(1/eta)))` rounds.
-- counterexample (critic, verbatim): "For the Clifford pair the exact known factor `N+1` can be
+**C-NEW-IO-DISTANCE-COST** -- **REFUTED** (r2 decision: ACCEPT AS REFUTED with surviving statement).
+- refuted statement (r0): additive estimation of `d_FS` forces `N = Omega(eta^{-1}log(1/eta))` and
+  hence `exp(Omega(eta^{-1}log(1/eta)))` rounds.
+- counterexample (r1 critic, verbatim): "For the Clifford pair the exact known factor `N+1` can be
   divided out, so its logarithmic bias does not force `N = Omega(eta^{-1}log(1/eta))`. The required
   additive precision also omits the factor `C N^{r/2}`."
-- surviving statement: the normalised signal for disjoint varieties is exponentially small in `N` --
-  `tau_N = 7.110e-10` at `d_0 = 0.6, N = 40` and `1.657e-37` at `d_0 = 0.3, N = 800` -- so an
-  additive-precision estimator of `tau_N` at fixed `eps` cannot see it at those `N`; the
-  10% uncorrected-bias threshold is `N = 721`. No necessity claim is made.
-- depends-on: C-NEW-IO-DISTANCE, C-167, D-dqc1-style-estimate. where-tested: N4.
+- surviving statement *verbatim* (r2): "For a fixed disjoint pair satisfying C-NEW-IO-DISTANCE with
+  `d_0 > 0`, `tau_N = T_N/M_N` is exponentially small in `N`. Relative resolution by an
+  additive-error estimator requires `eps = O(tau_N) = O(C N^{r/2} cos^{2N}(d_0)/M_N)`. No lower
+  bound on `N` follows when a known prefactor is divided out."
+- depends-on: C-NEW-IO-DISTANCE, C-167, D-dqc1-style-estimate, D-intersection-overlap.
+  where-tested: N4 (`tau_N = 7.110e-10` at `d_0 = 0.6, N = 40`; `1.6574745798e-37` at
+  `d_0 = 0.3, N = 800`).
 
-**C-NEW-IO-TOEPLITZ** -- CONJECTURE; statement *verbatim*:
-"For the conic `z_0z_1 = z_2^2`, `N >= r`, and `g in {|z_2|^2, |z_2|^4}`, define
-`T~_g^{(N)} = ((N-r)!/N!)P_0 :g(a^dag,a): P_0`. Then the computed traces are consistent with
+**C-NEW-IO-TOEPLITZ** -- CONJECTURE; statement *verbatim* (r2):
+"For the conic `z_0z_1 = z_2^2`, let `g = |z_2|^2` with `r = 1`, or `g = |z_2|^4` with `r = 2`, and
+define `T~_g^{(N)} = ((N-r)!/N!)P_0 :g(a^dag,a): P_0` for `N >= r`. As `N -> infinity`, the computed
+traces are consistent with
 `Tr(T~_g^{(N)})/HF(N) = vol(V)^{-1} int_V g dvol + b_g/N + O(N^{-2})`. For `g = |z_2|^2`, the exact
-limit is `-1/6 + 2 sqrt(3) pi/27`."
-- r1 addition: at `N = 1200` (N12) the `r = 1` coefficient `b_g` is about **0.03144**; the r0 value
-  0.03275 was a fit over `N <= 60` only.
+limit is `-1/6 + 2 sqrt(3) pi/27`, and the data give `b_g ~ 0.03142`."
 - depends-on: C-079, C-026, D-normalised-toeplitz-operator, D-bergman-frame-operator,
   D-hilbert-function. NOT on C-168/C-086, which become REFUTED (verdict O7).
 - where-proved: Geometry step 2 applied to `Tr(P_0 X)` for `X` of restricted symbol `g`.
-  where-tested: N8, N12 (mutation M-IO2).
+  where-tested: N8, N12 (mutation M-IO2). The r2 critic's independent recurrence adds `N = 2400`,
+  value 0.236412953732136, `N(v-L) = 0.031428032211`, and extrapolates `b_g` to about 0.0314179.
 - north-star relevance: the surviving statement for C-086/C-168.
 
-**C-NEW-IO-TOEPLITZ-COST** -- **REFUTED** (adjudication "REFUTE with counterexample").
-- refuted statement (r0): the quantum cost is
-  `Omega(poly(n) eps^{-(m+1)}/(Delta_N/alpha_BE))`.
-- counterexample (critic, verbatim): "It double-counts `alpha_BE` after already dividing by
+**C-NEW-IO-TOEPLITZ-COST** -- **REFUTED** (r2 decision: ACCEPT AS REFUTED with surviving statement).
+- refuted statement (r0): the quantum cost is `Omega(poly(n) eps^{-(m+1)}/(Delta_N/alpha_BE))`.
+- counterexample (r1 critic, verbatim): "It double-counts `alpha_BE` after already dividing by
   `Delta/alpha_BE`. The conic has `Delta_N = N+1`, contradicting the claimed degree-only exponent."
-  Explicitly: `gamma_N^{-1} = O(N)` for the conic, so at `N = Theta(1/eps)` the query cost is
-  `O~(gamma_N^{-1}eps^{-1}) = O(eps^{-2})`, parity with classical Monte Carlo, not `eps^{-4}`.
-- surviving statement: the `Theta(1/N)` Berezin-Toeplitz bias forces `N = Omega(1/eps)`, which
-  consumes the amplitude-estimation `1/eps` gain; no quantum advantage for integration over a
-  variety is demonstrated, and none is refuted.
+- surviving statement *verbatim* (r2): "For raw one-level use of C-NEW-IO-TOEPLITZ with a nonzero
+  uncancelled `b_g/N` term, controlling that bias to `O(eps)` requires `N = Omega(eps^{-1})`.
+  Coherent amplitude estimation then costs `O~(gamma_N^{-1} eps^{-1})`, with `gamma_N` counted once.
+  This proves neither a quantum advantage nor a disadvantage; a known correction or extrapolation
+  can change the required `N`."
 - depends-on: C-NEW-IO-TOEPLITZ, C-087, D-input-model, D-block-encoding-normalisation,
   D-normalised-gap, D-condition-number. where-tested: N8, N12.
 
-**C-NEW-IO-SIGNAL** -- CONJECTURE; statement *verbatim*:
-"For `n >= 2`, `N >= 0`, and two hyperplanes at angle `t`,
+**C-NEW-IO-SIGNAL** -- CONJECTURE; statement *verbatim* (r2):
+"For `n >= 2`, `N >= 0`, and `0 <= t <= pi/2`, two hyperplanes at angle `t` satisfy
 `T_N = sum_{a=0}^N cos^{2a}t binom(N-a+n-2, n-2)`. At `t = pi/2, N = n`,
-`T_N/M_N = n(n-1)/(2n(2n-1))` and `T_N/HF = (n-1)/(2n-1)`. For coordinate ideals on disjoint blocks
-of size `k`, `2k <= n`, `T_N/M_N = binom(N+n-2k, n-2k)/binom(N+n, n)`; when `N = n` and `k = o(n)`,
-this is `4^{-k}(1 + O(k^2/n))`, hence inverse-polynomial exactly when `k = O(log n)`."
+`T_N/M_N = n(n-1)/(2n(2n-1))` and `T_N/HF = (n-1)/(2n-1)`. For integer `k >= 0`, `2k <= n`,
+coordinate ideals on disjoint blocks of size `k` satisfy
+`T_N/M_N = binom(N+n-2k, n-2k)/binom(N+n, n)`. When `N = n` and `k = o(n)`,
+`log(T_N/M_N) = -k log4 - k(2k-1)/(2n) + O(k^3/n^2)`; in particular, for `k = o(sqrt n)`,
+`T_N/M_N = 4^{-k}(1 + O(k^2/n))`. The exact product formula implies inverse-polynomial visibility
+exactly when `k = O(log n)` within the regime `k = o(n)`."
 - depends-on: C-NEW-IO-LINEAR-EXACT, D-intersection-overlap, D-normalised-hilbert-function,
   D-dqc1-style-estimate. where-proved: elementary monomial count, and a specialisation of
   C-NEW-IO-LINEAR-EXACT with `sigma = (1^{n-1}, cos t)`. where-tested: N9.
 - north-star relevance: positive, and it is what retracts K-IO2: visibility survives to
   `codim(V ^ W) = O(log n)`.
 
-**C-NEW-IO-CROSSOVER** -- CONJECTURE; statement *verbatim*:
-"For `0 < t <= pi/2`, two hyperplanes in `P^3` have `T_N = sum_{a=0}^N cos^{2a}t (N+1-a)`. In the
-double-scaling regimes `1 << N << csc^2 t` and `N >> csc^2 t`, its local log-log slope tends
-respectively to `2` and `1`. Thus this particular finite-`N` exponent estimator requires
-`N sin^2 t -> infinity`."
+**C-NEW-IO-CROSSOVER** -- CONJECTURE; statement *verbatim* (r2):
+"For `0 < t <= pi/2`, let `T_N(t) = sum_{a=0}^N cos^{2a}t (N+1-a)`. For sequences `N -> infinity`,
+`t = t_N`, define the dyadic local slope `s_N = log(T_{2N}(t_N)/T_N(t_N))/log 2`. If
+`N sin^2 t_N -> 0`, then `s_N -> 2`; if `N sin^2 t_N -> infinity`, then `s_N -> 1`. Thus this
+finite-`N` estimator resolves the intersection exponent only when `N sin^2 t` is large."
 - depends-on: C-NEW-IO-LINEAR-EXACT, D-intersection-angle-condition-number, C-170, C-172. NOT on
   C-NEW-IO-CLEAN (verdict O7: no dependency on a HOLD row; the closed form is exact and linear).
 - where-proved: exact closed form. where-tested: N3 (asserted slopes; mutation M-IO4), N6.
 
-**C-NEW-IO-DEQUANT** -- CONJECTURE; statement *verbatim*:
-"For `A = P_I P_J P_I >= 0`, Hutch++ gives relative error `delta` using `O(delta^{-1})` applications
-of `A`, each requiring three approximate projector filters. For additive error `eps` in
-`tau_N = Tr(A)/M_N`, take `delta = eps/tau_N`. Direct DQC1-style sampling costs `O(eps^{-2})`
-controlled-filter uses; `O(eps^{-1})` requires a coherent purification and BQP amplitude estimation.
-A quantum advantage requires efficient oracles, inverse-polynomial normalized gaps and signal, and a
-per-filter advantage over length-`M_N` Krylov vectors; none is proved here."
+**C-NEW-IO-DEQUANT** -- CONJECTURE; statement *verbatim* (r2):
+"For `A = P_I P_J P_I >= 0`, `tau_N = Tr(A)/M_N`, and `0 < eps < tau_N`, Hutch++ gives additive
+error `eps` in `tau_N` by taking relative tolerance `delta = eps/tau_N`, using `O(tau_N/eps)`
+applications of `A`. Each application uses three approximate projector filters. Direct DQC1-style
+sampling costs `O(eps^{-2})` controlled-filter uses; `O(eps^{-1})` requires coherent purification
+and BQP amplitude estimation. If `eps >= tau_N`, the zero estimate already meets the additive
+tolerance. A quantum advantage requires efficient oracles, inverse-polynomial normalized gaps and
+signal, and a per-filter advantage over length-`M_N` Krylov vectors; none is proved here."
 - depends-on: D-intersection-overlap, D-dqc1-style-estimate, D-qsvt,
   D-block-encoding-normalisation, D-normalised-gap, D-hardness-anchors. where-proved: criterion 4.
   where-tested: none (a cost statement).
 
-**C-NEW-IO-SWAP-HARDWARE** -- CONJECTURE; statement *verbatim*:
-"Given preparations of `rho_I = P_I/HF_I` and `rho_J = P_J/HF_J`, mode-wise beam splitters followed
-by total photon-number parity estimate `Tr(rho_I rho_J)` with `O(eps^{-2})` shots. Photon
+**C-NEW-IO-SWAP-HARDWARE** -- CONJECTURE; statement *verbatim* (r2):
+"Given preparations of `rho_I = P_I/HF_I` and `rho_J = P_J/HF_J`, apply mode-wise 50:50 beam
+splitters and measure the parity of the total photon number in the antisymmetric/difference output
+modes. Its expectation is `Tr(rho_I rho_J)`, estimable with `O(eps^{-2})` shots. Photon
 counting/parity is a non-Gaussian measurement, and ground-space mixture preparation is an explicit
 assumption. For linear subspaces the mixture can be produced by a passive-optics Haar twirl; at
 `n = 2, N = 1` the result is `(1 + cos^2 t)/4`."
+- (r2, verdict O12: the r1 text said "total photon-number parity", which is identically `+1` because
+  both inputs occupy the fixed `N`-particle sector and the total output number is always `2N`. The
+  SWAP observable is `(-1)^{sum_j n_{j,-}}`, the parity of the occupation of the difference modes.)
 - depends-on: C-024, D-spin-mixing-hamiltonian, D-intersection-overlap, D-symmetric-sector,
   C-NEW-IO-LINEAR-EXACT. where-proved: criterion 5. where-tested: N6 supplies the predicted constant
   for the two-conic version; the interferometer is not simulated.
 
-**Deleted at r1** (adjudication REJECT): **C-NEW-IO-WITNESS-BASELINE** (the cited results do not
-establish polynomial per-path cost, exact certification, or cheap witness-set construction for every
-quantified input) and **C-NEW-IO-PROJECTOR-AMBIGUITY** (a notation correction, not a conjecture;
-folded into D-intersection-overlap and the C-085/C-166/C-167 amendments below).
+**Deleted at r1** (adjudication REJECT, re-VERIFIED at r2): **C-NEW-IO-WITNESS-BASELINE** (the cited
+results do not establish polynomial per-path cost, exact certification, or cheap witness-set
+construction for every quantified input) and **C-NEW-IO-PROJECTOR-AMBIGUITY** (a notation
+correction, not a conjecture; folded into D-intersection-overlap and the C-085/C-166/C-167
+amendments below).
 
 ## Lockstep notes
 
-- **C-085 -> REFUTED.** Counterexample: the smooth conic and its tangent line have
-  `dim(V ^ W) = 0` but `T_N ~ Gamma(3/2)N^{1/2}`. Surviving statement: for fixed homogeneous radical
-  ideals whose smooth varieties intersect cleanly, **and after the Bergman-frame leaf is proved**,
-  the exponent is `dim(V ^ W)` (C-NEW-IO-CLEAN); disjoint varieties require a separate Morse-Bott
-  distance statement (C-NEW-IO-DISTANCE).
-- **C-166 stays CONJECTURE.** Its transversal hypothesis survives every exact computation and must
-  **not** be silently replaced by the stronger clean-intersection claim; C-NEW-IO-CLEAN is a
-  separate row. Amend the constant to `c = pi^{-l} int_Z prod_i sin^{-2}theta_i dvol_Z`; add N1, N2,
-  N5, N6 as `where-tested`; define `P_I = P_{0,N}^{(I)}` via D-intersection-overlap; and **remove
-  its dependency on the newly REFUTED C-085**.
-- **C-167 stays CONJECTURE** for its mathematical content, with the polynomial prefactor supplied by
-  C-NEW-IO-DISTANCE under a Morse-Bott hypothesis and the bias sign corrected. Its dependent cost
-  claim is REFUTED (C-NEW-IO-DISTANCE-COST). `where-tested`: N4.
-- **C-168 -> REFUTED, and C-086 -> REFUTED** (this is the r0 memo's largest error: r0 wrote "status
-  unchanged" and "CONFIRMED"). Under the registered D-toeplitz-operator, `g = |z_2|^2` gives
-  `T_g = P_0 n_2 P_0` and `Tr(P_0T_g)/HF(N) ~ N <|z_2|^2>_V`, which diverges, so both rows are
-  dimensionally false as written. Surviving statement for both: with the degree-normalised operator
-  `T~_g^{(N)}` of D-normalised-toeplitz-operator, for fixed smooth radical `V`, stable
-  `N -> infinity` and bihomogeneous projective `g`,
-  `Tr(T~_g^{(N)})/HF(N) = vol(V)^{-1} int_V g dvol_V + O(N^{-1})` (C-NEW-IO-TOEPLITZ). The `1/N`
-  coefficient reported at r0 (0.03275) was a fit over `N <= 60`; the asymptotic value is `~0.03144`
-  (N12).
-- **C-079** gains `where-tested`: the Bergman-projector reading is exercised throughout; N10
-  measures the frame spectrum and is evidence for, not proof of, Geometry 2.4.
-- **C-087 depends on C-085** and must be rewired by the orchestrator when C-085 becomes REFUTED
-  (verdict O7). This lane does not edit `claims/CLAIMS.md`.
-- **PRD §4 arm C**: the seed's "suggested next step 3" has been run. The arm's conditional is now
-  MET for the *linear* families (exactly, C-NEW-IO-LINEAR-EXACT) and NOT met in general (Geometry
-  2.4). r0's claim that K-IO2 closes the arm is retracted; the arm is scored 1/5 on evidence, not
-  closed by a baseline argument.
+The r2 verdict returned **LOCKSTEP: NOT READY** at r1, because C-087, C-168 and C-169 still depended
+on rows the repair proposes to REFUTE. The blocks below are the r2 critic's "Lockstep notes" texts,
+**verbatim and paste-ready** for `claims/CLAIMS.md`; this lane does not edit that file. Apply the
+dependency amendments BEFORE changing any status.
+
+**C-079** -- status **SKETCH** (unchanged). Paste:
+
+```text
+- where-tested: checkers/explore/intersection_observables.py sections A–K; section I tests the frame spectrum numerically but is evidence for, not a proof of, the operator-norm estimate in Geometry 2.4.
+```
+
+**C-085** -- status **REFUTED**. Paste:
+
+```text
+- status: REFUTED
+- counterexample: The smooth conic z_0z_1=z_2^2 and its tangent line z_1=0 have dim(V ∩ W)=0 but T_N ~ Gamma(3/2) N^{1/2}.
+- surviving statement: For fixed homogeneous radical ideals whose smooth varieties intersect cleanly, the conjectural formula C-NEW-IO-CLEAN gives growth exponent dim(V ∩ W), conditional on the ambient Bergman-frame operator-norm estimate. Fixed disjoint varieties require the separate distance statement C-NEW-IO-DISTANCE.
+- where-tested: checkers/explore/intersection_observables.py sections A–F and J.
+```
+
+**C-086** -- status **REFUTED**. Paste (note the `depends-on` line: it drops the edge that would
+otherwise leave C-086 pointing at material this repair supersedes):
+
+```text
+- status: REFUTED
+- counterexample: Under D-toeplitz-operator, g=|z_2|^2 gives T_g=P_0 n_2 P_0 and Tr(P_0T_g)/HF(N) ~ N <|z_2|^2>_V, so the stated normalized trace diverges.
+- surviving statement: Under the distinct D-normalised-toeplitz-operator, the conjectural replacement is Tr(T~_g^{(N)})/HF(N)=vol(V)^{-1}∫_V g dvol_V+O(N^{-1}) for fixed smooth radical V, bihomogeneous projective g, and N→∞ through the stable range.
+- depends-on: C-079, D-toeplitz-operator
+- where-tested: checkers/explore/intersection_observables.py sections G and K.
+```
+
+**C-087** -- status **SKETCH** (unchanged). This is one of the three edges the r2 verdict says are
+missing: C-087 depended on **both** C-085 and C-086, and r1 recorded only the C-085 edge. Paste:
+
+```text
+- statement: Relevant classical competitors are random slicing and averaging when a witness set for V is supplied, diagonal homotopy for intersections when witness sets for both varieties are supplied, and randomized trace estimation using sparse Krylov projector filters. Their costs depend on input representation, tracking condition, certification requirements, and the requested additive precision. No universal polynomial cost from sparse generators is claimed.
+- status: SKETCH
+- depends-on: C-055, C-170, D-condition-number, D-kostlan-random-form, D-intersection-overlap, D-normalised-toeplitz-operator
+```
+
+**C-166** -- status **CONJECTURE** (unchanged). Paste:
+
+```text
+- statement: For fixed homogeneous radical ideals I,J with smooth V,W intersecting transversely along a nonempty smooth pure-dimensional Z of complex dimension l, as N→∞ through the stable range,
+  T_N(I,J)=(N/pi)^l ∫_Z prod_i sin^{-2}(theta_i(x)) dvol_Z(x) (1+O_{I,J}(N^{-1})),
+  where T_N is D-intersection-overlap and the angles are those of D-intersection-angle-condition-number.
+- status: CONJECTURE
+- depends-on: C-026, C-028, C-079, D-intersection-overlap, D-intersection-angle-condition-number, D-bergman-frame-operator, D-saturation-regularity-stable-range
+- where-tested: checkers/explore/intersection_observables.py sections A, C, D, and E (N1, N2, N5, N6).
+```
+
+**C-167** -- status **CONJECTURE** (unchanged). Paste:
+
+```text
+- statement: For fixed homogeneous radical ideals I,J with smooth disjoint V,W, as N→∞ through the stable range,
+  T_N(I,J) ≤ HF_I(N) HF_J(N) cos^{2N}(d_FS(V,W))
+  and -log T_N(I,J)/(2N) → log sec(d_FS(V,W)).
+  Under the real Morse–Bott hypothesis of C-NEW-IO-DISTANCE the polynomial prefactor is N^{r/2}; consequently its logarithmic correction has sign -r log N/(4N).
+- status: CONJECTURE
+- depends-on: C-026, C-028, C-079, D-intersection-overlap, D-coherent-state, D-bergman-frame-operator, D-saturation-regularity-stable-range
+- where-tested: checkers/explore/intersection_observables.py sections B and J (N4, N11).
+```
+
+**C-168** -- status **REFUTED**. The r1 repair changed the status but left the dependency on C-086,
+which is itself becoming REFUTED; the paste below removes it:
+
+```text
+- status: REFUTED
+- counterexample: Under D-toeplitz-operator, for the smooth conic and g=|z_2|^2, Tr(P_0T_g)/HF(N)=Tr(P_0n_2)/(HF(N)) grows linearly in N.
+- surviving statement: Under the distinct D-normalised-toeplitz-operator, the conjectural replacement is Tr(T~_g^{(N)})/HF(N)=vol(V)^{-1}∫_V g dvol_V+O(N^{-1}) for fixed smooth radical V, bihomogeneous projective g, and N→∞ through the stable range. For the conic and g=|z_2|^2, the exact limit is -1/6+2 sqrt(3) pi/27 and the observed 1/N coefficient is approximately 0.03142.
+- depends-on: C-079, D-toeplitz-operator
+- where-tested: checkers/explore/intersection_observables.py sections G and K.
+```
+
+**C-169** -- status **CONJECTURE**. Required DAG consequence: C-169 cannot continue to depend on
+C-168 once C-168 is REFUTED. Paste:
+
+```text
+- statement: The normalized overlap quantities in C-166 and C-167, and degree-normalized Toeplitz traces defined by D-normalised-toeplitz-operator, are DQC1-style estimable to additive epsilon subject to the access, preparation, and normalized-gap assumptions of D-dqc1-style-estimate.
+- status: CONJECTURE
+- depends-on: C-061, C-166, C-167, D-intersection-overlap, D-normalised-toeplitz-operator, D-dqc1-style-estimate
+```
+
+**Merge order.** Apply the `depends-on` amendments to C-087, C-168 and C-169 first, then the
+`where-tested` and statement amendments to C-079, C-166 and C-167, and only then flip C-085, C-086
+and C-168 to REFUTED. With those seven blocks and C-169 applied, no live row depends on a newly
+REFUTED row.
+
+**Other lockstep consequences, unchanged from r1 and VERIFIED at r2.**
+
+- **PRD §4 arm C**: the seed's "suggested next step 3" has been run. The arm's conditional is MET for
+  the *linear* families (exactly, C-NEW-IO-LINEAR-EXACT) and NOT met in general (Geometry 2.4). r0's
+  claim that K-IO2 closes the arm is retracted; the arm is scored 1/5 on evidence, not closed by a
+  baseline argument.
 - **checkers/MUTATIONS.md** needs five new entries, M-IO1..M-IO5; that file is outside this lane's
-  writable set, so the registration text is printed by the script's `mutation_selftest()`.
+  writable set, so the registration text is printed by the script's `mutation_selftest()`. The r2
+  verdict records this as "an accurately disclosed external residue".
 
 ## Questions for TJO
 
@@ -734,3 +840,45 @@ C-167, C-079 and (for the orchestrator) C-087.
 **Residues, all outside this lane's writable files:** registration of M-IO1..M-IO5 in
 `checkers/MUTATIONS.md`; the C-087 dependency rewire in `claims/CLAIMS.md`; and the one
 mathematical residue, Geometry 2.4.
+
+## Repair r2 response
+
+Verdict `verdicts/intersection-observables-r2.md`, FAIL(O9, O10, O11, O12, O13). Its "Disposition
+audit" marks 27 of the 29 r1 response items VERIFIED (two of them VERIFIED-with-residue); the two
+NOT VERIFIED items are O7b and O7c, which are what O9 and O11 restate. Every new objection is
+dispositioned; none is silently ignored. No new claims were introduced. Files touched: this memo and
+`checkers/explore/intersection_observables.py` only.
+
+| objection | severity | disposition | exact location | note |
+|---|---|---|---|---|
+| O9 lockstep incomplete after the REFUTED status changes (C-087 also depends on C-086; C-168 still depends on C-086; C-169 depends on C-168) | MAJOR | FIXED | `## Lockstep notes` | The section is replaced by the critic's eight paste-ready blocks, verbatim: C-079, C-085, C-086, C-087, C-166, C-167, C-168 and the required C-169 consequence, plus an explicit merge order (dependency amendments first, statuses last). This lane does not edit `claims/CLAIMS.md`; the blocks are what the orchestrator pastes. |
+| O10a D-bergman-frame-operator writes `P_{I(V),N}`, the wrong complementary projector under D-projectors | MAJOR | FIXED | Proposed definitions, D-bergman-frame-operator | Replaced by the critic's exact text using `P_{0,N}^{(I(V))}` and naming `E_N` with `\|\|E_N\|\| = O(N^{-1})`. |
+| O10b D-normalised-toeplitz-operator says "`p in V(I)`", violating binding convention C3 | MAJOR | FIXED | Proposed definitions, D-normalised-toeplitz-operator | Replaced by the critic's exact text: bihomogeneous `g` regarded as a projective symbol by evaluation on unit representatives, and the C3-compatible symbol `<conj(x)^{x N}\| T~_g^{(N)} \|conj(x)^{x N}> = g(x, conj x)` for `x in V(I)`. |
+| O10c D-intersection-overlap calls `P_0` a Bergman projector without the radical/stable qualification | MAJOR | FIXED | Proposed definitions, D-intersection-overlap | Replaced by the critic's exact text, which adds "When `I, J` are radical and `N` is in their stable ranges, the two factors are the Bergman projectors of D-bergman-projector". |
+| O11.1 TANGENCY lacks explicit `N -> infinity` | MAJOR | FIXED | C-NEW-IO-TANGENCY | Critic's exact r2 text adopted verbatim. |
+| O11.2 DISTANCE uses `T_N(I,J)` without introducing `I, J`, and omits `N -> infinity` | MAJOR | FIXED | C-NEW-IO-DISTANCE | Critic's exact r2 text adopted verbatim. |
+| O11.3 TOEPLITZ omits explicit `N -> infinity` | MAJOR | FIXED | C-NEW-IO-TOEPLITZ | Critic's exact r2 text adopted verbatim, including `b_g ~ 0.03142`. |
+| O11.4 SIGNAL's `4^{-k}(1+O(k^2/n))` is a relative asymptotic only for `k = o(sqrt n)` | MAJOR | FIXED | C-NEW-IO-SIGNAL | Critic's exact r2 text adopted verbatim, with the log expansion `-k log4 - k(2k-1)/(2n) + O(k^3/n^2)` and the `k = o(sqrt n)` qualification, while keeping the `O(log n)` threshold from the exact product. |
+| O11.5 CROSSOVER's two regimes need a sequence `t = t_N` and a defined local slope | MAJOR | FIXED | C-NEW-IO-CROSSOVER | Critic's exact r2 text adopted verbatim, defining the dyadic local slope `s_N = log(T_{2N}(t_N)/T_N(t_N))/log 2`. |
+| O11.6 DEQUANT's `delta = eps/tau_N` needs `0 < eps < tau_N` | MAJOR | FIXED | C-NEW-IO-DEQUANT; criterion 4 | Critic's exact r2 text adopted verbatim, including "If `eps >= tau_N`, the zero estimate already meets the additive tolerance". |
+| O11.7 TOEPLITZ-COST surviving statement over-claims that the bias "forces" `N = Omega(1/eps)` | MAJOR | DOWNGRADED | C-NEW-IO-TOEPLITZ-COST | Critic's exact r2 surviving statement adopted verbatim: the requirement holds for *raw one-level* use with a nonzero uncancelled `b_g/N` term, and "a known correction or extrapolation can change the required `N`". |
+| O11 (consequence) SUM-IDEAL assumes the held CLEAN row | MAJOR | DOWNGRADED | C-NEW-IO-SUM-IDEAL; bottom line 8 | Its r2 decision is HOLD missing step, not ACCEPT; the row is now marked HOLD alongside CLEAN and the counts below reflect it. |
+| O12 "total photon-number parity" is identically `+1` and is not the SWAP observable | MAJOR | FIXED | criterion 5; C-NEW-IO-SWAP-HARDWARE | Both places now read "the parity of the total photon number in the antisymmetric/difference output modes", `(-1)^{sum_j n_{j,-}}`; the row carries the critic's exact r2 text verbatim. |
+| O13a the mutation report says "These four" but lists five | MINOR | FIXED | `mutation_selftest`, script line 1105 | "four" -> "five". |
+| O13b the crossover detail string always printed `(<1.3)`, so a caught mutation was reported as `1.7592 (<1.3)` | MINOR | FIXED | `pred_crossover_slope`, script line 1004 | Now prints the comparison result explicitly: `slope(1024) = 1.7592 (target < 1.3: False)`. |
+
+**Rows after repair: 12 (CONJECTURE 8, REFUTED 2, HOLD 2, deleted 2).** The two HOLD rows are
+C-NEW-IO-CLEAN (missing step: Geometry 2.4) and C-NEW-IO-SUM-IDEAL (assumes CLEAN); both are status
+CONJECTURE marked "do not merge" per the quantum-primitives convention, HOLD not being an L1 status.
+The eight CONJECTURE rows are LINEAR-EXACT, TANGENCY, DISTANCE, TOEPLITZ, SIGNAL, CROSSOVER, DEQUANT
+and SWAP-HARDWARE. The two REFUTED rows are DISTANCE-COST and TOEPLITZ-COST, each carrying the
+critic's counterexample and its r2 surviving statement verbatim. The two deleted rows remain
+WITNESS-BASELINE and PROJECTOR-AMBIGUITY. Separately, the lockstep section proposes REFUTED for
+C-085, C-086 and C-168 and amendments to C-079, C-087, C-166, C-167 and C-169.
+
+**Script:** `timeout 880 python3 -u checkers/explore/intersection_observables.py` exits **0**; all
+five mutations M-IO1..M-IO5 are caught and both r2 label defects are gone.
+
+**Residues, unchanged and all outside this lane's writable files:** registration of M-IO1..M-IO5 in
+`checkers/MUTATIONS.md`; the C-087, C-168 and C-169 dependency amendments in `claims/CLAIMS.md`
+(paste-ready above); and the one mathematical residue, Geometry 2.4.
