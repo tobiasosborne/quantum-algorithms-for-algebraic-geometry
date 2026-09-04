@@ -8,6 +8,9 @@ Newton lift and finite-difference jet extractor are rejected as speedup candidat
 This memo departs from frozen convention C1: its main object is a finite-dimensional quotient
 algebra with an explicitly chosen Hilbert-space inner product, not the Fock completion of $R$.
 That choice is part of the access model, not an invariant silently attributed to the scheme.
+This memo also locally departs from C7: its alpha/beta symbols are block-encoding
+normalizations. Resource and classical-access scopes were repaired following
+`verdicts/original-round2-r1.md`; the identities do not certify a speedup.
 
 ## 1. Reverse multiplication: coherent algebraic unzipping
 
@@ -104,9 +107,15 @@ a mechanism for reading arbitrary local scheme structure.
 
 ### Cost ledger, hardware, and hidden costs
 
-- One attempt uses $k-1$ inverse multiplication calls, depth $O(\log k)$ for a balanced
-  tree, $kd+O(k)$ qubits, and $O(kC_\mu)$ gates. Repetition to failure probability
-  $\delta$ costs $O(p_k^{-1}\log(1/\delta))$ attempts.
+- Let $C_u$ be the input preparation cost, and $w_\mu,d_\mu$ the workspace and
+  depth of the supplied rectangular multiplication encoding, including its
+  input/output embeddings. One attempt uses $k-1$ inverse multiplication calls,
+  $O(d_\mu\log k)$ tree depth plus preparation/control depth, and up to
+  $kd+O(kw_\mu+k)$ qubits. Its gates cost
+  $O(C_u+kC_\mu+\operatorname{poly}(k,d))$, including embedding/flag logic.
+  A capped failure probability $\delta$ costs
+  $O(p_k^{-1}\log(1/\delta))$ attempts; expected repeat-until-success cost
+  needs only $p_k^{-1}$ attempts.
 - Block-encoding error must be $o(\epsilon p_k/k)$; conditioning on a rare flag amplifies
   implementation error. The promise on $p_k$ is essential.
 - Polynomial-ring multiplication run backward resembles number-conserving boson splitting:
@@ -133,8 +142,11 @@ With explicit $\mu$, the output amplitudes form a tree tensor network of bond di
 $D$. Double-layer contraction and sequential sampling cost polynomial time in $k,D$
 (a crude bound is $O(kD^6)$), not $D^k$. A quantum advantage could therefore only be
 in the succinct $d=\log D$ access model. No commutative algebra family is known here for
-which that access is natural, $p_k$ is polynomial, and classical sampling is hard. Monomial
-algebras admit combinatorial samplers; group/toric multiplication risks reducing to
+which that access is natural, $p_k$ is polynomial, and classical sampling is hard.
+The exhibited truncated-monomial algebra with a specified monomial input admits
+weak-composition sampling. A general circuit-prepared coefficient input is not
+classically sampleable merely because multiplication is monomial. Group/toric
+multiplication risks reducing to
 established hidden-subgroup/Fourier algorithms.
 
 The useful reduced-case output is also under-specified. Tracing out leaves gives no root
@@ -183,8 +195,11 @@ The success probability is exactly
 
 If $\sigma_1\ge\cdots\ge\sigma_n>0$ and $\beta\ge\sigma_1$, its worst-case lower
 envelope is $(\sigma_2\cdots\sigma_n/\beta^{n-1})^2$, which can be
-$\kappa(J)^{-2(n-1)}$. Recovering the correction magnitude additionally needs
-$\det J$; the $n$-particle determinant branch succeeds with
+$\kappa(J)^{-2(n-1)}$. Recovering the correction requires additional scale and
+phase readout. Determinant postselection is one costly option, not a compulsory
+one: for a normalized Newton-ray vector $v$, its scale obeys
+$\|J^{-1}b\|=\|b\|/\|Jv\|$. An exact complex correction also needs a phase
+reference relative to $b$. The optional $n$-particle determinant branch succeeds with
 $|\det J|^2/\beta^{2n}=\prod_i(\sigma_i/\beta)^2$. Fermionic hardware supplies the wedge
 projection, not these missing probabilities.
 

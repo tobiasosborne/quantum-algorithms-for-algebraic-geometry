@@ -19,7 +19,7 @@ Two more geometric operations were constructed and attacked:
 2. a fermionic regressive product returns the Plucker state of a transverse linear
    intersection.
 
-The first has an exact single-copy measurement comparator and a conservative
+The scalar output of the first has an exact single-copy measurement comparator and a conservative
 `O(Sm^2+D)` exact-arithmetic baseline for its scalar multiplicity output.  The second is exterior multiplication (antisymmetric/Schur
 projection) with an unavoidable binomial success denominator and is classically
 tractable on its decomposable inputs.  Neither meets D22.
@@ -30,6 +30,10 @@ This memo works in algebraic geometry broadly and does not use the Fock/Macaulay
 ground-space construction.  It obeys definitions conventions C1--C12 when their
 objects occur.  In particular, the point seen by a coefficient ket is conjugated as
 specified below; no antiunitary is treated as a physical gate.
+Local departures: C7's alpha notation is used for block normalizations here, and
+C8's reserved D is used for the displayed ambient vector-space dimension. These
+are local conventions, not redefinitions of the seed's symbols. Scalar/state
+output and explicit-frame scopes were repaired after original-round2-r1.
 
 Let `H = C^D` and `K = C^E`, with their displayed orthonormal bases.  Input size is
 not `log D` unless the data supplying an operation are also succinct.
@@ -352,10 +356,11 @@ For explicit orbital frames, QR/SVD computes an intersection basis in polynomial
 time, for example `O(D(a+b)^2)` dense arithmetic, and exterior/Plucker arithmetic is
 also polynomial in the represented output size.
 
-For decomposable inputs, Poincare particle-hole conversion and the wedge stay within
-fermionic Gaussian/Slater structure.  Their evolution has an efficient classical
-matrix representation.  Making the input a non-Gaussian superposition merely moves
-the presumed hardness into preparation of quantum data.
+For decomposable inputs supplied by explicit orbital frames, Poincare particle-hole
+conversion and the wedge stay within fermionic Gaussian/Slater structure and admit
+efficient classical matrix simulation. Unknown Plucker-state copies do not supply
+those frames. Neither this comparison nor a presumed hard non-Gaussian preparation
+settles the corresponding arbitrary copy-access task.
 
 As a quantum mechanism, `J` is a basis permutation/Bogoliubov particle-hole map and
 `mu` is exactly antisymmetric (Schur) projection followed by label erasure.  The
@@ -473,17 +478,19 @@ Provisional claim rows (CONJECTURE or REFUTED only):
 - missing lemma: critic verification of tensor normalizations and the descent of
   `T_mu` to the projective tangent space.
 
-### C-NEW-R2-GEO-5 — jet spectroscopy gives a collective speedup
+### C-NEW-R2-GEO-5 — scalar jet multiplicity gives a collective speedup
 
-- statement: Q-TANGENT-CONE has a quantum copy advantage over the permitted
-  adaptive single-copy measurement baseline.
+- statement: The displayed scalar multiplicity estimator has a collective copy
+  advantage over adaptive single-copy measurements.
 - status: REFUTED
 - depends-on: D-R2-ORTHOGONAL-JET, D-QN-PHYSICAL-DATA-ACCESS, C-NEW-R2-GEO-4
 - where-proved: `scouting/original-geometry-round2.md` Sections 2.3--2.4
 - where-tested: not archived; no registered checker
-- surviving statement: the exact jet/tangent-cone instrument uses
+- surviving statement: the scalar multiplicity estimator uses
   `R=ceil(gamma^{-1}log(1/delta))` coefficient states, and the comparator performs
-  the same rotation and occupation measurement with the same `R`.
+  the same rotation and occupation measurement with the same `R`. No advantage
+  claim for producing/using the tangent-cone ket is proved or refuted by this
+  scalar comparison; it needs a separately matched output task.
 
 ### C-NEW-R2-GEO-6 — regressive-product identity and success
 
@@ -507,4 +514,5 @@ Provisional claim rows (CONJECTURE or REFUTED only):
 - where-tested: not archived; no registered checker
 - surviving statement: it is a geometric output interpretation of linear
   Poincare duality plus antisymmetric projection, with the exact binomial success
-  penalty above; decomposable instances have efficient classical matrix simulation.
+  penalty above; decomposable instances supplied by explicit orbital frames have
+  efficient classical matrix simulation. Unknown copy-only frames are not covered.

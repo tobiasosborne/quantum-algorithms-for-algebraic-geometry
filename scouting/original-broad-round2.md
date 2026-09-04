@@ -3,7 +3,10 @@
 **Verdict.** No D22 survivor was found. Two concrete mechanisms were constructed from
 algebraic correspondences and moduli-chart transformations, then reduced respectively to
 classical collision sampling / LCU and to a controlled-order quantum switch. The reductions
-are exact. Historical novelty is unverified, and no web search was used.
+are exact; the classical runtime comparison requires matched classical history
+sampling, as clarified after verdicts/original-round2-r1.md. Historical novelty
+is unverified, and no web search was used. This memo locally departs from C7:
+its displayed alpha parameters denote block-encoding normalizations.
 
 This memo does not use quotient multiplication, Fock states, root search, spectral
 estimation, copy-polynomial transduction, or linear/Grassmann intersection.
@@ -22,9 +25,15 @@ $x\in X_0$. A *history* $h\in H_x$ is a branch through the fibre product
 $C_1\times_{X_1}\cdots\times_{X_{r-1}}C_r$ above $x$; $e(h)\in X_r$ is its endpoint.
 The access model supplies:
 
-- a uniform preparation of the finite history-label set $H_x$, of size $P$;
-- a reversible circuit of cost $C$ computing $h\mapsto e(h)$;
-- a unit-modulus local weight $w_h$ computable reversibly from declared branch data.
+- a uniform preparation of the finite history-label set $H_x$, of size $P$,
+  and its inverse, each of charged cost $C_H$;
+- a reversible circuit of cost $C_e$ computing $h\mapsto e(h)$;
+- a unit-modulus local weight $w_h$ computable reversibly from declared branch
+  data, at charged phase-circuit cost $C_w$.
+
+The positive runtime comparison additionally assumes a classical uniform-history
+sampler of cost $O(C_H)$ and matched classical endpoint evaluation of cost $O(C_e)$.
+Quantum preparation alone does not supply that classical sampler.
 
 If scheme multiplicities are wanted, the input circuit must enumerate branches with those
 multiplicities; this is charged, not inferred from equations. Define the composite coefficient
@@ -53,8 +62,10 @@ so
 \[
  p_{\rm fuse}={\sum_z|c_z|^2\over P^2}.
 \]
-Conditional measurement solves CFCS exactly. One attempt costs $C+O(\log P)$ gates and
-$O(\log P+\log|X_r|)$ qubits; failure probability $\delta$ costs
+Conditional measurement solves CFCS exactly. One attempt costs
+$2C_H+C_e+C_w+O(\log P)$ gates and
+$O(\log P+\log|X_r|)$ qubits plus the supplied circuits' workspaces and flags;
+failure probability $\delta$ costs
 $O(p_{\rm fuse}^{-1}\log(1/\delta))$ attempts. No amplitude amplification is credited.
 
 This resembles physical path erasure in a multiport interferometer, but the actual resource
@@ -72,17 +83,21 @@ uniform histories $h,h'$, accepts exactly when $e(h)=e(h')$, and outputs that en
  \Pr[\mathrm{accept}]=\sum_z{m_z^2\over P^2}=p_{\rm fuse}.
 \]
 Its conditional distribution and expected repetitions are identical to the quantum
-procedure, with two classical endpoint evaluations versus one coherent evaluation. This is
-not a dequantization heuristic: it is equality of the complete output law. In particular,
-positivity of intersection multiplicities or cluster/Laurent coefficients destroys the
-apparent interference advantage.
+procedure, with two classical endpoint evaluations versus one coherent evaluation.
+The equality of output laws is exact. With the matched-access assumption above,
+their per-attempt costs are comparable, so positive fusion supplies no asymptotic
+advantage over collision sampling. Without that assumption only equality of laws
+has been proved, not a classical algorithm at the quantum preparation cost.
 
 ### Signed attack and equivalence audit
 
 Signs or phases invalidate the acceptance interpretation because $c_z$ contains cancellation.
 They do not produce a D22 mechanism. Projection onto $|+\rangle_H$ is precisely a
 postselected linear combination of the history maps: the effective block is
-$P^{-1}\sum_hw_h|e(h)\rangle\langle h|$. Thus signed CFCS is an LCU/path-sum circuit.
+$P^{-1/2}\sum_hw_h|e(h)\rangle\langle h|$. The second factor $P^{-1/2}$
+comes from the prepared uniform input. Extend each endpoint preparation to an
+isometry/unitary to write the usual controlled-label LCU implementation.
+Thus signed CFCS is an LCU/path-sum circuit.
 If cancellation is severe, $p_{\rm fuse}$ is exponentially small; if it is not, the circuit
 is still a known mechanism applied to a new coefficient problem. Grover amplification,
 Fourier analysis of $H_x$, a walk on the fibre graph, or phase estimation would each add an
@@ -159,16 +174,17 @@ construction is supplied; the present measurement would remain a quantum-switch 
 
 ### C-NEW-OB-POSITIVE-FUSION
 
-- statement: Positive coherent fusion of a succinct chain of finite correspondences samples
-  squared composite fibre multiplicities with an asymptotic advantage over classical path
-  sampling.
+- statement: Even when uniform histories and endpoints have matched classical
+  sampling/evaluation costs, positive coherent fusion of a succinct chain of finite
+  correspondences gives an asymptotic advantage for squared fibre-multiplicity sampling.
 - status: REFUTED
 - depends-on: none
 - where-proved: refuted in this memo, §1, “Exact positive dequantization”
 - where-tested: none
 - referee: not yet reviewed
 - surviving statement: Quantum path erasure and classical two-history collision sampling
-  have exactly the same success probability and conditional endpoint law.
+  have exactly the same success probability and conditional endpoint law; matched
+  per-attempt costs additionally require the declared classical history access.
 - north-star relevance: an unconditional dequantization of the positive construction.
 
 ### C-NEW-OB-SIGNED-FUSION
