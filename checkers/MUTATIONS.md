@@ -187,3 +187,15 @@ Run the same command with the following `--mutation` options:
 
 These checks verify finite identities and can reject meaningful mutations;
 they do not establish robustness constants, lower bounds, or historical novelty.
+
+## Pair-support spectral checker (2026-09-05)
+
+`explore/secant_pair_support.py` is excluded from the seed suite. Baseline:
+1415 checks PASS in 0.2 seconds under `timeout 60` with one BLAS thread.
+It compares independent permutation matrices and full tensor powers with the
+analytic Schur-block formulas; 425 bounded blocks satisfy the gap test.
+
+| Mutation option | Changed model | Observed failure | Exit |
+|---|---|---|---|
+| `drop-kernel-term` | Remove the exceptional rank-one term | trivial full-group spectrum differs by 1/6 | 1 |
+| `wrong-phase` | Change -1/2 to +1/2 in the interference coefficient | full-group spectrum at a,b,c=0,0,1 differs by 2/3 | 1 |

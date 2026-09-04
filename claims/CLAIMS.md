@@ -5178,3 +5178,48 @@ assumption. For linear subspaces the mixture can be produced by a passive-optics
   fixed-k soundness bound; a standard random-cut rank tester matches detection
   within factor eight and a bounded-weight estimator reproduces the same residual.
 - north-star relevance: does not satisfy D22; no asymptotic original mechanism.
+
+### C-339 (C-NEW-PAIR-SUPPORT)
+- statement: For every finite complex tensor product with positive local dimensions,
+  k>=1,r>=1,t=r+1, S_t(X_r)=range(P B_12)=support(A_t). On Sym^t(H),
+  A_t equals the uniform average of B_ab over replica pairs. That average identity
+  is not asserted on the full unsymmetrized replica space.
+- status: PROVED
+- depends-on: D-PAIR-SECANT-SUPPORT
+- where-proved: scouting/secant-pair-support.md section 1.
+- where-tested: none; the proof uses polarization and the range identity.
+- referee: verdicts/secant-pair-support-r1.md, PASS; independent root review of
+  the subagent construction, with no FATAL/MAJOR objections for this statement.
+- north-star relevance: an explicit algebraic support identity; historical novelty
+  unverified and no new algorithmic mechanism inferred.
+
+### C-340 (C-NEW-PAIR-S4-FORMULA)
+- statement: At four replicas, the nonzero spectrum of A_4 is the union of the
+  nonzero small-block spectra M_(ell,h,c) over occurring local-type patterns and
+  party irreps in D-PAIR-S4-COMPRESSION, with the specified
+  normalized symmetric-power metric, all local types, and ell=0 conventions.
+  Repeated party irreps affect multiplicity only.
+- status: PROVED
+- depends-on: D-PAIR-S4-COMPRESSION, C-339
+- where-proved: scouting/secant-pair-support.md section 2.
+- where-tested: checkers/explore/secant_pair_support.py, independent 24-permutation
+  compressions and explicit tensor powers versus the analytic block formula.
+- referee: verdicts/secant-pair-support-r1.md, PASS after correcting the
+  occurrence qualification; no FATAL/MAJOR objections remain for this statement.
+- north-star relevance: reduces the uniform gap question to explicit small matrices.
+
+### C-341 (C-NEW-PAIR-SHARP-GAP)
+- statement: For every finite complex tensor product as in C-339, at t=4 one has
+  P_sec/12 <= A_4 <= P_sec, with the stipulated zero extensions. The constant
+  1/12 is attained for local representation types 211,211,22, available at local
+  dimensions 3,3,2. No historical novelty or new-mechanism claim is included.
+- status: PROVED
+- depends-on: C-339, C-340
+- where-proved: scouting/secant-pair-support.md sections 3--4; exact exceptional
+  kernel vectors and rank-one eigenvalue bounds cover all parameter cases.
+- where-tested: checkers/explore/secant_pair_support.py; 1415 finite checks.
+- referee: verdicts/secant-pair-support-r1.md, PASS; the all-parameter analytic
+  proof and finite red-capable checks were independently reviewed.
+- north-star relevance: removes a normalization obstacle at four copies, but known
+  product-test block encodings and generic support filtering implement the resulting
+  projector. This theorem is not a qualifying original quantum algorithm.
