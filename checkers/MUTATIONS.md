@@ -171,3 +171,19 @@ checker does not test what it says it tests.
   only the exact Hilbert-function routine (`tmax = min(N-3, n) -> min(N-4, n)`),
   leaving `H_N` untouched; it is caught by the disagreement with the independent
   GF(p) Macaulay rank.
+
+## Secant three-copy exploration (2026-09-05)
+
+`explore/secant_three_copy.py` is excluded from the seed suite. Updated baseline:
+112 checks PASS in 1.5 seconds, with one BLAS thread and `timeout 60`.
+Run the same command with the following `--mutation` options:
+
+| Mutation | Changed model | Observed failure | Exit |
+|---|---|---|---|
+| `trine-sign` | Flip one trine coordinate | m=2 cat squared norm 4/3 instead of 1 | 1 |
+| `normalization` | Drop cross terms from cat norm | m=2 cat squared norm 3/2 instead of 1 | 1 |
+| `dephase-cat` | Replace coherent line projection by incoherent orbit mixture | rank-two completeness falls to 0.8683033841695673 | 1 |
+| `cut-coefficient` | Replace the exact Schur-dependent coefficient by 1/6 | independently computed four-site average 0.007960476138700595 differs from 0.007075978789956082 | 1 |
+
+These checks verify finite identities and can reject meaningful mutations;
+they do not establish robustness constants, lower bounds, or historical novelty.

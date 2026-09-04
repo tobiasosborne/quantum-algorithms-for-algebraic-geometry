@@ -5111,3 +5111,70 @@ assumption. For linear subspaces the mixture can be produced by a passive-optics
 - depends-on: C-024, D-spin-mixing-hamiltonian, D-intersection-overlap, D-symmetric-sector,
   C-325 (C-NEW-IO-LINEAR-EXACT). where-proved: criterion 5. where-tested: N6 supplies the predicted constant
   for the two-conic version; the interferometer is not simulated.
+
+## Three-copy second-secant construction (2026-09-05)
+
+### C-335 (C-NEW-S3-PROJECTOR)
+- statement: For every k>=2 and q_i>=2 under D-S3-SECANT, the circuit of
+  argument/secant-three-copy.md section 3 has acceptance 1-r_3(psi) on three
+  identical pure copies. The cubic span has exactly the no-alternating-type,
+  trine-cat multiplicity blocks in section 2. Its ideal gate count is
+  O(sum_i log q_i+k), with charged finite-precision synthesis. It is pointwise
+  optimal among three-copy perfect-completeness tests; all tests with at most
+  two copies and perfect completeness are trivial. Abstract optimality is
+  known prior work, not a historical novelty claim.
+- status: SKETCH
+- depends-on: D-S3-SECANT, D-S3-CUBIC-SPAN, D-S3-LOCAL-REPRESENTATION
+- where-proved: argument/secant-three-copy.md sections 2--4; Landsberg--Manivel
+  arXiv:math/0311388 Theorem 4.7 (cited geometry); Lovitz--Lowe arXiv:2410.21417v2
+  Lemma 2.1 (cited abstract optimality).
+- where-tested: checkers/explore/secant_three_copy.py; 112 checks, four red mutations.
+- referee: verdicts/secant-three-copy-r1.md accepts the mathematics at SKETCH;
+  manuscript corrected to credit known abstract optimality and the random-cut reduction.
+- north-star relevance: explicit measurement; asymptotically equivalent to known
+  cut-rank tests according to the independent critic, so not a north-star result.
+
+### C-336 (C-NEW-S3-FIXED-K-SOUNDNESS)
+- statement: For fixed k>=2 and rational 0<epsilon<1, g_k(epsilon/2)>0 and
+  a certified positive rational lower bound is computable by real quantifier
+  elimination. Every psi at distance at least epsilon from X_2 has
+  r_3(psi)>=eta_k(epsilon). The resulting copy count is independent of all q_i;
+  preprocessing and constants are not claimed polynomial in k or 1/epsilon.
+- status: SKETCH
+- depends-on: C-335, D-S3-ROBUSTNESS-CONSTANT
+- where-proved: argument/secant-three-copy.md section 5; Raicu arXiv:1011.5867
+  Theorem 4.1/Corollary 4.2 (cited cubic zero-set theorem).
+- where-tested: none; finite numerical checks do not certify the global bound.
+- referee: verdicts/secant-three-copy-r1.md accepts the fixed-k proof at SKETCH.
+- north-star relevance: removes dimension-dependent signal loss for fixed k;
+  the same theorem also licenses a known random-cut rank-test composition.
+
+### C-337 (C-NEW-S3-SINGLE-COPY-LOWER)
+- statement: For fixed k>=4, equal local dimension q>=8, and distance promise
+  epsilon=1/2, every adaptive single-copy global-POVM algorithm deciding
+  membership in X_2 versus the promised NO case with error at most 1/3 requires
+  T(T-1)>=14q/[27(k+1)]. Classical computation and memory are unrestricted;
+  quantum memory between copies is disallowed. This is a copy-access comparison.
+- status: SKETCH
+- depends-on: D-S3-SECANT
+- where-proved: scouting/secant-single-copy-baseline.md (independent lane);
+  Beckey et al. arXiv:2510.07820v1 Proposition 3.6 (cited ensemble method).
+- where-tested: none; proof, not a numerical speedup experiment.
+- referee: independent baseline lane; awaiting converged adversarial verdict.
+- north-star relevance: a matched-input lower bound; it does not establish an
+  original mechanism or an advantage for classically listed tensors.
+
+### C-338 (C-NEW-S3-ORIGINAL-MECHANISM)
+- statement: The trine-cat secant measurement supplies an asymptotic algorithmic
+  mechanism not substantively equivalent to compositions of known rank testers,
+  and therefore meets the D22 novelty requirement.
+- status: REFUTED
+- depends-on: C-335, C-336, C-337
+- where-proved: refuted by verdicts/secant-three-copy-r1.md section 2 and
+  scouting/secant-single-copy-baseline.md section 6.1; argument section 6 repaired.
+- where-tested: checkers/explore/secant_three_copy.py, independent all-cut spectra.
+- referee: verdicts/secant-three-copy-r1.md, ACCEPT AS REFUTED.
+- surviving statement: C-335 gives the exact optimal projector and C-336 a
+  fixed-k soundness bound; a standard random-cut rank tester matches detection
+  within factor eight and a bounded-weight estimator reproduces the same residual.
+- north-star relevance: does not satisfy D22; no asymptotic original mechanism.
