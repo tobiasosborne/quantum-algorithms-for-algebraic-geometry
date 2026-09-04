@@ -110,6 +110,15 @@ subfamilies. For copy-access problems the comparator is adaptive single-copy mea
 classical post-processing; exponential separations against it exist for other learning tasks
 (arXiv:2111.05881; DOI 10.1126/science.abn7293) but no transfer to variety membership is known.
 
+Update 2026-09-05: the explicit second-secant trine-cat measurement has an
+independently derived single-copy lower-bound transfer (C-337, SKETCH), but C-338's
+original-mechanism assertion is REFUTED: random-cut rank testing matches it within
+a constant factor. The third-secant Strassen measurement similarly reduces to
+known Schur/invariant networks. C-339--C-341 are now PROVED mathematical support,
+compression, and sharp uniform four-copy gap statements (1/12), after the independent
+pair-support verdict and red-capable checker. Generic support filtering implements
+their algorithmic consequence; no D22-compliant north-star hit is established.
+
 **Arm R: robotics (TJO priority, D5).**
 `scouting/robotics-deep-dive.md` finds three bets and ten killers. Bets: R1, certified
 lower bounds for perception polynomial optimisation via the bosonic moment hierarchy (a
@@ -224,6 +233,7 @@ asserts a speedup must name which traps it has been checked against.
 | D21 | 2026-09-04 | Next session is another exploration round focused on yet more approaches: TJO is not convinced the space of ideas has been explored well. Breadth over depth; same proposer/cross-family-critic loop with two concurrent subagents; do not re-litigate arms A-E or the primitives already mapped. Seed list of untouched directions in HANDOFF.md "Next steps". | TJO |
 | D22 | 2026-09-04 | TJO defines new: the algorithm solves a problem not previously solved, using a genuinely novel approach not equivalent or substantively reducible to a described quantum algorithm. Grover, QFT, DQI and their reapplications do not qualify. Stop web-led scouting for this round; develop original constructions. DQI, including proposed extensions, is removed from the round. This adds criterion 6; earlier scores out of five are historical and do not establish novelty. | TJO |
 | D23 | 2026-09-04 | Use only Astra and Sol subagents. This supersedes D3 and the old cross-family roster; independent criticism remains required, using Astra and Sol. No further Opus runs. | TJO |
+| D24 | 2026-09-05 | Persist towards a genuinely novel quantum algorithm; use subagents to ideate and adversarially verify. All classical and modern algebraic geometry is available as the use-case domain. This does not relax D22 or authorize presenting a known-algorithm reduction as a discovery. | TJO |
 
 ## 7. Current state and open questions for TJO
 
