@@ -1,132 +1,106 @@
-<!-- ROLE: current state + next steps. UPDATE POLICY: rewritten whole at session close,
-     <=150 lines. TRIGGER: read at session start (item 4 of the CLAUDE.md read order). -->
+<!-- ROLE: current state + fast restart. Rewritten at session close; <=150 lines. -->
 
-# HANDOFF — quantum-algorithms-for-algebraic-geometry
+# HANDOFF — 2026-09-04, exploration round 2 paused
 
-## State (2026-09-03, session 2 close: exploration round 1 complete)
+## Start here
 
-- Method: rk-light (CLAUDE.md laws L1–L5, rules 1–10). Not rk. Tracking: bd, prefix `qaag-`.
-- North star: CLAUDE.md §1. Robotics is a first-class arm (PRD D5).
-- Seed (2026-09-01 analysis + notebook page 81) is read-only under `seed/`.
-- `definitions/definitions.md`: 118 entries (66 seed + 2 stubs + 50 merged from lanes), conventions
-  C1–C12 binding, 14 OPEN issues. `definitions/notation.md`: symbol table.
-- `claims/CLAIMS.md`: 334 rows (163 SKETCH, 91 CONJECTURE, 80 REFUTED, 0 PROVED). SKETCH legend
-  widened 2026-09-03 to admit cited published theorems with resolved ids (C-092/C-099 convention).
-  Four proposed rows are HELD in their memos and not merged: C-NEW-KB-QMA1, C-NEW-KB-GAP-INDEPENDENT
-  (`scouting/koszul-betti.md`), C-NEW-IO-CLEAN, C-NEW-IO-SUM-IDEAL (`scouting/intersection-observables.md`).
-- `verdicts/`: 14 verdict files from four converged critic loops (all PASS at the final round):
-  quantum-primitives r1–r3, koszul-betti r1–r5, quantum-native r1–r3, intersection-observables r1–r3.
-  Every merged row since C-281 entered at the status a converged verdict adjudicated.
-- Scouting memos: classical-landscape, applications-wide-net, robotics-deep-dive, real-variety,
-  robotics-space, two-copy-real-filter (session 1); quantum-primitives (codex, 2652 lines),
-  koszul-betti (Opus, 974 lines), quantum-native (codex, 2253 lines), intersection-observables
-  (Opus, 884 lines) (session 2, all critiqued).
-- Checkers: `checkers/` 16 red-capable checkers unchanged; three new EXPLORATION scripts under
-  `checkers/explore/` (koszul_laplacian.py, intersection_observables.py, twocopy_real_filter.py),
-  not in run_all.sh, each with in-process mutations that the orchestrator re-ran (all exit 0).
-  Mutation registrations M1–M4 (Koszul) and M-IO1..M-IO5 (intersection) are NOT yet in
-  `checkers/MUTATIONS.md` (bead work).
-- PRD.md: decisions D1–D20; arms A–E and R; §7 questions Q3–Q13 open for TJO.
+The user requested a quick handoff so the next session can restart immediately.
+Round 2 is INCOMPLETE. Four construction memos exist; none establishes a qualifying
+new quantum algorithm. No round-2 claim or definition has been merged.
 
-## Findings of exploration round 1 (each backed by a PASS verdict)
+1. Run `bd prime`; read CLAUDE.md and PRD criteria 1–6 / decisions D22–D23.
+2. Launch an **Astra critic** with `briefs/critic-original-round2.md`, writing
+   `verdicts/original-round2-r1.md`. All four input memos are present.
+3. In parallel, if useful, launch an **Astra proposer** with
+   `briefs/round2-astra-construction.md`, writing `scouting/original-astra-round2.md`.
+   This is a further constructive attempt, not another critique of the same ideas.
+4. Use Sol for repairs. Maximum TWO concurrent subagents. Critic loops must converge
+   before merging adjudicated rows. Do not call unverified identities new algorithms.
 
-- **Quantum-primitives map (D17, C-281..C-303).** Fourteen known primitives scored against PRD §2:
-  none above 4/5. Kedlaya's curve-zeta algorithm (4/5, prior art, no hardware hook) and the
-  Hallgren / Eisentraeger–Hallgren–Kitaev–Song number-field ideal problems (3/5, prior art; input is
-  an ideal of a number field) are the benchmarks. Eleven primitive-problem pairs REFUTED (HHL on
-  Macaulay uniformly, hypersurface zeta, SUSY Hodge speedup, generic quantum TDA, path-tracking
-  internal speedup, boson-count, analogue degeneracy readout, annealing demonstrations, Groebner
-  annealer, qPCA secant, volume/Ehrhart). Two combinations survive as one-week probes.
-- **Arm B Koszul/Betti Laplacian (D18, C-304..C-311).** The graded Betti table IS the block
-  nullity of a boson–fermion Laplacian on the inverse system (exact; tested on six ideals against
-  GF(p) Koszul ranks). But: the naive compression P_0 L P_0 is the scalar N+i (information-free);
-  monomial-ideal blocks are simplicial Laplacians (Hochster), so the problem is quantum TDA with its
-  whole dequantization ledger; the Betti gap has no lower bound and is independent of Delta_N; the
-  Hilbert-function acceptance weight h_N/M_N is exponentially small on the quadratic
-  complete-intersection family. No PRD §2 criterion met. Arm B is an instrument and hardness anchor.
-- **Arm D quantum-native varieties (D19, C-312..C-324).** QSAT ground space = multidegree-1 piece of
-  a Macaulay inverse system (exact); product ground states = points of a multiprojective variety
-  with entangled defect e_Q; diagonal Hilbert-function vanishing is a multihomogeneous
-  Nullstellensatz hierarchy of product-unsatisfiability certificates whose level 2 is incomplete
-  (first certifying level r = 4 on the generic four-qubit family). No criterion 3 met; product
-  satisfiability geometry is prior art (Laumann et al. 2010; Aldi–Gharibian–Rudolph 2026). The broad
-  negative "no arm D speedup" is NOT proved: copy-access membership/distance tests for entanglement,
-  secant, MPS and tensor-network varieties, against a single-copy adaptive comparator, are the one
-  open door (C-324 held). C-024 weakened in lockstep: the spinor-BEC interaction is realised, the
-  2N+1 degeneracy has never been measured.
-- **Arm C intersection observables (D20, C-325..C-334).** Tr(P_I P_J) is exact and elementary for
-  linear subspaces: h_N of the squared principal-angle cosines (C-325). The growth law is
-  dim(V ∩ W) under CLEAN intersection with constant ∏ sin^{-2} theta (held on the ambient
-  Bergman-frame estimate, Geometry 2.4); tangency of contact order m gives exponent 1 − 1/m, so the
-  seed's C-085 is REFUTED; the registered Toeplitz normalisation diverges, so C-086/C-168 are
-  REFUTED with a distinct normalised operator as the surviving statement. The normalised signal is
-  visible to codim(V ∩ W) = O(log n), not exponentially small; but the observable equals
-  HF_{R/(I+J)}/J_0 (arm C is arm A on the sum ideal) and the Hutch++ comparator needs O(1/eps)
-  matvecs, so score 1/5. Hardware hook: beam splitters plus difference-mode photon parity.
-- Objection trajectories: primitives 25→11→3 (MAJOR 10→3→0); Koszul 12→4→1→residue→0; quantum-native
-  21→7→2 (MAJOR 12→2→0); intersection 8→5→0 (FATAL 3→0). Every loop converged.
-- Orchestrator brief defects found by lanes (recorded in worklogs, briefs left as written): Kedlaya
-  id (correct: math/0411623); arXiv:1105.2390 is not a tensor-network paper.
+Both Astra tasks were launched but failed with the account usage-limit message before
+producing their requested files. Neither target file exists. They need a fresh launch;
+do not assume a review or an additional construction has happened.
 
-## Next steps
+## Binding user steering
 
-**TJO directive (2026-09-04, PRD D21): the next session is ANOTHER EXPLORATION ROUND, focused on yet
-more approaches.** TJO is not convinced the space of ideas has been explored well; breadth over
-depth. Same loop protocol (two concurrent subagents, proposer then cross-family critic, merge only
-from the final verdict). Round 2 should NOT re-litigate arms A–E or the primitives already mapped;
-it should open directions the campaign has not touched. Orchestrator's seed list of untouched
-directions, for the next session to prune and extend before writing briefs (none of these is in
-any memo yet):
-- Different quantum resources: measurement-based / MBQC-native encodings of ideals (graph states
-  as varieties), Clifford-plus-magic counting of algebraic sets over F_2, fermionic linear optics
-  and matchgates for determinantal and Pfaffian ideals, Gaussian states for quadratic ideals.
-- Different algebraic objects: D-modules and holonomic systems (Weyl algebra as a bosonic
-  Hamiltonian algebra), tropical varieties and Newton polytopes (combinatorial, no Fock space),
-  toric ideals as lattice gauge theories, Groebner fans as phase diagrams, cluster algebras.
-- Different problems: numerical irreducible decomposition and monodromy as quantum walks on
-  witness sets, resultants and discriminants as spectral quantities, Hilbert scheme and moduli
-  points as ground-state manifolds, syzygies of monomial ideals via free-fermion models,
-  positivity / SOS certificates via quantum SDP solvers (Brandao-Svore) with the real-variety
-  killers already recorded.
-- Different input models: the copy-access door left open by arm D (needs Q4), streaming /
-  communication models (SP-0 lane E3), quantum-data varieties where the state is the input.
-- Different hardware-first framings: what does a Bose–Hubbard or spinor-BEC experiment measure
-  that is an algebraic-geometry invariant of ANY kind, then ask whether it is classically hard,
-  reversing the usual order.
-Deliverable of round 2: new scouting memos with proposed rows, each through a critic loop; the DAG
-and PRD arms updated; a ranked list of which new directions merit a round-3 deep lane.
+- **New means new to the field:** an unsolved problem-level result AND an original
+  quantum algorithmic mechanism, not a new encoding, application, parameter regime,
+  or substantive equivalent of a described quantum algorithm.
+- No Grover, QFT, DQI, or other established algorithms repackaged as proposals.
+  DQI AND proposed extensions are explicitly excluded. No more web-led scouting.
+- Algebraic geometry broadly is the domain. Existing discoveries are optional;
+  the search is not restricted to Fock/Macaulay constructions or quantum-state varieties.
+- **Only Astra and Sol subagents** (D23 supersedes the old Opus/cross-family roster).
+  Prefer independent Astra criticism of Sol proposals. Never launch Opus.
+- Originality is not certified merely because we derived something independently.
+  The user wants actual new mechanisms, not a literature survey or a menu of objects.
+- The north star still requires a matched classical advantage and a concrete cheap
+  heuristic/hardware route. Do not substitute tomography for a single-copy comparator.
 
-1. TJO rulings that now gate work: Q4 (does an exponential copy saving count; decides whether the
-   arm D open door is worth a lane), Q13 (should novelty be an explicit PRD §2 criterion),
-   ratification of D15 (SP-0), D17–D20.
-2. Candidate round-2 exploration lanes, in the orchestrator's order: (a) copy-access variety
-   membership with a provable separation against single-copy adaptive measurement (arm D's open
-   door; the only place a critic left a speedup possible); (b) a Bombieri-type lower bound on the
-   Betti gap g_{i,N} (arm B lives or dies on K-KB6); (c) Geometry 2.4, the ambient Bergman-frame
-   operator-norm estimate, which would promote C-NEW-IO-CLEAN and C-NEW-IO-SUM-IDEAL; (d) the two
-   surviving primitive combinations (`scouting/quantum-primitives.md` Combinations).
-3. Bead work unchanged from session 1: SP-0 audit of qubit-vs-word rows (qaag-1m0), robotics R1
-   reframing (qaag-rkf) and R2 claim row (qaag-rk6), reference-ledger verification of the two codex
-   scouting memos (qaag-6k1, qaag-cbn), Watrous/BCP primaries (qaag-5uu). New: register M1–M4 and
-   M-IO1..M-IO5 in `checkers/MUTATIONS.md`; the C-110 and C-099 kill-first checks; re-run the gap
-   survey at unit BW (OPEN-1).
-4. First critic round on the eight critical claims of arm A (unchanged; C-099's reference is now
-   resolved, C-085/C-086/C-168 are already settled by arm C).
+## What this session produced
 
-## Conventions / pitfalls
+| File | Result and limitation |
+|---|---|
+| `scouting/original-growth-round2.md` | Root: exact uniform graded-quotient growth and Hilbert-series reservoir identities. Free retry fails by measurement backaction; a radical quadratic two-component family gives an exponentially small reservoir gap. No recovery/mixing theorem or new algorithm. |
+| `scouting/original-algebra-round2.md` | Sol: adjoint multiplication gives exact coherent factorisation samples. Natural equation-level access may already require solving the quotient. Nonreduced trace pairing degenerates. Exterior Newton and finite-difference jets fail resource/equivalence tests. |
+| `scouting/original-geometry-round2.md` | Sol: exact finite-copy rational-map normal form, minimal copy-degree and optimal-success bounds; occupation-based tangent-cone instrument; regressive Grassmann meet. No speedup survives the access, single-copy, normalization and known-operation audits. |
+| `scouting/original-broad-round2.md` | Sol: positive correspondence fusion has the same output law as two-history collision sampling; signed fusion is LCU; birational order interference is controlled composition/quantum-switch territory. No survivor. |
 
-- Fock basis |k> = z^k/sqrt(k!); spectral promise is on Delta_N / alpha_BE (C5, C7).
-- Delta_N depends on the generating tuple, not the ideal; compare only at unit BW.
-- Two Toeplitz operators now exist: D-toeplitz-operator (seed; normalised trace diverges) and
-  D-normalised-toeplitz-operator ((N-r)!/N! P_0 :g: P_0); cite the right one.
-- Two Koszul complexes exist: the variable complex on the inverse system (Betti numbers) and the
-  generator complex whose i = 0 block is the seed H_N (C-310); do not conflate.
-- Loop protocol that worked: proposer (Opus or codex) → cross-family critic r1 (attack, with
-  recompute + reference fetch) → proposer repair with verbatim critic rewordings → critic
-  adjudication rounds scoped by git diff → orchestrator merges verbatim from the final verdict's
-  tables, at the adjudicated status; held rows stay in the memo. Orchestrator re-runs every
-  exploration script before committing. Two subagents concurrent maximum (TJO).
-- Codex runs are launched with `timeout` in the background; one r3 run was killed mid-run with no
-  verdict written and had to be relaunched: check for the output file, not just the exit line.
-- Lane timing this session: Opus proposer lanes 45–55 min; Opus repairs 4–30 min; codex proposer
-  memos 25–35 min; codex critics 15–25 min; codex repairs 20–30 min.
+Each memo has a provisional MERGE PROPOSAL. Held speedup/existence hypotheses must stay
+held; an exact operation identity does not establish its missing access or hardness lemma.
+No literature results from the aborted initial search were promoted to candidates or claims.
+
+Supporting files:
+- `briefs/round2-original-algebra.md`, `briefs/round2-original-geometry.md`: completed Sol lanes.
+- `briefs/critic-original-round2.md`: ready for Astra; allows local read-only shell and
+  bounded recomputation. Its earlier shell prohibition was removed.
+- `briefs/round2-astra-construction.md`: ready; explicitly excludes recycling the first batch.
+- `checkers/explore/quotient_growth.py`: bounded exploration, excluded from run_all.sh.
+  Baseline PASS (137 checks); all three mutations exit 1, recorded in MUTATIONS.md.
+  Checks take under one second with one BLAS thread. Last code change only clarified
+  the printed “Lüders failure posterior” label; it did not change the calculation.
+
+## Specific points for the critic / repairs
+
+- Growth: the Lüders counterexample does not forbid every possible recovery map.
+  The reservoir counterexample proves a worst-start gap bound, not a universal
+  vacuum-start mixing lower bound. Projected jump implementation is not free.
+- Algebra: separate the unzipping identity from the held useful-speedup conjecture.
+  Trace pairing is not automatically a positive Hermitian metric. Root-correlated
+  registers do not provide classical root coordinates.
+- Geometry: C3 conjugation; no physical antiunitary Hodge star. The copy lower bound
+  is the reduced algebraic degree of the map/iterate, not necessarily its unreduced
+  composition degree. Extra accepted branches can cover one another's zeros.
+  Jet scalar multiplicity has an identical single-copy comparator.
+- Broad memo: check the effective history-to-endpoint Kraus normalization
+  (likely 1/sqrt(P), with a second 1/sqrt(P) from the prepared uniform input).
+  Classical collision sampling needs equally available uniform history sampling.
+  The rational birational example need not supply a finite-dimensional invariant
+  section space. Keep gate-list controlled order distinct from unknown-channel access.
+
+## Tracking and repository state
+
+- `qaag-47l`: round-2 epic, IN_PROGRESS.
+- `qaag-6ac`: algebra proposer work completed; includes the broader follow-up memo.
+- `qaag-s06`: geometry proposer work completed.
+- `qaag-tzn`: synthesis/adversarial audit, IN_PROGRESS; this is the immediate work.
+- Governing updates: PRD criterion 6 and D22 (novelty), D23 and CLAUDE.md (Astra/Sol).
+- Baseline claims remain C-001..C-334: 163 SKETCH, 91 CONJECTURE, 80 REFUTED, 0 PROVED.
+  Definitions unchanged. Round-1 final verdicts and all seed files remain intact.
+- A prior Opus CLI attempt failed with API DNS resolution; its escalation was cancelled.
+  It produced NO review. Only Astra/Sol are authorised now.
+- No Git remote is configured. Do not invent one or create a hosted repository.
+  Session files are committed locally; remote push requires a supplied destination.
+- Earlier campaign history and the round-1 shortlist are preserved in Git and PRD.
+  Do not restart familiarisation, rerun the full old numerical suite, or resume the
+  superseded literature-led approach.
+
+## Commands that matter
+
+```bash
+bd prime
+bd show qaag-47l
+bd show qaag-tzn
+git status --short --branch
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 timeout 60 python3 -B checkers/explore/quotient_growth.py
+```

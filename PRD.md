@@ -31,6 +31,19 @@ A north-star hit is a claim row in `claims/CLAIMS.md` at status PROVED with ALL 
    such as Bose–Hubbard or spinor-BEC spin mixing, with an estimate of what an experiment
    could test.
 
+6. **Original problem-level result and algorithmic mechanism (TJO, 2026-09-04, D22).**
+   The quantum algorithm must solve a problem not previously solved and use an approach
+   that is not substantively equivalent or reducible to a described quantum algorithm.
+   A new application, encoding, parameter regime, or composition of Grover, quantum
+   Fourier transforms, decoded quantum interferometry (DQI), or other established
+   algorithms does not qualify. New to this repository is not new in this sense.
+   Proposed constructions must state what computational result and what mechanism are
+   claimed to be original; unsupported originality remains unverified.
+
+   Algebraic geometry is the broad domain. The campaign's existing discoveries may
+   be used, but neither they nor the Fock/Macaulay construction limit the search
+   (TJO clarification, 2026-09-04).
+
 Partial credit that is still a product: a sharp negative result (P admits no speedup of a
 given type, with proof), or a new classical algorithm found while hunting.
 
@@ -209,6 +222,8 @@ asserts a speedup must name which traps it has been checked against.
 | D19 | 2026-09-03 | Arm D (quantum-native varieties, `scouting/quantum-native.md`, codex proposer, Opus critic) converged: r1 FAIL(12 MAJOR, 9 MINOR) -> r2 FAIL(1 FATAL, 1 MAJOR, 5 MINOR) -> r3 PASS. Merged C-312..C-324 (8 CONJECTURE, 5 REFUTED; C-324 held) and 8 definitions plus a D-multihomogeneous-bezout amendment. Verdict of the arm: the QSAT ground space IS the multidegree-1 piece of a Macaulay inverse system (exact, verified numerically), product ground states ARE the points of a multiprojective variety with an entangled defect e_Q, and diagonal Hilbert-function vanishing is a multihomogeneous Nullstellensatz hierarchy of product-unsatisfiability certificates whose level 2 is incomplete (first certifying level r = 4 on the generic four-qubit family); but no PRD §2 criterion 3 is met, the product-satisfiability geometry is prior art (Laumann et al. 2010; Aldi-Gharibian-Rudolph 2026), and arm D is an instrument and a dictionary, not a speedup candidate. The broad negative is NOT proved (see §4 arm D). C-024 weakened in lockstep. Open for TJO: Q4 (does an exponential copy saving count) and Q13 (should novelty become an explicit §2 criterion). | orchestrator, from the loop; pending TJO |
 | D20 | 2026-09-03 | Arm C (intersection and integration observables, `scouting/intersection-observables.md`, Opus proposer, codex critic) converged: r1 FAIL(3 FATAL, 5 MAJOR) -> r2 FAIL(4 MAJOR, 1 MINOR) -> r3 PASS. Merged C-325..C-334 (8 CONJECTURE, 2 REFUTED) and 6 definitions; C-NEW-IO-CLEAN and C-NEW-IO-SUM-IDEAL held. Seed rows amended in lockstep per the critic's paste blocks: C-085, C-086, C-168 REFUTED with surviving statements; C-166, C-167 restated (clean/transverse hypotheses, Morse-Bott prefactor); C-079, C-087, C-169 dependencies and tests updated. Verdict of the arm: the intersection overlap is exact and elementary for linear subspaces, metric rather than algebraic off the clean locus, visible at additive precision only to codim O(log n), and reduces to arm A on the sum ideal; the SWAP-test hardware hook (difference-mode photon parity) is real but assumes ground-space mixture preparation. Score 1/5. | orchestrator, from the loop; pending TJO |
 | D21 | 2026-09-04 | Next session is another exploration round focused on yet more approaches: TJO is not convinced the space of ideas has been explored well. Breadth over depth; same proposer/cross-family-critic loop with two concurrent subagents; do not re-litigate arms A-E or the primitives already mapped. Seed list of untouched directions in HANDOFF.md "Next steps". | TJO |
+| D22 | 2026-09-04 | TJO defines new: the algorithm solves a problem not previously solved, using a genuinely novel approach not equivalent or substantively reducible to a described quantum algorithm. Grover, QFT, DQI and their reapplications do not qualify. Stop web-led scouting for this round; develop original constructions. DQI, including proposed extensions, is removed from the round. This adds criterion 6; earlier scores out of five are historical and do not establish novelty. | TJO |
+| D23 | 2026-09-04 | Use only Astra and Sol subagents. This supersedes D3 and the old cross-family roster; independent criticism remains required, using Astra and Sol. No further Opus runs. | TJO |
 
 ## 7. Current state and open questions for TJO
 

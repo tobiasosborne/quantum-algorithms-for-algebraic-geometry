@@ -46,9 +46,10 @@ algebraic geometry.
 
 ## 3. Rules
 
-1. **Model roster.** Subagents: Opus (Claude) and `codex exec -m gpt-5.6-sol -c
-   model_reasoning_effort="xhigh"`. NO Fable subagents (TJO directive 2026-09-02).
-   Critic and proposer from different model families where possible.
+1. **Model roster.** Subagents: Astra (`gpt-6-astra`) and Sol (`gpt-5.6-sol`) only
+   (TJO directive 2026-09-04, PRD D23; supersedes the 2026-09-02 roster).
+   Use independent proposer and critic agents; prefer Astra reviewing Sol proposals.
+   No Opus, Fable, or other subagent models. At most two subagents run concurrently.
 2. **Codex invocation.** Prompt in a FILE under `briefs/`; `-s read-only
    --skip-git-repo-check -o <out> "$(cat brief)" < /dev/null`; background; `timeout`.
 3. **Lanes are disjoint.** Every brief names its writable files. Shared files

@@ -1,5 +1,18 @@
 # MUTATIONS.md — one recorded red mutation per checker (rk-light law L4)
 
+## Round-2 quotient-growth exploration (2026-09-04)
+
+`explore/quotient_growth.py` has three model mutations, each selected by `--mutate`:
+`fock` removes the Fock square root from the lowering matrix; `temperature` replaces
+the upward jump amplitude `sqrt(t)` by `t`; `recycling` replaces the non-scalar
+acceptance effect by its scalar average. Each must exit 1. These affect only the
+in-process model, never tracked file contents. This exploration is excluded from
+`run_all.sh`; it tests identities and obstructions, not a speedup or novelty claim.
+Run each under `timeout 60 python3 -B explore/quotient_growth.py --mutate <name>`.
+Recorded 2026-09-04: baseline exit 0 (137 checks); all three mutations exit 1.
+Last failure reasons respectively: addition-channel normalization error 2.83;
+Hilbert-series stationary-state error 0.202; acceptance-effect error 0.471.
+
 "A checker with no red mutation does not exist."  Every checker in this tree has
 at least one recorded mutation: an exact textual edit applied to a **copy** of
 the suite in a fresh temporary directory (never to the tracked tree), after
