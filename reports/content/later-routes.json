@@ -1,0 +1,1014 @@
+[
+  {
+    "id": "reverse-multiplication",
+    "title": "Running quotient multiplication backward",
+    "family": "Algebraic transformations",
+    "question": "Can reversing an algebraic multiplication operation expose hidden components?",
+    "idea": "Use the adjoint of quotient multiplication to split one coefficient register into a coherent sum of factorizations, then iterate it as a tree.",
+    "test": "The construction is evaluated on a reduced algebra with orthonormal point-idempotents and on a truncated nilpotent algebra. Full multiplication tables are compared with tree tensor-network contraction; equation-level input is charged for quotient reduction.",
+    "outcome": "The branching identity survives, but its usefulness depends on the supplied metric, multiplication access and success probability. An explicit table allows polynomial-in-dimension classical contraction, and the monomial diagnostic has a direct weak-composition sampler.",
+    "survives": "In a suitable reduced algebra the map copies orthogonal point labels coherently; it does not clone an arbitrary superposition or return root coordinates.",
+    "remaining": "A natural succinct equation family with cheap multiplication, nonrare output and a hard same-output sampler remains missing. The later trinomial probe resolves one such attempt classically.",
+    "claimIds": [],
+    "sources": [
+      "scouting/original-algebra-round2.md",
+      "verdicts/original-round2-r1.md",
+      "scouting/reconstruction-mechanism-r5.md"
+    ],
+    "disposition": "held",
+    "terms": [
+      {
+        "term": "Idempotent",
+        "meaning": "An algebra element e satisfying e²=e; in a reduced finite algebra, these can identify individual points."
+      },
+      {
+        "term": "Nilpotent",
+        "meaning": "A nonzero algebra element whose sufficiently high power is zero."
+      }
+    ]
+  },
+  {
+    "id": "exterior-newton",
+    "title": "A determinant-based Newton step",
+    "family": "Algebraic transformations",
+    "question": "Can antisymmetry produce a nonlinear solver correction efficiently?",
+    "idea": "Apply exterior powers of a Jacobian matrix to implement its adjugate on a residual vector, giving the direction of a Newton correction.",
+    "test": "The success probability is expressed as a product of singular values. Scale and phase recovery, antisymmetric preparation and classical correction readout are charged against adjugate-free classical linear solving.",
+    "outcome": "The normalized branch can be exponentially unlikely in the number of variables even at moderate conditioning. It is the classical cofactor formula implemented as postselected matrix application, not a new solver mechanism.",
+    "survives": "The exact exterior identity and a conditional quantum correction ray remain valid. Recovering its magnitude need not use determinant postselection, but still has an explicit cost.",
+    "remaining": "No motivated family with competitive probability, scale recovery and same classical correction output was found.",
+    "claimIds": [],
+    "sources": [
+      "scouting/original-algebra-round2.md",
+      "verdicts/original-round2-r1.md"
+    ],
+    "disposition": "cost-barrier",
+    "terms": [
+      {
+        "term": "Jacobian matrix",
+        "meaning": "The matrix of first derivatives of a system of equations."
+      },
+      {
+        "term": "Exterior power",
+        "meaning": "An antisymmetric tensor operation that naturally produces determinants and minors."
+      }
+    ]
+  },
+  {
+    "id": "difference-jets",
+    "title": "Extracting collision jets by cancellation",
+    "family": "Algebraic transformations",
+    "question": "Can interference isolate the higher derivatives hidden when points merge?",
+    "idea": "Superpose nearby prepared states with finite-difference coefficients so lower-order terms cancel and a selected derivative remains.",
+    "test": "The coefficient one-norm and small-separation asymptotics are included in the herald probability, and a common phase convention across the preparation circuits is required.",
+    "outcome": "The desired derivative signal scales like the separation to twice its order, with an additional finite-difference normalization cost. The circuit is a standard linear combination of unitaries applied to finite differences.",
+    "survives": "The cancellation formula is a legitimate conditional derivative-state construction with coherently aligned access.",
+    "remaining": "An efficient original jet extractor would need a different operation or a different information-bearing input. Merely adding amplification does not meet the originality requirement.",
+    "claimIds": [],
+    "sources": [
+      "scouting/original-algebra-round2.md",
+      "verdicts/original-round2-r1.md"
+    ],
+    "disposition": "known-mechanism",
+    "terms": [
+      {
+        "term": "Jet",
+        "meaning": "A finite list of derivatives describing a function or geometric object near a point."
+      }
+    ]
+  },
+  {
+    "id": "nilpotent-transport",
+    "title": "Coordinate changes on infinitesimal neighborhoods",
+    "family": "Algebraic transformations",
+    "question": "Can a change of algebraic chart be applied to a quantum coefficient state without losing its normalization?",
+    "idea": "Encode C[x₁,…,xᵣ]/(x₁³,…,xᵣ³) in r qutrits and implement xᵢ↦xᵢ+xᵢ² as a local filter. Try retaining failed chart labels and balancing invariant magnitudes.",
+    "test": "An exact universal Kraus-map argument fixes the worst-input success ceiling at φ⁻⁴ʳ, where φ is the golden ratio. A determinant-based invariant gives an adaptive average-monotonicity bound for the chart-recycling proposal.",
+    "outcome": "The algebraic coordinate map exists but is not unitary in the supplied metric. Chart labels do not supply free recovery of a small invariant. Product and low-bond-dimension tensor-network inputs admit direct classical samplers.",
+    "survives": "The normalization bound applies to exact universal transport, and the invariant argument precisely limits the specified local balancing protocol.",
+    "remaining": "Approximate, promised-input or more general nonlocal protocols are not ruled out. A succinct arbitrary quantum preparation circuit alone does not establish a geometry-specific speedup.",
+    "claimIds": [],
+    "sources": [
+      "scouting/original-astra-round2.md"
+    ],
+    "disposition": "cost-barrier",
+    "terms": []
+  },
+  {
+    "id": "bundle-sewing",
+    "title": "Sewing vector-bundle fibres by teleportation",
+    "family": "Algebraic transformations",
+    "question": "Can algebraic chart transitions create a new coherent transport algorithm?",
+    "idea": "Represent transitions between vector-bundle charts by resource states and use teleportation byproducts as chart changes.",
+    "test": "The audit distinguishes a bundle cocycle from a connection, checks nonunitary transition matrices and their correction costs, and compares explicit matrix-vector propagation.",
+    "outcome": "A cocycle at one point closes to the identity and does not by itself define interesting holonomy. General transition matrices are nonunitary; interpreting a correction as a chart label does not physically apply it.",
+    "survives": "With suitable unitary transport and charged resources, the construction is ordinary gate teleportation and feed-forward.",
+    "remaining": "A meaningful intrinsic output, a supplied or constructed connection, efficient equation-level resource preparation and an original operation remain missing.",
+    "claimIds": [],
+    "sources": [
+      "scouting/original-astra-round2.md"
+    ],
+    "disposition": "known-mechanism",
+    "terms": [
+      {
+        "term": "Vector bundle",
+        "meaning": "A vector space attached continuously or algebraically to each point of a base."
+      },
+      {
+        "term": "Connection",
+        "meaning": "Extra data specifying how vectors are transported between different points."
+      }
+    ]
+  },
+  {
+    "id": "correspondence-fusion",
+    "title": "Combining geometric histories and comparing their order",
+    "family": "Algebraic transformations",
+    "question": "Does coherent composition of algebraic correspondences reveal new computational power?",
+    "idea": "Prepare labelled paths through finite correspondences and erase the history to sum endpoint amplitudes; separately, interfere two orders of birational coordinate transformations.",
+    "test": "For positive path weights, a classical two-history collision test has exactly the same conditional endpoint law and success probability when matched history sampling is supplied. Signed histories are identified as a standard linear-combination circuit.",
+    "outcome": "Positive fusion has a matched classical sampler under the stated access assumption. Signed fusion is a known path-sum mechanism; order comparison is an ordinary controlled circuit or the known quantum switch, depending on oracle access.",
+    "survives": "The derived laws clarify where coherent cancellation enters and where retaining a label prevents it. Symbolic composition and randomized polynomial identity tests are relevant classical order comparators.",
+    "remaining": "No natural family with cheap history access, useful success probability and an original mechanism was established. Quantum preparation by itself does not grant a same-cost classical history sampler.",
+    "claimIds": [],
+    "sources": [
+      "scouting/original-broad-round2.md",
+      "verdicts/original-round2-r1.md"
+    ],
+    "disposition": "known-mechanism",
+    "terms": [
+      {
+        "term": "Correspondence",
+        "meaning": "A relation between two geometric spaces that may map a point to several points."
+      },
+      {
+        "term": "Birational map",
+        "meaning": "A rational coordinate transformation invertible on suitable dense open subsets."
+      }
+    ]
+  },
+  {
+    "id": "rational-transduction",
+    "title": "Finite copies implement polynomial maps, with a price",
+    "family": "Algebraic transformations",
+    "question": "What nonlinear geometric maps can a fixed number of identical copies realize?",
+    "idea": "Use a linear Kraus operator on r copies to output homogeneous polynomial coordinates of degree r, hence a projective rational map after normalization.",
+    "test": "The converse expands every accepted output amplitude as a polynomial in the input amplitudes. Coprime minimal coordinates give a copy-degree lower bound, while operator norm fixes the best exact success profile at that degree.",
+    "outcome": "This is a useful structural characterization and conversion lower bound, not a speedup. It is the coherent-output form of the same tensor contraction used for polynomial residual testing.",
+    "survives": "A degree-r map has an exact r-copy realization when its coefficient operator is supplied and properly normalized.",
+    "remaining": "Compilation, success probability and a scalar downstream comparison are separate costs. Returning a state cannot be compared with printing every classical coordinate, and multiple extra-copy branches require their own scope.",
+    "claimIds": [],
+    "sources": [
+      "scouting/original-geometry-round2.md",
+      "verdicts/original-round2-r1.md"
+    ],
+    "disposition": "mathematical-tool",
+    "terms": [
+      {
+        "term": "Projective rational map",
+        "meaning": "A map specified by polynomial coordinate ratios wherever those coordinates do not all vanish."
+      }
+    ]
+  },
+  {
+    "id": "tangent-spectroscopy",
+    "title": "Reading tangent cones by occupation measurements",
+    "family": "Algebraic transformations",
+    "question": "Can a coefficient state reveal how a hypersurface begins near a supplied point?",
+    "idea": "Rotate the supplied point to a reference mode and measure the number of tensor legs outside that mode. The first nonzero sector is the multiplicity; its surviving state encodes the leading transverse polynomial.",
+    "test": "An exact orthogonal decomposition gives probabilities qₖ=binomial(m,k)||Tₖ||² summing to one. The scalar output is compared with applying the same measurement separately to each original coefficient-state copy.",
+    "outcome": "The instrument works and does not require a separate rare filter for every derivative. Its multiplicity bit has the identical allowed single-copy measurement comparator.",
+    "survives": "The tangent-cone state and full derivative-order distribution remain useful outputs. With an explicit sparse polynomial and point, random directional restriction gives a classical scalar multiplicity algorithm.",
+    "remaining": "A quantum-output claim requires a matching downstream task; difficulty simulating an arbitrary supplied point-preparation circuit is not a new geometric mechanism.",
+    "claimIds": [],
+    "sources": [
+      "scouting/original-geometry-round2.md",
+      "verdicts/original-round2-r1.md"
+    ],
+    "disposition": "classical-match",
+    "terms": [
+      {
+        "term": "Multiplicity",
+        "meaning": "The order of the first nonzero term near a point."
+      },
+      {
+        "term": "Tangent cone",
+        "meaning": "The leading homogeneous equations describing the first local shape of a singularity."
+      }
+    ]
+  },
+  {
+    "id": "grassmann-meet",
+    "title": "Fermionic intersection of two subspaces",
+    "family": "Algebraic transformations",
+    "question": "Can antisymmetric states compute a geometric intersection?",
+    "idea": "Encode a subspace by the wedge of an orthonormal basis. Take linear Poincaré duals, wedge the resulting annihilator states and dualize back to represent the intersection.",
+    "test": "The derivation keeps linear duality separate from an antiunitary Hodge-star operation, and computes the exact binomial and principal-angle factors in heralding.",
+    "outcome": "The intersection identity is valid under transversality, but the operation is established exterior multiplication or antisymmetric projection. Its normalization can be poor and explicit subspace frames admit ordinary linear algebra.",
+    "survives": "The physical regressive-product instrument and its angle-dependent success law survive.",
+    "remaining": "Copies of unknown wedge states and explicit basis coordinates are different inputs. No same-output advantage for the supplied decomposable states was established.",
+    "claimIds": [],
+    "sources": [
+      "scouting/original-geometry-round2.md",
+      "verdicts/original-round2-r1.md"
+    ],
+    "disposition": "known-mechanism",
+    "terms": [
+      {
+        "term": "Grassmannian",
+        "meaning": "The space of all subspaces of a fixed dimension."
+      },
+      {
+        "term": "Plücker state",
+        "meaning": "The antisymmetric wedge state representing a subspace independently of its chosen basis."
+      }
+    ]
+  },
+  {
+    "id": "quotient-growth",
+    "title": "Growing quotient states and engineering a reservoir",
+    "family": "Preparation and recovery",
+    "question": "Can local boson addition bypass a tiny quotient-space overlap?",
+    "idea": "Add a boson and project into the next quotient degree; alternatively use balanced raising and lowering jumps whose stationary degree weights are proportional to the Hilbert series.",
+    "test": "The exact success law telescopes to the original h_N/M_N ambient weight. A small ideal shows failure changes the source posterior. A radical quadratic union of coordinate spaces gives an exponentially small reservoir population gap.",
+    "outcome": "The successful growth channel and stationary reservoir state are exact. Neither supplies free local retry nor universal rapid mixing; restarting from vacuum recovers the original overlap cost.",
+    "survives": "The counterexample needs no nilpotents or difficult classical family. It identifies a bottleneck passing through the vacuum between components.",
+    "remaining": "Actual recovery maps or a restricted non-monomial mixing theorem remain open. The gap obstruction is a worst-initial-state result, not a universal lower bound from vacuum.",
+    "claimIds": [],
+    "sources": [
+      "scouting/original-growth-round2.md",
+      "checkers/explore/quotient_growth.py",
+      "checkers/MUTATIONS.md"
+    ],
+    "disposition": "held",
+    "terms": []
+  },
+  {
+    "id": "triangular-recovery",
+    "title": "Syndrome correction that preserves the free coordinates",
+    "family": "Preparation and recovery",
+    "question": "Can measured equation violations be corrected without restarting?",
+    "idea": "For triangular equations xᵢ=gᵢ(xᵢ₊₁,…), measure a syndrome and subtract it. Every corrected branch preserves the unknown state on the free coordinates.",
+    "test": "The branch Kraus maps are shown to be the same graph-encoding isometry times a scalar. Flat examples are checked to see whether they supply such corrections automatically.",
+    "outcome": "This is a real recovery procedure, but direct reversible evaluation prepares the same encoded graph without the artificial rejection cost. Classical free-coordinate sampling gives the same point law.",
+    "survives": "The explicit instrument is a positive example of source-preserving correction. Flatness alone supplies neither equal finite-field fibre sizes nor a global rational section.",
+    "remaining": "General geometric recovery needs its own implementable corrections and cost theorem. The obstruction to a rational section does not forbid arbitrary digital or quantum procedures.",
+    "claimIds": [],
+    "sources": [
+      "scouting/original-recovery-round3.md"
+    ],
+    "disposition": "classical-match",
+    "terms": []
+  },
+  {
+    "id": "mixed-recovery",
+    "title": "Restoring one mixed target is weaker than restoring a ket",
+    "family": "Preparation and recovery",
+    "question": "Can a failed preparation be repaired when only a uniform mixture is required?",
+    "idea": "Dephase and apply explicit random updates on the union of two finite-field graphs, including their unknown overlap, to recover the uniform state.",
+    "test": "A minorization bound proves contraction by at most 3/4 per round regardless of the initial component weights. A direct rejection sampler is then constructed without counting the intersection.",
+    "outcome": "The mixed-state recovery works, but the classical sampler is exact and accepts with probability at least 1/2. Unknown component counts do not make this sampling task hard.",
+    "survives": "This is a concrete counterexample to blanket claims that all recovery is impossible. Symmetry twirling can also recover a prescribed mixture when the action and weights are available.",
+    "remaining": "A hard family would need a quantum update unavailable to the matched classical sampler, not merely an unknown decomposition or a recovery formula.",
+    "claimIds": [],
+    "sources": [
+      "scouting/original-recovery-round3.md"
+    ],
+    "disposition": "classical-match",
+    "terms": []
+  },
+  {
+    "id": "universal-recovery",
+    "title": "The exact price of undoing a failed branch",
+    "family": "Preparation and recovery",
+    "question": "Can retaining coherent syndrome information guarantee inexpensive recovery of every unknown source?",
+    "idea": "Treat the observed branch as an injective contraction F, then allow arbitrary accepted recovery outcomes and fixed ancillas.",
+    "test": "Exact restoration for every input forces each composite accepted map to be a scalar identity. The total joint probability is therefore at most the smallest eigenvalue of F†F, and a normalized inverse attains that bound.",
+    "outcome": "Regular equations and a nilpotent differential do not ensure cheap exact recovery. Two nearly dependent normalized linear equations give an exponentially small restoration probability in coefficient precision.",
+    "survives": "The bound is exact for the stated universal pure-state task and includes adaptive accepted paths.",
+    "remaining": "It does not rule out restoring one prescribed mixed state, approximate recovery, new input copies or useful classical preprocessing. Those are distinct proposals, not exceptions hidden in the proof.",
+    "claimIds": [],
+    "sources": [
+      "scouting/original-recovery-round3.md"
+    ],
+    "disposition": "mathematical-tool",
+    "terms": []
+  },
+  {
+    "id": "flag-galleries",
+    "title": "Coherent walks through finite flags",
+    "family": "Enumerative geometry",
+    "question": "Can a geometric braid relation provide a new sampling operation?",
+    "idea": "Change one subspace of a finite flag at a time and build unitary weighted sums over flag galleries.",
+    "test": "The first constant affine unitarization fails. A parameter-dependent spectral operation succeeds and is then identified exactly with known Hecke Baxterization. Bruhat-cell compression and a large-field concentration bound give classical attacks.",
+    "outcome": "The circuit is valid but its central mechanism is prior art. For short words relative to √q, its output is close to simply returning the starting flag; ordinary enumerative counting is a different, nonunitary limit.",
+    "survives": "The exact unitary formula and braid identity provide a concrete geometry-to-circuit example.",
+    "remaining": "Growing-rank regimes can evade the simple large-field approximation, but they do not evade the exact mechanism identification. No advantageous count-recovery theorem is supplied.",
+    "claimIds": [],
+    "sources": [
+      "scouting/original-enumerative-round3.md"
+    ],
+    "disposition": "known-mechanism",
+    "terms": [
+      {
+        "term": "Flag",
+        "meaning": "A nested sequence of subspaces, one inside the next."
+      },
+      {
+        "term": "Hecke algebra",
+        "meaning": "An algebra encoding adjacency and braid-like relations among flags."
+      },
+      {
+        "term": "Baxterization",
+        "meaning": "A known construction of parameter-dependent operators satisfying a Yang–Baxter relation."
+      }
+    ]
+  },
+  {
+    "id": "demazure-measurement",
+    "title": "Why geometric pushforward is not automatically a measurement",
+    "family": "Enumerative geometry",
+    "question": "Can an idempotent algebraic operation be made into an orthogonal projector by changing the metric?",
+    "idea": "Try to realize the Demazure pushforward operators of K-theory as a sequence of projective quantum measurements.",
+    "test": "A small explicit pair is idempotent and satisfies the braid relation but does not commute. The audit proves orthogonal projectors satisfying that same relation must commute.",
+    "outcome": "No positive Hermitian metric can turn that pair into the proposed orthogonal-projector circuit while preserving its algebraic action.",
+    "survives": "The obstruction cleanly distinguishes algebraic idempotence from physically orthogonal projection.",
+    "remaining": "Multiple gates, ancillas, special input promises or different observables are not excluded, but none was developed into an advantageous algorithm here.",
+    "claimIds": [],
+    "sources": [
+      "scouting/original-enumerative-round3.md"
+    ],
+    "disposition": "cost-barrier",
+    "terms": [
+      {
+        "term": "Pushforward",
+        "meaning": "An operation combining information over the fibres of a map."
+      },
+      {
+        "term": "Idempotent",
+        "meaning": "An operator satisfying P²=P; it need not be an orthogonal measurement projector."
+      }
+    ]
+  },
+  {
+    "id": "residue-metrics",
+    "title": "Residues survive collisions; an evaluation encoding may not",
+    "family": "Residues",
+    "question": "Can a Jacobian-weighted quantum state recover algebraic residues near merging roots?",
+    "idea": "Transport values through a polynomial map and coherently sum g(x)/J(x) over inverse branches.",
+    "test": "Real half-density, complex-volume half-density, unweighted evaluation and canonical-form encodings are given different normalization factors. A two-root family has a finite residue but almost indistinguishable normalized evaluation states.",
+    "outcome": "The residue’s algebraic cancellation is intact. In the specific copies-only evaluation encoding, the residue bit requires Ω(t⁻²) copies as the roots approach at scale t, even for collective measurements.",
+    "survives": "The local-duality calculation identifies the derivative information missing from root values at collision and keeps positive Hilbert metrics distinct from bilinear residue pairings.",
+    "remaining": "The lower bound does not apply to explicit coefficients, arithmetic circuits, reversible value access or preparation-and-inverse oracles. It is an encoding obstruction, not intrinsic residue hardness.",
+    "claimIds": [],
+    "sources": [
+      "scouting/original-residue-round3.md",
+      "verdicts/residue-packets-r1.md"
+    ],
+    "disposition": "cost-barrier",
+    "terms": [
+      {
+        "term": "Residue",
+        "meaning": "A weighted local contribution, often expressible as values divided by a Jacobian determinant, whose sum can encode global algebraic data."
+      },
+      {
+        "term": "Half-density",
+        "meaning": "An amplitude weighted by a square root of a volume factor so coordinate changes can preserve a norm."
+      }
+    ]
+  },
+  {
+    "id": "residue-division",
+    "title": "Residue packets by reversible integer division",
+    "family": "Residues",
+    "question": "Can exact residue cancellation become a deterministic label operation?",
+    "idea": "For a monomial cover z↦zᵈ in the disk Bergman metric, separate coefficient indices by quotient and remainder. The residue branch becomes integer division on suitable indices.",
+    "test": "The full instrument and sparse-list classical sampler are derived. Interleaving disk automorphisms is audited with the actual weighted metrics of every retained remainder branch.",
+    "outcome": "The monomial residue operation is exact and classically matched under sparse coefficient access. Remainder branches live in different weighted function spaces; applying the ordinary Bergman pullback to all of them is not unitary.",
+    "survives": "The branch-metric decomposition and a properly normalized arithmetic instrument survive.",
+    "remaining": "A nonmonomial all-branch extension must transport weights and branch data and charge high-energy gate synthesis. Declaring a common coefficient register changes the task and does not establish those missing bounds.",
+    "claimIds": [],
+    "sources": [
+      "scouting/original-residue-round3.md",
+      "verdicts/residue-packets-r1.md"
+    ],
+    "disposition": "held",
+    "terms": [
+      {
+        "term": "Bergman metric",
+        "meaning": "The inner product obtained by integrating squared analytic functions over a domain."
+      }
+    ]
+  },
+  {
+    "id": "residue-photon-counts",
+    "title": "A normalized residue sampler that is boson sampling",
+    "family": "Residues",
+    "question": "Can photon-number readout sample a useful family of local residues?",
+    "idea": "Encode a normalized family of residue coefficients into a many-boson optical transformation and measure occupations.",
+    "test": "The probability normalization and full circuit are derived, then compared with the exact boson-sampling operation and its classical sequential-sampling baselines.",
+    "outcome": "The physical sampler works, but it is exactly an existing boson-sampling mechanism. Sampling occupations is a different output from estimating a chosen rare residue or its complex phase.",
+    "survives": "A genuine algebraic interpretation of the normalized optical law survives.",
+    "remaining": "An original same-output algorithm needs more than a new residue interpretation; relative accuracy, rare-event probability and phase access need separate analysis.",
+    "claimIds": [],
+    "sources": [
+      "scouting/original-residue-round3.md",
+      "verdicts/residue-packets-r1.md"
+    ],
+    "disposition": "known-mechanism",
+    "terms": []
+  },
+  {
+    "id": "chow-foulkes",
+    "title": "Chow support: the right span with the wrong gap",
+    "family": "Tensor geometry",
+    "question": "Can row and column symmetrization efficiently test a product of linear forms?",
+    "idea": "Arrange copies in a rectangle, symmetrize each row and column, and use the resulting Foulkes compression to access powers of split forms.",
+    "test": "The support identity is proved for every copy count. An orthogonally split form turns its Rayleigh quotient into a classical permutation-table probability and yields an exponentially small positive eigenvalue at t=m+1.",
+    "outcome": "Correct support does not imply a useful filter. Generic bounded-polynomial filtering of this normalized operator can require exponential degree. Exact universal recovery of the same unknown Chow source after its specific failure branch is also obstructed.",
+    "survives": "The span identity, explicit probability law and scoped recovery theorem are mathematical products.",
+    "remaining": "The results do not exclude approximate recovery, fresh copies, supplied factors or a different Chow measurement. They do defeat the displayed free-retry and generic-gap repairs.",
+    "claimIds": [],
+    "sources": [
+      "scouting/chow-foulkes-audit.md"
+    ],
+    "disposition": "cost-barrier",
+    "terms": [
+      {
+        "term": "Chow variety",
+        "meaning": "Here, the set of homogeneous polynomials that factor completely into linear forms."
+      },
+      {
+        "term": "Support of an operator",
+        "meaning": "The subspace spanned by eigenvectors with nonzero eigenvalues."
+      }
+    ]
+  },
+  {
+    "id": "secant-trine",
+    "title": "The three-copy trine-cat secant tester",
+    "family": "Tensor geometry",
+    "question": "Can a collective measurement recognize sums of two product states?",
+    "idea": "Decompose three copies locally by permutation symmetry and measure a surviving multiplicity line represented by a sum of three product vectors, the trine cat.",
+    "test": "An explicit small-memory circuit implements the projector. Exact cubic equations and a finite-dimensional robustness argument connect it to second-secant membership; a separate single-copy lower-bound transfer is explored.",
+    "outcome": "The measurement is mathematically useful, but random-cut exterior-rank tests match its rejection within a factor of eight. Local-type reweighting estimates the same residual. The original-mechanism assertion fails.",
+    "survives": "The cubic-span derivation, explicit projector and fixed-party distance-testing statement survive at their registry scopes.",
+    "remaining": "The residual promise must not be silently replaced by a uniform geometric-distance bound in growing party count. The independent lower-bound direction remains at its registered status and does not restore originality.",
+    "claimIds": [
+      "C-335",
+      "C-336",
+      "C-337",
+      "C-338"
+    ],
+    "sources": [
+      "argument/secant-three-copy.md",
+      "definitions/secant-three-copy.md",
+      "scouting/secant-single-copy-baseline.md",
+      "verdicts/secant-three-copy-r1.md"
+    ],
+    "disposition": "known-mechanism",
+    "terms": []
+  },
+  {
+    "id": "strassen-four-copy",
+    "title": "Four copies detect more than flattening rank",
+    "family": "Tensor geometry",
+    "question": "Can an equation invisible to simple matrix ranks produce a new tester?",
+    "idea": "For three-party tensors of border rank at most three, combine local alternating blocks with the joint Strassen quartic block in four copies.",
+    "test": "A 3×3×3 example has all flattening ranks three but violates the Strassen commutator equation. Character calculations identify the exact accepted span and its perfect-completeness scope.",
+    "outcome": "The test detects information flattening ranks miss. Its circuit nevertheless reduces to local weak-Schur measurements and classical label processing, or an equivalent bounded-normalization permutation network.",
+    "survives": "The exact four-copy equation measurement and scoped optimality among perfect-completeness tests remain valid.",
+    "remaining": "Moving beyond flattening equations does not itself establish a new quantum mechanism. Broader tensor families and robust complexity require separate theorems.",
+    "claimIds": [],
+    "sources": [
+      "verdicts/strassen-four-copy-r1.md"
+    ],
+    "disposition": "known-mechanism",
+    "terms": [
+      {
+        "term": "Flattening",
+        "meaning": "Viewing a tensor as a matrix by grouping some indices as rows and the rest as columns."
+      },
+      {
+        "term": "Strassen quartics",
+        "meaning": "Degree-four tensor equations detecting constraints beyond simple flattening ranks."
+      }
+    ]
+  },
+  {
+    "id": "secant-pair-gap",
+    "title": "Pair-product support with a sharp four-copy gap",
+    "family": "Tensor geometry",
+    "question": "Can a simple pair test recover the full power span of a secant variety?",
+    "idea": "Globally symmetrize a pair-product acceptance projector. For t=r+1 copies, repeated component labels in a rank-r tensor expansion produce exactly the secant power span.",
+    "test": "A representation-theoretic compression covers all local S₄ symmetry types. The nonzero spectrum is bounded uniformly and a specified local-type pattern attains 1/12.",
+    "outcome": "The support identity and sharp uniform four-copy gap are accepted mathematical results. The constant holds across party counts and local dimensions in the stated four-copy problem.",
+    "survives": "This gives a stable support-filter implementation using familiar product-test operations.",
+    "remaining": "The uniform 1/12 statement is not asserted for every larger copy count. Generic support filtering implements the algorithmic consequence and does not meet the originality requirement.",
+    "claimIds": [
+      "C-339",
+      "C-340",
+      "C-341"
+    ],
+    "sources": [
+      "scouting/secant-pair-support.md",
+      "definitions/secant-pair-support.md",
+      "verdicts/secant-pair-support-r1.md"
+    ],
+    "disposition": "mathematical-tool",
+    "terms": []
+  },
+  {
+    "id": "waring-rank-two",
+    "title": "Fusing copies into hidden-component packets",
+    "family": "Waring components",
+    "question": "Can copies of a symmetric tensor reveal its unknown component states without learning their coordinates?",
+    "idea": "For T=cᵤu⊗k+cᵥv⊗k, antisymmetrize selected registers from two sources to eliminate repeated labels, then fuse the surviving packets into larger correlated blocks.",
+    "test": "The exact seed, overlap-dependent norms, sign conventions and recursive expected costs are derived. An unknown injective map from two logical basis vectors to u,v identifies the entire network with redundant GHZ/Bell fusion.",
+    "outcome": "The component-packet conversion works and can yield an unlabeled component mixture. Its rank-two mechanism is known Bell fusion in a nonorthogonal encoding and fails the originality requirement.",
+    "survives": "The exact quantum-input/quantum-output conversion and small optical diagnostic survive. A component packet is a physical state, not a printed Waring decomposition.",
+    "remaining": "Any advantage must compare the same downstream measured output under the same source access. The higher-rank variant needs its own resource audit, supplied by the later coded construction.",
+    "claimIds": [],
+    "sources": [
+      "scouting/fresh-mechanism-round4.md",
+      "verdicts/waring-fusion-r1.md",
+      "definitions/waring-components.md"
+    ],
+    "disposition": "known-mechanism",
+    "terms": [
+      {
+        "term": "Waring decomposition",
+        "meaning": "Writing a symmetric tensor as a sum of powers u⊗k of component vectors."
+      },
+      {
+        "term": "Component packet",
+        "meaning": "Several registers coherently correlated with the same hidden component label."
+      }
+    ]
+  },
+  {
+    "id": "coded-waring",
+    "title": "Binary guards reduce fusion overhead, but the seed is costly",
+    "family": "Waring components",
+    "question": "Can higher-rank components be synchronized with fewer comparisons?",
+    "idea": "Give r packet rows distinct binary signatures. A complementary-row antisymmetric guard for each bit forces the two hidden permutations to agree.",
+    "test": "The exact fusion probability and parity are derived, and a signature argument proves ⌈log₂r⌉ guards are minimal within that specified complementary-row model. The seed probability is identified with the product of the one-slot marginal’s nonzero eigenvalues.",
+    "outcome": "The coding improvement is real, but the prescribed seed succeeds with probability at most r⁻ʳ and costs at least rʳ⁺¹ source copies in expectation. This is not an algorithm polynomial in growing rank.",
+    "survives": "Explicit formulas, attainable packet degrees, finite execution caps and resource bounds survive. The argument correctly handles nonorthogonal components and potentially large normalized coefficients.",
+    "remaining": "The guard minimality is not a lower bound for arbitrary quantum instruments. Universal all-distinct comparisons and classically selected routing implement the whole schedule, so the composition fails originality.",
+    "claimIds": [
+      "C-342",
+      "C-343",
+      "C-344",
+      "C-346"
+    ],
+    "sources": [
+      "scouting/waring-coded-fusion.md",
+      "verdicts/waring-coded-fusion-r1.md",
+      "definitions/waring-components.md"
+    ],
+    "disposition": "known-mechanism",
+    "terms": []
+  },
+  {
+    "id": "waring-copy-separation",
+    "title": "A genuine Waring copy separation with the same output bit",
+    "family": "Waring components",
+    "question": "Can joint measurements beat every adaptive measurement of one complete source at a time?",
+    "idea": "Receive copies of a rank-four, order-four symmetric tensor with unknown independent components in Cᵈ⊗Cᵈ. Decide whether every component matrix has rank at most four or the mean squared-minor residual Γ is at least 10⁻⁶.",
+    "test": "The source promises G≥I/2 and seed probability at least 1/512 are explicit. A direct tester uses five original copies per trial, two antisymmetric comparisons and a five-A-register rank measurement. A full adaptive-transcript lower bound uses hidden frames and moment-matched component spectra.",
+    "outcome": "The same-bit-output separation is accepted: the collective quantum upper uses a number of original copies independent of q=d², whereas every allowed adaptive global single-original-copy strategy needs at least q¹ᐟ⁴/(4√24). Unlimited classical computation and memory are allowed in that comparator.",
+    "survives": "The event is exactly zero on the zero-residual case and at least (9/2³¹)Γ otherwise. A sufficient conservative budget, including an implementation margin, is 2,137,652,311,842,450 original copies. This is an impractical upper bound, not a minimum or an experimental prescription.",
+    "remaining": "Known comparison and programmable-discrimination operations implement the tester; the result does not satisfy the project’s originality requirement. It is a quantum-data separation, not a speedup for a classical coefficient list. The direct event decides the zero-versus-gap promise; it is not an unbiased estimator of Γ or a balanced component-mixture preparation.",
+    "claimIds": [
+      "C-345",
+      "C-347"
+    ],
+    "sources": [
+      "scouting/waring-terminal-baseline.md",
+      "scouting/waring-programmable-tester.md",
+      "verdicts/waring-terminal-baseline-r1.md",
+      "verdicts/waring-programmable-tester-r1.md",
+      "definitions/waring-components.md"
+    ],
+    "disposition": "known-mechanism",
+    "terms": [
+      {
+        "term": "Determinantal condition",
+        "meaning": "A rank constraint expressed by the vanishing of matrix minors."
+      },
+      {
+        "term": "Original source copy",
+        "meaning": "One entire supplied tensor T, including all its component slots and internal A/B registers."
+      },
+      {
+        "term": "Γ residual",
+        "meaning": "The average fifth elementary symmetric polynomial of the components’ A-marginal eigenvalues; zero means all component matrices have rank at most four."
+      }
+    ]
+  },
+  {
+    "id": "waring-batch-minimum",
+    "title": "What “five copies are necessary” actually means",
+    "family": "Waring components",
+    "question": "Is the direct Waring batch size optimal?",
+    "idea": "Compare tests that never reject any promised zero-residual input, with exactly ideal perfect completeness.",
+    "test": "A span and polarization argument shows that at most four original copies of the allowed zero-residual family fill the corresponding symmetric input space. Any rejection effect vanishing there must vanish on every pure source.",
+    "outcome": "Five is the least batch size admitting a nontrivial exact-perfect-completeness test for this task. The direct five-copy measurement attains that scoped threshold.",
+    "survives": "This is a quantum measurement lower bound with a precise geometric promise.",
+    "remaining": "It is not a lower bound for two-sided-error tests and does not make the enormous total-copy budget optimal. An internal register is not an additional original source copy.",
+    "claimIds": [
+      "C-348"
+    ],
+    "sources": [
+      "scouting/waring-programmable-tester.md",
+      "verdicts/waring-programmable-tester-r1.md",
+      "definitions/waring-components.md"
+    ],
+    "disposition": "mathematical-tool",
+    "terms": []
+  },
+  {
+    "id": "incidence-scattering",
+    "title": "Finite-plane incidence becomes a Fourier transform",
+    "family": "Intrinsic geometry",
+    "question": "Can incidence counts of a curve be converted into a new unitary sampler?",
+    "idea": "Center and normalize the point-line incidence matrix of a finite projective plane to make an orthogonal point-to-line transform, then apply it to the graph of an explicit polynomial.",
+    "test": "The exact design identity gives unitarity. A Fourier decomposition identifies the operation, while a classical rejection sampler needs at most three proposals on average and polynomial root-counting work.",
+    "outcome": "The centered intersection-count sampler has a matched efficient classical attack and its quantum operation is a Fourier/Radon construction. The affine graph and the projective closure are different inputs and were kept separate.",
+    "survives": "The exact transform and full conditional sampling law survive. A nonlinear translation-plane variant still becomes a Walsh transform plus a row permutation in each character block.",
+    "remaining": "For that variant, efficient forward evaluation does not imply efficient clean inversion of the row permutation. Neither a missing inverse oracle nor a new finite-plane label establishes an original algebraic-geometric mechanism.",
+    "claimIds": [],
+    "sources": [
+      "scouting/intrinsic-geometry-round4.md"
+    ],
+    "disposition": "classical-match",
+    "terms": []
+  },
+  {
+    "id": "rare-jet-source",
+    "title": "A geometric containment bit hidden in a rare jet",
+    "family": "Degeneration and reconstruction",
+    "question": "Can a labelled family of nearby points reveal its limiting infinitesimal direction cheaply?",
+    "idea": "Use a source whose orthogonal jet components have amplitudes 1,t,…,tʳ. Fourier-decode the known labels and try to flatten the weights before testing containment of the limiting scheme in a supplied hyperplane.",
+    "test": "Conjugations, label phases and the geometric hyperplane are fixed explicitly. Two sources differing only in their top jet give a trace-distance lower bound, and a direct hyperplane measurement supplies the matching upper bound.",
+    "outcome": "The bit has collective copy complexity Θ(Z_t/t²ʳ). Equalizing all D jet weights succeeds with probability D t²ʳ/Z_t, so normalization does not reveal the hidden direction for free.",
+    "survives": "This is a matched information obstruction for the specified source family, even though the target bit is simple.",
+    "remaining": "Preparation-and-inverse access is not covered by the copy lower bound. Other degeneration algorithms need a materially different source or processing step.",
+    "claimIds": [
+      "C-349"
+    ],
+    "sources": [
+      "scouting/degeneration-mechanism-r5.md",
+      "definitions/mechanism-r5.md",
+      "verdicts/degeneration-mechanism-r5.md"
+    ],
+    "disposition": "cost-barrier",
+    "terms": []
+  },
+  {
+    "id": "retained-bath",
+    "title": "Keeping failed amplitudes changes the multiplication",
+    "family": "Degeneration and reconstruction",
+    "question": "Can a unitary dilation retain every branch while preserving quotient multiplication and root monodromy?",
+    "idea": "Complete multiplication by z in C[z]/(zᴰ−τ) to a unitary using one bath state; then compare repeated use with a fresh bath at every step.",
+    "test": "The second-power compression, characteristic polynomial, return recurrence and a small parameter loop are calculated exactly. Fresh-bath induction gives the full retained-exit state.",
+    "outcome": "A single bath feeds amplitude back and does not preserve all multiplication powers or the root permutation under a small loop. Fresh baths do preserve the compressed powers, but the natural exit law is a classically samplable truncated geometric distribution.",
+    "survives": "The exact dilation discrepancy, faithful finite-horizon fresh-bath construction and charged storage bound survive.",
+    "remaining": "An arbitrary extra quantum readout circuit creates a different computation problem. Retained history alone is not free multiplication, recovery or a new geometric mechanism.",
+    "claimIds": [
+      "C-350"
+    ],
+    "sources": [
+      "scouting/degeneration-mechanism-r5.md",
+      "definitions/mechanism-r5.md",
+      "verdicts/degeneration-mechanism-r5.md"
+    ],
+    "disposition": "classical-match",
+    "terms": [
+      {
+        "term": "Monodromy",
+        "meaning": "The permutation or transport of solutions after the parameters follow a closed loop."
+      }
+    ]
+  },
+  {
+    "id": "trinomial-coproduct",
+    "title": "An exponentially large quotient with an exact classical sampler",
+    "family": "Degeneration and reconstruction",
+    "question": "Can reverse multiplication be compiled directly from sparse equations rather than a huge table?",
+    "idea": "For f=xᴰ−ax−b with D=2ⁿ, compile the adjoint multiplication from three interval sums on binary exponent labels. Its action copies normalized conjugate root columns conditionally.",
+    "test": "The circuit is constructed without roots, a normal-form oracle or a multiplication table. For rational 0≤a≤1/4 and b=1, the tree experiment starting at |D−1> is analyzed through its supported exponent sums and bounded-composition counts.",
+    "outcome": "Equation-level compilation succeeds. The entire displayed conditional tuple law and herald probability also have polynomial-bit classical algorithms, with expected polynomial time for exact randomized sampling.",
+    "survives": "The root diagnostic has a success lower bound of 1/9 on the stated family. The O(m²) supported exponent sums explain why the enormous ambient quotient does not create a hard sampler.",
+    "remaining": "The classical result is scoped to the specified input and terminal experiment; arbitrary initial circuit states or readouts are different tasks. This family does not supply a new mechanism or advantage.",
+    "claimIds": [
+      "C-351"
+    ],
+    "sources": [
+      "scouting/reconstruction-mechanism-r5.md",
+      "definitions/mechanism-r5.md",
+      "verdicts/reconstruction-mechanism-r5.md"
+    ],
+    "disposition": "classical-match",
+    "terms": []
+  },
+  {
+    "id": "grassmann-streaming",
+    "title": "A small classical sketch matches a streamed incidence query",
+    "family": "Streaming geometry",
+    "question": "Must a classical algorithm store every basis vector to answer a late subspace query?",
+    "idea": "Build a Slater state from streamed orthonormal vectors, then test whether a late query lies in their span or its orthogonal complement.",
+    "test": "A classical bilinear sign sketch stores gᵀP_Uh and combines it with the late query. Four-wise independence makes it unbiased with variance at most 9k; the full accumulator and seed bit costs are charged.",
+    "outcome": "For a single seed-independent query, O(k) numeric words at constant error suffice classically, replacing the tempting kq-entry baseline. Familiar fermionic insertion and occupation measurements do not establish the claimed space advantage.",
+    "survives": "The explicit sketch is a useful classical algorithm discovered during the quantum search. A fixed seed-independent list of queries adds only a logarithmic repetition factor.",
+    "remaining": "No unrestricted adaptive-query guarantee is asserted. Exact arithmetic, finite-precision input, quantum loading and temporary storage remain separate parts of the resource model.",
+    "claimIds": [
+      "C-352"
+    ],
+    "sources": [
+      "scouting/grassmann-streaming-r5.md",
+      "definitions/mechanism-r5.md",
+      "verdicts/grassmann-streaming-r5.md"
+    ],
+    "disposition": "classical-match",
+    "terms": []
+  },
+  {
+    "id": "theta-transport",
+    "title": "Theta addition works exactly, but its sectors reveal the known mechanism",
+    "family": "Theta geometry",
+    "question": "Can addition on an abelian variety produce a new coherent state transport?",
+    "idea": "Apply the sum-and-difference isogeny (P,Q)↦(P+Q,P−Q) to theta evaluation states while retaining every character sector.",
+    "test": "The Gaussian cubist metric, theta norms, twisted-sector weights, phases and explicit inverse index circuit are derived and checked even for coupled period matrices. The finite Weyl observables expose a decisive parity split.",
+    "outcome": "The exact transport is accepted, with nonuniform sector probabilities. For even level k, separate-source commuting Weyl measurements and XOR sample the full sector law exactly. For odd k, the readout reduces to logical Bell measurement, with each sector probability at most 2⁻ᵍ.",
+    "survives": "The circuit uses polynomially many gates in genus and logarithmic level after charged source preparation. Under stronger sample-and-query coefficient access, a common-shift-orbit/Walsh sampler reproduces the decoded law in O(g2ᵍ) arithmetic.",
+    "remaining": "That coefficient sampler is not copies-only and does not reproduce arbitrary coherent output. A fixed-sector scalar baseline has margin costs; growing genus can make a fixed positive sector promise empty. Coupled periods do not repair originality.",
+    "claimIds": [
+      "C-353",
+      "C-354"
+    ],
+    "sources": [
+      "scouting/theta-isogeny-r6.md",
+      "definitions/theta-isogeny.md",
+      "verdicts/theta-isogeny-r6.md"
+    ],
+    "disposition": "known-mechanism",
+    "terms": [
+      {
+        "term": "Abelian variety",
+        "meaning": "A projective algebraic variety with a compatible commutative group law."
+      },
+      {
+        "term": "Theta functions",
+        "meaning": "Special functions providing coordinates or sections on a complex torus."
+      },
+      {
+        "term": "Isogeny",
+        "meaning": "A surjective group map with finite kernel."
+      },
+      {
+        "term": "Genus g",
+        "meaning": "Here, the complex dimension of the abelian variety."
+      }
+    ]
+  },
+  {
+    "id": "hall-measures",
+    "title": "Hall extensions: sampling classes and erasing flags",
+    "family": "Hall geometry",
+    "question": "Can geometric extension counts be realized by coherent many-to-one maps?",
+    "idea": "Sample an off-diagonal matrix defining an extension, or coherently forget a flag so amplitudes over its fibre add.",
+    "test": "Endpoint automorphisms and the cardinality of Hom are included in the exact count. The raw forgetting map satisfies TT†=diag(Fᵧ), so its norm is √Fmax. A separately weighted coarea map is compared explicitly.",
+    "outcome": "Uniform matrices give uniform extension classes, not uniformly distributed middle-object isomorphism classes. The rank diagnostic has a direct matrix-sampling/elimination baseline. Raw flag erasure pays the largest fibre size.",
+    "survives": "The corrected Hall measure identity and normalization theorem survive. The weighted coarea map is a coisometry, but it is a different map from the original counting pushforward.",
+    "remaining": "Neither operator identity supplies a cheap coherent fibre transform. Retaining a flag is reversible bookkeeping and does not sum amplitudes over that flag.",
+    "claimIds": [
+      "C-355"
+    ],
+    "sources": [
+      "scouting/hall-extension-r7.md",
+      "definitions/hall-extension.md",
+      "verdicts/hall-extension-r7.md"
+    ],
+    "disposition": "classical-match",
+    "terms": [
+      {
+        "term": "Extension",
+        "meaning": "A larger algebraic representation containing one object as a subobject and another as its quotient."
+      },
+      {
+        "term": "Fibre",
+        "meaning": "All inputs mapped to the same output."
+      },
+      {
+        "term": "Coarea normalization",
+        "meaning": "Weighting each input by the inverse square root of its fibre size."
+      }
+    ]
+  },
+  {
+    "id": "hall-obstruction",
+    "title": "Retaining order reveals a matrix product, classically too",
+    "family": "Hall geometry",
+    "question": "Can a noncommuting extension order detect a geometric obstruction more efficiently?",
+    "idea": "Retain all registers and compose linear shears in two orders. Their commutator adds YXu to an auxiliary register.",
+    "test": "Rank-nullity gives event probability 1−q^(−rank(YX)). A classical uniform vector u followed by Xu and YXu has exactly the same success law, binary arithmetic and working-space scaling.",
+    "outcome": "The geometric obstruction circuit is correct, but the displayed output is matched by a Freivalds-type classical random-vector test. Interfering the two orders gives overlap q^(−rank(YX)) and half the direct detection probability.",
+    "survives": "The retained-label construction demonstrates a nontrivial algebraic order effect without expensive erasure.",
+    "remaining": "Higher path products remain linear in the probe and do not escape this comparator. The comparison does not rule out better algorithms for different Hall problems.",
+    "claimIds": [
+      "C-356"
+    ],
+    "sources": [
+      "scouting/hall-extension-r7.md",
+      "definitions/hall-extension.md",
+      "verdicts/hall-extension-r7.md"
+    ],
+    "disposition": "classical-match",
+    "terms": []
+  },
+  {
+    "id": "octonion-phase",
+    "title": "Octonionic reassociation with retained labels",
+    "family": "Octonionic geometry",
+    "question": "Can nonassociativity become a useful unitary without postselection?",
+    "idea": "Keep three octonion basis labels and uncompute their common product label. The difference between the two bracketings leaves a phase given by a determinant over F₂.",
+    "test": "The multiplication table gives exactly six CCZ gates. Closed flat triangulations are checked for telescoping, and the fixed-frequency output p=b² is compared with estimating the unsquared classical mean b.",
+    "outcome": "The phase operation works, but it is a cubic-phase IQP circuit. Its coboundary telescopes to one on compatible closed flat inputs, and the scalar zero-versus-γ test has a matching O(1/γ) classical sample bound.",
+    "survives": "The exact signed-label identity and its hyperplane-count interpretation survive. No universal classical sampler is asserted for the full IQP output.",
+    "remaining": "A full-distribution hardness claim needs its own family and theorem. Retaining labels does not implement the continuous octonion associator on arbitrary coefficient states.",
+    "claimIds": [
+      "C-357"
+    ],
+    "sources": [
+      "scouting/spinor-mechanism-r7.md",
+      "definitions/octonionic-operations.md",
+      "verdicts/spinor-mechanism-r7.md"
+    ],
+    "disposition": "known-mechanism",
+    "terms": [
+      {
+        "term": "Octonions",
+        "meaning": "An eight-dimensional real algebra whose multiplication is not associative."
+      },
+      {
+        "term": "Associator",
+        "meaning": "The difference (xy)z−x(yz)."
+      },
+      {
+        "term": "Coboundary",
+        "meaning": "A local phase difference built from lower-dimensional data, whose compatible closed product can telescope."
+      }
+    ]
+  },
+  {
+    "id": "octonion-filter",
+    "title": "Actually summing associator amplitudes",
+    "family": "Octonionic geometry",
+    "question": "What changes when the basis labels are erased rather than retained?",
+    "idea": "Compile the complex-linear coefficient map A for the actual continuous octonion associator and normalize it to a physical filter K.",
+    "test": "The exact identity AA†=96(I−|0><0|) yields a rank-seven success projector. Real product inputs and internally entangled two-use inputs are analyzed separately, including finite-gate synthesis.",
+    "outcome": "One use on real unit product inputs succeeds with probability at most 1/24. That bound is not multiplicative: paired internal entanglement gives 7/512 for two uses. Explicit-list and fixed-dimensional copies-only comparators match the displayed O(1/γ) margin scaling.",
+    "survives": "The physically normalized filter and the counterexample to naive tensorization are accepted mathematical results.",
+    "remaining": "Finite synthesis costs grow with requested precision. Neither real norm composition nor one-use success ceilings justify stronger complex-input or many-use claims, and no asymptotic advantage is established.",
+    "claimIds": [
+      "C-358"
+    ],
+    "sources": [
+      "scouting/spinor-mechanism-r7.md",
+      "definitions/octonionic-operations.md",
+      "verdicts/spinor-mechanism-r7.md"
+    ],
+    "disposition": "classical-match",
+    "terms": []
+  },
+  {
+    "id": "schur-root-step",
+    "title": "A two-copy polynomial degree-reduction processor",
+    "family": "Root counting",
+    "question": "Can a classical root-count recurrence become an efficient coherent algorithm?",
+    "idea": "On two identical real coefficient states, form a_d a−a₀Ra, where R reverses coefficients. Its constant term cancels, and deleting that coordinate gives a degree-one-smaller polynomial.",
+    "test": "The exact Kraus operator is a coisometry and has success probability at most 1/2 on identical inputs. Rouché’s theorem verifies both root-count branches under strict endpoint inequalities at every visited stage.",
+    "outcome": "The processor is exact, but the fixed recursion using freshly prepared children has expected cost Cₜ₊₁=2Cₜ/pₜ and therefore Cₜ≥4ᵗ before separate branch readout.",
+    "survives": "A precise degree-changing instrument and its valid classical recurrence survive.",
+    "remaining": "The recursion cost is not a universal lower bound for every root-count algorithm. Absence of boundary roots alone does not ensure all-stage strict pivots; radius rescaling also costs a filter in coefficient-state access.",
+    "claimIds": [
+      "C-359"
+    ],
+    "sources": [
+      "scouting/problem-first-r8.md",
+      "definitions/schur-disk-count.md",
+      "verdicts/problem-first-r8.md"
+    ],
+    "disposition": "cost-barrier",
+    "terms": []
+  },
+  {
+    "id": "disk-count-obstruction",
+    "title": "Separated roots still hide exponentially in coefficient states",
+    "family": "Root counting",
+    "question": "Do well-separated roots and a fixed boundary margin guarantee easy quantum root counting?",
+    "idea": "Compare coefficient-state sources for zᴰ−Rᴰ with R=1/2 or 3/4, and ask for the normalized number of roots inside the circle of radius 5/8.",
+    "test": "The two answers are 1 and 0. Root separation is Θ(1/D), boundary distance is 1/8, and exact source infidelity gives a lower bound for every collective protocol. A rare constant-coefficient measurement gives the matching separate-copy upper bound.",
+    "outcome": "Both optimal collective and separate-measurement copy complexities are Θ((16/9)ᴰ) for this family. Good geometric separation does not fix this coefficient-state information bottleneck.",
+    "survives": "The obstruction concerns a scalar output, so it does not depend on demanding a complete root list.",
+    "remaining": "Explicit rational coefficient bits allow a simple polynomial-bit comparison and are a different input model. Other promised families are not ruled out, but this generic coefficient-state root-sampling shortcut is closed.",
+    "claimIds": [
+      "C-360"
+    ],
+    "sources": [
+      "scouting/problem-first-r8.md",
+      "definitions/schur-disk-count.md",
+      "verdicts/problem-first-r8.md"
+    ],
+    "disposition": "classical-match",
+    "terms": []
+  },
+  {
+    "id": "support-plucker",
+    "title": "Extracting the exact antisymmetric state of an unknown support",
+    "family": "Support geometry",
+    "question": "Can copies of a mixed state yield a pure geometric representation of its support?",
+    "idea": "Given rank-r ρ on Cᵠ with each nonzero eigenvalue at least η/r, measure permutation-symmetry tableaux, steer to a path whose first column has r boxes, and retain its r antisymmetric registers.",
+    "test": "The full representation factor is preserved through nondemolition label measurements and retry steps. N=⌈2r²/η⌉ sources per batch yield an r-row shape with probability at least 1/2. A final exact signed-permutation certificate repairs approximate ancilla-phase synthesis.",
+    "outcome": "The accepted output is exactly the support Slater ray, with O((r²/η)log(1/δ)) source copies and a conservative gate bound polynomial in rank and logarithmic in ambient dimension. This exactness assumes ideal source support and noiseless finite gates with exact controlled permutations.",
+    "survives": "Coordinate measurement samples the projection DPP det(P_U[J,J]). A rank-two, three-copy recycling diagnostic succeeds with probability 7/16 for a flat source and one recycle, using no fresh copies during that retry.",
+    "remaining": "Generalized phase estimation, multiplicity reset and signed-permutation certification implement the same operation; a rank-two purification ancestor is also known. The mathematical conversion survives, but the mechanism fails originality. Arbitrary physical noise is not covered by support preservation.",
+    "claimIds": [
+      "C-361",
+      "C-364"
+    ],
+    "sources": [
+      "scouting/support-plucker-r9.md",
+      "definitions/support-plucker.md",
+      "verdicts/support-plucker-r9.md"
+    ],
+    "disposition": "known-mechanism",
+    "terms": [
+      {
+        "term": "Slater state",
+        "meaning": "The normalized antisymmetric wedge of an orthonormal support basis."
+      },
+      {
+        "term": "Young tableau",
+        "meaning": "A combinatorial label organizing how permutation symmetry is built as registers are added."
+      },
+      {
+        "term": "Projection DPP",
+        "meaning": "A probability law on r coordinate indices whose weight is the corresponding principal determinant of a rank-r support projector."
+      }
+    ]
+  },
+  {
+    "id": "dpp-copy-separation",
+    "title": "DPP sampling has a real copy separation; known coordinates change the task",
+    "family": "Support geometry",
+    "question": "Does classical determinantal sampling eliminate the support-state advantage?",
+    "idea": "Compare the collective support sampler with arbitrary adaptive measurements on one complete ρ copy at a time, allowing unlimited classical memory and computation but no quantum memory between copies.",
+    "test": "A rank-two hidden-block pair in q=2d dimensions has cross-block DPP probability 1 versus 1/2. A full coherent-transcript Haar/Gaussian argument gives TV≤T(T−1)/d for T separate-copy measurements, rather than relying only on matching one-copy averages.",
+    "outcome": "Always-output approximate DPP sampling to constant total-variation error needs Ω(√q) separate copies, while collective rank-two sampling has a dimension-independent copy bound. The associated decision bit has matching Θ(√q) separate-copy complexity and a known constant-copy antisymmetric quantum test.",
+    "survives": "A distinct exact argument rules out any nonzero exact separable copies-only sampler for 2≤r<q, even with failure flags or almost-sure finite stopping. The familiar sequential classical DPP sampler needs a supplied kernel or support basis, which copies do not provide.",
+    "remaining": "The quantitative lower bound uses a fixed total copy cap, not an expected stopping-time budget. Rank one and full support are excluded from exact impossibility. The advantage is genuine in copies, but known comparison and representation-processing mechanisms still fail the project’s originality requirement.",
+    "claimIds": [
+      "C-362",
+      "C-363",
+      "C-364"
+    ],
+    "sources": [
+      "scouting/support-plucker-classical-r9.md",
+      "scouting/support-plucker-r9.md",
+      "definitions/support-plucker.md",
+      "verdicts/support-plucker-r9.md"
+    ],
+    "disposition": "known-mechanism",
+    "terms": []
+  },
+  {
+    "id": "moment-map-spinor-probes",
+    "title": "Moment-map flow and pure-spinor side probes",
+    "family": "Bounded side probes",
+    "question": "Do other intrinsic state geometries supply a new processing mechanism?",
+    "idea": "The root explored a three-copy commutator flow driven by reduced-state purity, and a separate fermionic pure-spinor test based on Majorana operators, Bell readout or convolution.",
+    "test": "The session handoff and persistent research record identify the derived flow with known double-bracket imaginary-time methods and the fermionic tests with already described Bell/convolution procedures. A bounded complex-state fixture corrected the flow’s sign.",
+    "outcome": "Neither bounded side probe yielded an original mechanism. These observations were retained as anti-rediscovery context, without asserting a new formal claim in the registry.",
+    "survives": "The operations connect symmetry-based geometry to measurable quantum-state properties. The flow also exposes the cost of needing fresh copies of the updated state, along with mixedness and correlations after finite steps.",
+    "remaining": "A different operation is required before reopening these as originality candidates. No universal impossibility theorem for moment-map or spinor algorithms is implied.",
+    "claimIds": [],
+    "sources": [
+      "HANDOFF.md",
+      "briefs/problem-first-r8.md"
+    ],
+    "disposition": "known-mechanism",
+    "terms": [
+      {
+        "term": "Moment-map purity flow",
+        "meaning": "A state evolution intended to adjust reduced-state spectra using a symmetry-related geometric objective."
+      },
+      {
+        "term": "Pure spinor",
+        "meaning": "A geometric description closely connected here to pure fermionic Gaussian states."
+      }
+    ]
+  }
+]

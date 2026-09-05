@@ -1,0 +1,932 @@
+[
+  {
+    "id": "fock-dictionary",
+    "title": "Polynomials as bosonic ground spaces",
+    "family": "Foundations",
+    "question": "Can equations defining a shape become a quantum Hamiltonian?",
+    "idea": "Encode homogeneous degree-N polynomials as N identical bosons in n+1 modes. Multiplication by each equation and its adjoint form a positive Hamiltonian H = ΦΦ†. Its zero-energy space is the orthogonal complement of the degree-N ideal; its dimension is the Hilbert function.",
+    "test": "The seed was unpacked into separately addressable claims, with explicit monomial norms, coefficient conjugation, small conic examples and comparisons between Fock, Bombieri–Weyl and sphere conventions.",
+    "outcome": "The dictionary gives a compact representation and a precise linear-algebra problem. It does not make finding or measuring the ground space efficient by itself.",
+    "survives": "A point x satisfying the equations gives the coherent state |conjugate(x)>⊗N. The quotient ring is represented as a vector space, with multiplication carried by compressed creation operators.",
+    "remaining": "The seed remains a source of proposed claims, not a substitute for their registered proof status. Changing the norm across degrees changes operator spectra even when a fixed-degree kernel stays the same.",
+    "claimIds": [
+      "C-001",
+      "C-002",
+      "C-003",
+      "C-007",
+      "C-008",
+      "C-009",
+      "C-014",
+      "C-019",
+      "C-026"
+    ],
+    "sources": [
+      "seed/analysis-2026-09-01/report.md",
+      "seed/page81.tex",
+      "definitions/definitions.md",
+      "claims/EXTRACTION-NOTES.md"
+    ],
+    "disposition": "mathematical-tool",
+    "terms": [
+      {
+        "term": "Ideal",
+        "meaning": "All polynomial combinations of a given list of equations."
+      },
+      {
+        "term": "Variety",
+        "meaning": "The set of points satisfying polynomial equations."
+      },
+      {
+        "term": "Homogeneous",
+        "meaning": "Every monomial has the same total degree."
+      },
+      {
+        "term": "Hilbert function",
+        "meaning": "The dimension of the degree-N polynomial space after equations are imposed."
+      }
+    ]
+  },
+  {
+    "id": "parent-hamiltonians",
+    "title": "Why the ideal itself is harder to make a ground space",
+    "family": "Foundations",
+    "question": "Can a simple positive Hamiltonian have the ideal, rather than its orthogonal complement, as its kernel?",
+    "idea": "Try sums of shifted positive terms, few-body parent Hamiltonians, or the unitary part of polynomial multiplication.",
+    "test": "The audit compares intersections of kernels with spans of polynomial multiples, tests the locality obstruction, and distinguishes binary occupation-register sparsity from physical few-body locality.",
+    "outcome": "A sum of positive terms imposes simultaneous constraints; it does not take the span needed for an ideal. Under the stated degree and locality hypotheses, a nonzero fixed-body positive parent for a nontrivial ideal piece is impossible.",
+    "survives": "Spectral filtering can produce the ideal projector, and polar decomposition can map into a principal ideal. A sum of supplied point-coherent projectors has the vanishing ideal of that point set as its kernel, but each term acts on all N particles.",
+    "remaining": "Few-mode special cases and efficient digital projectors have their own scope and costs. The general few-mode converse was narrowed; it is not a universal locality theorem.",
+    "claimIds": [
+      "C-040",
+      "C-041",
+      "C-043",
+      "C-044",
+      "C-045",
+      "C-047",
+      "C-048",
+      "C-252"
+    ],
+    "sources": [
+      "seed/analysis-2026-09-01/report.md",
+      "scouting/applications-wide-net.md",
+      "definitions/definitions.md"
+    ],
+    "disposition": "cost-barrier",
+    "terms": []
+  },
+  {
+    "id": "normalized-gap",
+    "title": "The gap that actually controls runtime",
+    "family": "Spectral core",
+    "question": "Does a large bosonic energy gap imply a fast quantum algorithm?",
+    "idea": "Use the smallest positive eigenvalue Δ of H to filter out excited states. A block encoding implements H divided by a known scale α, so the operational promise is Δ/α.",
+    "test": "Principal and monomial ideals, Takagi-diagonalized quadrics, toric fibre graphs, cone examples and growing QSAT families were compared. Numerical surveys used generators as written, not uniformly unit Bombieri–Weyl generators.",
+    "outcome": "Absolute gap growth is insufficient: rescaling equations changes energies, and nearly dependent generators can shrink the gap without changing the ideal. Fixed-mode examples are also polynomial-size classical problems when N is unary.",
+    "survives": "Principal-ideal lower bounds, explicit quadric estimates and sparse Macaulay access provide useful starting points. The gap measures how close a nonrelation among generators can come to a relation.",
+    "remaining": "Uniform multigenerator bounds, non-cone converse statements and relations to geometric condition numbers remain open at their registered scopes. Small numerical families do not prove these uniform claims.",
+    "claimIds": [
+      "C-052",
+      "C-053",
+      "C-054",
+      "C-055",
+      "C-058",
+      "C-101",
+      "C-103",
+      "C-106",
+      "C-108",
+      "C-112",
+      "C-114",
+      "C-132",
+      "C-136",
+      "C-138",
+      "C-170",
+      "C-172"
+    ],
+    "sources": [
+      "seed/analysis-2026-09-01/report.md",
+      "scouting/classical-landscape.md",
+      "scouting/applications-wide-net.md",
+      "definitions/definitions.md"
+    ],
+    "disposition": "held",
+    "terms": [
+      {
+        "term": "Block encoding",
+        "meaning": "A unitary whose selected block is the desired matrix divided by a known normalization."
+      },
+      {
+        "term": "Cone",
+        "meaning": "Here, a variety whose equations omit a direction after a suitable coordinate change."
+      },
+      {
+        "term": "Syzygy",
+        "meaning": "A polynomial relation among the defining equations."
+      }
+    ]
+  },
+  {
+    "id": "ideal-distance",
+    "title": "Estimating distance from a polynomial to an ideal",
+    "family": "Spectral core",
+    "question": "Can a quantum computer estimate whether a polynomial nearly follows from the equations?",
+    "idea": "Prepare a coefficient state and estimate its weight on the quotient space. This is squared distance to the degree-N ideal in the chosen polynomial norm.",
+    "test": "The classical comparison uses sparse Krylov or LSQR projection and randomized trace methods on the implicit Macaulay matrix. The complexity audit separates estimation, exact membership and a proposed guided-Hamiltonian hardness reduction.",
+    "outcome": "There is a precise conditional quantum primitive, but no established best-in-class advantage. A polynomial-to-ideal distance is not the geometric distance from a data point to the solution set.",
+    "survives": "The quantity also has quotient-space, reproducing-kernel interpolation and guiding-state interpretations. These identify potentially meaningful scalar outputs.",
+    "remaining": "A useful family must supply efficient preparation, a normalized gap and a fair classical baseline. The original exact-membership hardness formulation and a single-overlap reconstruction shortcut do not survive.",
+    "claimIds": [
+      "C-059",
+      "C-060",
+      "C-078",
+      "C-081",
+      "C-082",
+      "C-083",
+      "C-124",
+      "C-125",
+      "C-128",
+      "C-239",
+      "C-253"
+    ],
+    "sources": [
+      "scouting/classical-landscape.md",
+      "seed/analysis-2026-09-01/report.md",
+      "definitions/definitions.md"
+    ],
+    "disposition": "held",
+    "terms": []
+  },
+  {
+    "id": "hilbert-signal",
+    "title": "Counting dimensions without losing the signal",
+    "family": "Spectral core",
+    "question": "Can a normalized ground-space dimension reveal the dimension or degree of a variety?",
+    "idea": "Estimate HF(N)/M, where M = binomial(N+n,n), rather than reconstructing a huge matrix or counting every solution.",
+    "test": "Complete-intersection formulas, Boolean ideals and low-codimension families expose how the signal changes with degree and codimension. The applications scout found an approximately (3/4)^c law for c quadratic constraints at N=n in its stated regime.",
+    "outcome": "Low codimension can retain an inverse-polynomial signal; square systems with few solutions often do not. Exact or multiplicative Hilbert-function computation faces counting hardness. This is not a universal claim that every square system has tiny weight at every degree.",
+    "survives": "The low-codimension spectral question remains meaningful. In controlled families, logarithmic codimension can still be visible; constant degree alone generally leaves only a polynomial-size matrix.",
+    "remaining": "A complete algorithm needs a stable-degree range, controlled lower-order terms and conditioning. Generic complete intersections already have closed-form Hilbert series, so they do not establish advantage.",
+    "claimIds": [
+      "C-061",
+      "C-062",
+      "C-088",
+      "C-091",
+      "C-092",
+      "C-093",
+      "C-096",
+      "C-157",
+      "C-158"
+    ],
+    "sources": [
+      "scouting/applications-wide-net.md",
+      "scouting/classical-landscape.md",
+      "scouting/koszul-betti.md",
+      "seed/analysis-2026-09-01/report.md"
+    ],
+    "disposition": "cost-barrier",
+    "terms": [
+      {
+        "term": "Codimension",
+        "meaning": "The number of ambient dimensions removed by constraints."
+      },
+      {
+        "term": "Complete intersection",
+        "meaning": "A system with the expected number of independent constraints, whose Hilbert series is especially simple."
+      }
+    ]
+  },
+  {
+    "id": "root-extraction",
+    "title": "From a quotient state to actual roots",
+    "family": "Spectral core",
+    "question": "Does access to the ground space let us sample or list solutions?",
+    "idea": "Represent coordinate multiplication on a stabilized finite-dimensional quotient, or project a coherent superposition of candidate roots.",
+    "test": "The audit checks nonnormal multiplication matrices, near-colliding root frames, Boolean solution weights and the distinction between a pure guiding state and a maximally mixed start.",
+    "outcome": "Ordinary phase estimation does not diagonalize nonnormal multiplication. State preparation and tiny success weights can absorb the apparent compression; the Boolean proposal has Grover-type scaling only under additional gap, frame and preparation promises.",
+    "survives": "The multiplication spectrum still encodes root coordinates. Singular-value scans and well-conditioned promised root samplers remain possible research objects.",
+    "remaining": "An efficient non-Hermitian solver, controlled Gram conditioning and an end-to-end preparation/readout analysis are still needed. Listing all roots also incurs its output cost.",
+    "claimIds": [
+      "C-065",
+      "C-066",
+      "C-067",
+      "C-096",
+      "C-149",
+      "C-150",
+      "C-152",
+      "C-153",
+      "C-154",
+      "C-155",
+      "C-164",
+      "C-165",
+      "C-249"
+    ],
+    "sources": [
+      "scouting/classical-landscape.md",
+      "seed/analysis-2026-09-01/report.md",
+      "scouting/quantum-primitives.md"
+    ],
+    "disposition": "held",
+    "terms": [
+      {
+        "term": "Quotient ring",
+        "meaning": "Polynomials identified whenever their difference follows from the equations."
+      },
+      {
+        "term": "Nonnormal matrix",
+        "meaning": "A matrix that need not have an orthonormal eigenbasis, so ordinary quantum phase estimation does not directly apply."
+      }
+    ]
+  },
+  {
+    "id": "groebner-holonomy",
+    "title": "Deformation, root collisions and ground-space transport",
+    "family": "Spectral core",
+    "question": "Can an easy monomial system be transported into a difficult geometric one?",
+    "idea": "Use a Gröbner degeneration to deform equations while preserving the quotient dimension, then follow the ground space adiabatically. Loops could reveal a Berry holonomy of the resulting space of states.",
+    "test": "The twisted cubic provides a bounded numerical example. The audit distinguishes a genuine Gröbner basis from arbitrary generators, and constant scheme length from distinct-root separation.",
+    "outcome": "Flatness preserves algebraic dimension data but does not guarantee a useful normalized spectral gap. Computing the required Gröbner basis can already be the expensive problem. Constant Hilbert function does not prevent roots from colliding.",
+    "survives": "A precise transport problem and geometric Berry connection survive as mathematical directions. Adiabatic transport sends one prepared basis state to one final state; it does not return a free classical basis.",
+    "remaining": "Uniform path gaps, noncircular input preparation and a useful output with a matched baseline remain missing.",
+    "claimIds": [
+      "C-069",
+      "C-070",
+      "C-073",
+      "C-074",
+      "C-075",
+      "C-076",
+      "C-077",
+      "C-144",
+      "C-145",
+      "C-146",
+      "C-230",
+      "C-231",
+      "C-242"
+    ],
+    "sources": [
+      "scouting/classical-landscape.md",
+      "scouting/applications-wide-net.md",
+      "seed/analysis-2026-09-01/report.md"
+    ],
+    "disposition": "held",
+    "terms": [
+      {
+        "term": "Gröbner basis",
+        "meaning": "A reorganized set of equations that supports systematic polynomial elimination."
+      },
+      {
+        "term": "Flat family",
+        "meaning": "A deformation preserving the relevant algebraic dimension data."
+      },
+      {
+        "term": "Holonomy",
+        "meaning": "The transformation left on a transported state after completing a loop."
+      }
+    ]
+  },
+  {
+    "id": "application-map",
+    "title": "The broad application screen",
+    "family": "Applications",
+    "question": "Where are polynomial equations the actual computational bottleneck?",
+    "idea": "Compare the seed against tasks in vision, mechanism kinematics, algebraic statistics and phylogenetics, chemistry, reaction networks, power systems, coding, cryptanalysis, control, game equilibria, machine learning, Boolean optimization, CAD and signal recovery.",
+    "test": "The survey records practical input sizes, outputs and classical methods. It also considers nearest-point problems, rank-constrained completion, critical-point sampling, toric fibres, Hodge data, moduli and enumerative invariants.",
+    "outcome": "No general application speedup emerged. Many applications want a few real or positive solutions, while the primitive describes a complex linear space. Small elimination templates, sparse solvers and existing closed formulas often supply much stronger baselines than dense linear algebra.",
+    "survives": "Phylogenetic and tensor-network equations connect naturally to quantum states; low-codimension scalar observables and structured interpolation remain possible targets. Cryptanalytic Macaulay matrices supply a demanding benchmark, with separate finite-field and conditioning barriers.",
+    "remaining": "A candidate needs the same input and output on both sides. Loading an exponentially long classical probability table as amplitudes cannot be granted for free, and a residual value is not a nearest-point certificate.",
+    "claimIds": [],
+    "sources": [
+      "scouting/applications-wide-net.md",
+      "scouting/classical-landscape.md",
+      "scouting/robotics-deep-dive.md"
+    ],
+    "disposition": "survey",
+    "terms": []
+  },
+  {
+    "id": "arithmetic-prior-art",
+    "title": "Known arithmetic and hidden-polynomial algorithms",
+    "family": "Existing primitives",
+    "question": "Do quantum algorithms already solve algebraic problems beyond the Fock construction?",
+    "idea": "Survey curve zeta functions through Jacobians, number-field units and principal ideals, discrete logarithms, and hidden polynomial structures over finite fields.",
+    "test": "The source audit checks the exact curve input model, compact output representation and fixed-degree oracle hypotheses. It rejects a blanket extension from curve cohomology to all hypersurfaces.",
+    "outcome": "These are genuine prior-art successes in their stated models. They do not supply an original mechanism for this campaign. Hidden-polynomial query separations use a coherent fibre oracle that explicit equations do not automatically provide.",
+    "survives": "They set a useful standard for complete input, algorithm and output accounting. Finite-field duality exists, but it does not preserve the seed’s compact complex amplitude representation.",
+    "remaining": "No efficient transfer from general sparse finite-field systems to the stronger oracle or to a cheap problem-specific analogue device is documented.",
+    "claimIds": [
+      "C-159",
+      "C-160",
+      "C-161",
+      "C-162",
+      "C-283",
+      "C-284",
+      "C-285",
+      "C-286",
+      "C-287",
+      "C-288"
+    ],
+    "sources": [
+      "scouting/quantum-primitives.md",
+      "scouting/classical-landscape.md",
+      "definitions/definitions.md"
+    ],
+    "disposition": "known-mechanism",
+    "terms": [
+      {
+        "term": "Zeta function",
+        "meaning": "A compact generating function encoding point counts over finite-field extensions."
+      },
+      {
+        "term": "Jacobian",
+        "meaning": "A group associated with a curve, used for arithmetic on its divisor classes."
+      }
+    ]
+  },
+  {
+    "id": "qlsa-search",
+    "title": "Linear solvers and amplified continuation",
+    "family": "Existing primitives",
+    "question": "Can familiar quantum primitives accelerate equation solving end to end?",
+    "idea": "Apply HHL or singular-value transformation to a Macaulay system, or amplitude-amplify the search over homotopy paths ending at useful solutions.",
+    "test": "Condition-number lower bounds for Boolean Macaulay systems and the cost of reversible, accurate path tracking were audited against classical algebraic solvers.",
+    "outcome": "A linear-system condition number is not the same object as the seed’s normalized gap. Amplification saves the number of candidate paths inspected, not the arithmetic required to track one path.",
+    "survives": "With a supplied coherent path oracle of cost C and r marked endpoints among D, the familiar conditional search bound is proportional to C√(D/r).",
+    "remaining": "A competitive reversible continuation oracle, including error control and uncomputation, has not been constructed here. These compositions also fail the campaign’s later originality requirement.",
+    "claimIds": [
+      "C-097",
+      "C-281",
+      "C-282",
+      "C-293",
+      "C-294"
+    ],
+    "sources": [
+      "scouting/quantum-primitives.md",
+      "scouting/robotics-deep-dive.md",
+      "scouting/classical-landscape.md"
+    ],
+    "disposition": "known-mechanism",
+    "terms": []
+  },
+  {
+    "id": "hodge-susy",
+    "title": "Hodge numbers, singularities and supersymmetric counting",
+    "family": "Existing primitives",
+    "question": "Can ground-state counting expose richer geometric invariants?",
+    "idea": "Encode a hypersurface’s derivative equations in a Jacobian ring; relate appropriate graded dimensions to Hodge numbers, and compare supersymmetric vacuum counts and Witten indices.",
+    "test": "The Fermat quintic reproduces the familiar value 101. Smooth hypersurface Hilbert series are compared with normalized signals, and alternating supertraces are distinguished from individual dimensions.",
+    "outcome": "For smooth hypersurfaces the relevant dimensions are already given by a closed formula; their normalized middle-degree signals can be exponentially small. An alternating Witten index generally does not recover every Betti number.",
+    "survives": "The dictionary connects algebra, geometry and supersymmetric physics. The isolated Landau–Ginzburg setting has additional structure and is not covered by an indiscriminate cancellation objection.",
+    "remaining": "Singular inputs, periods and general moduli or enumerative invariants require further mechanisms and cost analysis; the seed does not automatically compute them.",
+    "claimIds": [
+      "C-289",
+      "C-290"
+    ],
+    "sources": [
+      "scouting/applications-wide-net.md",
+      "scouting/quantum-primitives.md",
+      "scouting/classical-landscape.md"
+    ],
+    "disposition": "classical-match",
+    "terms": [
+      {
+        "term": "Hodge numbers",
+        "meaning": "Dimensions of different types of cohomological information on a smooth complex variety."
+      },
+      {
+        "term": "Jacobian ring",
+        "meaning": "The polynomial ring modulo the partial derivatives of a defining polynomial."
+      }
+    ]
+  },
+  {
+    "id": "topology-gibbs",
+    "title": "Topology and sampling on real solution sets",
+    "family": "Existing primitives",
+    "question": "Can quantum topology or quantum walks recover useful information about a real variety?",
+    "idea": "Build a sampled simplicial complex to estimate topological holes, or sample a Gibbs distribution concentrated near low polynomial residual.",
+    "test": "The audit checks sample acquisition, the distinction between Čech and Vietoris–Rips complexes, simplex-state preparation, spectral gaps, normalization and the actual scope of quantum mixing improvements.",
+    "outcome": "A point cloud is additional input, and its topology is not automatically that of the variety. Quantum walks can improve gap dependence in suitable annealing schemes but do not establish fast mixing through narrow or disconnected regions.",
+    "survives": "Conditional topology and partition-function algorithms remain relevant benchmarks. Their benefits depend on the supplied complex, access model and geometric reconstruction promises.",
+    "remaining": "No end-to-end advantage for the polynomial families of interest is documented. General low-lying spectral-density hardness does not by itself prove the same hardness for every clique-complex restriction.",
+    "claimIds": [
+      "C-291",
+      "C-292",
+      "C-302"
+    ],
+    "sources": [
+      "scouting/quantum-primitives.md",
+      "scouting/real-variety.md",
+      "scouting/classical-landscape.md"
+    ],
+    "disposition": "cost-barrier",
+    "terms": [
+      {
+        "term": "Simplicial complex",
+        "meaning": "Vertices, edges, triangles and higher-dimensional faces used to model topology."
+      },
+      {
+        "term": "Betti number",
+        "meaning": "The number of independent holes of a specified dimension."
+      },
+      {
+        "term": "Gibbs distribution",
+        "meaning": "A probability distribution favoring states with lower energy or residual."
+      }
+    ]
+  },
+  {
+    "id": "optical-annealing-survey",
+    "title": "Optical counts, annealers and the output mismatch",
+    "family": "Existing primitives",
+    "question": "Can a natural device turn algebraic structure into a useful computed answer?",
+    "idea": "Compare permanent-weighted optical sampling, Boolean residual annealing/QAOA/VQE, and quantum volume estimation with algebraic counting tasks.",
+    "test": "A multihomogeneous Bézout coefficient can equal a permanent, but optical event probabilities and unitary-embedding scales were charged. Small annealing demonstrations and the classical Gröbner preprocessing used in factoring experiments were checked.",
+    "outcome": "Sampling a distribution does not cheaply estimate a rare coefficient to relative accuracy. Existing small annealing examples do not establish asymptotic advantage. Continuous volume estimates do not generally determine exact lattice-point counts.",
+    "survives": "These devices can test specific Hamiltonians and sampling tasks. The exact permanent identity and Boolean energy encodings remain useful mathematical links.",
+    "remaining": "A same-output algorithm, normalization and a scaling comparison against strong classical methods are still required; heuristic success alone supplies none of them.",
+    "claimIds": [
+      "C-295",
+      "C-296",
+      "C-299",
+      "C-300",
+      "C-303"
+    ],
+    "sources": [
+      "scouting/quantum-primitives.md",
+      "scouting/applications-wide-net.md"
+    ],
+    "disposition": "cost-barrier",
+    "terms": [
+      {
+        "term": "Bézout count",
+        "meaning": "An algebraic bound or generic count of solutions obtained from equation degrees."
+      },
+      {
+        "term": "Ehrhart count",
+        "meaning": "The number of lattice points in an integer dilation of a polytope."
+      }
+    ]
+  },
+  {
+    "id": "qsat-dictionary",
+    "title": "Quantum satisfiability as algebraic geometry",
+    "family": "Quantum data",
+    "question": "What does the polynomial picture add when the input is already quantum?",
+    "idea": "Use one variable block per qudit and degree one in each block. Each local forbidden-state projector is exactly a multilinear polynomial term, so the inverse-system ground space is the original QSAT ground space.",
+    "test": "The memo checks all conjugations and factorials, product-state spans and a two-qubit singlet example. It separates the native multigraded model from the bosonic total-degree reduction requiring hard-core constraints.",
+    "outcome": "The operator identity is exact and informative, but a spectrum-preserving relabelling does not improve an existing algorithm. QMA-type hardness is a hardness statement, not an efficient quantum preparation method.",
+    "survives": "The Hilbert function distinguishes the full ground space from the span of product solutions. A vanishing higher-degree component can witness that every ground state is entangled.",
+    "remaining": "Degree (2,…,2) is not a complete product-satisfiability criterion. No broad impossibility result for all quantum-data geometric algorithms follows from this dictionary audit.",
+    "claimIds": [
+      "C-030",
+      "C-031",
+      "C-032",
+      "C-034",
+      "C-036",
+      "C-129",
+      "C-130",
+      "C-312",
+      "C-313",
+      "C-314",
+      "C-315",
+      "C-316",
+      "C-317",
+      "C-324"
+    ],
+    "sources": [
+      "scouting/quantum-native.md",
+      "seed/analysis-2026-09-01/report.md",
+      "verdicts/quantum-native-r3.md"
+    ],
+    "disposition": "mathematical-tool",
+    "terms": [
+      {
+        "term": "Multigrading",
+        "meaning": "Keeping a separate polynomial degree for each variable block."
+      },
+      {
+        "term": "QSAT",
+        "meaning": "The task of satisfying all local quantum projector constraints simultaneously."
+      }
+    ]
+  },
+  {
+    "id": "copy-residuals",
+    "title": "Testing equations directly on copies of a state",
+    "family": "Quantum data",
+    "question": "Can several copies test membership in an entanglement or tensor variety?",
+    "idea": "A homogeneous degree-m equation becomes an amplitude on m copies. A normalized sum of projectors onto equation coefficient vectors measures total invariant violation.",
+    "test": "The audit considers product, low-rank, secant, MPS and tree-tensor-network families, checks whether their equation sets are complete, and compares with adaptive single-copy measurements rather than full tomography.",
+    "outcome": "The residual is a legitimate observable when its measurement is implementable. It is generally neither geometric distance nor a complete test of tensor rank. Matrix flattening spectra and quantum PCA do not solve every nonlinear tensor-rank problem.",
+    "survives": "Copy access avoids the classical-data loading barrier and motivates the later secant and Waring investigations. It permits a fair same-bit-output comparison against separate measurements.",
+    "remaining": "A residual-to-distance bound, complete defining equations, efficient observable implementation and a matched sample-complexity baseline must all be supplied.",
+    "claimIds": [
+      "C-301",
+      "C-318",
+      "C-319",
+      "C-320",
+      "C-321"
+    ],
+    "sources": [
+      "scouting/quantum-native.md",
+      "scouting/quantum-primitives.md",
+      "scouting/applications-wide-net.md"
+    ],
+    "disposition": "mathematical-tool",
+    "terms": [
+      {
+        "term": "Secant variety",
+        "meaning": "The closure of states expressible as sums of a bounded number of simple component states."
+      },
+      {
+        "term": "MPS",
+        "meaning": "A matrix product state: a tensor-network representation arranged along a chain."
+      },
+      {
+        "term": "Border rank",
+        "meaning": "The smallest component count achievable arbitrarily closely, possibly only as a limit."
+      }
+    ]
+  },
+  {
+    "id": "hardware-evidence",
+    "title": "What the proposed hardware demonstrations would establish",
+    "family": "Quantum data",
+    "question": "Which geometric statements are actually accessible to a small experiment?",
+    "idea": "Use dual-rail photons for multigraded qubits, bosonic spin mixing for a quadric, and interference/parity measurements for overlaps.",
+    "test": "The conic Hamiltonian is compared with spinor-condensate experiments, a two-photon singlet protocol is evaluated with success probability 1/2, and overlap readout is assigned to the difference-output modes.",
+    "outcome": "An interaction and its dynamics have been observed; the cited evidence does not measure the proposed 2N+1 ground-space degeneracy. Ground energy alone cannot determine that degeneracy.",
+    "survives": "Small experiments could verify a state preparation, an overlap or a known spectral feature. The optics and many-body mappings give concrete hardware hooks for selected families.",
+    "remaining": "Ground-space mixture preparation and photon-number parity detection are real costs. Fixed mode count with unary particle number cannot yield exponential advantage merely by increasing N.",
+    "claimIds": [
+      "C-023",
+      "C-024",
+      "C-297",
+      "C-298",
+      "C-322",
+      "C-323",
+      "C-334"
+    ],
+    "sources": [
+      "scouting/quantum-native.md",
+      "scouting/quantum-primitives.md",
+      "scouting/intersection-observables.md"
+    ],
+    "disposition": "mathematical-tool",
+    "terms": []
+  },
+  {
+    "id": "koszul-harmonics",
+    "title": "A boson–fermion construction for graded Betti numbers",
+    "family": "Syzygies",
+    "question": "Can relations among equations become zero modes of a supersymmetric operator?",
+    "idea": "On the quotient space, combine bosonic annihilation with fermionic creation into a differential q with q²=0. Form qq†+q†q; its block kernel represents a graded Betti number.",
+    "test": "Small ideals were checked against independent Koszul ranks and reference Betti tables. The unrestricted supercharge was compared with its quotient restriction and with the different supercharge built from the generators.",
+    "outcome": "The naive compression of the free Laplacian is just the scalar N+i and carries no desired nullity. The quotient differential and its adjoint must be formed before taking their Laplacian.",
+    "survives": "A precise harmonic-space dictionary survives. The generator-based construction has the seed Hamiltonian as its zero-fermion block, but higher homology generally records different information.",
+    "remaining": "The mathematical identities do not yet supply an end-to-end advantage. Quotient access, useful signal, spectral promises and hardware implementation remain separate requirements.",
+    "claimIds": [
+      "C-304",
+      "C-305",
+      "C-306",
+      "C-309",
+      "C-310"
+    ],
+    "sources": [
+      "scouting/koszul-betti.md",
+      "verdicts/koszul-betti-r5.md",
+      "definitions/definitions.md"
+    ],
+    "disposition": "mathematical-tool",
+    "terms": [
+      {
+        "term": "Graded Betti numbers",
+        "meaning": "Counts of minimal generators, relations, relations among relations, and so on, organized by degree."
+      },
+      {
+        "term": "Koszul differential",
+        "meaning": "A systematic map combining multiplication or differentiation with antisymmetric bookkeeping."
+      },
+      {
+        "term": "Regularity",
+        "meaning": "A degree parameter bounding where certain nontrivial algebraic data can occur."
+      }
+    ]
+  },
+  {
+    "id": "koszul-costs",
+    "title": "The extra gap and the cost of conditioning on the quotient",
+    "family": "Syzygies",
+    "question": "Does a good Macaulay gap also make Betti numbers cheap to measure?",
+    "idea": "Estimate a harmonic projector’s ambient normalized trace, or prepare the quotient first and estimate a conditional Betti fraction.",
+    "test": "A cycle family has Macaulay gap 1 but a selected squarefree-component gap 2−2cos(2π/m), shrinking as m⁻². Zero extension, missing adjacent-degree projectors and the quotient preparation probability were checked.",
+    "outcome": "The Betti gap is a separate object. Zero-extending the Laplacian creates spurious zero modes, while conditioning on a quotient of weight h/M costs M/h independent trials or √(M/h) coherent projections.",
+    "survives": "Direct standard-monomial or supplied quotient-multiplication access can avoid manufacturing every operation through H. Only squarefree multidegree summands have the stated simplicial-Laplacian identification.",
+    "remaining": "General total-block gap comparisons and hardness/dequantization transfers remain held. The cycle result rules out a positive bound depending only on its fixed Macaulay gap for that summand, not every conceivable comparison.",
+    "claimIds": [
+      "C-304",
+      "C-305",
+      "C-307",
+      "C-308",
+      "C-311"
+    ],
+    "sources": [
+      "scouting/koszul-betti.md",
+      "verdicts/koszul-betti-r5.md"
+    ],
+    "disposition": "held",
+    "terms": []
+  },
+  {
+    "id": "intersection-overlaps",
+    "title": "Intersections seen through overlapping ground spaces",
+    "family": "Intersections",
+    "question": "Can two projector overlaps reveal how varieties meet?",
+    "idea": "Measure Tr(P_I P_J), with each P projecting onto the quotient ground space. Coherent states localize overlap near nearby geometric points.",
+    "test": "Linear subspaces give the exact expression h_N(σ₁²,…,σᵣ²), where σ are principal-angle cosines. Transverse, excess, tangent and disjoint examples test the proposed asymptotic interpretation.",
+    "outcome": "Linear geometry is exactly solvable. General clean-intersection asymptotics remain dependent on an unproved ambient frame estimate. Tangency invalidates the seed’s universal dimension-exponent law; even a point intersection can show noninteger growth.",
+    "survives": "The observable records metric angles as well as incidence. Controlled coordinate families retain visible normalized signals to logarithmic codimension, and near-parallel examples quantify finite-degree crossover.",
+    "remaining": "A general frame bound and a competitive same-output classical comparison remain missing. A fixed disjoint pair can have exponentially small normalized overlap; known prefactors can remove bias but do not erase that signal cost.",
+    "claimIds": [
+      "C-085",
+      "C-166",
+      "C-167",
+      "C-325",
+      "C-326",
+      "C-327",
+      "C-328",
+      "C-331",
+      "C-332",
+      "C-333"
+    ],
+    "sources": [
+      "scouting/intersection-observables.md",
+      "verdicts/intersection-observables-r3.md"
+    ],
+    "disposition": "held",
+    "terms": [
+      {
+        "term": "Clean intersection",
+        "meaning": "An intersection whose tangent space is exactly the intersection of the two tangent spaces."
+      },
+      {
+        "term": "Tangency",
+        "meaning": "Contact where the shapes meet with aligned directions instead of crossing transversely."
+      },
+      {
+        "term": "Principal angles",
+        "meaning": "A canonical list of angles measuring the relative positions of two subspaces."
+      }
+    ]
+  },
+  {
+    "id": "toeplitz-integration",
+    "title": "Normalized observables as geometric averages",
+    "family": "Intersections",
+    "question": "Can a quantum trace estimate an integral over a variety?",
+    "idea": "Compress a normally ordered polynomial observable to the quotient ground space and average its trace over that space.",
+    "test": "For a conic, the raw observable grows with particle number. Dividing a bidegree-(r,r) symbol by N!/(N−r)! gives data consistent with the geometric average; an exact recurrence extends the finite-size audit.",
+    "outcome": "The seed’s unnormalized convergence statement fails. The repaired conic observable has a meaningful limit, with a roughly 0.03142/N correction for the tested quadratic symbol.",
+    "survives": "The normalization correction and exact conic benchmark survive. Optical overlap measurements also have a precise normalization and readout convention.",
+    "remaining": "General convergence rests on the needed analytic hypotheses. A one-level finite-size bias may force larger N, but extrapolation or known corrections can change that cost; the rejected universal runtime lower bound must not be revived.",
+    "claimIds": [
+      "C-086",
+      "C-168",
+      "C-329",
+      "C-330",
+      "C-333",
+      "C-334"
+    ],
+    "sources": [
+      "scouting/intersection-observables.md",
+      "verdicts/intersection-observables-r3.md",
+      "definitions/definitions.md"
+    ],
+    "disposition": "held",
+    "terms": [
+      {
+        "term": "Toeplitz observable",
+        "meaning": "A multiplication-type observable compressed to a chosen space of states."
+      }
+    ]
+  },
+  {
+    "id": "real-locus",
+    "title": "A real vector is not a real geometric solution",
+    "family": "Real geometry",
+    "question": "Can complex conjugation select the real points needed by applications?",
+    "idea": "Try to isolate conjugation-invariant states, change the ambient measure, or build the inverse system of the equations vanishing on the real solution set.",
+    "test": "The real-structure audit compares complex-linear projectors, real forms, real Bargmann representations and varieties whose real or positive points are dense in the algebraic sense.",
+    "outcome": "The fixed vectors of conjugation are not a complex subspace and cannot be the range of the proposed complex-linear projector. A real ground-state vector can be a superposition of nonreal point states.",
+    "survives": "The complex span of real coherent solutions is the inverse system of the complexified real radical. This states exactly which algebraic object a real-point construction would need.",
+    "remaining": "Computing that real radical is itself a substantial real-algebraic task. Where real or positive points are algebraically dense, their span can equal the full complex ground space and erase the desired distinction.",
+    "claimIds": [
+      "C-255",
+      "C-256",
+      "C-262"
+    ],
+    "sources": [
+      "scouting/real-variety.md",
+      "scouting/two-copy-real-filter.md"
+    ],
+    "disposition": "cost-barrier",
+    "terms": [
+      {
+        "term": "Real radical",
+        "meaning": "The ideal of all real polynomials vanishing on the real solution set."
+      },
+      {
+        "term": "Zariski dense",
+        "meaning": "A subset on which vanishing polynomial equations already vanish on the whole variety."
+      }
+    ]
+  },
+  {
+    "id": "hermite-real-counts",
+    "title": "Hermite matrices and real-root fractions",
+    "family": "Real geometry",
+    "question": "Can a scalar spectral observable count real solutions?",
+    "idea": "Build the quotient-algebra trace form and use its signature, the number of positive eigenvalues minus negative eigenvalues, to recover a real-root count.",
+    "test": "The memo charges quotient multiplication, matrix conditioning and the precision needed to distinguish a small number of real roots among D complex roots. Sturm isolation and critical-point methods supply classical competitors.",
+    "outcome": "A normalized signature can estimate a real-root fraction under strong access and gap promises. An exact count requires error below 1/(2D), so the useful application regime of a few real roots can lose the compression.",
+    "survives": "The trace-form identity, weighted sign counts and a coherent-frame trace identity identify the extra algebraic structure real counting requires.",
+    "remaining": "No hardness separation for constant-additive normalized signature under equation-list input was established. Boolean satisfying-fraction reductions admit ordinary classical sampling.",
+    "claimIds": [
+      "C-257",
+      "C-258",
+      "C-279"
+    ],
+    "sources": [
+      "scouting/real-variety.md",
+      "scouting/two-copy-real-filter.md",
+      "scouting/classical-landscape.md"
+    ],
+    "disposition": "held",
+    "terms": [
+      {
+        "term": "Signature",
+        "meaning": "The difference between the numbers of positive and negative eigenvalues of a real symmetric matrix."
+      }
+    ]
+  },
+  {
+    "id": "real-sos",
+    "title": "The moment hierarchy is more than a ground-energy problem",
+    "family": "Real geometry",
+    "question": "Can a small quantum state replace a large polynomial-optimization relaxation?",
+    "idea": "Compare the bosonic residual Hamiltonian with sum-of-squares and Lasserre moment relaxations for minimizing a real polynomial on a sphere or constrained set.",
+    "test": "The level dictionary is corrected: order r corresponds to r bosons, because matrix indices have degree r while products have degree 2r. Full Hankel, equality and localizing constraints are retained in the comparison.",
+    "outcome": "The seed ground energy is a weaker spectral relaxation, not the full moment program. Dropping moment constraints changes the optimization problem and cannot establish the advertised same-output memory advantage.",
+    "survives": "For equal-degree residuals, the normalized coherent-state energy equals their sum of squares, and the spectral value gives a valid lower bound below the corresponding SOS bound.",
+    "remaining": "An efficient quantum SDP route must charge constraint access, norms, precision and state preparation, and compete against sparse or chordal methods and matrix-free eigensolvers.",
+    "claimIds": [
+      "C-259",
+      "C-260",
+      "C-261"
+    ],
+    "sources": [
+      "scouting/real-variety.md",
+      "scouting/robotics-deep-dive.md",
+      "scouting/robotics-space.md"
+    ],
+    "disposition": "cost-barrier",
+    "terms": [
+      {
+        "term": "Sum of squares (SOS)",
+        "meaning": "A certificate expressing a nonnegative polynomial using sums of squared polynomials, sometimes with constraint multipliers."
+      },
+      {
+        "term": "Moment matrix",
+        "meaning": "A matrix of averages of monomial products, constrained so the entries can represent a common distribution."
+      }
+    ]
+  },
+  {
+    "id": "real-search-variants",
+    "title": "Positive toric, Boolean and real-feasibility alternatives",
+    "family": "Real geometry",
+    "question": "Do special real inputs remove the mismatch with complex geometry?",
+    "idea": "Consider positive toric models, totally real Boolean equations, real coherent variational search, position-quadrature residuals, and real-feasibility or Positivstellensatz methods.",
+    "test": "Each route is compared with its natural classical counterpart: convex or log-coordinate toric methods, SAT and algebraic search, polynomial residual evaluation, root isolation and quantifier elimination.",
+    "outcome": "Boolean constraints remove the real/complex mismatch but retain combinatorial search hardness. Positive toric states need not form a new linear sector. A real coherent ansatz is described by classical coordinates and gives a classically evaluable residual.",
+    "survives": "These are useful specialized formulations and possible heuristic experiments. A quadrature Hamiltonian can penalize residuals, but a measure-zero zero set is not automatically a normalizable zero-energy eigenspace.",
+    "remaining": "General feasibility lacks a universally robust sampling measure; exact certificates and quantifier-elimination outputs can be much larger than a scalar estimate. No new efficient algorithm emerged from these variants.",
+    "claimIds": [
+      "C-260",
+      "C-262",
+      "C-263",
+      "C-302"
+    ],
+    "sources": [
+      "scouting/real-variety.md",
+      "scouting/quantum-primitives.md"
+    ],
+    "disposition": "classical-match",
+    "terms": [
+      {
+        "term": "Toric model",
+        "meaning": "A variety described through monomials, often with binomial equations."
+      },
+      {
+        "term": "Positivstellensatz",
+        "meaning": "An algebraic certificate system for infeasibility or positivity under real polynomial constraints."
+      }
+    ]
+  },
+  {
+    "id": "two-copy-reality",
+    "title": "The two-copy reality filter and its surviving verifier",
+    "family": "Real geometry",
+    "question": "Can two copies make a real-point selector physically linear?",
+    "idea": "Measure the maximally entangled pairing projector. On identical states its response is |ψᵀψ|² divided by the ambient dimension.",
+    "test": "Real and empty-real-locus conics are compared, as are coherent inputs, conjugate-pair superpositions and collective versus pairwise optical implementations.",
+    "outcome": "The compressed filter has rank at most one. For real ideals its nonzero eigenvalue is just the normalized Hilbert function, so the proposed spectrum carries no real-point test. A conjugate-pair superposition can pass the reality witness even when no real point exists.",
+    "survives": "For a supplied ground state, one-particle purity together with Tr(ρ₁ρ₁ᵀ) gives an exact criterion for being a real coherent point state. These bounded observables avoid the full pairing projector’s tiny acceptance.",
+    "remaining": "The surviving criterion verifies a supplied state; it does not prepare a real solution. A robust approximate statement requires explicit error-to-distance control. Collective pairing costs 1/M at best on identical real inputs and consumes both copies.",
+    "claimIds": [
+      "C-275",
+      "C-276",
+      "C-277",
+      "C-278",
+      "C-279",
+      "C-280"
+    ],
+    "sources": [
+      "scouting/two-copy-real-filter.md",
+      "scouting/real-variety.md"
+    ],
+    "disposition": "mathematical-tool",
+    "terms": []
+  },
+  {
+    "id": "robotics-benchmarks",
+    "title": "Robotics: solving the problem the robot actually has",
+    "family": "Robotics",
+    "question": "Which robotic workloads could benefit from an algebraic quantum primitive?",
+    "idea": "Survey serial and parallel kinematics, mechanism synthesis, singularities and workspaces, motion planning, calibration, rigidity, grasping, SLAM and perception, minimal vision, contact modes, polynomial control and learning-based models.",
+    "test": "The comparison uses small compiled kinematic solvers, elimination/eigenvalue templates, per-path homotopy, sparse nonlinear optimization and certifiable perception methods, with practical output requirements.",
+    "outcome": "Most online problems need a few usable real configurations and already have small fast classical solvers. A normalized complex dimension or a quantum coefficient state does not supply the required joint vector or certificate.",
+    "survives": "The multigraded dictionary gives one site per joint and useful local structure. Offline synthesis and positive-dimensional closure or self-motion families are more plausible contexts than the inner control loop.",
+    "remaining": "A demonstrated family with a genuine unmet classical bottleneck, useful scalar output and favorable conditioning is still needed; the broad robotics survey did not establish a speedup.",
+    "claimIds": [],
+    "sources": [
+      "scouting/robotics-deep-dive.md",
+      "scouting/robotics-space.md",
+      "scouting/real-variety.md"
+    ],
+    "disposition": "survey",
+    "terms": []
+  },
+  {
+    "id": "robotics-bets",
+    "title": "The three robotics bets after the audits",
+    "family": "Robotics",
+    "question": "What remains of perception certification, synthesis search and self-motion geometry?",
+    "idea": "Bet R1 sought certified optimization bounds with a smaller state representation; R2 sought amplified search over large offline synthesis solution sets; R3 sought dimension or degree of low-codimension closure and self-motion varieties.",
+    "test": "R1 is checked against the full moment constraints and published tightness evidence. R2 is checked against homotopy continuation and coherent-oracle cost. R3 is checked against normalized Hilbert signals and readily available geometric counts.",
+    "outcome": "None supplies a qualifying algorithm. The specific claimed level-2-versus-level-3 perception bottleneck was not supported by the surveyed sources. Synthesis admits low-memory classical path tracking, while amplified search is a known mechanism.",
+    "survives": "These three problem statements remain more focused than a generic “quantum robotics” claim. Low-codimension geometry and a simultaneous time-and-space target are useful specifications.",
+    "remaining": "Supply an actual hard perception family, a competitive reversible synthesis oracle, or a self-motion invariant with an unmet classical baseline. The old dense-matrix estimate alone is insufficient.",
+    "claimIds": [
+      "C-268",
+      "C-269",
+      "C-273",
+      "C-293",
+      "C-294"
+    ],
+    "sources": [
+      "scouting/robotics-deep-dive.md",
+      "scouting/robotics-space.md",
+      "scouting/real-variety.md"
+    ],
+    "disposition": "held",
+    "terms": []
+  },
+  {
+    "id": "space-streaming",
+    "title": "Space savings depend on whether input can be reread",
+    "family": "Robotics",
+    "question": "Is a compact quantum register an exponential memory advantage?",
+    "idea": "Separate read-only equation input from one-pass streams and one-way communication. Compare full-vector numerical methods with space-bounded simulation, and encode a sign-consistency stream as polynomial constraints.",
+    "test": "The audit applies quantum-space simulation and random-access-code limits, examines Krylov and per-path homotopy memory, and connects streamed binomial consistency to the known hidden-matching communication separation.",
+    "outcome": "Dense memory estimates are upper bounds for particular classical algorithms, not space lower bounds. On rereadable input, a useful claim must state the time and space jointly. An arbitrary classical lookup table cannot be exponentially compressed into a reliably queryable quantum table.",
+    "survives": "The documented one-pass sign-consistency proposal inherits a known logarithmic-qubit versus square-root-bit separation under its strict promise and stream order. A single-photon phase-encoding implementation provides a natural hardware connection.",
+    "remaining": "The streaming result is a known-mechanism reduction, not new originality. The stronger time-space and perception hardness claims remain conditional or unverified at their registry scopes; they are not engineering advantages for deployed robots.",
+    "claimIds": [
+      "C-264",
+      "C-265",
+      "C-266",
+      "C-267",
+      "C-269",
+      "C-270",
+      "C-271",
+      "C-272",
+      "C-273",
+      "C-274"
+    ],
+    "sources": [
+      "scouting/robotics-space.md",
+      "scouting/robotics-deep-dive.md"
+    ],
+    "disposition": "known-mechanism",
+    "terms": []
+  }
+]
