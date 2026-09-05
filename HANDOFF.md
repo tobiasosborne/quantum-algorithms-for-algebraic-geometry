@@ -1,136 +1,125 @@
-<!-- ROLE: current state + fast restart. Live checkpoint; <=150 lines. -->
+<!-- ROLE: current state + fast restart. Live goal checkpoint; <=150 lines. -->
 
-# HANDOFF — 2026-09-05, persistent construction campaign
+# HANDOFF — 2026-09-05, original-mechanism search remains active
 
-The user explicitly requests relentless exploration until an original quantum
-algorithm is found, with subagents proposing and adversarially verifying ideas.
-All of classical and modern algebraic geometry is in scope. The objective is
-still active: no construction has met the strict D22 novelty requirement.
+The user asks for relentless construction and adversarial verification until a
+GENUINELY NOVEL quantum algorithm is found. All classical and modern algebraic
+geometry is in scope. The goal remains ACTIVE AND UNACHIEVED: a formal quantum
+copy advantage is now proved, but the displayed mechanisms fail strict D22.
+Do not mark the goal complete because a mathematical claim is PROVED.
 
-## Binding steering
+## Binding steering and workflow
 
-- Read `bd prime`, CLAUDE.md, and PRD criteria 1–6 / decisions D22–D24.
-- New means both a problem-level result and an original mechanism; an application
-  or substantive equivalent of a described quantum algorithm does not qualify.
-- No DQI or extensions. No web-led scouting. Derive constructions first; targeted
-  primary-source browsing is used to verify concrete claims and prior art.
-- Only Astra/Sol subagents, at most two concurrently. Native collaboration tools
-  are being used. Writable lane files remain disjoint; root owns shared registers.
-- Matched classical input/output, normalization, success probability, and
-  hardware are part of every proposal. A theorem is not a novelty certificate.
+- Run `bd prime`; use CLAUDE.md, PRD criteria 1–6 and D22–D24.
+- New means an original problem-level result AND an original quantum mechanism.
+  New applications, encodings and compositions of described algorithms do not
+  qualify. Basic gates are allowed. No Grover/QFT/DQI reapplications; DQI and
+  extensions are excluded. Derive before targeted primary-source verification.
+- Only Astra/Sol subagents, at most two concurrently. Native collaboration is
+  used; assigned lane files are disjoint and root owns shared registers.
+- All task tracking is bd; persistent insights use `bd remember`.
+- Seed is read-only. No new full seed-suite run is warranted by these changes.
+- Do not repeat familiarization or relaunch completed negative probes.
 
-## Completed independent work
+## Strongest completed result: same-bit-output copy separation
 
-- `verdicts/original-round2-r1.md`: all four older original-round2 memos reviewed.
-  Five major access/resource/output-scope repairs were applied by root to the
-  algebra, geometry, and broad memos. Minor definition/convention issues remain
-  before any old provisional rows can be merged. Core identities survived.
-- `scouting/original-astra-round2.md`: nilpotent scheme transport and vector-bundle
-  sewing. Exact normalization and invariant-martingale obstructions; no survivor.
-- `scouting/original-enumerative-round3.md`: a deterministic weighted finite-field
-  flag-gallery sampler, identified exactly as known Hecke Baxterization. Includes
-  classical Bruhat-cell compression, large-field concentration, and a Demazure
-  projective-measurement obstruction. No D22 survivor.
+The clean algorithm is `scouting/waring-programmable-tester.md`, independently
+accepted in `verdicts/waring-programmable-tester-r1.md`.
+The lower bound is `scouting/waring-terminal-baseline.md`, independently
+accepted in `verdicts/waring-terminal-baseline-r1.md`.
+Canonical definitions: `definitions/waring-components.md`.
 
-## Second-secant construction and decisive reduction
+Source: copies of normalized T=sum_(a=1)^4 c_a u_a^tensor4, independent unit
+components in C^q=C^d_A tensor C^d_B, q=d^2,d>=20, unknown components/coefficients,
+with G>=1/2 and determinant-seed probability p0>=1/512. Decide whether
+Gamma=(1/4)sum_a e5(Tr_B |u_a><u_a|) is zero or at least 10^(-6).
+This tests a determinantal condition on the unique Waring points, not an explicit
+component list or quantum-output-versus-tomography comparison.
 
-`argument/secant-three-copy.md` and `definitions/secant-three-copy.md` contain
-an explicit optimal cubic-span projector for border tensor rank at most two.
-Local S3 standard-representation registers are projected onto a trine-cat line.
-It has three-copy, O(sum log q_i+k) ideal-operation implementation. A compression
-and compactness argument gives dimension-independent soundness for fixed k and
-fixed distance accuracy, with computable but potentially impractical constants.
+The direct event uses FIVE original copies per trial: one r-copy antisymmetric
+seed, one fixed-index programmable guard using the extra source, and the point
+measurement on five A registers of the selected six-slot component row.
+Joint event probability is at least (9/2^31)Gamma and is exactly zero on YES.
+A sufficient source budget including an implementation margin is
+2,137,652,311,842,450 copies. This is formal and impractical at this bound.
+The general operator proof allows a supplied two-outcome measurement with effect
+Q; sqrt(Q) is only a proof factorization, not a free oracle or a Q-block encoding.
 
-`scouting/secant-single-copy-baseline.md` independently proves the matched
-adaptive global single-copy lower bound T(T-1)>=14q/[27(k+1)] at k>=4,q>=8,
-epsilon=1/2. It includes a self-contained Fock-norm transcript argument and the
-Haar-distance transfer; tomography is not the comparator.
+Every adaptive global-single-original-copy POVM strategy needs at least
+q^(1/4)/(4 sqrt24) copies. The proof uses moment-matched rank-four/rank-five
+component spectra, hidden local Haar frames, positive Haar/Gaussian polynomial
+norm comparison, and the Fock product inequality at each complete transcript.
+Gaussian polynomial extensions are NOT renormalized as quantum states.
+The lower bound permits arbitrary within-copy global measurements and unlimited
+classical computation/memory; it is not a classical coefficient-list theorem.
 
-However `verdicts/secant-three-copy-r1.md` discovers the explicit D22 failure:
-ordinary random-cut exterior-rank testing matches the projector within factor
-eight, and local-type reweighting estimates its exact residual with bounded
-variance. Root and the baseline agent independently confirmed this. C-338 is
-REFUTED; C-335--C-337 remain SKETCH. No north-star result is claimed.
+The direct five-copy batch is also minimal among nontrivial batches with EXACT
+perfect completeness. This does not establish total-copy or two-sided optimality.
+Known universal comparison/programmable-discrimination operations implement the
+mechanism: this formal separation DOES NOT establish the requested originality.
 
-Checker `checkers/explore/secant_three_copy.py`: 112 checks PASS in 1.5 seconds;
-four meaningful mutations exit 1. Independent all-cut Schmidt spectra verify the
-critic's reduction. This is excluded from the old seed suite.
+## Related proved mathematics and rejected mechanisms
 
-## Third-secant result and subsequent constructions
+- C-339--C-341: general secant pair-support identity, exact S4 compression and
+  sharp uniform four-copy nonzero gap 1/12. Source `scouting/secant-pair-support.md`;
+  independent PASS `verdicts/secant-pair-support-r1.md`. Generic filtering applies.
+- C-342--C-344: coded Waring synchronization, seed ceiling and resource bound.
+  Binary subsets reduce guards r-1 -> ceil(log2 r), but the seed costs at least
+  r^(r+1) copies. See `scouting/waring-coded-fusion.md` and its PASS verdict.
+- C-345: the formal terminal separation; C-347: the shorter direct upper;
+  C-348: the scoped five-copy batch lower bound. These are PROVED.
+- C-338 and C-346 are REFUTED novelty assertions. C-335--C-337 remain SKETCH.
+- Rank-two Waring fusion is the GL-covariant redundant-Bell-fusion network,
+  not an original algorithm. Its repaired mathematics passes its own verdict.
+- Earlier trine-cat secant measurement reduces to random-cut rank tests within
+  factor eight. Strassen testing reduces to known Schur/invariant networks.
 
-`verdicts/strassen-four-copy-r1.md` derives the exact four-copy Strassen projector
-for three tensor factors. It rejects a tensor with slices (I,E12,E21), all
-flattening ranks 3, with probability 3/1250. But three local weak-Schur
-measurements plus classical label decisions implement it exactly; a constant-L1
-known-invariant/LCU reduction also preserves detection cost. D22 fails again.
-Its rows and numerical certificate have not yet been registered separately.
+## Other completed construction lanes
 
-`scouting/secant-pair-support.md` now proves the support identity
-S_t(sigma_(t-1)(Segre))=range(P_sym B_12), and a sharp uniform four-copy
-positive gap of 1/12. Root independently audited all representation and kernel
-cases in `verdicts/secant-pair-support-r1.md` (PASS). C-339--C-341 are PROVED
-mathematical statements, without historical-originality claims. The checker
-`secant_pair_support.py` passes 1415 checks; both mutations exit 1. Generic
-product-test block encodings plus support filtering implement this consequence,
-so it still does not meet D22.
+`verdicts/original-round2-r1.md` reviews the four old memos; five major
+access/output/resource repairs were applied. Remaining minor conventions and
+definitions are tracked by qaag-kdj before merging those old proposed rows.
 
-- `scouting/original-recovery-round3.md`: triangular syndrome correction and a
-  mixed-source repair with unknown component weights both work, but have cheap
-  classical counterparts. The Koszul pure-source inverse bound is explicitly
-  not a bound on all mixed-state recovery.
-- `scouting/chow-foulkes-audit.md`: physical Foulkes support identity, an exact
-  classical shuffle law on orthogonal split forms, an exponential small-positive-
-  gap bound, and a scoped irreducible-family obstruction to exact universal
-  failed-state restoration. No general impossibility theorem for Chow testing.
-- `scouting/original-residue-round3.md`: exact residue selection by integer
-  division in Bergman coefficient coordinates; classical-input advantage fails.
-  Real versus holomorphic half-density normalizations are kept separate. The
-  local residue pairing does not degenerate at a colliding double root.
-- `verdicts/residue-packets-r1.md` now gives PASS for the qualified mathematics.
-  Different
-  remainder branches have different weighted metrics; applying the same ordinary
-  Bergman unitary to all branches changes the geometric task. Classical
-  one-vector trajectories, a small-squeeze cutoff bound, a single-copy POVM
-  comparison, and coherent-kernel closure are established there. High-energy
-  compilation and geometric transport remain held; no general no-speedup claim.
+Other completed files, all with no qualifying mechanism:
+- `scouting/original-astra-round2.md`: nilpotent transport, bundle sewing.
+- `scouting/original-enumerative-round3.md`: flag galleries, Hecke Baxterization,
+  Borel compression, large-field concentration, Demazure projection obstruction.
+- `scouting/original-recovery-round3.md`: working triangular and mixed-state
+  recoveries have cheap classical counterparts; universal Koszul inverse bounds
+  are kept distinct from recovery of a single prescribed mixed state.
+- `scouting/chow-foulkes-audit.md`: Foulkes support, exponential positive-gap
+  obstruction and scoped exact universal failed-source-recovery obstruction.
+- `scouting/original-residue-round3.md` and `verdicts/residue-packets-r1.md`:
+  monomial residue division, corrected holomorphic/real metrics, packet trajectory
+  and coherent-kernel classical attacks. High-energy implementation remains held.
+- `scouting/intrinsic-geometry-round4.md`: exact incidence scattering, Fourier
+  reduction for field/translation planes, and a matched classical sampler.
 
-A fresh independent constructor was launched as `fresh_mechanism`, with only
-the task/constraints rather than this entire failed-construction history.
-It writes `scouting/fresh-mechanism-round4.md`, tracked by `qaag-eji`, and may
-choose any AG domain. It must derive a concrete mechanism and send it for
-adversarial review. This continues the user's active goal; do not restart
-familiarization or repeat completed negative probes.
-Its first syzygy idea was abandoned on the existing regular-sequence conditioning
-counterexample. The live attempt wires copies of a Waring tensor with local
-antisymmetrizers to eliminate repeated latent-component labels and distill
-component powers. Success probability, output comparison, and equivalence to
-known entanglement concentration are still under derivation. No result is claimed.
+Completed agents are available for follow-up; none should be assumed still
+working on its last delivered task. Further construction must find a different
+mechanism, not merely polish the proved applications of known operations.
 
-Do not relaunch already completed reviews. Inspect live agent status and files.
-The user has not canceled or paused the research objective.
+## Verification, tracking and repository
 
-## Tracking and repository
+Four new bounded checkers have 2018 checks total and twelve red mutations:
+secant_three_copy (112), secant_pair_support (1415), waring_coded_fusion (418),
+waring_programmable_test (73). See `checkers/MUTATIONS.md`. They are excluded
+from the old seed suite. Numerical probes support, rather than replace, proofs.
 
-- `qaag-47l`: exploration epic, IN_PROGRESS.
-- `qaag-tzn`: synthesis/adversarial audit, IN_PROGRESS; notes updated with repairs.
-- `qaag-cfi`: second-secant construction/audit, CLOSED as a completed negative result.
-- `qaag-ptc`: third-secant/pair-support construction, CLOSED with proved mathematics
-  and a refuted novel-mechanism claim.
-- `qaag-2rb`: Chow/Foulkes construction/audit, CLOSED as a bounded negative probe.
-- `qaag-eji`: fresh independent construction, IN_PROGRESS.
-- `qaag-kdj`: remaining minor original-round2 definition/convention repairs, OPEN.
-- `qaag-9t7`: missing remote destinations; URL question is pending with the user.
-- Latest worklog: `docs/worklog/2026-09-05.md`.
-- Claims C-001..C-334 remain otherwise unchanged. New C-335..C-341 are registered;
-  C-338 is REFUTED and C-339--C-341 are PROVED mathematics, not a north-star hit.
-- Seed remains read-only. No old full-suite rerun is warranted by these changes.
-- Git and Beads Dolt both lack remotes. Pushes were attempted and failed for
-  that reason. Do not invent a destination or create a hosted repository.
-  A remote URL question is pending; research continues locally.
+Active: qaag-47l (persistent original-algorithm exploration), qaag-tzn (synthesis).
+Closed bounded probes: qaag-cfi, qaag-ptc, qaag-2rb, qaag-eji, qaag-6p5.
+Open minor reconciliation: qaag-kdj. Blocked remote setup: qaag-9t7.
+Claims baseline C-001..C-334 is otherwise unchanged; current register ends C-348.
+
+Completed artifacts are committed locally. Git and Beads Dolt have NO remotes;
+required pushes were attempted and failed. A remote URL question is pending
+with the user. Do not invent a destination or create a hosted repository.
+No stashes or remote branches were present to clean up.
 
 ```bash
 bd prime
-bd list --status=in_progress
+bd show qaag-47l
+bd show qaag-tzn
 git status --short --branch
-OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 timeout 60 python3 -B checkers/explore/secant_three_copy.py
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 timeout 60 python3 -B checkers/explore/waring_programmable_test.py
 ```

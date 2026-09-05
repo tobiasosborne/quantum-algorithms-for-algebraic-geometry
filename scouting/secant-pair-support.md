@@ -2,7 +2,8 @@
 
 2026-09-05. Independent construction requested by the root. This file uses
 ordinary finite-dimensional tensor Hilbert spaces, departing from C1's Fock
-convention. Canonical definitions are now in `definitions/secant-pair-support.md`
+convention. Displayed I is identity and D an auxiliary two-by-two matrix,
+local departures from C6 and C8. Canonical definitions are now in `definitions/secant-pair-support.md`
 (D-PAIR-SECANT-SUPPORT and D-PAIR-S4-COMPRESSION). Claim status lives only in
 `claims/CLAIMS.md`, C-339--C-341; numerical probes do not promote claims.
 Historical novelty has not been checked.

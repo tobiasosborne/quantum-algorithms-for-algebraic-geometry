@@ -2,6 +2,7 @@
 
 2026-09-05. Ordinary finite-dimensional complex tensor Hilbert spaces are used;
 this explicitly departs from C1's Fock convention and C2's variable notation.
+The auxiliary matrix D in D-PAIR-S4-COMPRESSION is a local departure from C8.
 No historical novelty or spectral guarantee is implicit in these definitions.
 
 ## D-PAIR-SECANT-SUPPORT

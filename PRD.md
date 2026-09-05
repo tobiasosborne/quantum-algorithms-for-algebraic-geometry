@@ -119,6 +119,18 @@ compression, and sharp uniform four-copy gap statements (1/12), after the indepe
 pair-support verdict and red-capable checker. Generic support filtering implements
 their algorithmic consequence; no D22-compliant north-star hit is established.
 
+Further 2026-09-05 result: C-342--C-344 prove coded Waring-component fusion and
+its severe rank costs, while C-346 refutes the displayed composition's D22
+qualification. C-345 now proves a formal same-bit-output copy separation for
+testing a determinantal condition on Waring points. C-347 gives a direct
+five-source-copy-per-trial upper with about 2.14e15 total copies including an
+implementation margin, and C-348 gives scoped exact-perfect-completeness batch
+minimality. The classical lower bound is Omega(q^(1/4)) adaptive global
+single-original-copy measurements. This is a quantum-data result, not a
+classical coefficient-list speedup, and the bound is impractical. Known
+comparison/programmable-discrimination mechanisms implement it. The genuinely
+original algorithmic north star remains unachieved.
+
 **Arm R: robotics (TJO priority, D5).**
 `scouting/robotics-deep-dive.md` finds three bets and ten killers. Bets: R1, certified
 lower bounds for perception polynomial optimisation via the bosonic moment hierarchy (a
