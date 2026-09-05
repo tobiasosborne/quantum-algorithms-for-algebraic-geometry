@@ -5414,3 +5414,52 @@ assumption. For linear subspaces the mixture can be produced by a passive-optics
   budget was made explicit; no outstanding FATAL/MAJOR/MINOR.
 - north-star relevance: replaces a stored full basis as the comparator for
   the displayed Slater-state incidence query; not a universal quantum lower bound.
+
+### C-353 (C-NEW-THETA-ISOGENY-TRANSPORT)
+- statement: In D-THETA-ISOGENY, the displayed phi basis is orthonormal.
+  D-THETA-SECTOR-TRANSFORM is unitary, independent of Omega, and satisfies
+  J^dagger(e_(2k)(P) tensor e_(2k)(Q))=direct-sum_xi
+  e_k^xi(P+Q) tensor e_k^xi(P-Q). Its normalized sector probabilities are
+  w_xi; zero-weight sectors require no normalized output state. It compiles
+  using O(g poly(log(k+1),log(1/eta))) gates at operator error eta after
+  source preparation. Sector readout is exactly simultaneous measurement
+  of the commuting G_r,H_r, and at k=1 is the ordinary g-pair Bell transform.
+  For every odd k, a local Chinese-remainder basis change identifies sector
+  readout with Bell measurement on g logical qubits per source, giving
+  w_xi<=2^(-g) even for mixed logical subsystems.
+- status: PROVED
+- depends-on: D-THETA-ISOGENY, D-THETA-SECTOR-TRANSFORM
+- where-proved: scouting/theta-isogeny-r6.md sections 1--5; Gaussian norm,
+  parity splitting, explicit inverse index permutation and Weyl eigenvalues.
+- where-tested: bounded theta, unitary and arbitrary-source probes in the
+  author memo and independent verdict, including coupled genus-two periods.
+- referee: verdicts/theta-isogeny-r6.md, PASS after phase, correction-scope
+  and margin repairs; canonical definitions and final parity split verified.
+- north-star relevance: exact geometric state transport, but an explicit
+  reduction to a known finite theta-character mechanism; no original algorithm.
+
+### C-354 (C-NEW-THETA-OUTPUT-BASELINES)
+- statement: For D-THETA-CLASSICAL-OUTPUTS, a fixed sector probability has
+  an unbiased estimator bounded in absolute value by one using separate
+  Weyl measurements on one copy of each source. Thus its zero-versus-gamma
+  bit needs O(gamma^(-2) log(1/delta)) source pairs with failure delta.
+  For even k, separate-source joint measurements of Z^k,X^k followed by
+  eigenbit XOR sample the complete sector string exactly using one pair.
+  Separately, under the stipulated exact sample-and-query coefficient access,
+  the full decoded computational law has an exact-arithmetic classical
+  sampler using O(g 2^g) arithmetic and O(2^g) amplitude queries and numeric
+  storage, plus label arithmetic: sample one common-shift orbit, then sample
+  its Walsh-transformed product amplitudes. This second access model is not
+  provided by copies, and neither result reproduces arbitrary coherent readout.
+- status: PROVED
+- depends-on: C-353, D-THETA-CLASSICAL-OUTPUTS
+- where-proved: scouting/theta-isogeny-r6.md sections 5.3--5.5; signed Weyl
+  projector expansion and exact orbit-weight conditional sampling argument.
+- where-tested: bounded arbitrary-source checks reported in the independent
+  verdict, including canonical orbit indexing and odd-k phase conventions.
+- referee: verdicts/theta-isogeny-r6.md, PASS, no outstanding FATAL/MAJOR/MINOR;
+  exact parity split and canonical orbit enumeration independently checked.
+- north-star relevance: gives a scalar comparator with no dimension factor
+  outside its margin dependence (at odd k a fixed margin eventually makes the
+  growing-genus positive promise empty), and a scoped classical sampler for
+  the stronger input model; not an optimal gamma bound or a copy-only sampler.

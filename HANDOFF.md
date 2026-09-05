@@ -106,12 +106,18 @@ Other completed files, all with no qualifying mechanism:
   working bits O(m(b+log(kq)+log m)). Single/fixed queries only.
   These four rows are PROVED scoped mathematics, not an original algorithm.
   Canonical inputs: `definitions/mechanism-r5.md`.
+- `scouting/theta-isogeny-r6.md`, independent same-name verdict: C-353--C-354
+  prove exact cubist-metric theta transport with twisted, nonuniform sectors.
+  Even k: exact separate-source sector sampler by local Weyl measurements/XOR.
+  Odd k: logical Bell measurement, w_sector<=2^(-g). Full decoded classical
+  sampling under explicit sample-and-query access costs O(g 2^g).
+  Canonical inputs: `definitions/theta-isogeny.md`. D22 still fails.
 
-Active construction: `briefs/theta-isogeny-r6.md`, assigned to degeneration_r5,
-output `scouting/theta-isogeny-r6.md`, task qaag-ibb. It tests a lossless
-theta-point sum/difference map; twisted bundles, Bergman normalization and
-finite Weil/metaplectic reductions must be charged. Check agent status before
-assuming work continues. reconstruction_r5 is auditing r5 register lockstep.
+Active construction: `briefs/hall-extension-r7.md`, assigned to degeneration_r5,
+output `scouting/hall-extension-r7.md`, task qaag-y71. It derives an operation
+on framed quiver extensions, charging coherent flag erasure, automorphism
+weights, module isomorphism and matched classical sampling. Check agent status
+before assuming work continues. reconstruction_r5 is available as a critic.
 Root's three-copy moment-map gradient probe reduced to known double-bracket/
 multi-copy imaginary time; its sign correction and references are in bd memory.
 
@@ -124,9 +130,9 @@ from the old seed suite. Numerical probes support, rather than replace, proofs.
 
 Active: qaag-47l (persistent original-algorithm exploration), qaag-tzn (synthesis).
 Closed bounded probes: qaag-cfi, qaag-ptc, qaag-2rb, qaag-eji, qaag-6p5.
-R5 scopes qaag-5si, qaag-euy, qaag-mw9 have completed independent audits.
+R5 scopes qaag-5si, qaag-euy, qaag-mw9 and theta qaag-ibb have completed audits.
 Open minor reconciliation: qaag-kdj. Blocked remote setup: qaag-9t7.
-Claims baseline C-001..C-334 is otherwise unchanged; current register ends C-352.
+Claims baseline C-001..C-334 is otherwise unchanged; current register ends C-354.
 
 Completed artifacts are committed locally. Git and Beads Dolt have NO remotes;
 required pushes were attempted and failed. A remote URL question is pending

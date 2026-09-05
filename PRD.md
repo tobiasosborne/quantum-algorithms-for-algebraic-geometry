@@ -137,8 +137,13 @@ a sparse trinomial quotient coproduct with a matched polynomial-time classical
 sampler, and an O(k)-word classical baseline for a streamed Grassmann incidence
 query at constant error. These scoped results pass independent audits; none
 meets the original-mechanism requirement. Canonical inputs are in
-`definitions/mechanism-r5.md`. A new theta-isogeny construction is active;
-its twisted-sector normalization, circuit and classical advantage remain open.
+`definitions/mechanism-r5.md`. C-353--C-354 subsequently establish exact
+theta-isogeny transport with nonuniform twisted-sector weights, but also its
+finite-Weyl reduction: even levels have an exact separate-source sector sampler;
+odd levels reduce to logical Bell measurement, with each sector probability at
+most 2^(-g). The same-output access audits pass independently. This again does
+not meet D22. The next active construction concerns Hall extension correspondences
+on quiver moduli; no qualifying algorithm is asserted there.
 
 **Arm R: robotics (TJO priority, D5).**
 `scouting/robotics-deep-dive.md` finds three bets and ten killers. Bets: R1, certified
