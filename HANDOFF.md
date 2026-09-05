@@ -17,7 +17,7 @@ Do not mark the goal complete because a mathematical claim is PROVED.
   extensions are excluded. Derive before targeted primary-source verification.
 - Only Astra/Sol subagents, at most two concurrently. Native collaboration is
   used; assigned lane files are disjoint and root owns shared registers.
-- All task tracking is bd; persistent insights use `bd remember`.
+- Use bd for tracking/memory; serialize its commands because even reads lock Dolt.
 - Seed is read-only. No new full seed-suite run is warranted by these changes.
 - Do not repeat familiarization or relaunch completed negative probes.
 
@@ -81,26 +81,17 @@ access/output/resource repairs were applied. Remaining minor conventions and
 definitions are tracked by qaag-kdj before merging those old proposed rows.
 
 Other completed files, all with no qualifying mechanism:
-- `scouting/original-astra-round2.md`: nilpotent transport, bundle sewing.
-- `scouting/original-enumerative-round3.md`: flag galleries, Hecke Baxterization,
-  Borel compression, large-field concentration, Demazure projection obstruction.
-- `scouting/original-recovery-round3.md`: working triangular and mixed-state
-  recoveries have cheap classical counterparts; universal Koszul inverse bounds
-  are kept distinct from recovery of a single prescribed mixed state.
-- `scouting/chow-foulkes-audit.md`: Foulkes support, exponential positive-gap
-  obstruction and scoped exact universal failed-source-recovery obstruction.
+- `scouting/original-astra-round2.md`: nilpotent transport and bundle sewing;
+  `scouting/original-enumerative-round3.md`: Hecke/flag-gallery classical attacks.
+- `scouting/original-recovery-round3.md`: scoped triangular/mixed/Koszul recoveries;
+  `scouting/chow-foulkes-audit.md`: Foulkes gap and exact-recovery obstructions.
 - `scouting/original-residue-round3.md` and `verdicts/residue-packets-r1.md`:
-  monomial residue division, corrected holomorphic/real metrics, packet trajectory
-  and coherent-kernel classical attacks. High-energy implementation remains held.
-- `scouting/intrinsic-geometry-round4.md`: exact incidence scattering, Fourier
-  reduction for field/translation planes, and a matched classical sampler.
-- `scouting/degeneration-mechanism-r5.md`, independent same-name verdict:
-  C-349 matches the rare-top-jet copy bound with a direct one-copy test;
-  C-350 derives retained bath transport, its false multiplication/monodromy
-  identification, and the fresh-bath truncated-geometric classical sampler.
-- `scouting/reconstruction-mechanism-r5.md`, independent same-name verdict:
-  C-351 compiles x^D-a x-b adjoint multiplication from equations, then
-  classically samples its |D-1> tree output via O(m^2) supported exponent sums.
+  corrected residue metrics and classical attacks; high-energy gates remain held.
+- `scouting/intrinsic-geometry-round4.md`: incidence/Fourier reduction and sampler.
+- `scouting/degeneration-mechanism-r5.md`, same-name verdict: C-349--C-350
+  give the rare-jet copy bound and retained-bath arithmetic/monodromy discrepancy.
+- `scouting/reconstruction-mechanism-r5.md`, same-name verdict: C-351 compiles
+  sparse trinomial multiplication and classically samples its tree output.
 - `scouting/grassmann-streaming-r5.md`, independent same-name verdict:
   C-352 uses bilinear four-wise sign sketches with variance <=9k; full
   working bits O(m(b+log(kq)+log m)). Single/fixed queries only.
@@ -112,27 +103,39 @@ Other completed files, all with no qualifying mechanism:
   Odd k: logical Bell measurement, w_sector<=2^(-g). Full decoded classical
   sampling under explicit sample-and-query access costs O(g 2^g).
   Canonical inputs: `definitions/theta-isogeny.md`. D22 still fails.
+- `scouting/hall-extension-r7.md`, independent same-name verdict: C-355--C-356
+  fix Hall measures and flag-erasure norms, then derive an exact retained-order
+  Yoneda obstruction with a matched classical matrix-vector test.
+  Canonical inputs: `definitions/hall-extension.md`. No speedup.
+- `scouting/spinor-mechanism-r7.md`, independent same-name verdict: C-357--C-358
+  separate a six-CCZ coboundary phase/IQP circuit from the continuous associator
+  filter (norm sqrt96). Classical scalar tests match. One-use real p<=1/24
+  is not multiplicative: paired internal entanglement gives 7/512 for two uses.
+  Canonical inputs: `definitions/octonionic-operations.md`. No north-star hit.
+- `scouting/problem-first-r8.md`, same-name verdict: C-359--C-360 give the
+  real Schur coisometry, p<=1/2 and expected fresh-child cost >=4^t, plus
+  matching Theta((16/9)^D) quantum/classical copy costs for disk radius5/8.
+  Geometric separation does not cure coefficient-state conditioning.
+  Canonical inputs: `definitions/schur-disk-count.md`.
 
-Active construction: `briefs/hall-extension-r7.md`, assigned to degeneration_r5,
-output `scouting/hall-extension-r7.md`, task qaag-y71. It derives an operation
-on framed quiver extensions, charging coherent flag erasure, automorphism
-weights, module isomorphism and matched classical sampling. Check agent status
-before assuming work continues. reconstruction_r5 is available as a critic.
-Root's three-copy moment-map gradient probe reduced to known double-bracket/
-multi-copy imaginary time; its sign correction and references are in bd memory.
+The bounded r7/r8 constructions and audits are complete. Agents are available
+for a different next task; do not assume completed agents are still working.
+Keep the full goal active and find a materially different processing step.
+Do not revisit coefficient-state root extraction without confronting C-360,
+or present generic pure-spinor/Bell/convolution tests as new (see bd memory).
+Root's three-copy moment-map flow is known double-bracket QITE; details are in bd memory.
 
 ## Verification, tracking and repository
 
-Four new bounded checkers have 2018 checks total and twelve red mutations:
-secant_three_copy (112), secant_pair_support (1415), waring_coded_fusion (418),
-waring_programmable_test (73). See `checkers/MUTATIONS.md`. They are excluded
-from the old seed suite. Numerical probes support, rather than replace, proofs.
+Four bounded checkers total 2018 checks and twelve red mutations; see
+`checkers/MUTATIONS.md`. They remain outside the old seed suite and need no
+rerun for unchanged code. Numerical probes support, rather than replace, proofs.
 
 Active: qaag-47l (persistent original-algorithm exploration), qaag-tzn (synthesis).
 Closed bounded probes: qaag-cfi, qaag-ptc, qaag-2rb, qaag-eji, qaag-6p5.
-R5 scopes qaag-5si, qaag-euy, qaag-mw9 and theta qaag-ibb have completed audits.
+Audited: qaag-5si, qaag-euy, qaag-mw9, qaag-ibb, qaag-y71, qaag-62k, qaag-7kv.
 Open minor reconciliation: qaag-kdj. Blocked remote setup: qaag-9t7.
-Claims baseline C-001..C-334 is otherwise unchanged; current register ends C-354.
+Claims baseline C-001..C-334 is otherwise unchanged; current register ends C-360.
 
 Completed artifacts are committed locally. Git and Beads Dolt have NO remotes;
 required pushes were attempted and failed. A remote URL question is pending
@@ -144,5 +147,4 @@ bd prime
 bd show qaag-47l
 bd show qaag-tzn
 git status --short --branch
-OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 timeout 60 python3 -B checkers/explore/waring_programmable_test.py
 ```

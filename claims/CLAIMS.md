@@ -5463,3 +5463,137 @@ assumption. For linear subspaces the mixture can be produced by a passive-optics
   outside its margin dependence (at odd k a fixed margin eventually makes the
   growing-genus positive promise empty), and a scoped classical sampler for
   the stronger input model; not an optimal gamma bound or a copy-only sampler.
+
+### C-355 (C-NEW-HALL-MEASURE-NORMALIZATION)
+- statement: In D-HALL-A2-EXTENSIONS, uniform X induces uniform extension
+  classes, and |Ext^1(M,N)_E|=F_(MN)^E a_N a_M h/a_E. Its zero-arrow
+  middle-class rank sample has the displayed finite-field rank distribution
+  and an ordinary matrix-sampling/elimination algorithm. For every
+  D-HALL-FLAG-FORGETTING map, T T^dagger=diag(F_y), ||T||=sqrt(F_max),
+  and its largest uniformly scaled contraction succeeds on omega_y with
+  probability F_y/F_max. The differently weighted C is a coisometry;
+  neither operator identity implies a cheap fibre-transform implementation.
+- status: PROVED
+- depends-on: D-HALL-A2-EXTENSIONS, D-HALL-FLAG-FORGETTING
+- where-proved: scouting/hall-extension-r7.md sections 1--2;
+  linear quotient, endpoint-framed orbit-stabilizer and disjoint row supports.
+- where-tested: bounded author probes reported in that memo, including
+  small flag/automorphism counts and omitted-Hom-factor negative variants.
+- referee: verdicts/hall-extension-r7.md, independent PASS, no FATAL/MAJOR.
+- north-star relevance: exact access and measure audit for the displayed
+  Hall operation, with a classical sampler; no original quantum mechanism.
+
+### C-356 (C-NEW-HALL-RETAINED-OBSTRUCTION)
+- statement: In D-HALL-YONEDA-QUERY, C_(X,Y)|u,v,w>=|u,v,w+YXu>.
+  Its event detects nonmembership with probability 1-q^(-rank(YX)),
+  exactly matched by a classical uniformly random u followed by Xu and
+  YXu. Both repeat ceil(log(1/delta)/log q) times for error at most delta.
+  The quantum CNOT cost is O((ab+bc)s^2) per trial with (a+b+c)s auxiliary
+  qubits; the classical test has the same asymptotic binary arithmetic and
+  working-space costs. Interfering the two orders on the displayed source
+  has overlap q^(-rank(YX)) and destructive-port probability half the
+  direct event. No better quantum algorithm is ruled out by this comparison.
+- status: PROVED
+- depends-on: D-HALL-YONEDA-QUERY
+- where-proved: scouting/hall-extension-r7.md sections 3--4;
+  exact shear multiplication, rank-nullity and the matched random-vector test.
+- where-tested: bounded author commutator and detection-law probes,
+  reported alongside the Hall probes in scouting/hall-extension-r7.md.
+- referee: verdicts/hall-extension-r7.md, independent PASS, no FATAL/MAJOR.
+- north-star relevance: a retained-register geometric obstruction circuit
+  whose proposed output has a direct Freivalds-type classical competitor;
+  no time/space advantage or original-mechanism assertion survives.
+
+### C-357 (C-NEW-OCTONION-RETAINED-PHASE)
+- statement: Under D-OCTONION-CONVENTION, partial F(a,b,c)=det_F2(a,b,c)
+  and U_ass is exactly six CCZ gates with retained labels. The coboundary
+  phase has unit product on closed triangulated three-manifolds with
+  compatible flat group labellings. D-OCTONION-PHASE-QUERY has output
+  probabilities p_y=b_y^2 and the stated hyperplane-count interpretation.
+  Its fixed-frequency bit has a classical random-assignment algorithm using
+  O(gamma^(-1) log(1/delta)) samples and O((v+m)gamma^(-1) log(1/delta))
+  bit operations, matching the displayed quantum event-testing cost.
+  The full output sampler is a cubic-phase IQP circuit; no universal
+  classical sampler or hardness transfer to every hypergraph is asserted.
+- status: PROVED
+- depends-on: D-OCTONION-CONVENTION, D-OCTONION-PHASE-QUERY
+- where-proved: scouting/spinor-mechanism-r7.md sections 1--5;
+  explicit table coboundary, Walsh expansion and unsquared-mean concentration.
+  Closed-flat telescoping is proved in verdicts/spinor-mechanism-r7.md section 2.
+- where-tested: bounded exact author and independent critic diagnostics
+  reported in the memo and verdict; no numerical extrapolation.
+- referee: verdicts/spinor-mechanism-r7.md, mathematical and integration PASS,
+  including the explicit 0<delta<=1/3 quantifier; no outstanding objections.
+- north-star relevance: distinguishes a real geometric associator from a
+  retained basis-label phase and identifies the latter's known mechanism.
+
+### C-358 (C-NEW-OCTONION-FOLDED-FILTER)
+- statement: In D-OCTONION-CONVENTION, AA^dagger=96(mathbb1-|0><0|),
+  ||A||=sqrt(96), and P=K^dagger K is a real rank-seven projector.
+  For one use on real unit product inputs, K succeeds with probability
+  ||[x,y,z]||^2/96<=1/24. The paired tensor diagnostic instead has
+  probability 7/512, so the one-use ceiling is not asserted multiplicative.
+  The constant-dimensional filter has finite-gate synthesis cost
+  O(polylog(1/eta)) at operator error eta. For the explicit-list and
+  one-triple copies-only problems in D-OCTONION-CONTINUOUS-QUERY, the
+  displayed quantum filter and the stated classical/ separate-source
+  procedures use O(gamma^(-1) log(1/delta)) row trials or source copies,
+  with their different indexed-access, arithmetic, preparation and synthesis
+  costs explicitly charged. No asymptotic advantage or optimality is claimed.
+- status: PROVED
+- depends-on: D-OCTONION-CONVENTION, D-OCTONION-CONTINUOUS-QUERY
+- where-proved: scouting/spinor-mechanism-r7.md sections 6--8;
+  disjoint 24-term rows, real norm composition, vectorization, random-row
+  evaluation and fixed-dimensional density-matrix/eigenvector estimation.
+- where-tested: exact row-norm and paired-input identities in the bounded
+  author/critic probes, with real-versus-complex and tensor scope explicit.
+- referee: verdicts/spinor-mechanism-r7.md, mathematical and integration PASS
+  after synthesis-cost, margin and failure-probability quantifier repairs.
+- north-star relevance: a physically normalized continuous-associator map
+  with matched comparators, rather than a new algorithmic mechanism or speedup.
+
+### C-359 (C-NEW-COHERENT-SCHUR-STEP)
+- statement: For D-COEFFICIENT-SCHUR-STEP, K_d K_d^dagger=mathbb1_(d+1)
+  and Ktilde_d Ktilde_d^dagger=mathbb1_d. On identical normalized inputs,
+  the raw output is (a_d a-a_0 R_d a)/sqrt(2), with zero constant coordinate,
+  and p_d(a)<=1/2. For real inputs satisfying the strict unit-disk promises,
+  the normalized successful output represents g and Rouche gives
+  n(f)=1+n(g) when |a_d|>|a_0|, and n(f)=d-1-n(g) in the other strict case.
+  The fixed fresh-child protocol has expected C_(t+1)=2 C_t/p_t and
+  C_t>=4^t, before separately charged branch readout. These are costs of
+  that protocol, not a universal lower bound on every root-count algorithm.
+- status: PROVED
+- depends-on: D-DISK-COUNT-INPUT, D-COEFFICIENT-SCHUR-STEP
+- where-proved: scouting/problem-first-r8.md sections 2--4; exact index map,
+  reversal eigenspaces, strict-boundary comparison and repeat-until-success cost.
+- where-tested: bounded author and independent critic operator/root-count
+  probes reported in the source and verdict; no inference beyond their proofs.
+- referee: verdicts/problem-first-r8.md, mathematical and integration PASS
+  after all-stage pivot and expected-cost repairs; no outstanding objections.
+- north-star relevance: an exact degree-changing processor, whose displayed
+  recursive use fails to provide the requested efficient algorithm.
+
+### C-360 (C-NEW-DISK-COUNT-MATCHED-COPY-BOUND)
+- statement: On D-SEPARATED-RADIAL-DISK-FAMILY, the roots have pairwise
+  separation 2R sin(pi/D)=Theta(1/D) and distance 1/8 from the query circle.
+  Any collective quantum algorithm solving the normalized disk-count task
+  with success at least 2/3 and copy cap N needs
+  N>=1/(9 delta_fid)>=(1/9)(16/9)^D. Separate coefficient-basis measurements
+  with N=ceil(2 log(3)/y^2) and the rare-constant-outcome rule succeed at
+  that same error level. Thus optimal collective and separate-measurement
+  copy complexities both scale as Theta((16/9)^D) on this family.
+  With exact rational coefficient bits, both algorithms can instead perform
+  the stated polynomial-bit-cost coefficient comparison; that is a different
+  input model and is not subject to the copy-only lower bound.
+- status: PROVED
+- depends-on: D-DISK-COUNT-INPUT, D-SEPARATED-RADIAL-DISK-FAMILY
+- where-proved: scouting/problem-first-r8.md section 5; exact two-state
+  infidelity, data processing, and both error probabilities of the explicit
+  single-copy measurement strategy for D>=3.
+- where-tested: bounded author and independent critic instances of the
+  exact error formulas, reported in scouting/problem-first-r8.md and its verdict.
+- referee: verdicts/problem-first-r8.md, mathematical and integration PASS
+  with the radius-5/8 output and fixed total copy cap explicitly preserved.
+- north-star relevance: a matched input-model obstruction even with separated
+  roots and a fixed boundary margin; it does not rule out other algorithms
+  or a quantum advantage on different promised coefficient families.

@@ -142,8 +142,21 @@ theta-isogeny transport with nonuniform twisted-sector weights, but also its
 finite-Weyl reduction: even levels have an exact separate-source sector sampler;
 odd levels reduce to logical Bell measurement, with each sector probability at
 most 2^(-g). The same-output access audits pass independently. This again does
-not meet D22. The next active construction concerns Hall extension correspondences
-on quiver moduli; no qualifying algorithm is asserted there.
+not meet D22. C-355--C-356 then settle two Hall-extension constructions:
+the raw flag-forgetting norm charges its largest fibre, and the retained-order
+Yoneda-obstruction circuit has the same output law and cost as a classical
+random-vector matrix-product test. Their independent audit passes, with no
+speedup. C-357--C-358 then establish retained octonionic reassociation and
+continuous associator filtering as different physical maps, with exact norms
+and matched classical attacks. The first is cubic-phase IQP; the second has
+no demonstrated advantage, and its one-use bound is not multiplicative under
+internally entangled source inputs. Both pass independent audits without
+meeting D22. C-359--C-360 then prove an exact real Schur-reduction processor,
+but its fixed fresh-child recursion costs at least 4^t expected copies after
+t reductions. A separate radius-5/8 family has matching exponential quantum
+and classical copy complexity despite separated roots and a fixed geometric
+boundary margin. The independent audit passes; no original efficient algorithm
+has been found. The full research goal remains active.
 
 **Arm R: robotics (TJO priority, D5).**
 `scouting/robotics-deep-dive.md` finds three bets and ten killers. Bets: R1, certified
