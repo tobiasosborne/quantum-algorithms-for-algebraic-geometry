@@ -4,3 +4,4 @@ __pycache__/
 .beads/*.db
 .beads/*.db-*
 scouting/*.tmp
+reports/node_modules/

@@ -1,0 +1,15 @@
+{
+  "name": "qaag-research-report",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Reproducible offline research report build and browser verification",
+  "scripts": {
+    "build": "python3 build_report.py",
+    "check": "python3 build_report.py --check",
+    "verify": "node verify_report.cjs"
+  },
+  "dependencies": {
+    "katex": "0.16.22",
+    "playwright": "1.55.0"
+  }
+}

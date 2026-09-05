@@ -1,6 +1,6 @@
 <!-- ROLE: current state + fast restart. Live goal checkpoint; <=150 lines. -->
 
-# HANDOFF — 2026-09-05, report integration and active research
+# HANDOFF — 2026-09-05, interactive report and active research
 
 The user asks for relentless construction and adversarial verification until a
 GENUINELY NOVEL quantum algorithm is found. All classical and modern algebraic
@@ -8,14 +8,14 @@ geometry is in scope. The goal remains ACTIVE AND UNACHIEVED: a formal quantum
 copy advantage is now proved, but the displayed mechanisms fail strict D22.
 Do not mark the goal complete because a mathematical claim is PROVED.
 
-## Restart checkpoint: finish the report first
+## Interactive report
 
-Run `bd prime`, then `bd show qaag-dx0` for detailed build and recovery instructions.
-Both report agents finished: template/preview plus 69 routes are in `reports/`.
-The HTML is a PREVIEW with fallback data; archive/KaTeX integration and QA remain.
-`briefs/report-html.md` contains the full design, schema and seven figure formulas.
-R9 is integrated as C-361--C-364: math passes, but its mechanism fails originality.
-Report build and editorial agents resumed; use their actual status before delegation.
+The requested report is `reports/research-report.html`, a self-contained offline
+HTML artifact with seven explainers, 69 routes, 364 claims, 137 sources and glossary.
+`reports/README.md` documents its reproducible build and browser verification.
+The 57-check offline browser suite passes; independent targeted checks cover
+navigation, high-refresh-rate animations and source-reader presentation.
+Run `bd prime`, then read qaag-47l/qaag-tzn to resume the original research goal.
 
 ## Binding steering and workflow
 
@@ -143,7 +143,7 @@ Four bounded checkers total 2018 checks and twelve red mutations; see
 
 Active: qaag-47l (persistent original-algorithm exploration), qaag-tzn (synthesis).
 Open minor reconciliation: qaag-kdj. Blocked remote setup: qaag-9t7.
-Register ends C-364; qaag-j8n/qaag-9v2 track the integrated r9 audit.
+Register ends C-364; the r9 construction and independent audit are integrated.
 
 Completed artifacts are committed locally. Git and Beads Dolt have NO remotes;
 required pushes were attempted and failed. A remote URL question is pending
