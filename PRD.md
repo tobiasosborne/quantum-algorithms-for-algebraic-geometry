@@ -91,7 +91,7 @@ Candidates: Tr(P_I P_J)/M_N and Toeplitz integration (classical memo rank 5;
 applications shortlist 4; rows C-166/C-168). The most plausible genuinely new PROBLEM in
 the seed. Baseline: randomized trace products, witness-set intersection. Dequantization
 risk high; the arm is valuable only once a theorem ties the normalised observable to a
-geometric quantity at polynomially resolvable scale. Update 2026-09-03 (`scouting/intersection-observables.md`, critic loop r1–r3): the seed's suggested test has been run. The conditional is MET exactly for linear families (C-325 (C-NEW-IO-LINEAR-EXACT): Tr(P_{Sym^N U} P_{Sym^N W}) = h_N(sigma^2)) and NOT met in general (the clean-intersection law C-NEW-IO-CLEAN is held on the unproved ambient Bergman-frame estimate, Geometry 2.4). C-085, C-086 and C-168 are REFUTED as written (tangency gives exponent 1 - 1/m at dim(V ∩ W) = 0; the registered Toeplitz normalisation diverges), with surviving statements C-166/C-167 (amended) and C-331 (C-NEW-IO-TOEPLITZ). The normalised signal survives to codim(V ∩ W) = O(log n) (C-333 (C-NEW-IO-SIGNAL)); the arm reduces to arm A on a concatenated generator list (held C-NEW-IO-SUM-IDEAL) and scores 1/5 on evidence; not closed by a baseline argument.
+geometric quantity at polynomially resolvable scale. Update 2026-09-03 (`scouting/intersection-observables.md`, critic loop r1–r3): the seed's suggested test has been run. The conditional is MET exactly for linear families (C-325 (C-NEW-IO-LINEAR-EXACT): Tr(P_{Sym^N U} P_{Sym^N W}) = h_N(sigma^2)) and NOT met in general (the clean-intersection law C-NEW-IO-CLEAN is held on the unproved ambient Bergman-frame estimate, Geometry 2.4). C-085, C-086 and C-168 are REFUTED as written (tangency gives exponent 1 - 1/m at dim(V ∩ W) = 0; the registered Toeplitz normalisation diverges), with surviving statements C-166/C-167 (amended) and C-329 (C-NEW-IO-TOEPLITZ). The normalised signal survives to codim(V ∩ W) = O(log n) (C-331 (C-NEW-IO-SIGNAL)); the arm reduces to arm A on a concatenated generator list (held C-NEW-IO-SUM-IDEAL) and scores 1/5 on evidence; not closed by a baseline argument.
 
 **Arm D: quantum-native varieties.**
 Candidates: multigraded quantum k-SAT ground spaces and their inverse-system description
@@ -157,6 +157,21 @@ t reductions. A separate radius-5/8 family has matching exponential quantum
 and classical copy complexity despite separated roots and a fixed geometric
 boundary margin. The independent audit passes; no original efficient algorithm
 has been found. The full research goal remains active.
+
+Support conversion audit, 2026-09-05: C-361--C-363 now establish exact
+heralded support-to-Slater conversion, a matched approximate projection-DPP
+copy separation, and an exact separable-measurement sampling obstruction.
+The input is copies of an unknown rank-r density operator, with known
+minimum nonzero eigenvalue promise eta/r; the quantum source cost is
+O((r^2/eta) log(1/delta)) and gate cost is polynomial in r, eta^(-1) and
+log(q). At flat rank two and TV error 1/16, 15 collective copies suffice,
+while every adaptive single-copy sampler needs T(T-1)>=3q/16. Exact
+certification assumes noiseless physical permutations and exact source
+support. The independent audit accepts the mathematics but refutes C-364:
+known generalized phase estimation, representation-factor reset and the
+same certificate implement the conversion. A seven-qubit rank-two
+diagnostic is concrete, but does not restore originality. No north-star
+hit is established; canonical inputs are in `definitions/support-plucker.md`.
 
 **Arm R: robotics (TJO priority, D5).**
 `scouting/robotics-deep-dive.md` finds three bets and ten killers. Bets: R1, certified

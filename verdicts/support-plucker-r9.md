@@ -548,3 +548,43 @@ The original exactness and adaptive-baseline objections are resolved.
 Root may integrate the scoped mathematical claims with a mathematical
 PASS, while preserving the FATAL D22 mechanism verdict. No claim can
 be promoted to a north-star hit on this audit.
+
+## 5. Independent canonical-integration addendum — 2026-09-05
+
+The dedicated report/editorial agent independently cross-checked the newly
+registered C-361--C-364 against the canonical support definitions, the author
+construction, and the saved independent audit above. This is an integration
+and scope review; it does not substitute a new numerical run for the proofs.
+
+**Integration verdict: scoped PASS, with no FATAL or MAJOR integration
+discrepancy.** The existing FATAL N1 remains the mathematical construction's
+separate originality verdict, correctly recorded as REFUTED in C-364.
+
+- **C-361:** the finite-circuit exact accepted-output statement preserves the
+  exact source-support and physical-permutation assumptions, and excludes
+  arbitrary hardware noise. Substituting `K=O(N^2 log N)` and `m=O(log N)`
+  into the detailed resource bound gives the registered conservative
+  `O(B N^7 log^4 N [w+log^4 N])` gate cap. Independent batches with acceptance
+  at least `1/16` justify expected source cost at most `16N`; the capped
+  failure/fixed-subset convention gives the stated always-output TV bound.
+- **C-362:** the row keeps the full coherent adaptive-transcript law, the
+  fixed total copy cap, and the relation `q=2d`. At `epsilon<=1/16`,
+  `d(1/2-2epsilon)>=3d/8=3q/16`. One recycle step gives
+  `1/4+(3/4)(1/4)=7/16`; five independent triples fail with probability
+  `(9/16)^5<1/16`, so 15 is a valid sufficient copy cap. This is not a
+  claim of practical runtime optimality or a coefficient-list lower bound.
+- **C-363:** the statement retains `2<=r<q`, separability across source
+  copies, the failure-flag and finite-terminal-time scope, and the distinction
+  between exact nonexistence and the separate quantitative approximate lower
+  bound. Its proof provenance is the positivity argument, not finite tests.
+- **C-364:** the row records the specific generalized-phase-estimation,
+  multiplicity-reset and signed-permutation reduction. It preserves exact
+  support under ancillary approximation and does not infer novelty failure
+  merely from elementary-gate universality. It does not assert prior
+  publication of the exact growing-r DPP theorem.
+
+One MINOR parameter-quantifier correction was identified during this review:
+C-362's finite `log(1/epsilon)` repetition formula requires positive error.
+The canonical row now explicitly states `0<epsilon<1/4`; this was verified
+before the scoped PASS. No claim-status change is requested by this addendum,
+and the original-algorithm research goal remains unachieved.

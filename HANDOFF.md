@@ -1,6 +1,6 @@
 <!-- ROLE: current state + fast restart. Live goal checkpoint; <=150 lines. -->
 
-# HANDOFF — 2026-09-05, device-restart checkpoint
+# HANDOFF — 2026-09-05, report integration and active research
 
 The user asks for relentless construction and adversarial verification until a
 GENUINELY NOVEL quantum algorithm is found. All classical and modern algebraic
@@ -14,8 +14,8 @@ Run `bd prime`, then `bd show qaag-dx0` for detailed build and recovery instruct
 Both report agents finished: template/preview plus 69 routes are in `reports/`.
 The HTML is a PREVIEW with fallback data; archive/KaTeX integration and QA remain.
 `briefs/report-html.md` contains the full design, schema and seven figure formulas.
-R9 math passes its saved audit but originality fails; C-361--C-364 are not registered.
-Integration notes: qaag-j8n/qaag-9v2. All agents and npm installation have finished.
+R9 is integrated as C-361--C-364: math passes, but its mechanism fails originality.
+Report build and editorial agents resumed; use their actual status before delegation.
 
 ## Binding steering and workflow
 
@@ -30,7 +30,7 @@ Integration notes: qaag-j8n/qaag-9v2. All agents and npm installation have finis
 - Seed is read-only. No new full seed-suite run is warranted by these changes.
 - Do not repeat familiarization or relaunch completed negative probes.
 
-## Strongest completed result: same-bit-output copy separation
+## Completed Waring same-bit-output copy separation
 
 The clean algorithm is `scouting/waring-programmable-tester.md`, independently
 accepted in `verdicts/waring-programmable-tester-r1.md`.
@@ -127,24 +127,24 @@ Other completed files, all with no qualifying mechanism:
   Geometric separation does not cure coefficient-state conditioning.
   Canonical inputs: `definitions/schur-disk-count.md`.
 
-The bounded r7/r8 constructions and audits are complete; the full goal remains active.
-Do not revisit coefficient-state root extraction without confronting C-360,
-or present generic pure-spinor/Bell/convolution tests as new (see bd memory).
-Root's three-copy moment-map flow is known double-bracket QITE; details are in bd memory.
+R9: C-361 proves exact support-to-Slater conversion with polynomial-rank/log-q
+resources; C-362 proves approximate DPP sampling needs Omega(sqrt(q)) classical
+copies versus a q-independent quantum cap (flat rank2, TV1/16: 15copies suffice).
+C-363 excludes exact universal separable samplers for 2<=r<q. C-364 rejects
+originality via known GPE, multiplicity reset and the same exact certificate.
+Sources: `scouting/support-plucker*.md`, `verdicts/support-plucker-r9.md`;
+canonical inputs: `definitions/support-plucker.md`. Exact support/gates matter.
+Do not reopen known root-extraction, moment-map or pure-spinor probes (bd memory).
 
 ## Verification, tracking and repository
 
 Four bounded checkers total 2018 checks and twelve red mutations; see
-`checkers/MUTATIONS.md`. They remain outside the old seed suite and need no
-rerun for unchanged code. Numerical probes support, rather than replace, proofs.
+`checkers/MUTATIONS.md`. Numerical probes support, rather than replace, proofs.
 
 Active: qaag-47l (persistent original-algorithm exploration), qaag-tzn (synthesis).
-Closed bounded probes: qaag-cfi, qaag-ptc, qaag-2rb, qaag-eji, qaag-6p5.
-Audited: qaag-5si, qaag-euy, qaag-mw9, qaag-ibb, qaag-y71, qaag-62k, qaag-7kv.
 Open minor reconciliation: qaag-kdj. Blocked remote setup: qaag-9t7.
-Claims baseline C-001..C-334 is otherwise unchanged; current register ends C-360.
+Register ends C-364; qaag-j8n/qaag-9v2 track the integrated r9 audit.
 
 Completed artifacts are committed locally. Git and Beads Dolt have NO remotes;
 required pushes were attempted and failed. A remote URL question is pending
 with the user. Do not invent a destination or create a hosted repository.
-No stashes or remote branches were present to clean up.

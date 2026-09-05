@@ -5597,3 +5597,106 @@ assumption. For linear subspaces the mixture can be produced by a passive-optics
 - north-star relevance: a matched input-model obstruction even with separated
   roots and a fixed boundary margin; it does not rule out other algorithms
   or a quantum advantage on different promised coefficient families.
+
+### C-361 (C-NEW-SUPPORT-PLUCKER-CONVERSION)
+- statement: For D-SUPPORT-PLUCKER-INPUT with r>=2 and the noiseless finite-gate
+  model in D-SUPPORT-STEERING-BUDGET, a uniform heralded circuit consumes at
+  most BN source copies and fails with probability at most delta. Every
+  accepted output is exactly the support Slater ray Omega_U, and sorted
+  coordinate measurement has law det(P_U[J,J]). The source cap is
+  O((r^2/eta) log(1/delta)); a conservative gate cap is
+  O(B N^7 log^4(N) [w+log^4(N)]), w=ceil(log_2(q)), with quantum storage
+  O(Nw+r^2 log^2(r+1)+log(N)) and classical tableau storage O(N log(N)).
+  Uncapped independent batches need at most 16N copies in expectation.
+  A fixed-subset fallback gives an always-output sampler with TV error
+  at most delta. Rank one requires one copy. Exact accepted output relies
+  on the exact source-support and physical-permutation assumptions; arbitrary
+  hardware noise is excluded.
+- status: PROVED
+- depends-on: D-SUPPORT-PLUCKER-INPUT, D-SUPPORT-PLUCKER-OUTPUT,
+  D-SUPPORT-TABLEAU-OPERATORS, D-SUPPORT-STEERING-BUDGET
+- where-proved: scouting/support-plucker-r9.md sections 3--8; RSK waiting
+  time, nondemolition contents, recyclable tableau steering, invariant
+  support, exact padded-permutation certificate and full-instrument error bound.
+- where-tested: bounded author tableau, factoradic and small-rank operator
+  diagnostics in section 9; independent checks in verdicts/support-plucker-r9.md.
+- referee: verdicts/support-plucker-r9.md sections 1 and 4, mathematical PASS
+  after exact-certificate and instrument repairs; the separate D22 objection
+  concerns C-364 and does not assert a defect in this mathematical statement.
+- north-star relevance: an exact geometric-output conversion efficient in
+  log(q), whose known-mechanism reduction is recorded separately in C-364.
+
+### C-362 (C-NEW-SUPPORT-DPP-COPY-SEPARATION)
+- statement: On D-SUPPORT-BLOCK-PAIR, every adaptive single-copy measurement
+  strategy with fixed total cap T in D-SUPPORT-CLASSICAL-COPY-MODEL has
+  full averaged transcript laws P_theta>=c_T P_* and
+  TV(P_0,P_1)<=1-c_T<=T(T-1)/d. Consequently an always-output projection-DPP
+  sampler with TV error at most epsilon, where 0<epsilon<1/4, for every
+  promised support
+  requires T(T-1)>=d(1/2-2epsilon). For epsilon<=1/16 this gives
+  T(T-1)>=3q/16, hence Omega(sqrt(q)) copies. Collective quantum sampling
+  at this same fixed error has a sufficient copy cap independent of q by
+  C-361. More explicitly, for flat rank two a three-copy batch with one
+  recycled swap test succeeds exactly with probability 7/16; repeating
+  ceil(log(1/epsilon)/log(16/9)) batches and using the fixed-subset fallback
+  gives TV error at most epsilon, so 15 copies suffice at epsilon=1/16.
+  These are a classical lower and a quantum sufficient upper, not optimal
+  runtime constants or bounds under classical coefficient access.
+- status: PROVED
+- depends-on: C-361, D-SUPPORT-CLASSICAL-COPY-MODEL, D-SUPPORT-BLOCK-PAIR
+- where-proved: scouting/support-plucker-classical-r9.md; complete adaptive
+  transcript Haar/Gaussian norm comparison, homogeneous Fock product inequality
+  and common minorization; verdicts/support-plucker-r9.md section 3.5 for
+  the three-copy diagnostic, followed by independent repetition and fallback.
+- where-tested: 616 bounded exact two-copy adaptive-leaf checks retaining
+  off-diagonal coherence, reported in verdicts/support-plucker-r9.md section 4;
+  author and critic small-tableau checks support the recycled swap-test identity.
+- referee: verdicts/support-plucker-r9.md sections 3.4--3.5, mathematical PASS
+  for the quantitative lower and rank-two diagnostic, with the fixed total
+  copy cap and always-output conventions explicit.
+- north-star relevance: a matched classical-output quantum copy advantage
+  for a Grassmannian coordinate-volume task; the processing fails D22 (C-364).
+
+### C-363 (C-NEW-EXACT-SUPPORT-DPP-CLASSICAL-OBSTRUCTION)
+- statement: For any 2<=r<q there is no universal exact projection-DPP
+  sampler for all flat rank-r sources P_U/r whose finite-cap output effects
+  are separable across source copies. This excludes arbitrary adaptive
+  single-copy POVMs with classical memory. Allowing a failure flag does
+  not permit positive exact sampling success; allowing almost-sure finite
+  stopping does not permit an exact sampler either. Rank one and r=q are
+  excluded. This zero-probability obstruction alone supplies no quantitative
+  approximate-sampling lower bound; that is the separate statement C-362.
+- status: PROVED
+- depends-on: D-SUPPORT-PLUCKER-OUTPUT, D-SUPPORT-CLASSICAL-COPY-MODEL
+- where-proved: verdicts/support-plucker-r9.md section 3.2; for each output
+  J, average supports containing a coordinate vector outside J. Their DPP
+  probability of J vanishes while every nonzero separable positive effect
+  has strictly positive average expectation. Apply also to each finite
+  terminal-time event.
+- where-tested: proof-only finite-dimensional positivity argument; no
+  numerical test is claimed to establish universal nonexistence.
+- referee: verdicts/support-plucker-r9.md sections 3.2 and 4, independent
+  derivation with exact-versus-approximate scope explicitly separated.
+- north-star relevance: identifies a collective-measurement capability and
+  a precise classical-access obstruction, without an originality assertion.
+
+### C-364 (C-NEW-SUPPORT-PLUCKER-ORIGINAL-MECHANISM)
+- statement: The support-to-Pluecker conversion in C-361 has a genuinely
+  original quantum mechanism satisfying PRD criterion 6 and D22.
+- status: REFUTED
+- depends-on: C-361, C-362, C-363, D-SUPPORT-TABLEAU-OPERATORS
+- where-proved: refutation in verdicts/support-plucker-r9.md section 2.3:
+  Bacon--Chuang--Harrow quant-ph/0407082v4 Fig. 3 and Eq. (11) expose the
+  symmetric-group basis coordinate. Read and reset it to the column-first
+  tableau, reverse generalized phase estimation, and append the same exact
+  signed-permutation certificate. Only controlled permutations touch source
+  data, preserving the exact support under ancillary Fourier approximation.
+  This is a substantive resource-preserving prior-operation reduction.
+- where-tested: exact factor-level channel comparison in the independent
+  audit; it is not a generic appeal to universality of elementary gates.
+- referee: verdicts/support-plucker-r9.md, FATAL N1 for D22 originality,
+  separate from its mathematical PASS. The rank-two purification ancestor
+  is also identified there; prior publication of the exact growing-r DPP
+  theorem is not asserted.
+- north-star relevance: surviving C-361--C-363 remain mathematical products
+  and a copy advantage; the full original-algorithm goal remains unachieved.
