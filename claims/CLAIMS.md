@@ -5339,3 +5339,78 @@ assumption. For linear subspaces the mixture can be produced by a passive-optics
 - referee: independently verified in verdicts/waring-programmable-tester-r1.md.
 - north-star relevance: a scoped quantum measurement lower bound; not historical
   originality, global decision optimality, or a new mechanism.
+
+### C-349 (C-NEW-JET-SOURCE-COPY-COST)
+- statement: For D-R5-JET-SOURCE, the displayed equal-weight rescaling has
+  probability D t^(2r)/Z_t. The geometric containment bit has constant-error
+  copy complexity Theta(Z_t/t^(2r)): direct independent hyperplane measurements
+  attain the upper bound, and two promised sources with orthogonal top jets
+  give the lower bound against every collective copy protocol. The lower
+  bound does not apply to supplied preparation-and-inverse oracle access.
+- status: PROVED
+- depends-on: D-R5-JET-SOURCE
+- where-proved: scouting/degeneration-mechanism-r5.md sections 1--2; exact
+  labelled source expansion and two-pure-state trace-distance bound.
+- where-tested: bounded supporting inline probes reported in that memo;
+  no registered checker is used as a substitute for the symbolic argument.
+- referee: verdicts/degeneration-mechanism-r5.md, PASS after independent
+  conjugation and geometric-hyperplane repairs; no FATAL/MAJOR remain.
+- north-star relevance: a scoped no-speedup result for a constructed source
+  problem, not a negative theorem about all degeneration algorithms.
+
+### C-350 (C-NEW-DEFECT-TRANSPORT-DISCREPANCY)
+- statement: In D-R5-DEFECT-TRANSPORT, U_tau is unitary with P U_tau P=C_tau,
+  but P U_tau^2 P-C_tau^2=(1-|tau|^2)|0><D-1|. Its characteristic polynomial
+  is lambda^(D+1)+conjugate(tau) lambda^D-tau lambda-1, and its return series
+  is (1+conjugate(tau)w)/(1+conjugate(tau)w-tau w^D-w^(D+1)). The fresh-bath
+  product instead compresses exactly to C_tau^T; on |0> its output is
+  tau^q|T mod D>+sqrt(1-|tau|^2) sum_(ell=1)^q tau^(ell-1)|e_(ell D)>,
+  q=floor(T/D), with a classically samplable truncated-geometric exit law.
+- status: PROVED
+- depends-on: D-R5-DEFECT-TRANSPORT
+- where-proved: scouting/degeneration-mechanism-r5.md sections 3--5;
+  path expansion, compression defect and fresh-bath induction.
+- where-tested: author and independent bounded matrix probes reported in
+  the memo and verdict; the critic checked 1212 identities at finite sizes.
+- referee: verdicts/degeneration-mechanism-r5.md, PASS, no FATAL/MAJOR.
+- north-star relevance: prevents conflating retained unitary bath transport
+  with multiplication or nearby-root monodromy. The operation is established
+  defect scattering; the fresh-bath natural output has a classical sampler.
+
+### C-351 (C-NEW-SPARSE-TRINOMIAL-COPRODUCT)
+- statement: D-R5-TRINOMIAL-COPRODUCT admits an equation-compiled heralded
+  K=M_f^dagger/[sqrt(D)(1+|a|+|b|)] with gate cost polynomial in n, coefficient
+  precision and log(1/operator error). On normalized conjugated root columns
+  it copies with probability nu_z^2/[D(1+|a|+|b|)^2], at least 1/9 for
+  0<=a<=1/4,b=1. For the stated |D-1> tree experiment with 2<=m<D, both
+  the full conditional tuple law and its herald probability have classical
+  algorithms using polynomially many bit operations in m,n,B (expected
+  time for exact randomized sampling). No roots or quotient tables are inputs.
+- status: PROVED
+- depends-on: D-R5-TRINOMIAL-COPRODUCT
+- where-proved: scouting/reconstruction-mechanism-r5.md sections 1--6;
+  three interval contractions, O(m^2) supported exponent sums and exact
+  bounded-composition counts with polynomial bit length.
+- where-tested: 210 bounded supporting identities reported by the author;
+  the independent proof audit verifies all sizes symbolically.
+- referee: verdicts/reconstruction-mechanism-r5.md, PASS, no FATAL/MAJOR.
+- north-star relevance: resolves a previously conditional reverse-multiplication
+  family with a matched classical sampler; no original mechanism or advantage.
+
+### C-352 (C-NEW-GRASSMANN-STREAM-BASELINE)
+- statement: For D-R5-GRASSMANN-QUERY, Z is unbiased for beta and has variance
+  at most 9k. O(k epsilon^(-2) log(1/delta)) independent sketches suffice for
+  the additive query guarantee. Each sketch uses O(log q) sign-seed bits;
+  with m sketches and common b-bit dyadic data, a conservative full working
+  budget is O(m(b+log(kq)+log m)) bits, including temporary dot products and
+  group sums. A fixed list of L seed-independent queries adds log L to the
+  repetition factor. No unrestricted adaptive-query guarantee is asserted.
+- status: PROVED
+- depends-on: D-R5-GRASSMANN-QUERY
+- where-proved: scouting/grassmann-streaming-r5.md sections 2--3;
+  exact fourth-moment expansion, median of means and finite-bit accounting.
+- where-tested: independent symbolic audit; no numerical extrapolation.
+- referee: verdicts/grassmann-streaming-r5.md, PASS after the full working-bit
+  budget was made explicit; no outstanding FATAL/MAJOR/MINOR.
+- north-star relevance: replaces a stored full basis as the comparator for
+  the displayed Slater-state incidence query; not a universal quantum lower bound.

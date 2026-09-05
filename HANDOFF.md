@@ -94,10 +94,26 @@ Other completed files, all with no qualifying mechanism:
   and coherent-kernel classical attacks. High-energy implementation remains held.
 - `scouting/intrinsic-geometry-round4.md`: exact incidence scattering, Fourier
   reduction for field/translation planes, and a matched classical sampler.
+- `scouting/degeneration-mechanism-r5.md`, independent same-name verdict:
+  C-349 matches the rare-top-jet copy bound with a direct one-copy test;
+  C-350 derives retained bath transport, its false multiplication/monodromy
+  identification, and the fresh-bath truncated-geometric classical sampler.
+- `scouting/reconstruction-mechanism-r5.md`, independent same-name verdict:
+  C-351 compiles x^D-a x-b adjoint multiplication from equations, then
+  classically samples its |D-1> tree output via O(m^2) supported exponent sums.
+- `scouting/grassmann-streaming-r5.md`, independent same-name verdict:
+  C-352 uses bilinear four-wise sign sketches with variance <=9k; full
+  working bits O(m(b+log(kq)+log m)). Single/fixed queries only.
+  These four rows are PROVED scoped mathematics, not an original algorithm.
+  Canonical inputs: `definitions/mechanism-r5.md`.
 
-Completed agents are available for follow-up; none should be assumed still
-working on its last delivered task. Further construction must find a different
-mechanism, not merely polish the proved applications of known operations.
+Active construction: `briefs/theta-isogeny-r6.md`, assigned to degeneration_r5,
+output `scouting/theta-isogeny-r6.md`, task qaag-ibb. It tests a lossless
+theta-point sum/difference map; twisted bundles, Bergman normalization and
+finite Weil/metaplectic reductions must be charged. Check agent status before
+assuming work continues. reconstruction_r5 is auditing r5 register lockstep.
+Root's three-copy moment-map gradient probe reduced to known double-bracket/
+multi-copy imaginary time; its sign correction and references are in bd memory.
 
 ## Verification, tracking and repository
 
@@ -108,8 +124,9 @@ from the old seed suite. Numerical probes support, rather than replace, proofs.
 
 Active: qaag-47l (persistent original-algorithm exploration), qaag-tzn (synthesis).
 Closed bounded probes: qaag-cfi, qaag-ptc, qaag-2rb, qaag-eji, qaag-6p5.
+R5 scopes qaag-5si, qaag-euy, qaag-mw9 have completed independent audits.
 Open minor reconciliation: qaag-kdj. Blocked remote setup: qaag-9t7.
-Claims baseline C-001..C-334 is otherwise unchanged; current register ends C-348.
+Claims baseline C-001..C-334 is otherwise unchanged; current register ends C-352.
 
 Completed artifacts are committed locally. Git and Beads Dolt have NO remotes;
 required pushes were attempted and failed. A remote URL question is pending

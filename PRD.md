@@ -131,6 +131,15 @@ classical coefficient-list speedup, and the bound is impractical. Known
 comparison/programmable-discrimination mechanisms implement it. The genuinely
 original algorithmic north star remains unachieved.
 
+Further bounded audit, 2026-09-05: C-349--C-352 record the jet-source copy
+obstruction, exact retained-bath transport and its multiplication discrepancy,
+a sparse trinomial quotient coproduct with a matched polynomial-time classical
+sampler, and an O(k)-word classical baseline for a streamed Grassmann incidence
+query at constant error. These scoped results pass independent audits; none
+meets the original-mechanism requirement. Canonical inputs are in
+`definitions/mechanism-r5.md`. A new theta-isogeny construction is active;
+its twisted-sector normalization, circuit and classical advantage remain open.
+
 **Arm R: robotics (TJO priority, D5).**
 `scouting/robotics-deep-dive.md` finds three bets and ten killers. Bets: R1, certified
 lower bounds for perception polynomial optimisation via the bosonic moment hierarchy (a
