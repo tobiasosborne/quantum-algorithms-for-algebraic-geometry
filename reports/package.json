@@ -11,5 +11,6 @@
   "dependencies": {
     "katex": "0.16.22",
     "playwright": "1.55.0"
-  }
+  },
+  "license": "AGPL-3.0-only"
 }

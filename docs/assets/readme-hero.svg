@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="430" viewBox="0 0 1200 430" role="img" aria-labelledby="title description">
+  <title id="title">Where shapes meet quantum information</title>
+  <desc id="description">An editorial illustration on warm paper. At left, a circle and parabola meet at two points. In the center, three quantum source copies enter a joint measurement. At right, a parallelogram and six probability bars suggest coordinate-volume sampling. The diagrams illustrate one route explored by this research notebook.</desc>
+  <defs>
+    <style>
+      .sans { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+      .serif { font-family: Georgia, 'Times New Roman', serif; }
+      .ink { fill: #202e2b; }
+      .muted { fill: #66706a; }
+      .teal { fill: #17675e; }
+      .fine { stroke: #d9dace; stroke-width: 1; }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 1 1 L 8 5 L 1 9" fill="none" stroke="#9aab9d" stroke-width="1.3"/>
+    </marker>
+  </defs>
+
+  <rect x="0.5" y="0.5" width="1199" height="429" rx="7" fill="#f6f3eb" stroke="#d9dace"/>
+  <path d="M 49 47 H 77" stroke="#17675e" stroke-width="2"/>
+  <text x="91" y="51" class="sans teal" font-size="11" font-weight="600" letter-spacing="2">OPEN RESEARCH / QUANTUM × GEOMETRY</text>
+  <text x="49" y="100" class="serif ink" font-size="36" letter-spacing="-0.7">Where shapes meet quantum information.</text>
+  <line x1="49" y1="126" x2="1151" y2="126" class="fine"/>
+
+  <text x="50" y="163" class="sans muted" font-size="10" letter-spacing="1.7">01 / EQUATIONS</text>
+  <text x="439" y="163" class="sans muted" font-size="10" letter-spacing="1.7">02 / QUANTUM STRUCTURE</text>
+  <text x="841" y="163" class="sans muted" font-size="10" letter-spacing="1.7">03 / GEOMETRIC ANSWERS</text>
+
+  <!-- A real slice: x² + y² = 1 and y = x² − 0.4. -->
+  <g aria-hidden="true">
+    <line x1="93" y1="255" x2="278" y2="255" class="fine"/>
+    <line x1="180" y1="178" x2="180" y2="328" class="fine"/>
+    <circle cx="180" cy="255" r="63" fill="none" stroke="#17675e" stroke-width="2.5"/>
+    <path d="M 98.1 173.73 Q 180 386.67 261.9 173.73" fill="none" stroke="#ae7224" stroke-width="2.5"/>
+    <circle cx="122.883" cy="228.417" r="4.5" fill="#202e2b" stroke="#f6f3eb" stroke-width="2"/>
+    <circle cx="237.117" cy="228.417" r="4.5" fill="#202e2b" stroke="#f6f3eb" stroke-width="2"/>
+    <text x="50" y="365" class="serif ink" font-size="21">A shape, written as constraints.</text>
+  </g>
+
+  <path d="M 315 255 H 393" fill="none" stroke="#9aab9d" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Schematic joint measurement: each wire denotes one complete source copy. -->
+  <g aria-hidden="true">
+    <text x="445" y="224" class="serif teal" font-size="21">ρ₁</text>
+    <text x="445" y="264" class="serif teal" font-size="21">ρ₂</text>
+    <text x="445" y="304" class="serif teal" font-size="21">ρ₃</text>
+    <path d="M 478 218 H 524 M 478 258 H 524 M 478 298 H 524" stroke="#17675e" stroke-width="1.8" fill="none"/>
+    <rect x="524" y="196" width="139" height="124" rx="4" fill="#e7efe8" stroke="#9cb6a8"/>
+    <text x="593.5" y="251" class="sans teal" font-size="15" text-anchor="middle">Joint</text>
+    <text x="593.5" y="273" class="sans teal" font-size="15" text-anchor="middle">measurement</text>
+    <path d="M 663 255 H 715" stroke="#17675e" stroke-width="1.8" fill="none"/>
+    <circle cx="714" cy="255" r="4" fill="#17675e"/>
+    <text x="439" y="365" class="serif ink" font-size="21">Copies, processed together.</text>
+  </g>
+
+  <path d="M 744 255 H 801" fill="none" stroke="#9aab9d" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Coordinate-area sketch and a normalized six-pair example distribution. -->
+  <g aria-hidden="true">
+    <line x1="857" y1="291" x2="981" y2="291" class="fine"/>
+    <line x1="877" y1="190" x2="877" y2="313" class="fine"/>
+    <path d="M 877 291 L 937 276 L 968 214 L 908 229 Z" fill="#e7efe8" stroke="#b6c8b9" stroke-width="1"/>
+    <path d="M 877 291 L 937 276" stroke="#17675e" stroke-width="2.5"/>
+    <path d="M 877 291 L 908 229" stroke="#ae7224" stroke-width="2.5"/>
+    <circle cx="937" cy="276" r="3" fill="#17675e"/>
+    <circle cx="908" cy="229" r="3" fill="#ae7224"/>
+
+    <g class="sans muted" font-size="10" text-anchor="end">
+      <text x="1035" y="209">1, 2</text><text x="1035" y="230">1, 3</text>
+      <text x="1035" y="251">1, 4</text><text x="1035" y="272">2, 3</text>
+      <text x="1035" y="293">2, 4</text><text x="1035" y="314">3, 4</text>
+    </g>
+    <g fill="#e7e9de">
+      <rect x="1045" y="201" width="96" height="9" rx="1"/><rect x="1045" y="222" width="96" height="9" rx="1"/>
+      <rect x="1045" y="243" width="96" height="9" rx="1"/><rect x="1045" y="264" width="96" height="9" rx="1"/>
+      <rect x="1045" y="285" width="96" height="9" rx="1"/><rect x="1045" y="306" width="96" height="9" rx="1"/>
+    </g>
+    <g fill="#17675e">
+      <rect x="1045" y="201" width="96" height="9" rx="1"/><rect x="1045" y="222" width="39.664" height="9" rx="1"/>
+      <rect x="1045" y="243" width="56.336" height="9" rx="1"/><rect x="1045" y="264" width="56.336" height="9" rx="1"/>
+      <rect x="1045" y="285" width="39.664" height="9" rx="1"/><rect x="1045" y="306" width="96" height="9" rx="1"/>
+    </g>
+    <text x="841" y="365" class="serif ink" font-size="21">Volumes, turned into probabilities.</text>
+  </g>
+
+  <text x="50" y="403" class="sans muted" font-size="11">An illustration of the questions explored in this notebook.</text>
+  <text x="1150" y="403" class="sans teal" font-size="11" text-anchor="end">Explore the mathematics. Inspect the evidence.</text>
+</svg>

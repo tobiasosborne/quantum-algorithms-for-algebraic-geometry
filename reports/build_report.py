@@ -245,6 +245,10 @@ def make_source(path: Path) -> dict:
         "definitions": "Canonical definitions", "claims": "Claim register", "refs": "References",
         "checkers": "Computational evidence", "seed": "Historical seed",
     }.get(relative.split("/")[0], "Scope and handoff")
+    if relative == "LICENSE":
+        title, kind = "GNU Affero General Public License v3.0", "License"
+    elif relative == "reports/THIRD_PARTY_NOTICES.md":
+        kind = "License"
     return {"id": relative, "path": relative, "title": title, "kind": kind, "text": text, "html": rendered}
 
 
@@ -321,6 +325,11 @@ def validate(data: dict, template: str, preview: bool) -> list[str]:
     claims = {c["id"] for c in data["claims"]}
     sources = {s["path"] for s in data["sources"]}
     issues = []
+    covered_memos = {p for route in data["routes"] for p in route["sources"]}
+    for memo in sorted((ROOT / "scouting").glob("*.md")):
+        path = memo.relative_to(ROOT).as_posix()
+        if path not in covered_memos:
+            issues.append("Research atlas needs a route citing " + path)
     for collection in ["routes", "claims", "sources"]:
         ids = [x["id"] for x in data[collection]]
         if len(ids) != len(set(ids)):

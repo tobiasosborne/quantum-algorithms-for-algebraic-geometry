@@ -5,3 +5,5 @@ __pycache__/
 .beads/*.db-*
 scouting/*.tmp
 reports/node_modules/
+.venv-report/
+_site/

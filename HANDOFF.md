@@ -11,7 +11,7 @@ Do not mark the goal complete because a mathematical claim is PROVED.
 ## Interactive report
 
 The requested report is `reports/research-report.html`, a self-contained offline
-HTML artifact with seven explainers, 69 routes, 364 claims, 137 sources and glossary.
+HTML artifact with seven explainers, 69 routes, 364 claims, a source library and glossary.
 `reports/README.md` documents its reproducible build and browser verification.
 The 57-check offline browser suite passes; independent targeted checks cover
 navigation, high-refresh-rate animations and source-reader presentation.
@@ -142,9 +142,9 @@ Four bounded checkers total 2018 checks and twelve red mutations; see
 `checkers/MUTATIONS.md`. Numerical probes support, rather than replace, proofs.
 
 Active: qaag-47l (persistent original-algorithm exploration), qaag-tzn (synthesis).
-Open minor reconciliation: qaag-kdj. Blocked remote setup: qaag-9t7.
+Open minor reconciliation: qaag-kdj. Publication/local CI: qaag-kbx; remote setup: qaag-9t7.
 Register ends C-364; the r9 construction and independent audit are integrated.
 
-Completed artifacts are committed locally. Git and Beads Dolt have NO remotes;
-required pushes were attempted and failed. A remote URL question is pending
-with the user. Do not invent a destination or create a hosted repository.
+User authorized public GitHub publication, AGPLv3 and local report CI/CD.
+Git/Dolt origin: tobiasosborne/quantum-algorithms-for-algebraic-geometry on GitHub.
+Local CI: `make ci`; the commit hook maintains the report, and verified pushes deploy Pages.
