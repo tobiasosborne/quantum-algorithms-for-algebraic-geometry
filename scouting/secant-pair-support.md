@@ -291,7 +291,9 @@ were separated numerically by a `1e-9` threshold; the proof, not that threshold,
 decides the kernels. These runs were unregistered scratch computations and
 are not substitutes for a red-capable archived checker and critic pass.
 
-Proposed exact claims, all SKETCH pending independent review:
+The exact claims are registered as C-339--C-341 in `claims/CLAIMS.md`; their
+status lives there. The independent review is `verdicts/secant-pair-support-r1.md`.
+The reviewed content comprises:
 
 - Pair support for `t=r+1`, with finite-dimensional complex spaces and the
   symmetric-sector qualification in §1.

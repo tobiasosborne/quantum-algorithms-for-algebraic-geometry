@@ -199,3 +199,30 @@ analytic Schur-block formulas; 425 bounded blocks satisfy the gap test.
 |---|---|---|---|
 | `drop-kernel-term` | Remove the exceptional rank-one term | trivial full-group spectrum differs by 1/6 | 1 |
 | `wrong-phase` | Change -1/2 to +1/2 in the interference coefficient | full-group spectrum at a,b,c=0,0,1 differs by 2/3 | 1 |
+
+## Coded Waring fusion checker (2026-09-05)
+
+`explore/waring_coded_fusion.py` is excluded from the seed suite. Baseline:
+418 checks PASS in 0.2 seconds with one BLAS thread and `timeout 60`. Literal
+alternating projections, including a three-copy source seed, are compared with
+the determinant formulas and separate labeling/Gram calculations.
+
+| Mutation option | Changed model | Observed failure | Exit |
+|---|---|---|---|
+| `drop-guard` | Delete the last binary guard at rank >=4 | rank-four survivors 96 instead of 24 | 1 |
+| `drop-phase` | Drop the determinant sign at rank >=4 | a rank-five survivor has phase +1 instead of -1 | 1 |
+| `drop-factorial` | Omit the exterior normalization r! | literal rank-two projector norm is 0.4587312138098242 rather than 0.9174624276196485 | 1 |
+
+## Direct Waring point tester (2026-09-05)
+
+`explore/waring_programmable_test.py` is excluded from the seed suite. Baseline:
+73 checks PASS in 0.4 seconds under `timeout 60` and one BLAS thread. It uses
+literal source tensors, two alternating projections and a point equation, with
+at most 3^12 amplitudes, and compares the complete event with a label-Gram formula.
+It checks the general point-test construction, not only the terminal rank example.
+
+| Mutation option | Changed model | Observed failure | Exit |
+|---|---|---|---|
+| `skip-seed` | Remove the source-program seed | a YES input produces event probability 1/16 instead of zero | 1 |
+| `drop-program-row` | Omit a reference from the matching guard | a YES input produces event probability 1/16 instead of zero | 1 |
+| `drop-factorial` | Remove exterior normalization | literal event 0.002265420572404712 disagrees with 0.009061682289618851 | 1 |

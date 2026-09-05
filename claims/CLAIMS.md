@@ -5223,3 +5223,119 @@ assumption. For linear subspaces the mixture can be produced by a passive-optics
 - north-star relevance: removes a normalization obstacle at four copies, but known
   product-test block encodings and generic support filtering implement the resulting
   projector. This theorem is not a qualifying original quantum algorithm.
+
+### C-342 (C-NEW-WARING-CODED-FUSION)
+- statement: For D-WARING-SOURCE and D-WARING-PACKET, the b guards of
+  D-WARING-CODED-FUSION on degrees m,n>b retain exactly matching component
+  permutations and give row degree ell=m+n-b and sign sigma_out=sigma_A+sigma_B+b
+  modulo two. Their success is (det G/r!)^b N_out(ell)/(N_A(m)N_B(n)), with
+  N_1(m)=r!det G_m and N_0(m)=r!per G_m. Within the stipulated complementary-row
+  all-distinct guard model, b=ceil(log_2 r) is the least possible guard count.
+- status: PROVED
+- depends-on: D-WARING-SOURCE, D-WARING-PACKET, D-WARING-CODED-FUSION
+- where-proved: scouting/waring-coded-fusion.md sections 1--3.
+- where-tested: checkers/explore/waring_coded_fusion.py; direct permutation and
+  literal quantum-projection comparisons, with three red mutations.
+- referee: verdicts/waring-coded-fusion-r1.md, PASS for scoped mathematics.
+- north-star relevance: a real coding/resource improvement; restricted optimality
+  does not establish global quantum optimality or historical novelty.
+
+### C-343 (C-NEW-WARING-SEED-CEILING)
+- statement: The displayed r-copy seed has success p_0=det_+(rho_1)<=r^(-r),
+  where rho_1 is the one-slot reduced state of normalized T. Its expected source
+  cost is r/p_0>=r^(r+1). This bounds this seed, not all possible seed algorithms.
+- status: PROVED
+- depends-on: D-WARING-SOURCE
+- where-proved: scouting/waring-coded-fusion.md section 5.
+- where-tested: checkers/explore/waring_coded_fusion.py, explicit three-copy seed
+  and independent marginal determinant.
+- referee: verdicts/waring-coded-fusion-r1.md, PASS for scoped mathematics.
+- north-star relevance: prevents claiming polynomial complexity in growing rank.
+
+### C-344 (C-NEW-WARING-CODED-COST)
+- statement: Under known G>=eta 1 and p_0>=p_*, the equal-size packet recursion
+  has expected source-copy count at most Cbar_j from D-WARING-CODED-FUSION;
+  a finite cap based on this known bound gives bounded heralded failure.
+  Source workspace and finite-gate error margins are charged. For orthonormal
+  components with equal weights, the exact count is
+  C_j=r^(r+1)[2(r!)^(b+1)]^j and the degree-growth exponent is
+  Theta(r(log r)^2), compared with Theta(r^2 log r) for the r-1 guard construction.
+- status: PROVED
+- depends-on: C-342, C-343, D-WARING-CODED-FUSION
+- where-proved: scouting/waring-coded-fusion.md sections 5--6, with independent
+  reviewer qualifications on optional source workspace and approximate gates applied.
+- where-tested: checkers/explore/waring_coded_fusion.py; rank-four first-merge
+  source count 28,311,552 and exact probability fixtures.
+- referee: verdicts/waring-coded-fusion-r1.md, PASS for scoped mathematics.
+- north-star relevance: improves two quantum constructions; does not alone compare
+  to the best classical algorithm.
+
+### C-345 (C-NEW-WARING-TERMINAL-SEPARATION)
+- statement: D-WARING-TERMINAL-QUERY admits a quantum algorithm with a source-copy
+  cap independent of d and external-source gate dependence polynomial in log q,
+  whereas every stipulated single-original-copy comparator using at most N copies
+  requires N>=q^(1/4)/(4 sqrt(24)). The proposed quantum cap is
+  6(3,000,000)Cbar_4, with Cbar_4 approximately 3.71e46. No practical advantage,
+  classical coefficient-list advantage, or original-mechanism claim is included.
+- status: PROVED
+- depends-on: C-342, C-343, C-344, D-WARING-TERMINAL-QUERY
+- where-proved: scouting/waring-terminal-baseline.md; general upper bound and
+  moment-matched Haar-orbit adaptive transcript lower bound. The nonrenormalized
+  Gaussian extension and total compiled-channel error <=1/30 are now explicit.
+- where-tested: none; the general theorem is established by the audited proof.
+- referee: verdicts/waring-terminal-baseline-r1.md, PASS, no FATAL/MAJOR objections.
+- north-star relevance: a proposed genuinely matched classical-output copy separation;
+  the strict mechanism-originality requirement is separate.
+
+### C-346 (C-NEW-WARING-CODED-NORTHSTAR)
+- statement: The displayed separating-subset Waring circuit meets D22's requirement
+  of an original quantum mechanism rather than a new composition/application of
+  described quantum algorithms.
+- status: REFUTED
+- depends-on: C-342, C-344
+- where-proved: verdicts/waring-coded-fusion-r1.md, exact resource-preserving
+  realization by b disjoint published universal all-distinct comparison instruments,
+  classically chosen routing, all-accept postselection, edge discard and regrouping.
+- where-tested: mathematical/operational reduction, not a numerical novelty test.
+- referee: verdicts/waring-coded-fusion-r1.md; explicitly applies the user's strict
+  composition exclusion without claiming the source printed this exact schedule.
+- surviving statement: C-342--C-344 retain the coding improvement and exact resource
+  theorem; any true terminal separation in C-345 remains valuable. Historical priority
+  of the separating schedule is unverified, and the whole exploration arm is not closed.
+- north-star relevance: not a qualifying north-star algorithm under D22.
+
+### C-347 (C-NEW-WARING-DIRECT-POINT-TEST)
+- statement: For D-WARING-DIRECT-POINT-TEST, the joint event vanishes exactly
+  whenever all f_a are zero, and under the source promises has probability at
+  least alpha_point Gamma_Q. Thus Gamma_Q=0 versus Gamma_Q>=gamma>0 is decidable
+  by repeated r+1-copy trials with the stated known probability bound. In the
+  C-345 setting alpha_point=9/2^31 and each trial uses five originals; the same
+  classical lower bound applies. This is a shorter upper bound, not a new
+  mechanism or global optimality claim.
+- status: PROVED
+- depends-on: D-WARING-DIRECT-POINT-TEST, C-343, C-345
+- where-proved: scouting/waring-programmable-tester.md; program-tuple Gram floor
+  and exact two-comparison expansion, independent of component coordinates.
+- where-tested: checkers/explore/waring_programmable_test.py; 73 literal circuit
+  and Gram checks at bounded sizes, with three red mutations.
+- referee: verdicts/waring-programmable-tester-r1.md, PASS after correcting the
+  general-POVM proof factorization and access wording; no FATAL/MAJOR remain.
+- north-star relevance: improves the quantum upper bound to roughly 10^15 source
+  calls with charged implementation margin, but originality remains separate.
+
+### C-348 (C-NEW-WARING-MINIMUM-BATCH)
+- statement: Any test on at most four original copies of a pure W-valued source
+  with exact perfect completeness for every promised YES instance of
+  D-WARING-TERMINAL-QUERY accepts every pure vector of W. The direct five-copy
+  measurement is nontrivial and has ideal perfect completeness, so five is the
+  least nontrivial batch size under that restriction. This is neither a lower
+  bound for two-sided tests nor a minimum total number of copies for bounded error.
+- status: PROVED
+- depends-on: D-WARING-TERMINAL-QUERY, C-347
+- where-proved: verdicts/waring-programmable-tester-r1.md section 6; relative
+  parameter openness, rank-variety polarization, and the established PC-span
+  principle of Lovitz--Lowe arXiv:2410.21417v2 Lemma 2.1.
+- where-tested: none; algebraic proof.
+- referee: independently verified in verdicts/waring-programmable-tester-r1.md.
+- north-star relevance: a scoped quantum measurement lower bound; not historical
+  originality, global decision optimality, or a new mechanism.
