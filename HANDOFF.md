@@ -1,12 +1,21 @@
 <!-- ROLE: current state + fast restart. Live goal checkpoint; <=150 lines. -->
 
-# HANDOFF — 2026-09-05, original-mechanism search remains active
+# HANDOFF — 2026-09-05, device-restart checkpoint
 
 The user asks for relentless construction and adversarial verification until a
 GENUINELY NOVEL quantum algorithm is found. All classical and modern algebraic
 geometry is in scope. The goal remains ACTIVE AND UNACHIEVED: a formal quantum
 copy advantage is now proved, but the displayed mechanisms fail strict D22.
 Do not mark the goal complete because a mathematical claim is PROVED.
+
+## Restart checkpoint: finish the report first
+
+Run `bd prime`, then `bd show qaag-dx0` for detailed build and recovery instructions.
+Both report agents finished: template/preview plus 69 routes are in `reports/`.
+The HTML is a PREVIEW with fallback data; archive/KaTeX integration and QA remain.
+`briefs/report-html.md` contains the full design, schema and seven figure formulas.
+R9 math passes its saved audit but originality fails; C-361--C-364 are not registered.
+Integration notes: qaag-j8n/qaag-9v2. All agents and npm installation have finished.
 
 ## Binding steering and workflow
 
@@ -118,9 +127,7 @@ Other completed files, all with no qualifying mechanism:
   Geometric separation does not cure coefficient-state conditioning.
   Canonical inputs: `definitions/schur-disk-count.md`.
 
-The bounded r7/r8 constructions and audits are complete. Agents are available
-for a different next task; do not assume completed agents are still working.
-Keep the full goal active and find a materially different processing step.
+The bounded r7/r8 constructions and audits are complete; the full goal remains active.
 Do not revisit coefficient-state root extraction without confronting C-360,
 or present generic pure-spinor/Bell/convolution tests as new (see bd memory).
 Root's three-copy moment-map flow is known double-bracket QITE; details are in bd memory.
@@ -141,10 +148,3 @@ Completed artifacts are committed locally. Git and Beads Dolt have NO remotes;
 required pushes were attempted and failed. A remote URL question is pending
 with the user. Do not invent a destination or create a hosted repository.
 No stashes or remote branches were present to clean up.
-
-```bash
-bd prime
-bd show qaag-47l
-bd show qaag-tzn
-git status --short --branch
-```

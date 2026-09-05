@@ -451,13 +451,13 @@ to the canonical refs directory.
 
 The theorem is restricted to an exactly rank-r input and collective access
 to its quantum copies. It does not compare against a classical algorithm
-given an explicit basis, coefficient list, sample-and-query matrix access,
+given an explicit basis, coefficient list, or sample-and-query matrix access.
 The independent transcript proof and
 `verdicts/support-plucker-r9.md` address arbitrary adaptive single-copy
 POVMs for the same always-output DPP task, retaining all block coherence.
 They give an Omega(sqrt(q)) copy lower bound on a rank-two family at fixed
 TV accuracy; this does not transfer to the different access models just
-listed. Section 12 gives a small hardware diagnostic of the conversion.
+listed. The independent verdict section 3.5 gives a small hardware diagnostic.
 
 ## 11. MERGE PROPOSAL for root and independent critic
 
@@ -473,4 +473,3 @@ Kraus normalization before approving integration. The independent critic
 has reported that these checks pass. Originality is rejected under D22 by
 the separate mechanism audit; the same-input classical baseline and
 north-star qualification remain separate obligations.
- 
