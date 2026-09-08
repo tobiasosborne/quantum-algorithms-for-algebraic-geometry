@@ -1194,5 +1194,40 @@
         "meaning": "A projective measurement that preserves coherence within each measured eigenspace."
       }
     ]
+  },
+  {
+    "id": "picard-classical-r15",
+    "title": "Classical Picard methods and what integer programming encodes",
+    "family": "Classical complexity and surface geometry",
+    "question": "Where could a quantum algorithm improve exact extra-divisor detection on a quartic K3 surface?",
+    "idea": "Compare arithmetic, crystalline and period methods; analyze certificate sizes and construct an explicit Boolean-to-Picard encoding as a complexity control.",
+    "test": "Primary papers separate computability from bit complexity. A fixed-dimensional ILP reduction identifies an easy promised period-search stage; exact quadratic examples test the broader encoding.",
+    "outcome": "The K3 problem has an unconditional classical algorithm but no polynomial or NP-intersect-coNP classification established by this review. The broader disconnected-surface encoding is NP-complete and rejected as a quantum target under D27.",
+    "survives": "Precise classical baselines, certificate/reduction obligations and explicit distinctions between algorithmic blowups and genuine complexity barriers.",
+    "remaining": "Independent review of the new SKETCH deductions and uniform certificate/precision bounds for a useful connected K3 family. No new quantum advantage is claimed.",
+    "claimIds": [
+      "C-382",
+      "C-383",
+      "C-384",
+      "C-385"
+    ],
+    "sources": [
+      "scouting/picard-classical-r15.md",
+      "definitions/picard-classical-r15.md",
+      "argument/bounded-period-relations-r15.md",
+      "argument/boolean-picard-encoding-r15.md",
+      "refs/picard-classical-r15.md"
+    ],
+    "disposition": "held",
+    "terms": [
+      {
+        "term": "Picard rank",
+        "meaning": "The number of independent divisor classes modulo algebraic equivalence."
+      },
+      {
+        "term": "Certificate complexity",
+        "meaning": "The size of evidence for an answer and the cost of checking it."
+      }
+    ]
   }
 ]

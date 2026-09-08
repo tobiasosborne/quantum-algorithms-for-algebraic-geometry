@@ -52,6 +52,14 @@ A north-star hit is a claim row in `claims/CLAIMS.md` at status PROVED with ALL 
 Partial credit that is still a product: a sharp negative result (P admits no speedup of a
 given type, with proof), or a new classical algorithm found while hunting.
 
+### Additional candidate filter (TJO, 2026-09-08, D27)
+
+NP-complete problems are rejected as quantum-algorithm targets in this campaign.
+An NP-completeness reduction is useful as a negative complexity control, not
+as a positive speedup proposal. A meaningful restricted family needs a separate
+complexity analysis before re-entering. This is a research-selection rule,
+not a claim that NP is proved not to be contained in BQP.
+
 ## 3. Scope
 
 In scope: every problem family listed in `scouting/classical-landscape.md`; every
@@ -294,6 +302,8 @@ asserts a speedup must name which traps it has been checked against.
 | D23 | 2026-09-04 | Use only Astra and Sol subagents. This supersedes D3 and the old cross-family roster; independent criticism remains required, using Astra and Sol. No further Opus runs. | TJO |
 | D24 | 2026-09-05 | Persist towards a genuinely novel quantum algorithm; use subagents to ideate and adversarially verify. All classical and modern algebraic geometry is available as the use-case domain. This does not relax D22 or authorize presenting a known-algorithm reduction as a discovery. | TJO |
 | D25 | 2026-09-07 | Launch a broad cohomology/schemes/surfaces/thermal/CP round with Sol xhigh proposer and critic agents. Novelty now means not QFT, Grover or DQI in disguise; QSVT qualifies, and adiabatic QC qualifies unless it is Feynman--Kitaev encoding of Grover/QFT. This supersedes D22's stricter exclusion of all known mechanisms. Supersymmetry and syzygies are encouraged. True same-input/output advantage and full resource accounting remain required. | TJO |
+| D26 | 2026-09-08 | Research the strongest classical methods for a selected geometric problem. Missing hardness evidence is a research obligation, not an automatic veto; certificate bounds and complexity reductions may become part of the advantage argument. Investigate NP-intersect-coNP-type targets and distinguish genuine lower bounds from expensive known algorithms. | TJO |
+| D27 | 2026-09-08 | NP-completeness is a rejection criterion for candidate quantum algorithms. Retain such encodings as negative controls; do not pursue the NP-complete family as a positive target. Stop the present session, update handoff/worklog, commit and push. | TJO |
 
 ## 7. Current state and open questions for TJO
 

@@ -79,3 +79,9 @@ disguises remain excluded. Known nonexcluded operations are not rejected just
 for being known. This round uses Sol xhigh proposers and critics, as explicitly
 requested by the user. Supersymmetric and syzygy directions are encouraged.
 Current session stop time is in bd memory; it overrides indefinite continuation.
+
+2026-09-08 follow-up: D26 requires serious classical-baseline and certificate
+research before parking a candidate for missing hardness evidence. D27 rejects
+NP-complete problems as positive quantum-algorithm targets; retain their
+encodings only as negative controls. The latest user instruction stops this
+session after handoff/worklog update, commit and push.

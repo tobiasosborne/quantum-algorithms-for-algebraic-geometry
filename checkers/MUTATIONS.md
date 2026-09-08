@@ -283,3 +283,20 @@ padding, signed shifts, complement coherence, the antisymmetry factorial,
 valid permutation phases and invalid-branch data disturbance. Finite checks
 support the reviewed identities, not QSVT phase-computation complexity or the
 uniform classical transcript theorem.
+
+## R15 classical Picard controls (2026-09-08)
+
+`timeout 30 python3 -B checkers/explore/picard_boolean_encoding_r15.py`
+passed12588 finite exact checks, on instances with at most four Boolean
+variables. These test algebraic encoding and rational slabs, not a uniform
+complexity theorem or a Picard-rank computation on arbitrary surfaces.
+All three in-process mutations returned exit1:
+
+| Mutation | Failure |
+|---|---|
+| `dummy-not-unique` | Ten points instead of the expected three |
+| `only-first-chart` | Segre equations falsely accept an invalid point on another chart |
+| `allow-zero` | A supposed nonzero relation is supplied by the zero vector |
+
+Run each with the same bounded command and `--mutate NAME`. No mutation edits
+tracked files. The corresponding new statements remain SKETCH pending review.

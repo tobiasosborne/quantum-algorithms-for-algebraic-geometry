@@ -1,4 +1,34 @@
-# HANDOFF — 2026-09-08, timed research round closed
+# HANDOFF — 2026-09-08, stopped after classical Picard review
+
+## Latest session: R15 classical baseline, now stopped
+
+A new user request resumed bounded classical research after the earlier timed
+round. The user then explicitly stopped work at08:16UTC and requested handoff,
+worklog, commit and push. Do not continue research without another instruction.
+
+Current D27: NP-complete problems are rejected as quantum-algorithm targets.
+Keep their encodings only as negative controls. This is a campaign criterion,
+not a proved separation of NP from BQP. Missing classical hardness evidence
+for other candidates remains a research obligation, as recorded in D26.
+
+Selected task: extra geometric Picard class on a smooth quartic K3 over Q.
+`scouting/picard-classical-r15.md` reviews exact NS computability, periods/LLL,
+modern Picard–Lefschetz methods, crystalline upper bounds, certificate sizes,
+and the standard BQP simulation ceiling. References were checked in primaries;
+published software benchmarks were not rerun. No NP-intersect-coNP membership
+or polynomial quantum algorithm is established for the quartic problem.
+
+C-382--C-385 remain SKETCH pending independent review. The bounded separated
+period search has a fixed-dimensional ILP reduction. An explicit quadratic
+Boolean encoding makes Picard-rank>1 NP-complete for DISCONNECTED smooth
+projective surface schemes; it does not preserve connected quartic K3 geometry
+and is rejected as an algorithm target under D27. The new checker passes12588
+finite exact checks and all3red mutations. Current worklog:
+`docs/worklog/2026-09-08.md`. Completed tracking: qaag-d8j and qaag-uqj.
+Open follow-ups: qaag-w1p (independent review) and qaag-255 (connected-K3
+certificate bounds); neither authorizes automatic continuation.
+
+## Previous timed round
 
 The user requested work until about03:00 Berlin (01:00UTC2026-09-08), then
 commit, push and STOP. At the later status check,05:03UTC, the cutoff had
@@ -96,8 +126,9 @@ monitored-return mechanism as unexplored novelty.
 The new checker suites pass289+1032+241=1562 finite checks and19 red mutations.
 They support finite identities, not the uniform Haar lower bounds or QSVT
 compiler theorem. The broad historical seed suite was not rerun.
-The maintained offline report contains77routes,381claims and162sources;
-57browser checks and9Git-hook tests pass. Build commands are in reports/README.md.
+The previous-round offline snapshot contained77routes,381claims and162sources;
+57browser checks and9Git-hook tests passed. The current report is rebuilt by
+the enforced commit hook; build commands are in reports/README.md.
 The report now states current D25 and the fixed-source generator-selection hit;
 historical D22 verdicts retain their old scope. Public repository is
 `tobiasosborne/quantum-algorithms-for-algebraic-geometry`, branch master,

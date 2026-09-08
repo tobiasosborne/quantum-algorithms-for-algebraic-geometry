@@ -6049,3 +6049,81 @@ assumption. For linear subspaces the mixture can be produced by a passive-optics
 - referee: verdicts/syzygy-basis-r13.md, explicit direct-fallback approval.
 - north-star relevance: a simpler independently bounded implementation with
   severe rank cost, not the polynomial-r QSVT upper.
+
+### C-382 (C-R15-BOUNDED-PERIOD-RELATIONS-IN-P)
+- statement: For fixed m, D-BOUNDED-SEPARATED-PERIOD-RELATION is solvable
+  deterministically in polynomial time in the actual binary lengths of its
+  rational inputs. The approximation and separation promises turn exact zero
+  into rational slabs; excluding zero requires only 2m integer-feasibility
+  calls. This does not supply a relation-height bound, separation certificate,
+  marking or period-computation algorithm for an input quartic surface.
+- status: SKETCH
+- depends-on: D-BOUNDED-SEPARATED-PERIOD-RELATION
+- where-proved: argument/bounded-period-relations-r15.md; direct reduction
+  using Lenstra's fixed-variable integer-programming theorem,
+  DOI 10.1287/moor.8.4.538 (cited theorem).
+- where-tested: checkers/explore/picard_boolean_encoding_r15.py; bounded
+  exact slab examples and a mutation admitting the forbidden zero vector.
+- referee: no independent campaign review in this session; remains SKETCH.
+- north-star relevance: identifies the upstream geometric certification costs
+  instead of assuming exponential difficulty of a fixed-dimensional search.
+
+### C-383 (C-R15-K3-NS-COMPUTABILITY)
+- statement: There is an unconditional algorithm computing the geometric
+  Neron-Severi group with Galois action for a K3 surface over a finitely
+  generated field of characteristic not2. In particular the exact rank bit
+  in D-QUARTIC-EXTRA-PICARD-CLASS is computable. This cited result does not
+  establish a polynomial coefficient-bit bound or NP-intersect-coNP membership.
+- status: SKETCH
+- depends-on: D-QUARTIC-EXTRA-PICARD-CLASS
+- where-proved: Poonen--Testa--van Luijk, arXiv:1210.3720,
+  Theorem8.38 of the author's final PDF (cited theorem);
+  refs/picard-classical-r15.md records the checked version and hypotheses.
+- where-tested: none; the research session inspected the theorem and proof,
+  and did not rerun a general Neron-Severi algorithm.
+- referee: cited literature enters SKETCH under the campaign convention.
+- north-star relevance: the task is decidable; its useful bit-complexity and
+  certificate-size classification remains a research problem.
+
+### C-384 (C-R15-QUANTUM-SIMULATION-CEILING)
+- statement: D-STANDARD-POLYNOMIAL-QUANTUM-COMPUTATION lies in PSPACE and
+  admits a deterministic 2^poly(L)-time classical simulation. Therefore a
+  classical lower bound beyond EXP would preclude such a quantum algorithm
+  for the same input/output. Unrestricted ideal membership over Q is
+  EXPSPACE-complete, so it cannot lie in BQP without contradicting the
+  deterministic space hierarchy. A doubly exponential upper bound for one
+  classical algorithm is not a lower bound of this kind; factorial time
+  remains within EXP. These conclusions do not automatically cover a
+  restricted ideal problem or an opaque quantum-data input.
+- status: SKETCH
+- depends-on: D-STANDARD-POLYNOMIAL-QUANTUM-COMPUTATION
+- where-proved: scouting/picard-classical-r15.md section8; standard circuit
+  simulation and Watrous arXiv:0804.3401, together with Mayr--Meyer
+  DOI 10.1016/0001-8708(82)90048-2 and Mayr DOI 10.1007/BFb0029002
+  (cited theorems and their direct implication).
+- where-tested: none; this is a complexity-theoretic statement.
+- referee: no independent campaign review; remains SKETCH.
+- north-star relevance: separates algorithmic blowups worth improving from
+  genuine complexity barriers that a standard quantum algorithm cannot cross.
+
+### C-385 (C-R15-BOOLEAN-PICARD-ENCODING)
+- statement: The polynomial-size quadratic construction in
+  D-BOOLEAN-PICARD-SURFACE yields a smooth projective pure two-dimensional
+  scheme that is a disjoint union of one plus the number of Boolean solutions
+  to Ax=b copies of P2. Its geometric Picard rank is therefore that number,
+  and rank-greater-than-one is NP-complete on the explicitly encoded family.
+  Connectedness, irreducibility, a fixed quartic embedding and the K3 condition
+  are not preserved. No hardness classification for connected quartic K3
+  Picard rank follows from this reduction.
+- status: SKETCH
+- depends-on: D-BOOLEAN-PICARD-SURFACE
+- where-proved: argument/boolean-picard-encoding-r15.md; split Boolean
+  algebra, dummy point, three-chart Segre encoding and Karp's Boolean
+  integer-feasibility theorem, DOI 10.1007/978-1-4684-2001-2_9.
+- where-tested: checkers/explore/picard_boolean_encoding_r15.py; exact
+  Boolean counts, homogeneous scaling, Segre chart coverage and red mutations.
+- referee: new reduction has not received an independent campaign audit;
+  finite tests do not promote it above SKETCH.
+- north-star relevance: a negative complexity control. Under D27 this
+  NP-complete family is rejected as a quantum-algorithm target; the underlying
+  connected K3 problem remains separately unclassified by this review.
