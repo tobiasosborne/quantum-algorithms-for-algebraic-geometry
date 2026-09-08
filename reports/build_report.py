@@ -402,7 +402,7 @@ def build(args: argparse.Namespace) -> dict:
     data = {
         "meta": {"snapshot": args.snapshot, "generated": "Reproducible local build", "fingerprint": fingerprint,
                  "counts": {"routes": len(routes), "claims": len(claims), "sources": len(sources), "statuses": dict(Counter(c["status"] for c in claims))},
-                 "researchGoal": "Unachieved: proved quantum-copy advantages use known mechanisms and do not meet the original-algorithm requirement.",
+                 "researchGoal": "Proved D25 results: useful original-generator selection with an unconditional fixed-source copy advantage. Explicit-coefficient and practical hardware advantages remain open.",
                  "notes": ["Scientific source snapshot; historical documents retain their original claims and wording. Only claims/CLAIMS.md assigns current formal statuses.", "Runtime/tool logs and operational briefs are excluded; the r8 side-probe link is represented by HANDOFF.md.", "External references open only on explicit clicks. All source text, formula rendering, fonts and notebook imagery are embedded."]},
         "routes": routes, "claims": claims, "sources": sources,
         "glossary": sorted(terms.values(), key=lambda x: x["term"].casefold()),
@@ -443,7 +443,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--katex-dir", type=Path, help="Path to the installed katex package")
     parser.add_argument("--output", type=Path, default=REPORTS / "research-report.html")
-    parser.add_argument("--snapshot", default="5 September 2026")
+    parser.add_argument("--snapshot", default="8 September 2026")
     parser.add_argument("--preview", action="store_true", help="Allow pending canonical claim/source links while integration is in progress")
     parser.add_argument("--check", action="store_true", help="Validate all inputs and require the checked-in artifact to match a fresh build")
     args = parser.parse_args()

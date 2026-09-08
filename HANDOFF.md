@@ -1,150 +1,104 @@
-<!-- ROLE: current state + fast restart. Live goal checkpoint; <=150 lines. -->
+# HANDOFF — 2026-09-08, timed research round closed
 
-# HANDOFF — 2026-09-05, interactive report and active research
+The user requested work until about03:00 Berlin (01:00UTC2026-09-08), then
+commit, push and STOP. At the later status check,05:03UTC, the cutoff had
+passed and both Sol runs had hit their service usage limits. Research stopped;
+only final verification, integration and synchronization followed. Do not
+resume exploration automatically without a new user instruction.
 
-The user asks for relentless construction and adversarial verification until a
-GENUINELY NOVEL quantum algorithm is found. All classical and modern algebraic
-geometry is in scope. The goal remains ACTIVE AND UNACHIEVED: a formal quantum
-copy advantage is now proved, but the displayed mechanisms fail strict D22.
-Do not mark the goal complete because a mathematical claim is PROVED.
+## Current success criterion
 
-## Interactive report
+PRD D25 supersedes D22's strict historical-originality gate. New means not
+QFT/Grover/DQI in disguise. QSVT qualifies. Adiabatic QC qualifies unless it
+only Feynman--Kitaev-encodes Grover/QFT; quantum walks qualify for useful AG
+problems. Supersymmetry and syzygies are specifically encouraged. Known
+nonexcluded mechanisms are not automatically disqualified. This round used
+Sol xhigh proposer/critic agents, at most two concurrently.
 
-The requested report is `reports/research-report.html`, a self-contained offline
-HTML artifact with seven explainers, 69 routes, 364 claims, a source library and glossary.
-`reports/README.md` documents its reproducible build and browser verification.
-The 57-check offline browser suite passes; independent targeted checks cover
-navigation, high-refresh-rate animations and source-reader presentation.
-Run `bd prime`, then read qaag-47l/qaag-tzn to resume the original research goal.
+## Proved useful result: choose original generators
 
-## Binding steering and workflow
+C-374--C-376 are PROVED after `verdicts/syzygy-advantage-r12.md`.
+Canonical input: `definitions/syzygy-plucker-r12.md`.
+Readable proof: `argument/syzygy-generator-selection.md`.
+Construction and scope: `scouting/syzygy-plucker-r12.md`.
 
-- Run `bd prime`; use CLAUDE.md, PRD criteria 1–6 and D22–D24.
-- New means an original problem-level result AND an original quantum mechanism.
-  New applications, encodings and compositions of described algorithms do not
-  qualify. Basic gates are allowed. No Grover/QFT/DQI reapplications; DQI and
-  extensions are excluded. Derive before targeted primary-source verification.
-- Only Astra/Sol subagents, at most two concurrently. Native collaboration is
-  used; assigned lane files are disjoint and root owns shared registers.
-- Use bd for tracking/memory; serialize its commands because even reads lock Dolt.
-- Seed is read-only. No new full seed-suite run is warranted by these changes.
-- Do not repeat familiarization or relaunch completed negative probes.
+An unknown 2-by-q row coisometry gives a based redundant quadratic tuple
+spanning `(z0²,z1²)`. Its fixed Fock-emission source delivers `rho=C†C/2`.
+The task returns ANY two ORIGINAL labels generating the same ideal.
+Four ordinary two-copy swap trials use at most8copies and succeed with
+probability175/256>2/3. For q=2d,d>=3, every adaptive separate-copy POVM
+strategy with fixed capT obeys T(T-1)>=d(d-2)/(3(d-1)). Strict cap-eight
+separation starts at evenq=340. No prescribed DPP law is required for this
+stronger useful theorem; the additional twenty-copy volume sampler is C-376.
 
-## Completed Waring same-bit-output copy separation
+Scope is essential: independent fixed quantum-source copies, no coefficient
+list, purification, public hidden partition, preparation inverse, controllable
+incident state, or cross-copy quantum memory for the classical comparator.
+A two-photon HOM experiment tests the instrument at small q. One-time device
+construction and per-copy delivery are charged; no practical hardware or
+explicit-coefficient-list advantage is claimed.
 
-The clean algorithm is `scouting/waring-programmable-tester.md`, independently
-accepted in `verdicts/waring-programmable-tester-r1.md`.
-The lower bound is `scouting/waring-terminal-baseline.md`, independently
-accepted in `verdicts/waring-terminal-baseline-r1.md`.
-Canonical definitions: `definitions/waring-components.md`.
+The accepted classical upper is O(q logq) copies via two-design tomography;
+the lower is Omega(sqrt q). A CONTROLLABLE incident source changes the problem:
+a two-query classical controller succeeds with probability>=2/3. Both facts
+are proved in scouting sections5B/6A and independently audited. The source-only
+assumption must never be hidden in a future write-up.
 
-Source: copies of normalized T=sum_(a=1)^4 c_a u_a^tensor4, independent unit
-components in C^q=C^d_A tensor C^d_B, q=d^2,d>=20, unknown components/coefficients,
-with G>=1/2 and determinant-seed probability p0>=1/512. Decide whether
-Gamma=(1/4)sum_a e5(Tr_B |u_a><u_a|) is zero or at least 10^(-6).
-This tests a determinantal condition on the unique Waring points, not an explicit
-component list or quantum-output-versus-tomography comparison.
+## Proved growing-rank QSVT extension
 
-The direct event uses FIVE original copies per trial: one r-copy antisymmetric
-seed, one fixed-index programmable guard using the extra source, and the point
-measurement on five A registers of the selected six-slot component row.
-Joint event probability is at least (9/2^31)Gamma and is exactly zero on YES.
-A sufficient source budget including an implementation margin is
-2,137,652,311,842,450 copies. This is formal and impractical at this bound.
-The general operator proof allows a supplied two-outcome measurement with effect
-Q; sqrt(Q) is only a proof factorization, not a free oracle or a Q-block encoding.
+C-377--C-381 are PROVED after `verdicts/syzygy-basis-r13.md`.
+Canonical definitions: `definitions/syzygy-basis-r13.md`.
+Full construction: `scouting/syzygy-basis-r13.md`.
 
-Every adaptive global-single-original-copy POVM strategy needs at least
-q^(1/4)/(4 sqrt24) copies. The proof uses moment-matched rank-four/rank-five
-component spectra, hidden local Haar frames, positive Haar/Gaussian polynomial
-norm comparison, and the Fock product inequality at each complete transcript.
-Gaussian polynomial extensions are NOT renormalized as quantum states.
-The lower bound permits arbitrary within-copy global measurements and unlimited
-classical computation/memory; it is not a classical coefficient-list theorem.
+For rankr>=3 the based degree-(r-1) tuple generates `(z0,z1)^(r-1)`, a
+nonreduced fat point of lengthr(r-1)/2. The fixed emitter is an isometry,
+with success1 and sourceC†C/r. QSVT integer-content windows replace Fourier
+measurements. The exact padded retry bank gives a Lueders instrument; its
+failed branches and all approximation errors are charged. Permutations keep
+exact source support. A correct exterior column survives every failed signed
+certificate, so retries consume ancillas/time but no fresh source copies.
 
-The direct five-copy batch is also minimal among nontrivial batches with EXACT
-perfect completeness. This does not establish total-copy or two-sided optimality.
-Known universal comparison/programmable-discrimination operations implement the
-mechanism: this formal separation DOES NOT establish the requested originality.
+Per-batch acceptance>=103/256>3/8. Three batches at delta1/3 use6r² copies.
+For q=rd,d>=2, classicalT(T-1)>=4q/(9r). A sufficient strict-copy threshold
+is q>(9r/4)(6r²)(6r²-1), leading81r^5. This is a COPY comparison throughout
+that regime. The full quantum compiler/gate count is polynomial in r,logq;
+it is polynomial in logq when r<=poly(logq). Do not equate the whole q/r^5
+regime with an unqualified wall-clock advantage. The simpler direct fallback
+has overlap1/r^r, not r!/r^r, and severe rank cost.
 
-## Related proved mathematics and rejected mechanisms
+## Tournament and remaining scientific work
 
-- C-339--C-341: general secant pair-support identity, exact S4 compression and
-  sharp uniform four-copy nonzero gap 1/12. Source `scouting/secant-pair-support.md`;
-  independent PASS `verdicts/secant-pair-support-r1.md`. Generic filtering applies.
-- C-342--C-344: coded Waring synchronization, seed ceiling and resource bound.
-  Binary subsets reduce guards r-1 -> ceil(log2 r), but the seed costs at least
-  r^(r+1) copies. See `scouting/waring-coded-fusion.md` and its PASS verdict.
-- C-345: the formal terminal separation; C-347: the shorter direct upper;
-  C-348: the scoped five-copy batch lower bound. These are PROVED.
-- C-338 and C-346 are REFUTED novelty assertions. C-335--C-337 remain SKETCH.
-- Rank-two Waring fusion is the GL-covariant redundant-Bell-fusion network,
-  not an original algorithm. Its repaired mathematics passes its own verdict.
-- Earlier trine-cat secant measurement reduces to random-cut rank tests within
-  factor eight. Strassen testing reduces to known Schur/invariant networks.
+The initial R11 portfolio registered42 candidates:17 geometry,16 thermal/CP,
+8 root alternatives and the finite CE continuation. The portfolios and
+independent verdicts are in `scouting/*frontiers-r11.md` and matching verdicts.
+R11 C-365--C-373 remain SKETCH controls; no extra promotion was inferred from
+finite checks. The CE cubic supercharge is exact but fixed size, and its
+resonance is a known spin-3/2 transfer chain. D25 permits that mechanism; it
+still has no asymptotic advantage.
 
-## Other completed construction lanes
+`scouting/syzygy-bosonsampling-r12.md` is retained as a HOLD: correct syzygy/
+optical algebra and conditional hardness reductions, but no established useful
+syzygy-specific consumer or unconditional classical-input speedup. Some finite
+approximate-ensemble and loss assumptions remain explicit.
 
-`verdicts/original-round2-r1.md` reviews the four old memos; five major
-access/output/resource repairs were applied. Remaining minor conventions and
-definitions are tracked by qaag-kdj before merging those old proposed rows.
+Follow-up qaag-gff records the classical source-only generator-selection gap.
+A Sol run suggested an O(q) Haar-covariant upper but hit the service limit
+before producing an artifact or independent review. That suggestion is NOT
+registered as proved. The accepted upper remains O(q logq).
 
-Other completed files, all with no qualifying mechanism:
-- `scouting/original-astra-round2.md`: nilpotent transport and bundle sewing;
-  `scouting/original-enumerative-round3.md`: Hecke/flag-gallery classical attacks.
-- `scouting/original-recovery-round3.md`: scoped triangular/mixed/Koszul recoveries;
-  `scouting/chow-foulkes-audit.md`: Foulkes gap and exact-recovery obstructions.
-- `scouting/original-residue-round3.md` and `verdicts/residue-packets-r1.md`:
-  corrected residue metrics and classical attacks; high-energy gates remain held.
-- `scouting/intrinsic-geometry-round4.md`: incidence/Fourier reduction and sampler.
-- `scouting/degeneration-mechanism-r5.md`, same-name verdict: C-349--C-350
-  give the rare-jet copy bound and retained-bath arithmetic/monodromy discrepancy.
-- `scouting/reconstruction-mechanism-r5.md`, same-name verdict: C-351 compiles
-  sparse trinomial multiplication and classically samples its tree output.
-- `scouting/grassmann-streaming-r5.md`, independent same-name verdict:
-  C-352 uses bilinear four-wise sign sketches with variance <=9k; full
-  working bits O(m(b+log(kq)+log m)). Single/fixed queries only.
-  These four rows are PROVED scoped mathematics, not an original algorithm.
-  Canonical inputs: `definitions/mechanism-r5.md`.
-- `scouting/theta-isogeny-r6.md`, independent same-name verdict: C-353--C-354
-  prove exact cubist-metric theta transport with twisted, nonuniform sectors.
-  Even k: exact separate-source sector sampler by local Weyl measurements/XOR.
-  Odd k: logical Bell measurement, w_sector<=2^(-g). Full decoded classical
-  sampling under explicit sample-and-query access costs O(g 2^g).
-  Canonical inputs: `definitions/theta-isogeny.md`. D22 still fails.
-- `scouting/hall-extension-r7.md`, independent same-name verdict: C-355--C-356
-  fix Hall measures and flag-erasure norms, then derive an exact retained-order
-  Yoneda obstruction with a matched classical matrix-vector test.
-  Canonical inputs: `definitions/hall-extension.md`. No speedup.
-- `scouting/spinor-mechanism-r7.md`, independent same-name verdict: C-357--C-358
-  separate a six-CCZ coboundary phase/IQP circuit from the continuous associator
-  filter (norm sqrt96). Classical scalar tests match. One-use real p<=1/24
-  is not multiplicative: paired internal entanglement gives 7/512 for two uses.
-  Canonical inputs: `definitions/octonionic-operations.md`. No north-star hit.
-- `scouting/problem-first-r8.md`, same-name verdict: C-359--C-360 give the
-  real Schur coisometry, p<=1/2 and expected fresh-child cost >=4^t, plus
-  matching Theta((16/9)^D) quantum/classical copy costs for disk radius5/8.
-  Geometric separation does not cure coefficient-state conditioning.
-  Canonical inputs: `definitions/schur-disk-count.md`.
+The six inherited R10 higher-obstruction files are archived unchanged. Their
+interim audit and Gramian repair are not completed or promoted. Existing
+qaag-bd6/qaag-6xn retain that outstanding scope. Do not restart their known
+monitored-return mechanism as unexplored novelty.
 
-R9: C-361 proves exact support-to-Slater conversion with polynomial-rank/log-q
-resources; C-362 proves approximate DPP sampling needs Omega(sqrt(q)) classical
-copies versus a q-independent quantum cap (flat rank2, TV1/16: 15copies suffice).
-C-363 excludes exact universal separable samplers for 2<=r<q. C-364 rejects
-originality via known GPE, multiplicity reset and the same exact certificate.
-Sources: `scouting/support-plucker*.md`, `verdicts/support-plucker-r9.md`;
-canonical inputs: `definitions/support-plucker.md`. Exact support/gates matter.
-Do not reopen known root-extraction, moment-map or pure-spinor probes (bd memory).
+## Verification and publication
 
-## Verification, tracking and repository
-
-Four bounded checkers total 2018 checks and twelve red mutations; see
-`checkers/MUTATIONS.md`. Numerical probes support, rather than replace, proofs.
-
-Active: qaag-47l (persistent original-algorithm exploration), qaag-tzn (synthesis).
-Open minor reconciliation: qaag-kdj. Publication/local CI: qaag-kbx; remote setup: qaag-9t7.
-Register ends C-364; the r9 construction and independent audit are integrated.
-
-User authorized public GitHub publication, AGPLv3 and local report CI/CD.
-Git/Dolt origin: tobiasosborne/quantum-algorithms-for-algebraic-geometry on GitHub.
-Local CI: `make ci`; the commit hook maintains the report, and verified pushes deploy Pages.
+The new checker suites pass289+1032+241=1562 finite checks and19 red mutations.
+They support finite identities, not the uniform Haar lower bounds or QSVT
+compiler theorem. The broad historical seed suite was not rerun.
+The maintained offline report contains77routes,381claims and162sources;
+57browser checks and9Git-hook tests pass. Build commands are in reports/README.md.
+The report now states current D25 and the fixed-source generator-selection hit;
+historical D22 verdicts retain their old scope. Public repository is
+`tobiasosborne/quantum-algorithms-for-algebraic-geometry`, branch master,
+AGPLv3. Final workflow commits and pushes Git plus Beads before stopping.

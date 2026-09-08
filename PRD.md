@@ -31,18 +31,23 @@ A north-star hit is a claim row in `claims/CLAIMS.md` at status PROVED with ALL 
    such as Bose–Hubbard or spinor-BEC spin mixing, with an estimate of what an experiment
    could test.
 
-6. **Original problem-level result and algorithmic mechanism (TJO, 2026-09-04, D22).**
-   The quantum algorithm must solve a problem not previously solved and use an approach
-   that is not substantively equivalent or reducible to a described quantum algorithm.
-   A new application, encoding, parameter regime, or composition of Grover, quantum
-   Fourier transforms, decoded quantum interferometry (DQI), or other established
-   algorithms does not qualify. New to this repository is not new in this sense.
-   Proposed constructions must state what computational result and what mechanism are
-   claimed to be original; unsupported originality remains unverified.
+6. **Eligible quantum mechanism (TJO, 2026-09-07, D25; supersedes D22's strict
+   originality test).** The user's operative meaning of new is that the quantum
+   algorithm is not QFT, Grover or DQI in disguise. QSVT explicitly qualifies.
+   Adiabatic quantum computation qualifies unless it merely encodes Grover/QFT
+   through a Feynman--Kitaev construction. Quantum walks are eligible for useful geometric computations; an artificial
+   welded-tree instance alone is not a useful geometric problem. Existing
+   nonexcluded mechanisms and new geometric applications are not rejected merely
+   for being known.
+   The exact quantum operation and any reduction to an excluded mechanism must
+   be examined substantively; use of elementary gates alone proves nothing.
 
-   Algebraic geometry is the broad domain. The campaign's existing discoveries may
-   be used, but neither they nor the Fock/Macaulay construction limit the search
-   (TJO clarification, 2026-09-04).
+   Criteria 1--5 remain: the algorithm needs a precise algebraic-geometric
+   problem, matched classical comparison, proved advantage, full resource and
+   access accounting, and a concrete heuristic hardware route. Supersymmetric
+   constructions and syzygies are specifically encouraged. Historical D22
+   verdicts remain evidence but their novelty-only rejections are not current
+   disqualifications under D25.
 
 Partial credit that is still a product: a sharp negative result (P admits no speedup of a
 given type, with proof), or a new classical algorithm found while hunting.
@@ -288,8 +293,20 @@ asserts a speedup must name which traps it has been checked against.
 | D22 | 2026-09-04 | TJO defines new: the algorithm solves a problem not previously solved, using a genuinely novel approach not equivalent or substantively reducible to a described quantum algorithm. Grover, QFT, DQI and their reapplications do not qualify. Stop web-led scouting for this round; develop original constructions. DQI, including proposed extensions, is removed from the round. This adds criterion 6; earlier scores out of five are historical and do not establish novelty. | TJO |
 | D23 | 2026-09-04 | Use only Astra and Sol subagents. This supersedes D3 and the old cross-family roster; independent criticism remains required, using Astra and Sol. No further Opus runs. | TJO |
 | D24 | 2026-09-05 | Persist towards a genuinely novel quantum algorithm; use subagents to ideate and adversarially verify. All classical and modern algebraic geometry is available as the use-case domain. This does not relax D22 or authorize presenting a known-algorithm reduction as a discovery. | TJO |
+| D25 | 2026-09-07 | Launch a broad cohomology/schemes/surfaces/thermal/CP round with Sol xhigh proposer and critic agents. Novelty now means not QFT, Grover or DQI in disguise; QSVT qualifies, and adiabatic QC qualifies unless it is Feynman--Kitaev encoding of Grover/QFT. This supersedes D22's stricter exclusion of all known mechanisms. Supersymmetry and syzygies are encouraged. True same-input/output advantage and full resource accounting remain required. | TJO |
 
 ## 7. Current state and open questions for TJO
+
+Current update,2026-09-08: C-375 is a PROVED D25 hit for useful original-generator
+selection in a fixed quantum-source model:8copies versus an unconditional
+Omega(sqrt q) adaptive separate-copy lower. C-380 extends this to growing rank
+with QSVT and6r² copies, with its explicit rank/dimension and processing-cost
+scope. Independent verdicts approve all six criteria in that named model.
+Explicit-coefficient, controllable-emitter and practical hardware advantages
+are not established; a controllable incident emitter admits a two-query
+classical controller in rank two. Older open questions below are historical
+and do not override this updated criterion or the user's session stop time.
+
 
 State at 2026-09-02 (stand-up session): repo scaffolded; `definitions/` 66 entries + 2
 stubs, 14 OPEN issues; `claims/CLAIMS.md` 254 rows, 529 edges, 0 PROVED; four scouting

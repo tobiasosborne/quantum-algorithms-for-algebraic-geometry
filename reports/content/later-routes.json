@@ -1010,5 +1010,189 @@
         "meaning": "A geometric description closely connected here to pure fermionic Gaussian states."
       }
     ]
+  },
+  {
+    "id": "higher-obstruction-r10",
+    "title": "Higher obstruction maps: the unfinished earlier audit",
+    "family": "Deformation and schemes",
+    "question": "Can monitored internal dynamics read higher local obstruction coefficients?",
+    "idea": "Use a finite block pencil and retained internal quantum state to emit a coefficient at a selected return time.",
+    "test": "The interim audit compares local elimination, first-return channels, Gramian normalization and the same classical recurrence.",
+    "outcome": "The coefficient identities survive in their stated splitting; intrinsic lifting and general normalization remain unresolved in the inherited draft.",
+    "survives": "A precise local module and monitored-return construction, preserved as an interim research record.",
+    "remaining": "The inherited R10 audit was not completed in this session; no canonical claim is promoted from it.",
+    "claimIds": [],
+    "sources": [
+      "scouting/higher-obstruction-r10.md",
+      "scouting/higher-obstruction-baseline-r10.md",
+      "verdicts/higher-obstruction-r10.md",
+      "definitions/higher-obstruction.md"
+    ],
+    "disposition": "held",
+    "terms": []
+  },
+  {
+    "id": "geometry-frontiers-r11",
+    "title": "Seventeen cohomology, scheme and surface candidates",
+    "family": "Cohomology, schemes and surfaces",
+    "question": "Which geometric operations survive a broad independent tournament?",
+    "idea": "Compare sheaf cohomology, Massey products, local scheme thickness, Kuranishi transfer, K3 periods, surface correspondences and wall-crossing.",
+    "test": "Independent review repairs access models, lattice heights, tree compilation, quotient observables and sample-versus-amplitude costs.",
+    "outcome": "The finite first-loss law survives with an identical classical sampler. Kuranishi/QSVT constructions remain eligible under D25 but lack a natural matched advantage.",
+    "survives": "Precise candidate definitions, finite identities and a ranked construction record.",
+    "remaining": "A useful advantage for explicit surface/cohomology input remains open; known nonexcluded mechanisms are eligible under the revised criterion.",
+    "claimIds": [
+      "C-371"
+    ],
+    "sources": [
+      "scouting/geometry-frontiers-r11.md",
+      "verdicts/geometry-frontiers-r11.md"
+    ],
+    "disposition": "held",
+    "terms": []
+  },
+  {
+    "id": "thermal-cp-frontiers-r11",
+    "title": "Thermal states and CP maps for syzygies",
+    "family": "Thermal states and syzygies",
+    "question": "Can a physical bath expose algebraic relations with useful resource bounds?",
+    "idea": "Emit a Macaulay Gram state, use absorbing dynamics to estimate nullity, and examine metric transport and coherent Green response.",
+    "test": "Independent derivations check Fock conjugation, trace preservation, regularization, Massey signs and quotient access; a nonreduced quadratic family has an exact classical sampler.",
+    "outcome": "The bath Gram identity and absorbing heat law survive. Their generic QSVT versions are eligible, but the tested explicit family has no advantage.",
+    "survives": "An exact source mechanism feeding the later generator-selection theorem.",
+    "remaining": "Efficient geometric quotient construction and a hard gapped cohomology family remain unresolved.",
+    "claimIds": [
+      "C-369",
+      "C-370",
+      "C-373"
+    ],
+    "sources": [
+      "scouting/thermal-cp-frontiers-r11.md",
+      "verdicts/thermal-cp-frontiers-r11.md",
+      "definitions/thermal-cp-r11.md"
+    ],
+    "disposition": "held",
+    "terms": []
+  },
+  {
+    "id": "root-cp-controls-r11",
+    "title": "Eight additional open-system constructions and controls",
+    "family": "Open quantum dynamics",
+    "question": "Which proposed CP operations preserve the geometric information they need?",
+    "idea": "Examine harmonic pumping, nonreduced multiplication, balanced metric updates, thermal transport and nilpotent channel transients.",
+    "test": "Explicit channel calculations test reachability, physical normalization, Born-weight cancellation and peripheral Jordan blocks.",
+    "outcome": "Several proposed free operations fail under exact accounting. Their scoped controls do not exclude different geometric channels.",
+    "survives": "Harmonic-sector conservation, a normalized dual-number fusion map and precise limits on the specified constructions.",
+    "remaining": "New jumps, retained-environment fusion and geometric higher-product channels need complete algorithms.",
+    "claimIds": [
+      "C-365",
+      "C-366",
+      "C-367",
+      "C-368"
+    ],
+    "sources": [
+      "scouting/root-frontiers-r11.md",
+      "verdicts/thermal-cp-frontiers-r11.md"
+    ],
+    "disposition": "held",
+    "terms": []
+  },
+  {
+    "id": "ce-scattering-r11",
+    "title": "A cubic fat point in a boson–fermion supercharge",
+    "family": "Supersymmetry and schemes",
+    "question": "Can higher obstruction data appear as a physical scattering signal?",
+    "idea": "Use a nilpotent weighted-Fock supercharge whose finite sector is a four-state chain.",
+    "test": "The complete evolution is derived, rather than inferred from an effective coupling; the resonance is compared with spin-3/2 perfect transfer.",
+    "outcome": "The scheme, supercharge and exact unit-success resonance are correct. This fixed-size diagnostic has a direct classical formula.",
+    "survives": "A concrete supersymmetric mechanism experiment and verified higher-obstruction normalization.",
+    "remaining": "A growing interacting family with an advantage remains open; being known is not itself a D25 rejection.",
+    "claimIds": [
+      "C-372"
+    ],
+    "sources": [
+      "scouting/ce-scattering-r11.md",
+      "definitions/ce-scattering.md",
+      "verdicts/geometry-frontiers-r11.md"
+    ],
+    "disposition": "held",
+    "terms": []
+  },
+  {
+    "id": "syzygy-generator-selection-r12",
+    "title": "Eight copies to select original generators",
+    "family": "Proved syzygy copy advantages",
+    "question": "Which two available generators suffice for the same nonreduced ideal?",
+    "idea": "Use ordinary two-copy swap interference on the fixed syzygy Gram source and return an accepted pair of original labels.",
+    "test": "A hidden-partition transcript proof bounds every adaptive separate-copy strategy; the source, label law, full failure cap and optical coincidence instrument are independently checked.",
+    "outcome": "Eight copies succeed with probability at least 175/256. Classical separate-copy strategies need Omega(sqrt q); strict cap-eight separation begins at even q=340.",
+    "survives": "A useful minimal-generator selection theorem under D25, plus a twenty-copy volume-sampling guarantee.",
+    "remaining": "The data interface is fixed independent source copies. Classical coefficient lists or controlled incident states change the problem; the controlled emitter admits a two-query controller. Device startup may dominate wall time.",
+    "claimIds": [
+      "C-374",
+      "C-375",
+      "C-376"
+    ],
+    "sources": [
+      "scouting/syzygy-plucker-r12.md",
+      "argument/syzygy-generator-selection.md",
+      "definitions/syzygy-plucker-r12.md",
+      "verdicts/syzygy-advantage-r12.md"
+    ],
+    "disposition": "copy-advantage",
+    "terms": [
+      {
+        "term": "Constant syzygy",
+        "meaning": "A linear relation among labelled polynomial generators whose coefficients are constants."
+      }
+    ]
+  },
+  {
+    "id": "syzygy-bosonsampling-r12",
+    "title": "Minimal-syzygy coefficient sampling and its utility test",
+    "family": "Syzygies and linear optics",
+    "question": "Does a passive optical coefficient sampler solve a useful syzygy task?",
+    "idea": "Rotate a coprime monomial complete intersection and sample the Fock coefficients of its unique minimal first syzygy.",
+    "test": "The audit derives the permanent law and branch conditioning, distinguishes exact and approximate hardness assumptions, charges loss, and examines what the samples accomplish.",
+    "outcome": "The algebraic and optical identities survive. The task largely reduces to sampling a factored generator; useful syzygy-specific consumption and some finite hardness interfaces remain held.",
+    "survives": "A precise conditional BosonSampling correspondence and a small optical diagnostic.",
+    "remaining": "No unconditional classical-input advantage or faster downstream algebraic computation is established.",
+    "claimIds": [],
+    "sources": [
+      "scouting/syzygy-bosonsampling-r12.md",
+      "verdicts/syzygy-advantage-r12.md"
+    ],
+    "disposition": "held",
+    "terms": []
+  },
+  {
+    "id": "syzygy-basis-qsvt-r13",
+    "title": "QSVT extracts a growing generator basis",
+    "family": "Proved syzygy copy advantages",
+    "question": "Can the generator-selection advantage extend to growing rank?",
+    "idea": "Use Hermitian QSVT content windows, a retrying Lueders measurement, tableau steering and an exact signed-permutation certificate.",
+    "test": "Independent review checks signed eigenvalue transformation, all failure maps, support preservation, certificate retries, and a general hidden-partition lower bound.",
+    "outcome": "The quantum cap is 6r² copies at success above two-thirds; every allowed classical strategy satisfies T(T-1)>=4q/(9r). A sufficient strict-copy threshold is q>(9r/4)(6r²)(6r²-1).",
+    "survives": "A Fourier-free growing-rank D25 theorem for selecting original generators of a fat-point ideal.",
+    "remaining": "The separation is for fixed-source copies. The complete gate count is polynomial in rank and log q; the full q/r^5 regime alone is not a runtime claim. Optical/MBQC diagnostics verify small mechanisms, not practical asymptotic advantage.",
+    "claimIds": [
+      "C-377",
+      "C-378",
+      "C-379",
+      "C-380",
+      "C-381"
+    ],
+    "sources": [
+      "scouting/syzygy-basis-r13.md",
+      "definitions/syzygy-basis-r13.md",
+      "verdicts/syzygy-basis-r13.md"
+    ],
+    "disposition": "copy-advantage",
+    "terms": [
+      {
+        "term": "Lueders instrument",
+        "meaning": "A projective measurement that preserves coherence within each measured eigenspace."
+      }
+    ]
   }
 ]

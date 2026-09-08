@@ -69,3 +69,13 @@ algebraic geometry.
     C1–C12 of `definitions/definitions.md` are binding; an artifact departing from one
     says so in its first paragraph, and cites definition ids rather than restating
     definitions.
+
+## Current user steering (2026-09-07/08)
+
+PRD D25 supersedes D22's strict literature-originality test. QSVT is eligible;
+quantum walks are eligible for useful geometric problems; adiabatic QC is
+eligible unless it merely Feynman--Kitaev-encodes Grover/QFT. QFT/Grover/DQI
+disguises remain excluded. Known nonexcluded operations are not rejected just
+for being known. This round uses Sol xhigh proposers and critics, as explicitly
+requested by the user. Supersymmetric and syzygy directions are encouraged.
+Current session stop time is in bd memory; it overrides indefinite continuation.

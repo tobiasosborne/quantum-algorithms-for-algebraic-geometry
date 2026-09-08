@@ -226,3 +226,60 @@ It checks the general point-test construction, not only the terminal rank exampl
 | `skip-seed` | Remove the source-program seed | a YES input produces event probability 1/16 instead of zero | 1 |
 | `drop-program-row` | Omit a reference from the matching guard | a YES input produces event probability 1/16 instead of zero | 1 |
 | `drop-factorial` | Remove exterior normalization | literal event 0.002265420572404712 disagrees with 0.009061682289618851 | 1 |
+# R11 CP and geometry diagnostics (2026-09-07)
+
+## R12 syzygy generator selection (2026-09-08)
+
+`timeout 30 python3 -B checkers/explore/syzygy_plucker_r12.py` passed 1032
+finite checks. The separate asymptotic lower bound is the analytic argument
+in `argument/syzygy-generator-selection.md`, not a consequence of these tests.
+Each `--mutate NAME` below returned exit 1; mutations change only the in-process
+model and leave files unchanged.
+
+| Mutation | Deliberate defect | Observed failure |
+|---|---|---|
+| `emitter-conjugation` | Replace Fock adjoint by transpose | Bath Gram residual 0.45808090965108744 |
+| `antisymmetry-scale` | Omit the half in the antisymmetric projector | Claimed quarter-success becomes 1 |
+| `rank-promise` | Replace flat rank two by flat rank three | Success becomes 1/3 instead of 1/4 |
+| `sorted-pair-factor` | Forget the second ordering of a pair | Probability 1/2 instead of 1 in the q=2 fixture |
+| `hom-sign` | Remove the beamsplitter coincidence minus sign | Coincidence rate 3/4 instead of 1/4 |
+| `public-partition` | Let reference output depend on the hidden partition | Reference success 1 instead of 3/5 at d=3 |
+
+The last mutation checks a necessary input restriction: public partition
+metadata invalidates the claimed reference-independence bound.
+
+`explore/cp_geometry_r11.py` checks finite Hermitian identities from
+`scouting/root-frontiers-r11.md`. It is excluded from the historical seed runner.
+Baseline: `timeout 30 python3 -B checkers/explore/cp_geometry_r11.py`, exit 0,
+183 checks. Each following `--mutate` run exited 1 with a mathematical failure:
+
+| Mutation | Changed ingredient | Observed failure |
+|---|---|---|
+| `harmonic-projector` | Put a non-harmonic vector into the proposed harmonic projector | `||dP||=0.4`, expected zero |
+| `fusion-normalization` | Omit `sqrt(2)` from dual-number multiplication normalization | `lambda_max(K†K)=2`, expected at most one |
+| `born-weight` | Replace the instrument's Born distribution by the desired label weights | Ensemble cancellation residual `0.4055697361777374`, expected zero |
+| `absorbing-boundary` | Replace the absorbing successor boundary by a cyclic boundary | Fixed-state residual `sqrt(2)`, expected zero |
+
+All mutations affect only the in-process model, not files. Run each with
+`timeout 30 python3 -B checkers/explore/cp_geometry_r11.py --mutate NAME`.
+These diagnostics do not prove a uniform theorem, novelty or quantum advantage.
+
+The CE scattering extension subsequently passed 289 checks, including supercharge
+nilpotence in weighted sectors zero through eight, the independent occupation-rule
+construction of the four-state matrix, and its exact complex scattering amplitude.
+Two additional mutations exited 1: `ce-merge-weight` omits the Fock `sqrt(6)`
+coefficient (matrix residual `0.020498880527646594`), and `ce-fermion-sign`
+omits the second creator's fermionic sign (`||Q²||=0.028284978345404478`).
+Sources: `definitions/ce-scattering.md`, `scouting/ce-scattering-r11.md`.
+
+## R13 compiler diagnostics (2026-09-08)
+
+`OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 timeout 45 python3 -B
+checkers/explore/syzygy_basis_r13.py` passed 241 finite checks. All seven
+in-process mutations returned exit 1: `source-scale`, `padded-block`,
+`shift-sign`, `luders-failure`, `antisymmetry-normalization`, `certificate-sign`,
+`certificate-invalid`. They detect, respectively, source normalization,
+padding, signed shifts, complement coherence, the antisymmetry factorial,
+valid permutation phases and invalid-branch data disturbance. Finite checks
+support the reviewed identities, not QSVT phase-computation complexity or the
+uniform classical transcript theorem.

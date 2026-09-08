@@ -14,14 +14,15 @@ The explainer is the best place to start. Move curves, explore the cost of posts
 
 ## What has survived the search
 
-Two rigorously matched quantum **copy advantages** have been proved:
+The current result is a rigorously matched quantum **copy advantage** for selecting original generators, alongside the earlier sampling and testing results:
 
+- **Choose which generators to retain.** Eight copies of a fixed quantum source select two original generators of the same nonreduced ideal with success above two-thirds. Every adaptive separate-copy strategy needs \(\Omega(\sqrt q)\) copies. A QSVT extension selects a growing basis using at most `6r²` copies. [Proof and independent audit](verdicts/syzygy-advantage-r12.md); [growing-rank construction](scouting/syzygy-basis-r13.md).
 - **Sample a hidden subspace.** Starting from copies of a mixed quantum state, extract a state representing its support and sample coordinate subsets according to their squared volumes. A joint quantum procedure uses fewer copies than any allowed separate-copy sampler. [Construction and independent audit](verdicts/support-plucker-r9.md).
 - **Test hidden tensor components.** Decide a rank condition on the unknown building blocks of a supplied symmetric tensor, without reconstructing their full list. The proved quantum copy budget is independent of dimension, while the separate-copy lower bound grows with it. Its sufficient constant is enormous and impractical. [The Waring-component tester](scouting/waring-programmable-tester.md).
 
 Here, a *copy* means a fresh preparation from the same quantum source. Both sides receive the same input and must produce the same kind of output. The separate-copy comparator may measure each complete original copy in any way, adapt its later measurements, and keep unlimited classical memory; it cannot keep quantum memory between original copies. The promise supplies quantum data; these results do not establish a speedup for freely readable coefficient lists.
 
-**The original-algorithm goal remains open.** Both displayed mechanisms reduce to operations already described in quantum information. Their mathematical advantages survive; they do not meet this project’s stricter requirement of an original problem-level result and an original quantum mechanism. No practical hardware advantage is claimed.
+**The revised mechanism criterion is met in the fixed quantum-source model.** D25 admits QSVT and useful quantum walks while excluding QFT, Grover and DQI disguises. The generator-selection proofs use ordinary swap interference or QSVT. They concern labels in a based generator tuple, and require a fixed source: controlling the incident state changes the problem and admits a two-query classical controller in rank two. No explicit-coefficient or practical hardware speedup is claimed.
 
 The wider search has also produced useful identities, sharper classical baselines, counterexamples, and reproducible tests. Those results help explain which geometric information a quantum state contains, what it costs to access, and where another attempt might succeed. The [success criteria](PRD.md) and [current handoff](HANDOFF.md) make the distinction between progress and completion explicit.
 
